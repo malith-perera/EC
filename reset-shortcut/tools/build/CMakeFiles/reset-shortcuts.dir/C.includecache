@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/malith/EC/reset-shortcuts/src/main.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+dirent.h
+-
+unistd.h
+-
+
