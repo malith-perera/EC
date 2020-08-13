@@ -1,0 +1,10 @@
+#lib
+ec/lib/libec.so
+
+#include
+ec/include
+
+#bin
+ec-cli/bin/ec-cli
+ec-icon/bin/ec-icon
+ec/ec-shell/bin/ec

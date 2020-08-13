@@ -1,0 +1,40 @@
+-----------------
+ EC - Extended C
+=================
+
+Extended C language programming with objects in mind.
+
+
+-------------
+ Directories
+=============
+
+EC is composed with following directories.
+
+doc      : all document file
+ec       : source and include file for EC shared library
+tools    : vim or any other IDE project or session files
+shell    : source and include files for EC Shell
+test     : source and include files for test EC it self
+website  : source files for EC website
+
+
+---------
+ Install
+=========
+
+Please read 'install' file for installation instructions.
+
+
+-------
+ Tools
+=======
+
+Open EC source on vim or any other IDE.
+
+
+---------
+ EC Test
+=========
+
+Test EC errors on it self.
