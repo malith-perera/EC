@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/reset-shortcut.dir/home/malith/EC/reset-shortcuts/src/main.c.o  -o reset-shortcut   -L/home/malith/EC/EC/lib  -Wl,-rpath,/home/malith/EC/EC/lib: -lec -lm 
