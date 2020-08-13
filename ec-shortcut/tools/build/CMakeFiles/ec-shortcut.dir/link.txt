@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/ec-shortcut.dir/home/malith/EC/ec-shortcut/src/main.c.o  -o ec-shortcut   -L/home/malith/EC/ec-shortcut/tools/lib  -L/home/malith/EC/EC/lib  -Wl,-rpath,/home/malith/EC/ec-shortcut/tools/lib:/home/malith/EC/EC/lib: -lec -lm 
