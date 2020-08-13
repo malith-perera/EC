@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/remove-build.dir/home/malith/EC/remove-build/src/main.c.o  -o remove-build   -L/home/malith/EC/EC/lib  -Wl,-rpath,/home/malith/EC/EC/lib: -lec -lm 
