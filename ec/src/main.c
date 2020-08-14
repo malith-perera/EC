@@ -33,7 +33,7 @@ file : thisisafile
 
 char cmd[1024];
 char cmakefile[4096];
-
+char vimfile[2048];
 
 void
 ec_file (int argc, char *argv[])
@@ -121,6 +121,113 @@ install (TARGETS ${PROJECT_NAME} DESTINATION ${BIN_DIR})\n";
 }
 
 
+void
+create_vim_file
+(
+  char *app
+)
+{
+  char cur_dir[1024] = {0};
+  char path1[256] = {0};
+  char path2[256] = {0};
+  char path3[256] = {0};
+  DIR *dr;
+  struct dirent *de;
+
+  printf("%s\n", getcwd(cur_dir, 1024));
+
+  dr = opendir(cur_dir);
+
+  if (dr == NULL) // opendir returns NULL if couldn't open directory
+  {
+    printf("Could not open current directory" );
+  }
+
+  while ((de = readdir(dr)) != NULL)
+  {
+    if (!strcmp (de->d_name, ".") || !strcmp (de->d_name, ".."))
+      continue;
+
+    /*printf("%s\n", de->d_name);*/
+
+    if (!strcmp (de->d_name, app)) // strcmp return 0 when equel
+    {
+      printf ("%s directory already exist\n", app);
+      //app_dir_exist = true;
+      break;
+    }
+  }
+
+  char *vimfilepart1 = "\
+let SessionLoad = 1\n\
+if &cp | set nocp | endif\n\
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0\n\
+let v:this_session=expand(\"<sfile>:p\")\n\
+silent only\n\
+silent tabonly\n";
+
+  //char *path = "cd ~/EC/newapp\n";
+  snprintf(path1, sizeof (path1), "cd %s/%s\n", cur_dir, app);
+
+  char *vimfilepart2 = "\
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''\n\
+  let s:wipebuf = bufnr('%')\n\
+endif\n\
+set shortmess=aoO\n\
+argglobal\n\
+%argdel\n\
+edit src/main.c\n\
+set splitbelow splitright\n\
+wincmd t\n\
+set winminheight=0\n\
+set winheight=1\n\
+set winminwidth=0\n\
+set winwidth=1\n\
+argglobal\n\
+setlocal fdm=manual\n\
+setlocal fde=0\n\
+setlocal fmr={{{,}}}\n\
+setlocal fdi=#\n\
+setlocal fdl=0\n\
+setlocal fml=1\n\
+setlocal fdn=20\n\
+setlocal fen\n\
+silent! normal! zE\n\
+let s:l = 1 - ((0 * winheight(0) + 27) / 54)\n\
+if s:l < 1 | let s:l = 1 | endif\n\
+exe s:l\n\
+normal! zt\n\
+1\n\
+normal! 0\n";
+
+  //char *path2 = "lcd ~/EC/newapp/src\n";
+  snprintf(path2, sizeof (path2), "lcd %s/%s/src\n", cur_dir, app);
+
+  char *vimfilepart3 = "tabnext 1\n";
+
+  //char *path3 = "badd +0 ~/EC/newapp/src/main.c\n";
+  snprintf(path3, sizeof (path3), "badd +0 %s/%s/src/main.c\n", cur_dir, app);
+
+  char *vimfilepart4 = "\
+if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0\n\
+  silent exe 'bwipe ' . s:wipebuf\n\
+endif\n\
+unlet! s:wipebuf\n\
+set winheight=1 winwidth=20 shortmess=SfilmnrxoOtT\n\
+set winminheight=0 winminwidth=1\n\
+let s:sx = expand(\"<sfile>:p:r\").\"x.vim\"\n\
+if file_readable(s:sx)\n\
+  exe \"source \" . fnameescape(s:sx)\n\
+endif\n\
+let &so = s:so_save | let &siso = s:siso_save\n\
+nohlsearch\n\
+doautoall SessionLoadPost\n\
+unlet SessionLoad\n\
+\" vim: set ft=vim :\n";
+
+  snprintf (vimfile, sizeof (vimfile), "%s%s%s%s%s%s%s", vimfilepart1, path1, vimfilepart2, path2, vimfilepart3, path3, vimfilepart4);
+}
+
 int
 create_new_app (char *app)
 {
@@ -130,9 +237,9 @@ create_new_app (char *app)
   bool app_dir_exist = false;
   FILE *file,*new_file;
   char cmakefilepath[256];
+  char vimfilepath[256];
 
   chdir ("..");
-  system ("echo $PWD");
   printf("%s\n", getcwd(cur_dir, 1024));
 
   dr = opendir(cur_dir);
@@ -205,7 +312,22 @@ create_new_app (char *app)
     {
       printf ("Cannot open CMakeList.txt file\n");
     }
+
+    create_vim_file (app);
+
+    snprintf (vimfilepath, sizeof (vimfilepath), "%s/%s", app, "tools/open.vim");
+
+    if ((file = fopen (vimfilepath, "w")) != NULL)
+    {
+      fputs (vimfile, file); // above Create_CMakeList_file function create cmakefile
+      fclose (file);
+    }
+    else
+    {
+      printf ("Cannot open open.vim file\n");
+    }
   }
+
 }
 
 
