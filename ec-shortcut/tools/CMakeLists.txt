@@ -22,7 +22,7 @@ get_filename_component(PARENT_DIR  ${PROJECT_SOURCE_DIR} DIRECTORY)
 get_filename_component(UPPER_PARENT_DIR ${PARENT_DIR} DIRECTORY)
 
 # Set an output directory for binary app-icon
-set(BIN_DIR ${PARENT_DIR}/bin)
+set(BIN_DIR ${PARENT_DIR})
 
 set (PROJECT_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include)
 

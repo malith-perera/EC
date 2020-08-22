@@ -16,12 +16,11 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
 	endif ()
 endif ()
 
-
 get_filename_component(PARENT_DIR  ${PROJECT_SOURCE_DIR} DIRECTORY)
 get_filename_component(UPPER_PARENT_DIR  ${PARENT_DIR} DIRECTORY)
 
 # Set an output directory for binary ectest
-set(BIN_DIR ${PROJECT_SOURCE_DIR}/bin)
+set(BIN_DIR ${PARENT_DIR})
 
 set (PROJECT_LINK_LIBS libec.so)
 set (PROJECT_LINK_DIRS ${PROJECT_SOURCE_DIR}/lib ${UPPER_PARENT_DIR}/EC/lib)

@@ -16,12 +16,11 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
 	endif ()
 endif ()
 
-
 get_filename_component(PARENT_DIR  ${PROJECT_SOURCE_DIR} DIRECTORY)
 get_filename_component(UPPER_PARENT_DIR  ${PARENT_DIR} DIRECTORY)
 
-# Set an output directory for binary app-terminal
-set (BIN_DIR ${PARENT_DIR}/bin)
+# Set an output directory for binary
+set (BIN_DIR ${PARENT_DIR})
 
 set (PROJECT_LINK_LIBS libec.so)
 set (PROJECT_LINK_DIRS "${UPPER_PARENT_DIR}/EC/lib")
@@ -39,6 +38,5 @@ add_executable (${PROJECT_NAME} ${SOURCES})
 target_link_libraries (${PROJECT_NAME} LINK_PUBLIC ${PROJECT_LINK_LIBS} m)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${BIN_DIR})
-
 
 #message ("${PROJECT_SOURCE_DIR}")

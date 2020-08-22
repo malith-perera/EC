@@ -25,7 +25,7 @@ endif ()
 get_filename_component(PARENT_DIR  ${PROJECT_SOURCE_DIR} DIRECTORY)
 
 # Set an output directory for our libraries
-set (LIB_DIR ${PARENT_DIR}/lib)
+set (LIB_DIR ${PARENT_DIR})
 
 set (PROJECT_INCLUDE_DIRS ${PARENT_DIR}/include)
 

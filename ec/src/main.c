@@ -65,9 +65,12 @@ ec_file (int argc, char *argv[])
 
 
 void
-create_new_class ()
+create_new_class
+(
+  char *class
+)
 {
-  printf ("class\n");
+  printf ("class %s\n", class);
 }
 
 
@@ -96,7 +99,7 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL \"MSVC\")\n\
   endif ()\n\
 endif ()\n\
 \n\
-get_filename_component (PARENT_DIR  ${PROJECT_SOURCE_DIR} DIRECTORY)\n\
+get_filename_component (PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)\n\
 get_filename_component (UPPER_PARENT_DIR ${PARENT_DIR} DIRECTORY)\n\
 \n\
 # Set an output directory for binary app-icon\n\
@@ -115,7 +118,9 @@ file (GLOB SOURCES \"${PARENT_DIR}/src/*.c\")\n\
 #Generate executable from the sources\n\
 add_executable (${PROJECT_NAME} ${SOURCES})\n\
 target_link_libraries (${PROJECT_NAME} LINK_PUBLIC ${PROJECT_LINK_LIBS} m)\n\
-install (TARGETS ${PROJECT_NAME} DESTINATION ${BIN_DIR})\n";
+install (TARGETS ${PROJECT_NAME} DESTINATION ${BIN_DIR})\n\
+\n\
+#message (${PROJECT_SOURCE_DIR})\n";
 
   snprintf (cmakefile, sizeof (cmakefile), "%s%s%s%s%s", minimum_required, project_line_begin, app, project_line_end, lower_body);
 }
@@ -228,8 +233,12 @@ unlet SessionLoad\n\
   snprintf (vimfile, sizeof (vimfile), "%s%s%s%s%s%s%s", vimfilepart1, path1, vimfilepart2, path2, vimfilepart3, path3, vimfilepart4);
 }
 
+
 int
-create_new_app (char *app)
+create_new_app
+(
+  char *app
+)
 {
   char cur_dir[1024];
   DIR *dr;
@@ -367,7 +376,7 @@ main
   {
     if (!strcmp (argv[1], "class"))
     {
-      create_new_class ();
+      create_new_class (argv[2]);
     }
     else if (!strcmp (argv[1], "app"))
     {

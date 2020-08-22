@@ -21,7 +21,7 @@ get_filename_component(PARENT_DIR  ${PROJECT_SOURCE_DIR} DIRECTORY)
 get_filename_component(UPPER_PARENT_DIR  ${PARENT_DIR} DIRECTORY)
 
 # Set an output directory for binary app-terminal
-set (BIN_DIR ${PARENT_DIR}/bin)
+set (BIN_DIR ${PARENT_DIR})
 
 set (PROJECT_LINK_LIBS libec.so)
 set (PROJECT_LINK_DIRS "${UPPER_PARENT_DIR}/EC/lib")
