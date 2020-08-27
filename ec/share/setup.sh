@@ -8,12 +8,14 @@ else
   mkdir "tools/build"
 fi
 
-#Change to application tools
+# Change to 'build' directory
 cd "tools/build"
 
+# CMake
 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ../
 
 # Make
 make
 
-cp "ec" "../../"
+# Install
+make install

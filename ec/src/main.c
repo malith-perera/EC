@@ -240,16 +240,15 @@ create_new_app
   char *app
 )
 {
-  char cur_dir[1024];
-  DIR *dr;
-  struct dirent *de;
+  char cur_dir[1024];          // current directory
+  DIR *dr;                     // directory
+  struct dirent *de;           // directory entry
   bool app_dir_exist = false;
   FILE *file,*new_file;
   char cmakefilepath[256];
   char vimfilepath[256];
 
-  chdir ("..");
-  printf("%s\n", getcwd(cur_dir, 1024));
+  printf("current working directory %s\n", getcwd(cur_dir, 1024));
 
   dr = opendir(cur_dir);
 
@@ -259,12 +258,13 @@ create_new_app
     return 0;
   }
 
+  // check is required directory already exist
+  // these lines below should be implement as a directory function
+
   while ((de = readdir(dr)) != NULL)
   {
     if (!strcmp (de->d_name, ".") || !strcmp (de->d_name, ".."))
       continue;
-
-    /*printf("%s\n", de->d_name);*/
 
     if (!strcmp (de->d_name, app)) // strcmp return 0 when equel
     {
@@ -281,12 +281,6 @@ create_new_app
     snprintf (cmd, sizeof (cmd), "mkdir %s", app);
     system (cmd);
 
-    snprintf (cmd, sizeof (cmd), "mkdir %s/bin", app);
-    system (cmd);
-
-    snprintf (cmd, sizeof (cmd), "mkdir %s/icons", app);
-    system (cmd);
-
     snprintf (cmd, sizeof (cmd), "mkdir %s/include", app);
     system (cmd);
 
@@ -296,17 +290,17 @@ create_new_app
     snprintf (cmd, sizeof (cmd), "mkdir %s/tools", app);
     system (cmd);
 
-    snprintf (cmd, sizeof (cmd), "cp etc/open.sh %s", app);
-    system (cmd);
+/*    snprintf (cmd, sizeof (cmd), "cp etc/open.sh %s", app);*/
+    /*system (cmd);*/
 
-    snprintf (cmd, sizeof (cmd), "cp etc/setup.sh %s", app);
-    system (cmd);
+    /*snprintf (cmd, sizeof (cmd), "cp etc/setup.sh %s", app);*/
+    /*system (cmd);*/
 
-    snprintf (cmd, sizeof (cmd), "cp etc/readme %s", app);
-    system (cmd);
+    /*snprintf (cmd, sizeof (cmd), "cp etc/readme %s", app);*/
+    /*system (cmd);*/
 
-    snprintf (cmd, sizeof (cmd), "cp etc/main.c %s/src", app);
-    system (cmd);
+    /*snprintf (cmd, sizeof (cmd), "cp etc/main.c %s/src", app);*/
+    /*system (cmd);*/
 
     Create_CMakeList_file (app); // cmakefile is create here
 
@@ -336,7 +330,6 @@ create_new_app
       printf ("Cannot open open.vim file\n");
     }
   }
-
 }
 
 

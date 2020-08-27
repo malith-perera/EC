@@ -1,0 +1,3 @@
+/home/malith/EC/ec/tools/build/CMakeFiles/rebuild_cache.dir
+/home/malith/EC/ec/tools/build/CMakeFiles/edit_cache.dir
+/home/malith/EC/ec/tools/build/CMakeFiles/ec.dir

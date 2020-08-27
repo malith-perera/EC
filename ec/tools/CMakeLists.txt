@@ -35,7 +35,7 @@ file(GLOB SOURCES "${PARENT_DIR}/src/*.c")
 #Generate executable from the sources
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${PROJECT_LINK_LIBS} m)
-install(TARGETS ${PROJECT_NAME} DESTINATION ${BIN_DIR})
+#install(TARGETS ${PROJECT_NAME} DESTINATION ${BIN_DIR})
 #install(TARGETS ${PROJECT_NAME} DESTINATION /usr/bin)
 
 #message ("${UPPER_PARENT_DIR}")
