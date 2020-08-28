@@ -9,10 +9,10 @@ else
 fi
 
 # Change to 'build' directory
-cd /home/malith/EC/ec-cli/tools/build
+cd tools/build
 
 # CMake
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ../
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ../../
 
 # Make
 make

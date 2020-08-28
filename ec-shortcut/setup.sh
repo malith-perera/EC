@@ -11,14 +11,10 @@ fi
 # Change to build directory
 cd tools/build
 
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ../
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ../../
 
 # Make
 make
 
 # Install
 make install
-
-cd ../../
-
-/home/malith/EC/ec-cli/bin/ec-cli ./bin/ec-shortcut  testit
