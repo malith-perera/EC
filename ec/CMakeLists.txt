@@ -21,10 +21,17 @@ get_filename_component(PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)
 # Set bin directory
 set (BIN_DIR ${PROJECT_SOURCE_DIR})
 
+# If shared lib is not build in the same CMake project of executable
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+# If shared library is built in the same CMake project
+#set(CMAKE_INSTALL_RPATH "${PARENT_DIR}/eclib")
+#set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 set (PROJECT_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include)
 
 set (PROJECT_LINK_LIBS libec.so)
-set (PROJECT_LINK_DIRS ${PARENT_DIR}/EC/lib)
+set (PROJECT_LINK_DIRS ${PARENT_DIR}/EC/lib /usr/lib/ec)
 link_directories (${PROJECT_LINK_DIRS})
 
 include_directories (${PROJECT_INCLUDE_DIRS} ${PARENT_DIR}/EC/include)

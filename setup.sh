@@ -31,7 +31,7 @@ fi
 
 # Copy readme
 echo "copy readme"
-cp "doc/readme" "EC"
+cp "share/doc/readme" "EC"
 
 # Copy eclib/include
 echo "copy ec/include"
@@ -39,24 +39,24 @@ cp -r "eclib/include/" "EC"
 
 # Copy icons
 echo "copy icons"
-cp -r "icons/" "EC"
+cp -r "share/icons/" "EC"
 
 echo "copy libec.so"
-cp "eclib/lib/libec.so" "EC/lib"
+cp "eclib/libec.so" "EC/lib"
 
-echo "copy ec-cli"
-cp "ec-cli/bin/ec-cli" "EC/bin/"
+#echo "copy ec-cli"
+#cp "ec-cli/ec-cli" "EC/bin/"
 
-echo "copy ec-shortcut to bin"
-cp "ec-shortcut/bin/ec-shortcut" "EC/bin/"
+#echo "copy ec-shortcut to bin"
+#cp "ec-shortcut/ec-shortcut" "EC/bin/"
 
-echo "copy reset-shortcut to bin"
-cp "reset-shortcut/bin/reset-shortcut" "EC/bin/"
+#echo "copy reset-shortcut to bin"
+#cp "reset-shortcut/reset-shortcut" "EC/bin/"
 
 echo "copy ec to bin"
-cp "ec/bin/ec" "EC/bin/"
+cp "ec/ec" "EC/bin/"
 
-echo "copy remove-build"
-cp "remove-build/bin/remove-build" "EC/bin/"
+#echo "copy remove-build"
+#cp "remove-build/remove-build" "EC/bin/"
 
 echo "Setup Completed"
