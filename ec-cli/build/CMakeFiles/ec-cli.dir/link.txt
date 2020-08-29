@@ -1,1 +1,0 @@
-/usr/bin/cc -g CMakeFiles/ec-cli.dir/src/main.c.o -o ec-cli   -L/home/malith/EC/eclib  -Wl,-rpath,/home/malith/EC/eclib: -lec -lm 

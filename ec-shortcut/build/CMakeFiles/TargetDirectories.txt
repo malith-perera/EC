@@ -1,7 +1,0 @@
-/home/malith/EC/ec-shortcut/build/CMakeFiles/install/strip.dir
-/home/malith/EC/ec-shortcut/build/CMakeFiles/edit_cache.dir
-/home/malith/EC/ec-shortcut/build/CMakeFiles/ec-shortcut.dir
-/home/malith/EC/ec-shortcut/build/CMakeFiles/rebuild_cache.dir
-/home/malith/EC/ec-shortcut/build/CMakeFiles/list_install_components.dir
-/home/malith/EC/ec-shortcut/build/CMakeFiles/install/local.dir
-/home/malith/EC/ec-shortcut/build/CMakeFiles/install.dir
