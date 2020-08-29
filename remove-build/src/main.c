@@ -11,8 +11,8 @@ char rmbuilddr[1024];
 
 int main(void)
 {
-  struct dirent *de, *cde, *ctde; // Pointer for directory entry
-  DIR *dr, *cdr, *ctdr;
+  struct dirent *de, *cde; // Pointer for directory entry
+  DIR *dr, *cdr;
 
   /*
   if (system (NULL))
@@ -62,36 +62,14 @@ int main(void)
 
       //printf("\t%s\n", cde->d_name);
 
-      if (!strcmp (cde->d_name, "tools"))
+      printf ("\t\t%s\n", cde->d_name);
+
+      if (!strcmp (cde->d_name, "build"))
       {
-        snprintf (subtdr, sizeof (subtdr), "%s/%s/%s", app_dir, de->d_name, cde->d_name);
-
-        printf ("tools found %s\n", subtdr);
-
-        ctdr = opendir (subtdr);
-
-        if (ctdr == NULL)
-        {
-          continue;
-        }
-
-        while ((ctde = readdir (ctdr)) != NULL)
-        {
-          if (!strcmp (ctde->d_name, ".") || !strcmp (ctde->d_name, ".."))
-            continue;
-
-          printf ("\t\t%s\n", ctde->d_name);
-
-          if (!strcmp (ctde->d_name, "build"))
-          {
-            printf ("build found /home/malith/EC/%s/%s/build\n", de->d_name, cde->d_name);
-            snprintf (rmbuilddr, sizeof (rmbuilddr), "bash -c 'rm -r %s/%s/%s/build'", app_dir, de->d_name, cde->d_name);
-            system (rmbuilddr);
-            break;
-          }
-        }
-
-        closedir (ctdr);
+        printf ("build found /home/malith/EC/%s/build\n", de->d_name);
+        snprintf (rmbuilddr, sizeof (rmbuilddr), "bash -c 'rm -r %s/%s/build'", app_dir, de->d_name);
+        system (rmbuilddr);
+        break;
       }
     }
 

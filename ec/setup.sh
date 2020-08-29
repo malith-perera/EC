@@ -1,17 +1,17 @@
 #!/bin/bash
 
-if [ -d "tools/build" ]
+if [ -d "build" ]
 then
   echo "build directory found"
 else
   echo "make build directory"
-  mkdir "tools/build"
+  mkdir "build"
 fi
 
 #Change to application tools
-cd "tools/build"
+cd "build"
 
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ../../
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
 
 # Make
 make
