@@ -8,7 +8,7 @@ else
   mkdir "build"
 fi
 
-#Change to application tools
+#Change to 'build' directory
 cd "build"
 
 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ..

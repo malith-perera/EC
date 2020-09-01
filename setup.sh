@@ -29,6 +29,23 @@ else
   mkdir "EC/bin"
 fi
 
+# Make EC/share if not exist
+if [ -d "EC/share" ]
+then
+  echo "EC/share found"
+else
+  mkdir "EC/share"
+  mkdir "EC/share/icons"
+fi
+
+# Make EC/etc if not exist
+if [ -d "EC/etc" ]
+then
+  echo "EC/etc found"
+else
+  mkdir "EC/etc"
+fi
+
 # Copy readme
 echo "copy readme"
 cp "share/doc/readme" "EC"
@@ -39,7 +56,7 @@ cp -r "eclib/include/" "EC"
 
 # Copy icons
 echo "copy icons"
-cp -r "share/icons/" "EC"
+cp -r "share/icons/" "EC/share"
 
 echo "copy libec.so"
 cp "eclib/libec.so" "EC/lib"
