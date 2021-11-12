@@ -28,12 +28,12 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 #set(CMAKE_INSTALL_RPATH "${PARENT_DIR}/eclib")
 #set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-set (PROJECT_LINK_LIBS libec.so)
-set (PROJECT_LINK_DIRS "${PARENT_DIR}/eclib")
+set (PROJECT_LINK_LIBS libEC.so)
+set (PROJECT_LINK_DIRS "${PARENT_DIR}/lib")
 link_directories (${PROJECT_LINK_DIRS})
 
 set (PROJECT_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/include")
-include_directories (${PROJECT_INCLUDE_DIRS} "${PARENT_DIR}/eclib/include")
+include_directories (${PROJECT_INCLUDE_DIRS} "${PARENT_DIR}/include")
 
 #file(GLOB...) allows wildcard additions
 file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/*.c")
