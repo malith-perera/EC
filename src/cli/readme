@@ -1,0 +1,15 @@
+---------
+ Read Me
+=========
+
+ec-cli is a simple terminal application launcher program.
+This application is use by '*.desktop' files to launch applications in command line interface.
+It can handle unlimited arguments.
+
+Use:
+ec-cli app arg1 arg2 arg3
+
+
+** Warning **
+
+Do not run it in itself as the application. It will occur an infinite loop.

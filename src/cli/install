@@ -1,0 +1,8 @@
+---------
+ Install
+=========
+
+Because 'setup.desktop' is use this application itself it may not work at
+initial state. So use command line to set it.
+
+./tools/setup.sh

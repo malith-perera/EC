@@ -1,0 +1,5 @@
+---------
+ Read Me
+=========
+
+Clean all 'tools/build' directories witch populated by cmake.
