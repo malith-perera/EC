@@ -3,14 +3,12 @@
 
 #include "ec.h"
 
-#define ec_var      \
+#define student     \
     int     no;     \
     char*   name;
 
-EC_TYPE(Student, ec_var)
 
+EC_VAR(Student, student)
 EC_VAR_FUNCTION_PROTOTYPES(Student)
 
-
 #endif // STUDENT_H
-

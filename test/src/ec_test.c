@@ -24,10 +24,9 @@ main (int argc, char *argv[])
         printf ("-----------\n");
         printf ("Test: All      0\n");
         printf ("Test: Variable 1\n");
-        printf ("Test: Object   2\n");
-        printf ("Test: Array    3\n");
-        printf ("Test: List     4\n");
-        printf ("Test: Queue    5\n");
+        printf ("Test: Array    2\n");
+        printf ("Test: List     3\n");
+        printf ("Test: Queue    4\n");
         printf ("Test: Exit    -1\n");
         printf ("\n");
 
@@ -53,12 +52,11 @@ main (int argc, char *argv[])
 
     if (no == 2 || no == 0)
     {
-        /*Run_Object_Test ();*/
+        /*Run_Array_Test ();*/
     }
 
     if (no == 3 || no == 0)
     {
-        /*Run_Array_Test ();*/
     }
 
     if (no == 4 || no == 0)

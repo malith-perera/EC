@@ -3,10 +3,22 @@
 
 #include "ec.h"
 
-#define EC_VAR_NEW_FUNCTION_NAME(TYPE)  EC_CONCAT(TYPE,_Var,)
+#define EC_VAR_NEW_FUNCTION_NAME(TYPE)  EC_CONCAT(TYPE, _Var,)
 #define EC_VAR_FREE_FUNCTION_NAME(TYPE) EC_CONCAT(TYPE, _Free,)
 
-/* Function prototypes */
+
+/* Structure macros */
+// EC_MEMORY_LOCK defined in ec_memory.h
+
+#define EC_VAR(TYPE, VAR)                               \
+typedef struct TYPE {                                   \
+    VAR                                                 \
+    EC_MEMORY_LOCK                                      \
+} TYPE;
+
+
+/* Function prototype macros */
+
 #define EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)    \
 void                                            \
 EC_VAR_FREE_FUNCTION_NAME(TYPE)                 \
@@ -15,12 +27,18 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)                 \
 );
 
 
-#define EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)         \
-TYPE*                                               \
+#define EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)     \
+TYPE*                                           \
 EC_VAR_NEW_FUNCTION_NAME(TYPE)();
 
 
-/* Functions */
+#define EC_VAR_FUNCTION_PROTOTYPES(TYPE)    \
+    EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)    \
+    EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)
+
+
+/* Function macros */
+
 #define EC_VAR_FREE_FUNCTION(TYPE)      \
 void                                    \
 EC_VAR_FREE_FUNCTION_NAME(TYPE)         \
@@ -80,11 +98,5 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                                
 #define EC_VAR_FUNCTIONS(TYPE)  \
     EC_VAR_FREE_FUNCTION(TYPE)  \
     EC_VAR_NEW_FUNCTION(TYPE)
-
-
-#define EC_VAR_FUNCTION_PROTOTYPES(TYPE)    \
-    EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)    \
-    EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)
-
 
 #endif // EC_VARIABLE_H

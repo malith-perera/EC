@@ -3,22 +3,6 @@
 
 #include "ec.h"
 
-#ifdef EC_MEMORY
-#define EC_TYPE(TYPE, VAR)                              \
-typedef struct TYPE {                                   \
-    VAR                                                 \
-    bool lock;                                          \
-} TYPE;
-#endif  // ifdef EC_MEMORY
-
-
-#ifndef EC_MEMORY
-#define EC_TYPE(TYPE, VAR)                              \
-typedef struct TYPE {                                   \
-    VAR                                                 \
-} TYPE;
-#endif // ifndef EC_MEMORY
-
 #endif // EC_TYPE_H
 
 
