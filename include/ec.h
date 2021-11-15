@@ -1,4 +1,3 @@
-
 /* extended c library
  * -------------------
  * Extended C (ec) is a library help you to develop programs with objects in mind.
@@ -26,7 +25,7 @@ typedef enum {
     EC_QUEUE_OBJECT_TYPE
 } ECType;
 
-#define EC_MEMORY 0
+//#define EC_MEMORY 0
 
 #include "ec_memory.h"
 #include "ec_type.h"
