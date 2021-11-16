@@ -46,9 +46,10 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)         \
     void* var                           \
 )                                       \
 {                                       \
-    TYPE* p = (TYPE*) var;              \
-    free (p);                           \
-    p = NULL;                           \
+    TYPE* v = (TYPE*) var;              \
+    v->mem_ref->lock = 0;               \
+    free (v);                           \
+    v = NULL;                           \
 }
 
 
@@ -67,6 +68,7 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                                
     if (EC_MEMORY)                                                                  \
     {                                                                               \
         ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));            \
+        var->mem_ref = ec_memory_new;                                               \
                                                                                     \
         if (ec_memory_new == NULL)                                                  \
         {                                                                           \
