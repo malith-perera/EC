@@ -12,9 +12,11 @@ typedef struct ECMemory {
 } ECMemory;
 
 ECMemory* ec_memory;
+ECMemory* ec_garbage;
 
 #ifdef EC_MEMORY
 #define EC_MEMORY_LOCK      \
+    ECMemory* mem_ref;      \
     bool lock;
 #endif //EC_MEMORY
 
