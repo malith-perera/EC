@@ -21,7 +21,7 @@ int ec_i; // check again you Cannot use for two objects at once
 /* Function name macros */
 #define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Array,)
 #define EC_ARRAY_FREE_FUNCTION_NAME(TYPE)               EC_CONCAT(Free_, TYPE,) // memory Free
-#define EC_ARRAY_SORT_FUNCTION_NAME(TYPE)               EC_CONCAT(Sort_, TYPE, _Array)
+#define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)    EC_CONCAT4(TYPE, _Sort, _Array_, SORT_WITH)
 #define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)            EC_CONCAT(Reverse_, TYPE, _Array)
 #define EC_ARRAY_BINARY_SEARCH_FUNCTION_NAME(T, SW)     EC_CONCAT4(Search_Sorted_, TYPE, _With_, SW)
 #define EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SW)     EC_CONCAT4(Max_, TYPE, _With_, SW)
@@ -33,15 +33,15 @@ int ec_i; // check again you Cannot use for two objects at once
 #define EC_ARRAY_STRUCT(TYPE) EC_CONCAT(TYPE, Array,)
 
 
-#define EC_Array(TYPE, VAR)                             \
+#define EC_ARRAY(TYPE, VAR)                             \
 typedef struct EC_CONCAT(TYPE, Array,){                 \
     VAR                                                 \
-    TYPE*      array;                                   \
+    TYPE*   array;                                      \
     int     count;                                      \
     EC_MEMORY_LOCK                                      \
 } EC_ARRAY_STRUCT(TYPE);                                \
                                                         \
-typedef TYPE EC_CONCAT(TYPE, ArrayVar,)
+typedef TYPE EC_CONCAT(TYPE, ArrayVar,);
 
 
 /* Function prototype macros */
@@ -56,61 +56,69 @@ EC_ARRAY_FREE_FUNCTION_NAME(EC_ARRAY_STRUCT(TYPE))      \
 
 #define EC_ARRAY_NEW_FUNCTION_PROTOTYPE(TYPE)           \
 EC_ARRAY_STRUCT(TYPE)*                                  \
-EC_ARRAY_FUNCTION_NAME(TYPE)                            \
+EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                        \
 (                                                       \
     int count                                           \
 );
 
 
-void
-EC_Array_Reverse_Int
-(
-  int* array,
-  int  array_count
+#define EC_ARRAY_FUNCTION_PROTOTYPES(TYPE)              \
+    EC_ARRAY_FREE_FUNCTION_PROTOTYPE(TYPE)              \
+    EC_ARRAY_NEW_FUNCTION_PROTOTYPE(TYPE)
+
+
+#define EC_ARRAY_SORT_FUNCTION_PROTOTYPE(TYPE, SORT_WITH)                       \
+void                                                                            \
+EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)                                    \
+(                                                                               \
+    EC_ARRAY_STRUCT(TYPE)* array                                                \
 );
+
+//void
+//EC_Array_Reverse_Int
+//(
+  //int* array,
+  //int  array_count
+//);
 
 
 
 /* reverse int array */
-int*
-Search_Int_Array
-(
-    int* array,
-    int  array_count,
-    int  search_value, // search search_value
-    int  search_times  // how much times search
-);
+//int*
+//Search_Int_Array
+//(
+    //int* array,
+    //int  array_count,
+    //int  search_value, // search search_value
+    //int  search_times  // how much times search
+//);
 
 
-int
-Search_Sorted_Int_Array
-(
-    int* array,
-    int  array_count,
-    int  search_value
-);
+//int
+//Search_Sorted_Int_Array
+//(
+    //int* array,
+    //int  array_count,
+    //int  search_value
+//);
 
 
 /* find maximum number in an integer array */
-int
-Max_Int_Array
-(
-    int* array,
-    int  array_count
-);
+//int
+//Max_Int_Array
+//(
+    //int* array,
+    //int  array_count
+//);
 
 
 /* find minimum number in an integer array */
-int
-Min_Int_Array
-(
-    int* array,
-    int  array_count
-);
-
-#define EC_ARRAY_FUNCTION_PROTOTYPES(TYPE)          \
-    EC_ARRAY_FREE_FUNCTION_PROTOTYPE(TYPE)          \
-    EC_ARRAY_NEW_FUNCTION_PROTOTYPE(TYPE)
+//int
+//Min_Int_Array
+//(
+    //int* array,
+    //int  array_count
+//);
 
 
 /* Function macros */
@@ -143,7 +151,7 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                
         return NULL;                                                                                        \
     }                                                                                                       \
                                                                                                             \
-    TYPE* arrayvar = (TYPE*) malloc (count*  sizeof (TYPE));                                                \
+    TYPE* array = (TYPE*) malloc (sizeof (TYPE) * count);                                                   \
                                                                                                             \
     if (var == NULL)                                                                                        \
     {                                                                                                       \
@@ -152,7 +160,7 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                
     }                                                                                                       \
                                                                                                             \
     var->count = count;                                                                                     \
-    var->array = arrayvar;                                                                                  \
+    var->array = array;                                                                                     \
                                                                                                             \
     if (EC_MEMORY)                                                                                          \
     {                                                                                                       \
@@ -173,7 +181,6 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                
         {                                                                                                   \
             ec_memory = ec_memory_new;                                                                      \
         }                                                                                                   \
-                                                                                                            \
     }                                                                                                       \
                                                                                                             \
     return var;                                                                                             \
@@ -182,9 +189,9 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                
 
 /* EC_Array_Sort */
 
-#define EC_ARRAY_SORT_FUNCTION(TYPE, EC_SORT_WITH)                              \
+#define EC_ARRAY_SORT_FUNCTION(TYPE, SORT_WITH)                                 \
 void                                                                            \
-EC_ARRAY_SORT_FUNCTION_NAME(TYPE)                                               \
+EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)                                    \
 (                                                                               \
     EC_ARRAY_STRUCT(TYPE)* array                                                \
 )                                                                               \
@@ -201,7 +208,7 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE)                                               
                                                                                 \
         for (j = i + 1; j < array->count; j++)                                  \
         {                                                                       \
-            if (array->array[j].EC_SORT_WITH < min_ref->EC_SORT_WITH)           \
+            if (array->array[j].SORT_WITH < min_ref->SORT_WITH)           \
             {                                                                   \
                 min_ref = &array->array[j];                                     \
             }                                                                   \

@@ -52,7 +52,7 @@ main (int argc, char *argv[])
 
     if (no == 2 || no == 0)
     {
-        /*Run_Array_Test ();*/
+        Run_Array_Test ();
     }
 
     if (no == 3 || no == 0)

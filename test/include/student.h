@@ -13,4 +13,9 @@
 EC_VAR(Student, student)
 EC_VAR_FUNCTION_PROTOTYPES(Student)
 
+EC_ARRAY(Student, student)
+EC_ARRAY_FUNCTION_PROTOTYPES(Student)
+
+EC_ARRAY_SORT_FUNCTION_PROTOTYPE(Student, no)
+
 #endif // STUDENT_H
