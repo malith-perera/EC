@@ -3,6 +3,7 @@
 
 #include "ec.h"
 
+/* Function name macros */
 #define EC_VAR_NEW_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _Var,)
 #define EC_VAR_FREE_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Free,)
 #define EC_VAR_UNLOCK_FUNCTION_NAME(TYPE)   EC_CONCAT(TYPE, _Unlock,)
