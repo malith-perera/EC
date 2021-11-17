@@ -3,9 +3,9 @@
 
 #include "ec.h"
 
-#define EC_VAR_NEW_FUNCTION_NAME(TYPE)  EC_CONCAT(TYPE, _Var,)
-#define EC_VAR_FREE_FUNCTION_NAME(TYPE) EC_CONCAT(TYPE, _Free,)
-
+#define EC_VAR_NEW_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _Var,)
+#define EC_VAR_FREE_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Free,)
+#define EC_VAR_UNLOCK_FUNCTION_NAME(TYPE)   EC_CONCAT(TYPE, _Unlock,)
 
 /* Structure macros */
 // EC_MEMORY_LOCK defined in ec_memory.h
@@ -32,8 +32,9 @@ TYPE*                                           \
 EC_VAR_NEW_FUNCTION_NAME(TYPE)();
 
 
-#define EC_VAR_FUNCTION_PROTOTYPES(TYPE)    \
-    EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)    \
+
+#define EC_VAR_FUNCTION_PROTOTYPES(TYPE)        \
+    EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)        \
     EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)
 
 
@@ -47,7 +48,6 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)         \
 )                                       \
 {                                       \
     TYPE* v = (TYPE*) var;              \
-    v->mem_ref->lock = 0;               \
     free (v);                           \
     v = NULL;                           \
 }
@@ -68,7 +68,6 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                                
     if (EC_MEMORY)                                                                  \
     {                                                                               \
         ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));            \
-        var->mem_ref = ec_memory_new;                                               \
                                                                                     \
         if (ec_memory_new == NULL)                                                  \
         {                                                                           \
