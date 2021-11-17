@@ -1,12 +1,63 @@
-Todo
-====
+To Do
+=====
 
-Add ec class new class
-Memory free when required
-Memory free on time
-Create web page
-Create documentation (man pages)
-Lessons on Youtube
-Compare perfomance
+Development
+-----------
+
+Finish create variable
+Finish create array
+Finish create list
+Finish create queue
+Finish create stack
+
+Test all
+
+Memory_management
+{
+    Memory clear
+    Memory unlock
+    Memory free
+    Memory auto free
+}
+
+Variable Memory_management
+Array Memory_management
+List Memory_management
+Queue Memory_management
+Stack Memory_management
+
+Test all
+
+Refine all code
+
+Test all
+
 Refine
-Publish
+
+Compare perfomance with Python
+
+
+Documentation
+-------------
+
+Create documentation
+Cretate man pages
+Website
+
+
+Promte
+------
+
+FB page
+Youtube video tutorial
+Discord server
+Stack overflow
+Supporting platform
+Supporting Community
+Customer support
+Fake promotioanal accounts
+
+Cycle
+-------
+Bugfixes
+New additions
