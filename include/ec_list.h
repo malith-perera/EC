@@ -162,8 +162,9 @@ EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                            \
     void* var                                                   \
 )                                                               \
 {                                                               \
-    EC_LIST* p = (EC_LIST*) var;                                \
-    free (p);                                                   \
+    EC_LIST* v = (EC_LIST*) var;                                \
+    free (v);                                                   \
+    v = NULL;                                                   \
 }
 
 
