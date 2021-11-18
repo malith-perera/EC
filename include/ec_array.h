@@ -19,13 +19,13 @@ int ec_i; // check again you Cannot use for two objects at once
 */
 
 /* Function name macros */
-#define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Array,)
-#define EC_ARRAY_FREE_FUNCTION_NAME(TYPE)               EC_CONCAT(Free_, TYPE,) // memory Free
-#define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)    EC_CONCAT4(TYPE, _Array, _Sort_, SORT_WITH)
-#define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Array, _Reverse)
-#define EC_ARRAY_BINARY_SEARCH_FUNCTION_NAME(T, SW)     EC_CONCAT4(Search_Sorted_, TYPE, _With_, SW)
-#define EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SW)     EC_CONCAT4(Max_, TYPE, _With_, SW)
-#define SEARCH_MIN_ARRAY_FUNCTION_NAME(TYPE, SW)        EC_CONCAT4(Min_, TYPE, _With_, SW)
+#define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                            EC_CONCAT(TYPE, _Array,)
+#define EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                           EC_CONCAT(Free_, TYPE,) // memory Free
+#define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)                EC_CONCAT(TYPE, _Array_Sort_, SORT_WITH)
+#define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                        EC_CONCAT(TYPE, _Array, _Reverse)
+#define EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SORT_WITH)              EC_CONCAT(TYPE, _Sorted_Search_, SORT_WITH)
+#define EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SORT_WITH)          EC_CONCAT(TYPE, _Max_, SORT_WITH)
+#define EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SORT_WITH)          EC_CONCAT(TYPE, _Min_, SORT_WITH)
 
 
 /* Structure macros */
@@ -81,6 +81,31 @@ void                                                            \
 EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)                    \
 (                                                               \
     EC_ARRAY_STRUCT(TYPE)* array                                \
+);
+
+
+#define EC_ARRAY_SEARCH_FUNCTION_PROTOTYPE(TYPE, SEARCH_WITH)       \
+int                                                                 \
+EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SEARCH_WITH)                    \
+(                                                                   \
+    EC_ARRAY_STRUCT(TYPE)*  array,                                  \
+    int                     search_value                            \
+);
+
+
+#define EC_ARRAY_SEARCH_MAX_FUNCTION_PROTOTYPE(TYPE, SEARCH_WITH)           \
+TYPE*                                                                       \
+EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SEARCH_WITH)                        \
+(                                                                           \
+    EC_ARRAY_STRUCT(TYPE)* array                                            \
+);
+
+
+#define EC_ARRAY_SEARCH_MIN_FUNCTION_PROTOTYPE(TYPE, SEARCH_WITH)           \
+TYPE*                                                                       \
+EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SEARCH_WITH)                        \
+(                                                                           \
+    EC_ARRAY_STRUCT(TYPE)* array                                            \
 );
 
 
@@ -250,9 +275,9 @@ EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                                    \
 
 /* Array Search */
 
-#define EC_ARRAY_BINARY_SEARCH_FUNCTION(EC_SEARCH, SEARCH_WITH)                     \
+#define EC_ARRAY_SEARCH_FUNCTION(TYPE, SEARCH_WITH)                                 \
 int                                                                                 \
-EC_ARRAY_BINARY_SEARCH_FUNCTION_NAME(EC_SEARCH, SEARCH_WITH)                        \
+EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SEARCH_WITH)                                    \
 (                                                                                   \
     EC_ARRAY_STRUCT(TYPE)*  array,                                                  \
     int                     search_value                                            \
@@ -327,9 +352,9 @@ EC_ARRAY_BINARY_SEARCH_FUNCTION_NAME(EC_SEARCH, SEARCH_WITH)                    
 
 /* Search maximum var according to var attribute SEARCH_WITH */
 
-#define EC_ARRAY_SEARCH_MAX_FUNCTION(EC_SEARCH, SEARCH_WITH)                \
+#define EC_ARRAY_SEARCH_MAX_FUNCTION(TYPE, SEARCH_WITH)                     \
 TYPE*                                                                       \
-EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(EC_SEARCH, SEARCH_WITH)                   \
+EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SEARCH_WITH)                        \
 (                                                                           \
     EC_ARRAY_STRUCT(TYPE)* array                                            \
 )                                                                           \
@@ -350,9 +375,9 @@ EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(EC_SEARCH, SEARCH_WITH)                   \
 
 /* Search minimum var according to var attribute SEARCH_WITH */
 
-#define SEARCH_MIN_ARRAY_FUNCTION(EC_SEARCH, SEARCH_WITH)                   \
+#define EC_ARRAY_SEARCH_MIN_FUNCTION(TYPE, SEARCH_WITH)                     \
 TYPE*                                                                       \
-SEARCH_MIN_ARRAY_FUNCTION_NAME(EC_SEARCH, SEARCH_WITH)                      \
+EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SEARCH_WITH)                        \
 (                                                                           \
     EC_ARRAY_STRUCT(TYPE)* array                                            \
 )                                                                           \
