@@ -44,7 +44,7 @@ Test_New_Array ()
 
 
 void
-Test_Sort_Array ()
+Test_Array_Sort ()
 {
     EC_Print_Error ("Test_Array_Sort: ", "BEGIN");
 
@@ -126,9 +126,9 @@ Test_Sort_Array ()
 
 
 void
-Test_Reverse_Array ()
+Test_Array_Reverse ()
 {
-    EC_Print_Error ("Test_Reverse_Array: ", "BEGIN");
+    EC_Print_Error ("Test_Array_Reverse: ", "BEGIN");
 
     int i;
 
@@ -156,7 +156,7 @@ Test_Reverse_Array ()
 
     EC_Print_Error ("Reverse sorted array", "OK");
 
-    EC_Print_Error ("Test_Reverse_Array: ", "END");
+    EC_Print_Error ("Test_Array_Reverse: ", "END");
 }
 
 
@@ -417,10 +417,10 @@ Run_Array_Test ()
     Test_New_Array ();
     printf ("\n");
 
-    Test_Sort_Array ();
+    Test_Array_Sort ();
     printf ("\n");
 
-    Test_Reverse_Array ();
+    Test_Array_Reverse ();
     printf ("\n");
 
     Test_Int_Array_Reverse ();
