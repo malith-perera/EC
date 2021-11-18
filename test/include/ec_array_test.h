@@ -2,7 +2,6 @@
 #define EC_ARRAY_TEST_H
 
 #include "ec.h"
-
 #include "student.h"
 
 void

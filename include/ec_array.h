@@ -21,8 +21,8 @@ int ec_i; // check again you Cannot use for two objects at once
 /* Function name macros */
 #define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Array,)
 #define EC_ARRAY_FREE_FUNCTION_NAME(TYPE)               EC_CONCAT(Free_, TYPE,) // memory Free
-#define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)    EC_CONCAT4(TYPE, _Sort, _Array_, SORT_WITH)
-#define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)            EC_CONCAT(Reverse_, TYPE, _Array)
+#define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)    EC_CONCAT4(TYPE, _Array, _Sort_, SORT_WITH)
+#define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Array, _Reverse)
 #define EC_ARRAY_BINARY_SEARCH_FUNCTION_NAME(T, SW)     EC_CONCAT4(Search_Sorted_, TYPE, _With_, SW)
 #define EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SW)     EC_CONCAT4(Max_, TYPE, _With_, SW)
 #define SEARCH_MIN_ARRAY_FUNCTION_NAME(TYPE, SW)        EC_CONCAT4(Min_, TYPE, _With_, SW)
@@ -62,63 +62,72 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                        \
 );
 
 
-#define EC_ARRAY_FUNCTION_PROTOTYPES(TYPE)              \
-    EC_ARRAY_FREE_FUNCTION_PROTOTYPE(TYPE)              \
-    EC_ARRAY_NEW_FUNCTION_PROTOTYPE(TYPE)
-
-
-#define EC_ARRAY_SORT_FUNCTION_PROTOTYPE(TYPE, SORT_WITH)                       \
-void                                                                            \
-EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)                                    \
-(                                                                               \
-    EC_ARRAY_STRUCT(TYPE)* array                                                \
+#define EC_ARRAY_REVERSE_FUNCTION_PROTOTYPE(TYPE)       \
+void                                                    \
+EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                    \
+(                                                       \
+    EC_ARRAY_STRUCT(TYPE)* array                        \
 );
 
-//void
-//EC_Array_Reverse_Int
-//(
-  //int* array,
-  //int  array_count
-//);
 
+#define EC_ARRAY_FUNCTION_PROTOTYPES(TYPE)              \
+    EC_ARRAY_FREE_FUNCTION_PROTOTYPE(TYPE)              \
+    EC_ARRAY_NEW_FUNCTION_PROTOTYPE(TYPE)               \
+    EC_ARRAY_REVERSE_FUNCTION_PROTOTYPE(TYPE)
+
+
+#define EC_ARRAY_SORT_FUNCTION_PROTOTYPE(TYPE, SORT_WITH)       \
+void                                                            \
+EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)                    \
+(                                                               \
+    EC_ARRAY_STRUCT(TYPE)* array                                \
+);
 
 
 /* reverse int array */
-//int*
-//Search_Int_Array
-//(
-    //int* array,
-    //int  array_count,
-    //int  search_value, // search search_value
-    //int  search_times  // how much times search
-//);
+void
+Int_Array_Reverse
+(
+    int* array,
+    int  array_count
+);
 
 
-//int
-//Search_Sorted_Int_Array
-//(
-    //int* array,
-    //int  array_count,
-    //int  search_value
-//);
+int*
+Int_Array_Search
+(
+    int* array,
+    int  array_count,
+    int  search_value, // search search_value
+    int  search_times  // how much times search
+);
+
+
+int
+Int_Sorted_Array_Search
+(
+    int* array,
+    int  array_count,
+    int  search_value
+);
 
 
 /* find maximum number in an integer array */
-//int
-//Max_Int_Array
-//(
-    //int* array,
-    //int  array_count
-//);
+int
+Int_Array_Max
+(
+    int* array,
+    int  array_count
+);
 
 
 /* find minimum number in an integer array */
-//int
-//Min_Int_Array
-//(
-    //int* array,
-    //int  array_count
-//);
+int
+Int_Array_Min
+(
+    int* array,
+    int  array_count
+);
 
 
 /* Function macros */
@@ -208,7 +217,7 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)                                    
                                                                                 \
         for (j = i + 1; j < array->count; j++)                                  \
         {                                                                       \
-            if (array->array[j].SORT_WITH < min_ref->SORT_WITH)           \
+            if (array->array[j].SORT_WITH < min_ref->SORT_WITH)                 \
             {                                                                   \
                 min_ref = &array->array[j];                                     \
             }                                                                   \
@@ -225,7 +234,7 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)                                    
 void                                                                    \
 EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                                    \
 (                                                                       \
-    TYPE_STRUCT(TYPE)* array                                            \
+    EC_ARRAY_STRUCT(TYPE)* array                                        \
 )                                                                       \
 {                                                                       \
     TYPE temp;                                                          \
@@ -238,11 +247,12 @@ EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                                    \
     }                                                                   \
 }
 
+
 /* Array Search */
 
-#define EC_ARRAY_BINARY_SEARCH_FUNCTION(EC_SEARCH, EC_SEARCH_WITH)                  \
+#define EC_ARRAY_BINARY_SEARCH_FUNCTION(EC_SEARCH, SEARCH_WITH)                     \
 int                                                                                 \
-EC_ARRAY_BINARY_SEARCH_FUNCTION_NAME(EC_SEARCH, EC_SEARCH_WITH)                     \
+EC_ARRAY_BINARY_SEARCH_FUNCTION_NAME(EC_SEARCH, SEARCH_WITH)                        \
 (                                                                                   \
     EC_ARRAY_STRUCT(TYPE)*  array,                                                  \
     int                     search_value                                            \
@@ -254,12 +264,12 @@ EC_ARRAY_BINARY_SEARCH_FUNCTION_NAME(EC_SEARCH, EC_SEARCH_WITH)                 
     uei = array->count - 1;                                                         \
     mi = (lei + uei) / 2;                                                           \
                                                                                     \
-    if (search_value < array->array[lei].EC_SEARCH_WITH)                            \
+    if (search_value < array->array[lei].SEARCH_WITH)                               \
     {                                                                               \
         printf ("Search value is lower than minimum value\n");                      \
         return -1;                                                                  \
     }                                                                               \
-    else if (search_value > array->array[uei].EC_SEARCH_WITH)                       \
+    else if (search_value > array->array[uei].SEARCH_WITH)                          \
     {                                                                               \
         printf ("Search value is grater than maximum value\n");                     \
         return -1;                                                                  \
@@ -269,22 +279,22 @@ EC_ARRAY_BINARY_SEARCH_FUNCTION_NAME(EC_SEARCH, EC_SEARCH_WITH)                 
     {                                                                               \
         printf ("lei %d uei %d mi %d\n", lei, uei, mi);                             \
                                                                                     \
-        if (search_value == array->array[mi].EC_SEARCH_WITH)                        \
+        if (search_value == array->array[mi].SEARCH_WITH)                           \
         {                                                                           \
             printf ("mi %d\n", mi);                                                 \
             return mi;                                                              \
         }                                                                           \
-        else if (search_value == array->array[lei].EC_SEARCH_WITH)                  \
+        else if (search_value == array->array[lei].SEARCH_WITH)                     \
         {                                                                           \
             printf ("lei %d\n", lei);                                               \
             return lei;                                                             \
         }                                                                           \
-        else if (search_value == array->array[uei].EC_SEARCH_WITH)                  \
+        else if (search_value == array->array[uei].SEARCH_WITH)                     \
         {                                                                           \
             printf ("uei %d\n", uei);                                               \
             return uei;                                                             \
         }                                                                           \
-        else if (search_value > array->array[mi].EC_SEARCH_WITH)                    \
+        else if (search_value > array->array[mi].SEARCH_WITH)                       \
         {                                                                           \
             printf ("v > mi\n");                                                    \
             lei = mi + 1;                                                           \
@@ -301,7 +311,7 @@ EC_ARRAY_BINARY_SEARCH_FUNCTION_NAME(EC_SEARCH, EC_SEARCH_WITH)                 
                                                                                     \
         if (lei == uei)                                                             \
         {                                                                           \
-            if (search_value == array->array[lei].EC_SEARCH_WITH)                   \
+            if (search_value == array->array[lei].SEARCH_WITH)                      \
             {                                                                       \
                 printf ("lei = uei %d\n", lei);                                     \
                 return lei;                                                         \
@@ -317,9 +327,9 @@ EC_ARRAY_BINARY_SEARCH_FUNCTION_NAME(EC_SEARCH, EC_SEARCH_WITH)                 
 
 /* Search maximum var according to var attribute SEARCH_WITH */
 
-#define EC_ARRAY_SEARCH_MAX_FUNCTION(EC_SEARCH, EC_SEARCH_WITH)             \
+#define EC_ARRAY_SEARCH_MAX_FUNCTION(EC_SEARCH, SEARCH_WITH)                \
 TYPE*                                                                       \
-EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(EC_SEARCH, EC_SEARCH_WITH)                \
+EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(EC_SEARCH, SEARCH_WITH)                   \
 (                                                                           \
     EC_ARRAY_STRUCT(TYPE)* array                                            \
 )                                                                           \
@@ -328,7 +338,7 @@ EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(EC_SEARCH, EC_SEARCH_WITH)                \
                                                                             \
     for (int i = 1; i < array->count; i++)                                  \
     {                                                                       \
-        if (array->array[i].EC_SEARCH_WITH > max->EC_SEARCH_WITH)           \
+        if (array->array[i].SEARCH_WITH > max->SEARCH_WITH)                 \
         {                                                                   \
             max = &array->array[i];                                         \
         }                                                                   \
@@ -340,9 +350,9 @@ EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(EC_SEARCH, EC_SEARCH_WITH)                \
 
 /* Search minimum var according to var attribute SEARCH_WITH */
 
-#define SEARCH_MIN_ARRAY_FUNCTION(EC_SEARCH, EC_SEARCH_WITH)                \
+#define SEARCH_MIN_ARRAY_FUNCTION(EC_SEARCH, SEARCH_WITH)                   \
 TYPE*                                                                       \
-SEARCH_MIN_ARRAY_FUNCTION_NAME(EC_SEARCH, EC_SEARCH_WITH)                   \
+SEARCH_MIN_ARRAY_FUNCTION_NAME(EC_SEARCH, SEARCH_WITH)                      \
 (                                                                           \
     EC_ARRAY_STRUCT(TYPE)* array                                            \
 )                                                                           \
@@ -351,7 +361,7 @@ SEARCH_MIN_ARRAY_FUNCTION_NAME(EC_SEARCH, EC_SEARCH_WITH)                   \
                                                                             \
     for (int i = 1; i < array->count; i++)                                  \
     {                                                                       \
-        if (array->array[i].EC_SEARCH_WITH < min->EC_SEARCH_WITH)           \
+        if (array->array[i].SEARCH_WITH < min->SEARCH_WITH)                 \
         {                                                                   \
             min = &array->array[i];                                         \
         }                                                                   \

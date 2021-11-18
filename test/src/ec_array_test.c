@@ -60,7 +60,7 @@ Test_Sort_Array ()
     sta->array[3].no = 4;
     sta->array[3].name = "Malshi";
 
-    Student_Sort_Array_no (sta);
+    Student_Array_Sort_no (sta);
 
     i = 1;
 
@@ -82,7 +82,7 @@ Test_Sort_Array ()
     sta->array[3].no = 1;
     sta->array[3].name = "Malshi";
 
-    Student_Sort_Array_no (sta);
+    Student_Array_Sort_no (sta);
 
     char *names1[] = {"Malshi", "Geethike", "Perera", "Malith"};
 
@@ -106,7 +106,7 @@ Test_Sort_Array ()
     sta->array[3].no = 1;
     sta->array[3].name = "Malshi";
 
-    Student_Sort_Array_no (sta);
+    Student_Array_Sort_no (sta);
 
     char *names2[] = {"Malshi", "Geethike", "Perera", "Malith"};
 
@@ -125,117 +125,169 @@ Test_Sort_Array ()
 }
 
 
-/*void*/
-/*Test_Reverse_Array ()*/
-/*{*/
-    /*EC_Print_Error ("Test_Reverse_Array: ", "BEGIN");*/
+void
+Test_Reverse_Array ()
+{
+    EC_Print_Error ("Test_Reverse_Array: ", "BEGIN");
 
-    /*int i;*/
+    int i;
 
-    /*StudentArray *sta = Student_Array (4);*/
-    /*sta->array[0].no = 1;*/
-    /*sta->array[0].name = "Malith";*/
-    /*sta->array[1].no = 2;*/
-    /*sta->array[1].name = "Geethike";*/
-    /*sta->array[2].no = 3;*/
-    /*sta->array[2].name = "Perera";*/
-    /*sta->array[3].no = 4;*/
-    /*sta->array[3].name = "Malshi";*/
+    StudentArray *sta = Student_Array (4);
+    sta->array[0].no = 1;
+    sta->array[0].name = "Malith";
+    sta->array[1].no = 2;
+    sta->array[1].name = "Geethike";
+    sta->array[2].no = 3;
+    sta->array[2].name = "Perera";
+    sta->array[3].no = 4;
+    sta->array[3].name = "Malshi";
 
-    /*Reverse_Student_Array (sta);*/
+    Student_Array_Reverse (sta);
 
-    /*char *names[] = {"Malshi", "Perera", "Geethike",  "Malith"};*/
+    char *names[] = {"Malshi", "Perera", "Geethike",  "Malith"};
 
-    /*i = 0;*/
-    /*foreach_array(Student, sta)*/
-    /*{*/
-        /*assert (item->no == 4 - i);*/
-        /*assert (!strcmp (item->name, names[i])); // strcmp return 0 when equal. assert fail when 0. so use !*/
-        /*i++;*/
-    /*}*/
+    i = 0;
+    foreach_array(Student, sta)
+    {
+        assert (item->no == 4 - i);
+        assert (!strcmp (item->name, names[i])); // strcmp return 0 when equal. assert fail when 0. so use !
+        i++;
+    }
 
-    /*EC_Print_Error ("Reverse sorted array", "OK");*/
+    EC_Print_Error ("Reverse sorted array", "OK");
 
-    /*EC_Print_Error ("Test_Reverse_Array: ", "END");*/
-/*}*/
-
-
-/*void*/
-/*Test_Reverse_Int_Array ()*/
-/*{*/
-    /*EC_Print_Error ("Test_Reverse_Int_Array: ", "BEGIN");*/
-
-    /*int array[] = {4, 3, 2, 1};*/
-
-    /*Reverse_Int_Array (array, 4);*/
-
-    /*for (int i = 0; i < 4; i++)*/
-    /*{*/
-        /*assert (array[i] == i + 1);*/
-    /*}*/
-
-    /*EC_Print_Error ("Reverse_Int_Array", "OK");*/
-
-    /*EC_Print_Error ("Test_Reverse_Int_Array: ", "END");*/
-/*}*/
+    EC_Print_Error ("Test_Reverse_Array: ", "END");
+}
 
 
-/*void*/
-/*Test_Search_Int_Array ()*/
-/*{*/
-    /*EC_Print_Error ("Test_Search_Int_Array: ", "BEGIN");*/
+void
+Test_Int_Array_Reverse ()
+{
+    EC_Print_Error ("Test_Int_Array_Reverse: ", "BEGIN");
 
-    /*int array[8] = {1, 3, 4, 2, 7, 6, 8, 2};*/
+    int array[] = {4, 3, 2, 1};
 
-    /*int *result = Search_Int_Array (array, 8, 1, 1);*/
+    Int_Array_Reverse (array, 4);
 
-    /*EC_Print_Error ("Method state", "UNFINISHED");*/
+    for (int i = 0; i < 4; i++)
+    {
+        assert (array[i] == i + 1);
+    }
 
-    /*EC_Print_Error ("Test_Search_Int_Array: ", "END");*/
-/*}*/
+    EC_Print_Error ("Reverse_Int_Array", "OK");
 
-
-/*void*/
-/*Test_Search_Sorted_Int_Array ()*/
-/*{*/
-    /*EC_Print_Error ("Test_Search_Sorted_Int_Array: ", "BEGIN");*/
-
-    /*int array[1] = {1};*/
-
-    /*Test_Search_Sorted_Int_Array (array, 1, 1);*/
-
-    /*EC_Print_Error ("Array has only one element and matched", "UNFINISHED");*/
-
-    /*EC_Print_Error ("Array has only one element but not matched", "UNFINISHED");*/
+    EC_Print_Error ("Test_Int_Array_Reverse: ", "END");
+}
 
 
-    /*int array2[2] = {1, 2};*/
+void
+Test_Int_Array_Search ()
+{
+    EC_Print_Error ("Test_Search_Int_Array: ", "BEGIN");
 
-    /*Test_Search_Sorted_Int_Array (array2, 2, 1);*/
+    int array[8] = {1, 3, 4, 2, 7, 6, 8, 2};
 
-    /*EC_Print_Error ("Array has only two elements and first matched", "UNFINISHED");*/
+    int *result = Int_Array_Search (array, 8, 1, 1);
 
-    /*EC_Print_Error ("Array has only two elements and last matched", "UNFINISHED");*/
+    EC_Print_Error ("Method state", "UNFINISHED");
 
-    /*EC_Print_Error ("Array has only two elements but not matched", "UNFINISHED");*/
+    EC_Print_Error ("Test_Search_Int_Array: ", "END");
+}
 
-    /*EC_Print_Error ("Method state", "UNFINISHED");*/
+
+void
+Test_Int_Sorted_Array_Search ()
+{
+    EC_Print_Error ("Test_Search_Sorted_Int_Array: ", "BEGIN");
+
+    int array[1] = {1};
+
+    Int_Sorted_Array_Search (array, 1, 1);
+
+    EC_Print_Error ("Array has only one element and matched", "UNFINISHED");
+
+    EC_Print_Error ("Array has only one element but not matched", "UNFINISHED");
 
 
-    /*int array3[8] = {1, 3, 4, 2, 7, 6, 8, 2};*/
+    int array2[2] = {1, 2};
 
-    /*Test_Search_Sorted_Int_Array (array3, 8, 1);*/
+    Int_Sorted_Array_Search (array2, 2, 1);
 
-    /*EC_Print_Error ("Search first element", "UNFINISHED");*/
+    EC_Print_Error ("Array has only two elements and first matched", "UNFINISHED");
 
-    /*EC_Print_Error ("Search last element", "UNFINISHED");*/
+    EC_Print_Error ("Array has only two elements and last matched", "UNFINISHED");
 
-    /*EC_Print_Error ("Search any element", "UNFINISHED");*/
+    EC_Print_Error ("Array has only two elements but not matched", "UNFINISHED");
 
-    /*EC_Print_Error ("Random number", "UNFINISHED");*/
+    EC_Print_Error ("Method state", "UNFINISHED");
 
-    /*EC_Print_Error ("Test_Search_Sorted_Int_Array: ", "END");*/
-/*}*/
+
+    int array3[8] = {1, 3, 4, 2, 7, 6, 8, 2};
+
+    Int_Sorted_Array_Search (array3, 8, 1);
+
+    EC_Print_Error ("Search first element", "UNFINISHED");
+
+    EC_Print_Error ("Search last element", "UNFINISHED");
+
+    EC_Print_Error ("Search any element", "UNFINISHED");
+
+    EC_Print_Error ("Random number", "UNFINISHED");
+
+    EC_Print_Error ("Test_Search_Sorted_Int_Array: ", "END");
+}
+
+
+void
+Test_Int_Array_Max ()
+{
+    EC_Print_Error ("Test_Int_Array_Max: ", "BEGIN");
+
+    int max;
+
+    int a[] = {5, 3, 2, 4, 1};
+    max = Int_Array_Max (a, 5);
+    assert (max == 5);
+    EC_Print_Error ("Max found in array first", "OK");
+
+    int a1[] = {2, 3, 5, 4, 1};
+    max = Int_Array_Max (a1, 5);
+    assert (max == 5);
+    EC_Print_Error ("Max found in array mid", "OK");
+
+    int a2[] = {2, 3, 1, 4, 5};
+    max = Int_Array_Max (a2, 5);
+    assert (max == 5);
+    EC_Print_Error ("Max found in array end", "OK");
+
+    EC_Print_Error ("Test_Max_Int_Array: ", "END");
+}
+
+
+void
+Test_Int_Array_Min ()
+{
+    EC_Print_Error ("Test_Int_Array_Min: ", "BEGIN");
+
+    int min;
+
+    int a[] = {1, 3, 2, 4, 5};
+    min = Int_Array_Min (a, 5);
+    assert (min == 1);
+    EC_Print_Error ("Min found in array first", "OK");
+
+    int a1[] = {5, 3, 1, 4, 2};
+    min = Int_Array_Min (a1, 5);
+    assert (min == 1);
+    EC_Print_Error ("Min found in array mid", "OK");
+
+    int a2[] = {2, 3, 5, 4, 1};
+    min = Int_Array_Min (a2, 5);
+    assert (min == 1);
+    EC_Print_Error ("Min found in array end", "OK");
+
+    EC_Print_Error ("Test_Min_Int_Array: ", "END");
+}
 
 
 /*void*/
@@ -355,58 +407,6 @@ Test_Sort_Array ()
 /*}*/
 
 
-/*void*/
-/*Test_Max_Int_Array ()*/
-/*{*/
-    /*EC_Print_Error ("Test_Max_Int_Array: ", "BEGIN");*/
-
-    /*int max;*/
-
-    /*int a[] = {5, 3, 2, 4, 1};*/
-    /*max = Max_Int_Array (a, 5);*/
-    /*assert (max == 5);*/
-    /*EC_Print_Error ("Max found in array first", "OK");*/
-
-    /*int a1[] = {2, 3, 5, 4, 1};*/
-    /*max = Max_Int_Array (a1, 5);*/
-    /*assert (max == 5);*/
-    /*EC_Print_Error ("Max found in array mid", "OK");*/
-
-    /*int a2[] = {2, 3, 1, 4, 5};*/
-    /*max = Max_Int_Array (a2, 5);*/
-    /*assert (max == 5);*/
-    /*EC_Print_Error ("Max found in array end", "OK");*/
-
-    /*EC_Print_Error ("Test_Max_Int_Array: ", "END");*/
-/*}*/
-
-
-/*void*/
-/*Test_Min_Int_Array ()*/
-/*{*/
-    /*EC_Print_Error ("Test_Min_Int_Array: ", "BEGIN");*/
-
-    /*int min;*/
-
-    /*int a[] = {1, 3, 2, 4, 5};*/
-    /*min = Min_Int_Array (a, 5);*/
-    /*assert (min == 1);*/
-    /*EC_Print_Error ("Min found in array first", "OK");*/
-
-    /*int a1[] = {5, 3, 1, 4, 2};*/
-    /*min = Min_Int_Array (a1, 5);*/
-    /*assert (min == 1);*/
-    /*EC_Print_Error ("Min found in array mid", "OK");*/
-
-    /*int a2[] = {2, 3, 5, 4, 1};*/
-    /*min = Min_Int_Array (a2, 5);*/
-    /*assert (min == 1);*/
-    /*EC_Print_Error ("Min found in array end", "OK");*/
-
-    /*EC_Print_Error ("Test_Min_Int_Array: ", "END");*/
-/*}*/
-
-
 void
 Run_Array_Test ()
 {
@@ -420,17 +420,23 @@ Run_Array_Test ()
     Test_Sort_Array ();
     printf ("\n");
 
-    /*Test_Reverse_Array ();*/
-    /*printf ("\n");*/
+    Test_Reverse_Array ();
+    printf ("\n");
 
-    /*Test_Reverse_Int_Array ();*/
-    /*printf ("\n");*/
+    Test_Int_Array_Reverse ();
+    printf ("\n");
 
-    /*Test_Search_Int_Array ();*/
-    /*printf ("\n");*/
+    Test_Int_Array_Search ();
+    printf ("\n");
 
-    //Test_Search_Sorted_Int_Array ();
-    //printf ("\n");
+    Test_Int_Sorted_Array_Search ();
+    printf ("\n");
+
+    Test_Int_Array_Max ();
+    printf ("\n");
+
+    Test_Int_Array_Min ();
+    printf ("\n");
 
 /*    Test_Search_Sorted_Array_With_Attr ();*/
     /*printf ("\n");*/
@@ -439,12 +445,6 @@ Run_Array_Test ()
     /*printf ("\n");*/
 
     /*Test_Min_array_variable_With_Attr ();*/
-    /*printf ("\n");*/
-
-    /*Test_Max_Int_Array ();*/
-    /*printf ("\n");*/
-
-    /*Test_Min_Int_Array ();*/
     /*printf ("\n");*/
 
     /*EC_Print_Error ("Test: ec_array.h", "PASS");*/

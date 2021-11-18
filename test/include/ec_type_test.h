@@ -1,7 +1,7 @@
 #ifndef EC_TYPE_TEST_H
 #define EC_TYPE_TEST_H
 
-#include "ec.h"
+#include "ec_array.h"
 #include "student.h"
 
 void

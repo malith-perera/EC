@@ -9,3 +9,5 @@ cd "build"
 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ../
 
 make
+
+cp libEC.so ../lib
