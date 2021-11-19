@@ -23,13 +23,13 @@
 
 
 /* Structure macros */
-// defined in ec_memory.h
-#define EC_LIST_STRUCT(TYPE)                EC_CONCAT(TYPE, List,)
-#define EC_LIST_VAR_STRUCT(TYPE)            EC_CONCAT(TYPE, ListVar,)
+// EC_MEMORY_LOCK defined in ec_memory.h
+#define EC_LIST_STRUCT(TYPE)                        EC_CONCAT(TYPE, List,)
+#define EC_LIST_VAR_STRUCT(TYPE)                    EC_CONCAT(TYPE, ListVar,)
 
 
 #define EC_List(TYPE, VAR)                              \
-typedef struct EC_CONCAT(TYPE, ListVar,){               \
+typedef struct EC_LIST_VAR_STRUCT(TYPE){                \
     VAR                                                 \
     struct EC_CONCAT(TYPE, ListVar,)* next;             \
     struct EC_CONCAT(TYPE, ListVar,)* previous;         \
@@ -37,9 +37,9 @@ typedef struct EC_CONCAT(TYPE, ListVar,){               \
 } EC_LIST_VAR_STRUCT(TYPE);                             \
                                                         \
                                                         \
-typedef struct EC_CONCAT(TYPE, List,){                  \
-    EC_CONCAT(TYPE, ListVar,)* first;                   \
-    EC_CONCAT(TYPE, ListVar,)* last;                    \
+typedef struct EC_LIST_STRUCT(TYPE){                    \
+    EC_LIST_VAR_STRUCT(TYPE)* first;                    \
+    EC_LIST_VAR_STRUCT(TYPE)* last;                     \
     EC_MEMORY_LOCK                                      \
 } EC_LIST_STRUCT(TYPE);
 
@@ -104,11 +104,11 @@ EC_LIST_REPLACE_FUNCTION_NAME(TYPE)                     \
 );
 
 
-#define EC_LIST_SORT_FUNCTION_PROTOTYPE(EC_SORT, SORT_WITH) \
-void                                                        \
-EC_LIST_SORT_FUNCTION_NAME (EC_SORT, SORT_WITH)             \
-(                                                           \
-    EC_LIST_STRUCT(EC_SORT)* list                           \
+#define EC_LIST_SORT_FUNCTION_PROTOTYPE(TYPE, SORT_WITH) \
+void                                                     \
+EC_LIST_SORT_FUNCTION_NAME (TYPE, SORT_WITH)             \
+(                                                        \
+    EC_LIST_STRUCT(TYPE)* list                           \
 );
 
 
@@ -398,16 +398,16 @@ EC_LIST_REPLACE_FUNCTION_NAME(TYPE)             \
 
 /* List Sort Function */
 
-#define EC_LIST_SORT_FUNCTION(EC_SORT, SORT_WITH)                       \
+#define EC_LIST_SORT_FUNCTION(TYPE, SORT_WITH)                          \
 void                                                                    \
-EC_LIST_SORT_FUNCTION_NAME (EC_SORT, SORT_WITH)                         \
+EC_LIST_SORT_FUNCTION_NAME (TYPE, SORT_WITH)                            \
 (                                                                       \
-    EC_LIST_STRUCT(EC_SORT)* list                                       \
+    EC_LIST_STRUCT(TYPE)* list                                          \
 )                                                                       \
 {                                                                       \
-    EC_LIST_VAR_STRUCT(EC_SORT)* previous;                              \
-    EC_LIST_VAR_STRUCT(EC_SORT)* current;                               \
-    EC_LIST_VAR_STRUCT(EC_SORT)* ref;                                   \
+    EC_LIST_VAR_STRUCT(TYPE)* previous;                                 \
+    EC_LIST_VAR_STRUCT(TYPE)* current;                                  \
+    EC_LIST_VAR_STRUCT(TYPE)* ref;                                      \
                                                                         \
     ref = list->first;                                                  \
                                                                         \
@@ -517,7 +517,7 @@ EC_LIST_FREE_VAR_FUNCTION_NAME(TYPE)                    \
 
 
 /*-------------------------------------------------------------------------------------*
- *                                  List Free List Function                              *
+ *                                  List Free List Function                            *
  *=====================================================================================*/
 
 /*void*/
