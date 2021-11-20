@@ -163,7 +163,7 @@ EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                            \
     void* var                                                   \
 )                                                               \
 {                                                               \
-    TYPE* v = (TYPE*) var;                                \
+    TYPE* v = (TYPE*) var;                                      \
     free (v);                                                   \
     v = NULL;                                                   \
 }
