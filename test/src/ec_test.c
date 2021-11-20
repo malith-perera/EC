@@ -62,7 +62,7 @@ main (int argc, char *argv[])
 
     if (no == 4 || no == 0)
     {
-        /*Run_Queue_Test ();*/
+        Run_Queue_Test ();
     }
 
 

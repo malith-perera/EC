@@ -33,10 +33,10 @@ typedef enum {
 #include "ec_array.h"
 #include "ec_list.h"
 #include "ec_queue.h"
-#include "ec_bool.h"
-#include "ec_syntax.h"
-#include "ec_bits.h"
-#include "ec_vector.h"
+//#include "ec_bool.h"
+//#include "ec_syntax.h"
+//#include "ec_bits.h"
+//#include "ec_vector.h"
 
 
 #endif // EC_H

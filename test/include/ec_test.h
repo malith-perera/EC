@@ -5,6 +5,6 @@
 #include "ec_variable_test.h"
 #include "ec_array_test.h"
 #include "ec_list_test.h"
-//#include "ec_queue_test.h"
+#include "ec_queue_test.h"
 
 #endif
