@@ -20,9 +20,9 @@ typedef enum {
     EC_VAR_TYPE,
     EC_ARRAY_TYPE,
     EC_LIST_TYPE,
-    EC_LIST_OBJECT_TYPE,
+    EC_LIST_VAR_TYPE,
     EC_QUEUE_TYPE,
-    EC_QUEUE_OBJECT_TYPE
+    EC_QUEUE_VAR_TYPE
 } ECType;
 
 //#define EC_MEMORY 0

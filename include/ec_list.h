@@ -28,11 +28,11 @@
 #define EC_LIST_VAR_STRUCT(TYPE)                    EC_CONCAT(TYPE, ListVar,)
 
 
-#define EC_List(TYPE, VAR)                              \
+#define EC_LIST(TYPE, VAR)                              \
 typedef struct EC_LIST_VAR_STRUCT(TYPE){                \
     VAR                                                 \
-    struct EC_CONCAT(TYPE, ListVar,)* next;             \
-    struct EC_CONCAT(TYPE, ListVar,)* previous;         \
+    struct EC_LIST_VAR_STRUCT(TYPE)* next;              \
+    struct EC_LIST_VAR_STRUCT(TYPE)* previous;          \
     EC_MEMORY_LOCK                                      \
 } EC_LIST_VAR_STRUCT(TYPE);                             \
                                                         \
@@ -134,6 +134,7 @@ EC_LIST_FREE_VAR_FUNCTION_NAME(TYPE)                        \
     EC_LIST_FREE_FUNCTION_PROTOTYPE(TYPE)                   \
     EC_LIST_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)               \
     EC_LIST_NEW_FUNCTION_PROTOTYPE(TYPE)                    \
+    EC_LIST_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)                \
     EC_LIST_APPEND_FUNCTION_PROTOTYPE(TYPE)                 \
     EC_LIST_INSERT_FUNCTION_PROTOTYPE(TYPE)                 \
     EC_LIST_REPLACE_FUNCTION_PROTOTYPE(TYPE)                \
@@ -162,7 +163,7 @@ EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                            \
     void* var                                                   \
 )                                                               \
 {                                                               \
-    EC_LIST* v = (EC_LIST*) var;                                \
+    TYPE* v = (TYPE*) var;                                \
     free (v);                                                   \
     v = NULL;                                                   \
 }
@@ -188,7 +189,7 @@ EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                            
     {                                                                                               \
         ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));                            \
                                                                                                     \
-        ec_memory_new->type = EC_LIST_TYPE;                                                         \
+        ec_memory_new->type = EC_LIST_TYPE;                                                         /* Defined in ec.h */ \
         ec_memory_new->var = var;                                                                   \
         ec_memory_new->memory = NULL;                                                               \
         ec_memory_new->Free_Func = EC_LIST_FREE_FUNCTION_NAME (EC_LIST_STRUCT(TYPE));               \
@@ -223,7 +224,7 @@ EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)                                             
     {                                                                                                               \
         ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof (ECMemory));                                           \
                                                                                                                     \
-        ec_memory_new->type = EC_LIST_VAR_TYPE;                                                                     \
+        ec_memory_new->type = EC_LIST_VAR_TYPE;                                                                     /* Defined in ec.h */ \
         ec_memory_new->var = var;                                                                                   \
         ec_memory_new->memory = NULL;                                                                               \
         ec_memory_new->Free_Func = EC_LIST_VAR_FREE_FUNCTION_NAME (TYPE);                                           \
@@ -531,7 +532,7 @@ EC_LIST_FREE_VAR_FUNCTION_NAME(TYPE)                    \
 
   //*list = (EC_LIST_STRUCT(TYPE) *) list_ptr;
 
-  //EC_LIST *current, *temp;
+  //TYPE *current, *temp;
 
   //current = *(*list)->first;
 

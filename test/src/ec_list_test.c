@@ -5,29 +5,12 @@
 
 #include "ec_list_test.h"
 
-#define EC_GARBAGE
-#include "ec.h"
-
-//#define NDEBUG
-
-#define class(Student)   \
-  int no;                \
-  char *name;
-expand(Student);
-#undef class
-
-#define EC_LIST Student
-#define EC_SORT Student
-#define EC_SORT_WITH no
-#define EC_SEARCH_WITH no
-#include "ec_list.h"
-
 
 void
 Print_Student_List (StudentList *stl)
 {
     /*
-    StudentListObj *current = stl->first;
+    StudentListVar *current = stl->first;
 
     while (current != NULL)
     {
@@ -36,12 +19,12 @@ Print_Student_List (StudentList *stl)
     }
     */
 
-    foreach_list (StudentListObj, stl)
-    {
-    printf ("%d ", item->no);
-    }
+    /*foreach_list (StudentListVar, stl)*/
+    /*{*/
+    /*printf ("%d ", item->no);*/
+    /*}*/
 
-    printf ("\n");
+    /*printf ("\n");*/
 }
 
 
@@ -53,18 +36,18 @@ Test_New_List ()
     StudentList *stl = Student_List ();
     EC_Print_Error ("Create new list", "OK");
 
-    StudentListObj *st1 = Student_List_Object ();
+    StudentListVar *st1 = Student_List_Var ();
 
-    StudentListObj *st2 = Student_List_Object ();
+    StudentListVar *st2 = Student_List_Var ();
 
-    EC_Print_Error ("Create list objects", "OK");
+    EC_Print_Error ("Create list variables", "OK");
 
     st1->no = 1;
     st1->name = "Malith";
     st2->no = 2;
     st2->name = "Geethike";
 
-    EC_Print_Error ("Assign list object attributes", "OK");
+    EC_Print_Error ("Assign list variable attributes", "OK");
 
     stl->first = st1;
     st1->previous = NULL;
@@ -81,7 +64,7 @@ Test_New_List ()
     assert (stl->first->next->no == 2);
     assert (!strcmp (stl->first->next->name, "Geethike"));
 
-    EC_Print_Error ("link objects to list", "OK");
+    EC_Print_Error ("link variables to list", "OK");
 
     EC_Print_Error ("Test_New_List: ", "END");
 }
@@ -94,11 +77,11 @@ Test_Append_List ()
 
     StudentList *stl = Student_List ();
 
-    StudentListObj *st1 = Student_List_Object ();
+    StudentListVar *st1 = Student_List_Var ();
     st1->no = 1;
     st1->name = "Malith";
 
-    StudentListObj *st2 = Student_List_Object ();
+    StudentListVar *st2 = Student_List_Var ();
     st2->no = 2;
     st2->name = "Geethike";
 
@@ -112,7 +95,7 @@ Test_Append_List ()
     assert (stl->first->previous == NULL);
     assert (stl->last == st1);
 
-    EC_Print_Error ("Append list fist object", "OK");
+    EC_Print_Error ("Append list fist variable", "OK");
 
     Append_Student (stl, st2);
 
@@ -127,7 +110,7 @@ Test_Append_List ()
     assert (st2->next == NULL);
     assert (stl->last->next == NULL);
 
-    EC_Print_Error ("Append list fist object", "OK");
+    EC_Print_Error ("Append list fist variable", "OK");
 
     EC_Print_Error ("Append_List: ", "END");
 }
@@ -140,17 +123,17 @@ Test_Insert_List ()
 
     StudentList *stl = Student_List ();
 
-    StudentListObj *st1 = Student_List_Object ();
+    StudentListVar *st1 = Student_List_Var ();
     st1->no = 1;
     st1->name = "Malith";
     Append_Student (stl, st1);
 
-    StudentListObj *st2 = Student_List_Object ();
+    StudentListVar *st2 = Student_List_Var ();
     st2->no = 2;
     st2->name = "Geethike";
     Append_Student (stl, st2);
 
-    StudentListObj *st3 = Student_List_Object ();
+    StudentListVar *st3 = Student_List_Var ();
     st3->no = 3;
     st3->name = "Perera";
     Insert_Student (stl, st3, st1, -1);
@@ -159,7 +142,7 @@ Test_Insert_List ()
 
     EC_Print_Error ("Insert as fist item", "OK");
 
-    StudentListObj *st4 = Student_List_Object ();
+    StudentListVar *st4 = Student_List_Var ();
     st4->no = 4;
     st4->name = "Malshi";
     Insert_Student (stl, st4, st3, 1);
@@ -168,7 +151,7 @@ Test_Insert_List ()
 
     EC_Print_Error ("Insert next to fist item", "OK");
 
-    StudentListObj *st5 = Student_List_Object ();
+    StudentListVar *st5 = Student_List_Var ();
     st5->no = 5;
     st5->name = "Prisenthi";
     Insert_Student (stl, st5, st2, -1);
@@ -177,7 +160,7 @@ Test_Insert_List ()
 
     EC_Print_Error ("Insert before last item", "OK");
 
-    StudentListObj *st6 = Student_List_Object ();
+    StudentListVar *st6 = Student_List_Var ();
     st6->no = 6;
     st6->name = "Fernando";
     Insert_Student (stl, st6, st2, 1);
@@ -186,7 +169,7 @@ Test_Insert_List ()
 
     EC_Print_Error ("Insert as last item", "OK");
 
-    StudentListObj *st7 = Student_List_Object ();
+    StudentListVar *st7 = Student_List_Var ();
     st7->no = 7;
     st7->name = "Rohasha";
     Insert_Student (stl, st7, st4, 1);
@@ -195,7 +178,7 @@ Test_Insert_List ()
 
     EC_Print_Error ("Insert as after mid item", "OK");
 
-    StudentListObj *st8 = Student_List_Object ();
+    StudentListVar *st8 = Student_List_Var ();
     st8->no = 8;
     st8->name = "Magret";
     Insert_Student (stl, st8, st4, -1);
@@ -215,17 +198,17 @@ Test_Replace_List ()
 
     StudentList *stl = Student_List ();
 
-    StudentListObj *st1 = Student_List_Object ();
+    StudentListVar *st1 = Student_List_Var ();
     st1->no = 1;
     st1->name = "Malith";
     Append_Student (stl, st1);
 
-    StudentListObj *st2 = Student_List_Object ();
+    StudentListVar *st2 = Student_List_Var ();
     st2->no = 2;
     st2->name = "Geethike";
     Append_Student (stl, st2);
 
-    StudentListObj *st3 = Student_List_Object ();
+    StudentListVar *st3 = Student_List_Var ();
     st3->no = 3;
     st3->name = "Perera";
 
@@ -250,32 +233,32 @@ Test_Sort_List ()
 
     StudentList *stl = Student_List ();
 
-    StudentListObj *st6 = Student_List_Object ();
+    StudentListVar *st6 = Student_List_Var ();
     st6->no = 6;
     st6->name = "Fernando";
     Append_Student (stl, st6);
 
-    StudentListObj *st5 = Student_List_Object ();
+    StudentListVar *st5 = Student_List_Var ();
     st5->no = 5;
     st5->name = "Prisenthi";
     Append_Student (stl, st5);
 
-    StudentListObj *st2 = Student_List_Object ();
+    StudentListVar *st2 = Student_List_Var ();
     st2->no = 2;
     st2->name = "Geethike";
     Append_Student (stl, st2);
 
-    StudentListObj *st4 = Student_List_Object ();
+    StudentListVar *st4 = Student_List_Var ();
     st4->no = 4;
     st4->name = "Malshi";
     Append_Student (stl, st4);
 
-    StudentListObj *st3 = Student_List_Object ();
+    StudentListVar *st3 = Student_List_Var ();
     st3->no = 3;
     st3->name = "Perera";
     Append_Student (stl, st3);
 
-    StudentListObj *st1 = Student_List_Object ();
+    StudentListVar *st1 = Student_List_Var ();
     st1->no = 1;
     st1->name = "Malith";
     Append_Student (stl, st1);
@@ -286,14 +269,14 @@ Test_Sort_List ()
 
     char *names[6] = {"Malith", "Geethike", "Perera", "Malshi", "Prisenthi", "Fernando"};
 
-    foreach_list (StudentListObj, stl)
+    foreach_list (StudentListVar, stl)
     {
-    assert (item->no == i);
-    assert (!strcmp (item->name, names[i-1]));
-    i++;
+        assert (var->no == i);
+        assert (!strcmp (var->name, names[i-1]));
+        i++;
     }
 
-    EC_Print_Error ("List sort with object attribute", "OK");
+    EC_Print_Error ("List sort with variable attribute", "OK");
 
     EC_Print_Error ("Test_Sort_List: ", "END");
 }
@@ -333,7 +316,7 @@ Run_List_Test ()
 
   while (no > 0)
   {
-    st = Student_List_Object ();
+    st = Student_List_Var ();
     st->no = no;
     Append_Student (stl, st);
     Print_Student_List (stl);
@@ -341,7 +324,7 @@ Run_List_Test ()
     scanf ("%d", &no);
   }
 
-  StudentListObj *st3 = Student_List_Object ();
+  StudentListVar *st3 = Student_List_Var ();
   st3->no = 1;
   st3->name = "Perera";
 

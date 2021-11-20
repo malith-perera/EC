@@ -3,7 +3,7 @@
 
 #include "ec.h"
 
-int ec_i; // check again you Cannot use for two objects at once
+int ec_i; // check again you Cannot use for two variable at once
 
 #define foreach_array(arr_type, arr)                                                 \
   ec_i = 0;                                                                          \
