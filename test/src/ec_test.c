@@ -57,17 +57,17 @@ main (int argc, char *argv[])
 
     if (no == 3 || no == 0)
     {
+        Run_List_Test ();
     }
 
     if (no == 4 || no == 0)
     {
-        /*Run_List_Test ();*/
+        /*Run_Queue_Test ();*/
     }
 
 
     if (no == 5 || no == 0)
     {
-        /*Run_Queue_Test ();*/
     }
 
 

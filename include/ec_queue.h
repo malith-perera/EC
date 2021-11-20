@@ -25,10 +25,10 @@
 #define EC_QUEUE_VAR_STRUCT(TYPE)       EC_CONCAT(TYPE, QueueVar,)
 
 
-#define EC_Queue(TYPE, VAR)                         \
+#define EC_QUEUE(TYPE, VAR)                         \
 typedef struct EC_QUEUE_VAR_STRUCT(TYPE){           \
     VAR;                                            \
-    EC_QUEUE_VAR_STRUCT(TYPE)* next;                \
+    struct EC_QUEUE_VAR_STRUCT(TYPE)* next;         \
     EC_MEMORY_LOCK                                  \
 } EC_QUEUE_VAR_STRUCT(TYPE);                        \
                                                     \
@@ -90,7 +90,7 @@ EC_QUEUE_VAR_FREE_FUNCTION_NAME(TYPE)                           \
     void* var                                                   \
 )                                                               \
 {                                                               \
-    EC_QUEUE* p = (EC_QUEUE*) var;                              \
+    TYPE* p = (TYPE*) var;                              \
     free (p);                                                   \
 }
 
