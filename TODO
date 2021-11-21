@@ -1,61 +1,32 @@
 To Do
 =====
 
+============
 Version v1.0
--------------
-
-Create EC Var
-Create EC Array
-Create EC List
-Create EC Queue
-Create EC Stack
+============
+Implement EC Var
+Implement EC Array
+Implement EC List
+Implement EC Queue
+Implement EC Stack
 
 Refine all
 Test all
 
 Documentation
 -------------
-
 Create documentation
-Create Website
 Cretate man pages
+Create Website
 
-Promte
-------
+
+Promote
+-------
 FB page
 Youtube video tutorial
 
+
 User/Community Support
 ----------------------
-
 Stack overflow
 Discord server
-
-
-
-
-
-
-
-Next release (v1.1)
-------------
-
-Memory_management
-{
-    Memory clear
-    Memory unlock
-    Memory free
-    Memory auto free
-}
-
-Variable Memory_management
-Array Memory_management
-List Memory_management
-Queue Memory_management
-Stack Memory_management
-
-Refine all
-Test all
-
-Compare perfomance
-
