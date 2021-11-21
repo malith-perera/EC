@@ -1,16 +1,44 @@
 To Do
 =====
 
-Development
------------
+Version v1.0
+-------------
 
-Finish create variable
-Finish create array
-Finish create list
-Finish create queue
-Finish create stack
+Create EC Var
+Create EC Array
+Create EC List
+Create EC Queue
+Create EC Stack
 
+Refine all
 Test all
+
+Documentation
+-------------
+
+Create documentation
+Create Website
+Cretate man pages
+
+Promte
+------
+FB page
+Youtube video tutorial
+
+User/Community Support
+----------------------
+
+Stack overflow
+Discord server
+
+
+
+
+
+
+
+Next release (v1.1)
+------------
 
 Memory_management
 {
@@ -26,38 +54,8 @@ List Memory_management
 Queue Memory_management
 Stack Memory_management
 
+Refine all
 Test all
 
-Refine all code
+Compare perfomance
 
-Test all
-
-Refine
-
-Compare perfomance with Python
-
-
-Documentation
--------------
-
-Create documentation
-Cretate man pages
-Website
-
-
-Promte
-------
-
-FB page
-Youtube video tutorial
-Discord server
-Stack overflow
-Supporting platform
-Supporting Community
-Customer support
-Fake promotioanal accounts
-
-Cycle
--------
-Bugfixes
-New additions
