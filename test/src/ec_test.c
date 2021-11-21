@@ -27,6 +27,7 @@ main (int argc, char *argv[])
         printf ("Test: Array    2\n");
         printf ("Test: List     3\n");
         printf ("Test: Queue    4\n");
+        printf ("Test: Stack    5\n");
         printf ("Test: Exit    -1\n");
         printf ("\n");
 
@@ -68,6 +69,7 @@ main (int argc, char *argv[])
 
     if (no == 5 || no == 0)
     {
+        Run_Stack_Test ();
     }
 
 

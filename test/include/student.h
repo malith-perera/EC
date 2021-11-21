@@ -3,7 +3,6 @@
 
 #include "ec.h"
 
-
 #define student     \
     int     no;     \
     char*   name;
@@ -28,5 +27,8 @@ EC_LIST_SORT_FUNCTION_PROTOTYPE(Student, no)
 
 EC_QUEUE(Student, student)
 EC_QUEUE_FUNCTION_PROTOTYPES(Student)
+
+EC_STACK(Student, student)
+EC_STACK_FUNCTION_PROTOTYPES(Student)
 
 #endif // STUDENT_H

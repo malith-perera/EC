@@ -22,7 +22,9 @@ typedef enum {
     EC_LIST_TYPE,
     EC_LIST_VAR_TYPE,
     EC_QUEUE_TYPE,
-    EC_QUEUE_VAR_TYPE
+    EC_QUEUE_VAR_TYPE,
+    EC_STACK_TYPE,
+    EC_STACK_VAR_TYPE
 } ECType;
 
 //#define EC_MEMORY 0
@@ -33,6 +35,7 @@ typedef enum {
 #include "ec_array.h"
 #include "ec_list.h"
 #include "ec_queue.h"
+#include "ec_stack.h"
 //#include "ec_bool.h"
 //#include "ec_syntax.h"
 //#include "ec_bits.h"
