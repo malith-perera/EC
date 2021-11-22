@@ -39,4 +39,4 @@ add_library(EC SHARED ${SOURCES})
 
 #Set the location for library installation -- i.e., /usr/lib in this case
 # not really necessary in this example. Use "sudo make install" to apply
-install(TARGETS EC DESTINATION /usr/lib)
+#install(TARGETS EC DESTINATION /usr/lib)

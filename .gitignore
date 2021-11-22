@@ -1,7 +1,3 @@
-test/include/back/
-test/src/back/
 build/
-EC/
 session_ec.vim
 test/session_ec_test.vim
-lib/libEC.so

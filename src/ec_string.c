@@ -6,7 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "ec_char.h"
 
 #if 0
 CharListPtr
