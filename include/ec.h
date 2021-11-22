@@ -30,7 +30,6 @@ typedef enum {
 //#define EC_MEMORY 0
 
 #include "ec_memory.h"
-#include "ec_type.h"
 #include "ec_variable.h"
 #include "ec_array.h"
 #include "ec_list.h"

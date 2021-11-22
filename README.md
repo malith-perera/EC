@@ -6,14 +6,9 @@ As a simple example think you need to create a list of students in a classroom.
 
 ### Example:  
 
->*\#define student_vars* \  
-    *int     no;*     \  
-    *char   name[20]*;  
-
 >*EC_LIST_ALL(Student, student_vars)*  
 
-
-With this few lines of code above,  
+With this line of code above where student_vars is an struture that explains ,  
 
 - Student_New()  
 - Student_Append()  
