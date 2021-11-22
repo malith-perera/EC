@@ -23,7 +23,7 @@ For binary downloads, manuels, documentations, tutorials please visit:
 
 <http://www.extendedc.com> *(not working yet)*  
 
-![Logo, Extended C logo ](share/icons/ec96.png)
+![Logo, Extended C logo ](docs/images/ec96.png)  
 
 
 
