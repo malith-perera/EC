@@ -1,33 +1,46 @@
 # ToDo (Version v1.0)  
+
+## Implemention
+
+#### EC Var:
+> Done  
+#### EC Array:  
+> Done  
+#### EC List:  
+> Done  
+#### EC Queue:  
+> Done  
+#### EC Stack:  
+> Done  
+
+#### EC Memory basic support
+> Done
+
+#### Refine code:  
+> In Progress  
+
+#### Test all:  
+> In Progress  
+  
+  
 ---
+## Porting
 
-## Implementation  
-
-EC Var  
-EC Array  
-EC List  
-EC Queue  
-EC Stack  
-
-Refine all  
-Test all
-
+### Linux:
+> Ubuntu: Done  
+### Windows:  
+> Windows 10: Help needed  
+### Mac:  
+> Mac OS : Help needed  
+  
+  
+---
 ## Documentation  
 
 ### Create documentation  
 ### Create man pages  
 ### Create Website  
-
-## Promote  
-
-FB page  
-Youtube video tutorial  
-
-
-## User/Community Support  
-
-Stack overflow  
-Discord server  
-
+  
+---
 ## Future development road map  
 <http://wiki.libEC.org/Roadmap>  
