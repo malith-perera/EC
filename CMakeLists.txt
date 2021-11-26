@@ -22,6 +22,19 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
 endif ()
 
 
+#get_filename_component (PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)
+
+# Set an output directory for binary ectest
+set(BIN_DIR ${PROJECT_SOURCE_DIR})
+
+# If shared lib is not build in the same CMake project of executable
+#set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+# If shared library is built in the same CMake project
+#set(CMAKE_INSTALL_RPATH "${PARENT_DIR}/eclib")
+#set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+
 set (PROJECT_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include "/usr/local/include")
 get_filename_component(PARENT_DIR  ${PROJECT_SOURCE_DIR} DIRECTORY)
 
@@ -39,4 +52,4 @@ add_library(EC SHARED ${SOURCES})
 
 #Set the location for library installation -- i.e., /usr/lib in this case
 # not really necessary in this example. Use "sudo make install" to apply
-#install(TARGETS EC DESTINATION /usr/lib)
+install(TARGETS EC DESTINATION /usr/lib)
