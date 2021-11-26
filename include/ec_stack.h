@@ -3,8 +3,8 @@
 
 #include "ec.h"
 
-#define foreach_stack(list_type, list)                                       \
-  for (list_type* item = list->first;  item != NULL; item = item->next)
+#define foreach_stack(TYPE, stack)                                       \
+  for (TYPE* var = stack->first;  var != NULL; var = var->next)
 
 
 /* Function name macros */

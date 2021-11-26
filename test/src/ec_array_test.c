@@ -28,11 +28,11 @@ Test_New_Array ()
     StudentArray *sta = Student_Array (2);
     EC_Print_Error ("Create new array", "OK");
 
-    sta->array[0].no    = 1;
-    sta->array[0].name  = "Malith";
+    sta->index[0].no    = 1;
+    sta->index[0].name  = "Malith";
 
-    sta->array[1].no    = 2;
-    sta->array[1].name  = "Geethike";
+    sta->index[1].no    = 2;
+    sta->index[1].name  = "Geethike";
 
     EC_Print_Error ("Assign array elements", "OK");
 
@@ -51,14 +51,14 @@ Test_Array_Sort ()
     int i;
 
     StudentArray *sta = Student_Array (4);
-    sta->array[0].no = 1;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 3;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 4;
-    sta->array[3].name = "Malshi";
+    sta->index[0].no = 1;
+    sta->index[0].name = "Malith";
+    sta->index[1].no = 2;
+    sta->index[1].name = "Geethike";
+    sta->index[2].no = 3;
+    sta->index[2].name = "Perera";
+    sta->index[3].no = 4;
+    sta->index[3].name = "Malshi";
 
     Student_Array_Sort_no (sta);
 
@@ -73,14 +73,14 @@ Test_Array_Sort ()
     EC_Print_Error ("Sort when no sort needed ", "OK");
 
     // minimum is last
-    sta->array[0].no = 4;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 3;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 1;
-    sta->array[3].name = "Malshi";
+    sta->index[0].no = 4;
+    sta->index[0].name = "Malith";
+    sta->index[1].no = 2;
+    sta->index[1].name = "Geethike";
+    sta->index[2].no = 3;
+    sta->index[2].name = "Perera";
+    sta->index[3].no = 1;
+    sta->index[3].name = "Malshi";
 
     Student_Array_Sort_no (sta);
 
@@ -97,14 +97,14 @@ Test_Array_Sort ()
     EC_Print_Error ("Sort when minimum is last element", "OK");
 
     // maximum is first
-    sta->array[0].no = 4;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 3;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 1;
-    sta->array[3].name = "Malshi";
+    sta->index[0].no = 4;
+    sta->index[0].name = "Malith";
+    sta->index[1].no = 2;
+    sta->index[1].name = "Geethike";
+    sta->index[2].no = 3;
+    sta->index[2].name = "Perera";
+    sta->index[3].no = 1;
+    sta->index[3].name = "Malshi";
 
     Student_Array_Sort_no (sta);
 
@@ -133,14 +133,14 @@ Test_Array_Reverse ()
     int i;
 
     StudentArray *sta = Student_Array (4);
-    sta->array[0].no = 1;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 3;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 4;
-    sta->array[3].name = "Malshi";
+    sta->index[0].no = 1;
+    sta->index[0].name = "Malith";
+    sta->index[1].no = 2;
+    sta->index[1].name = "Geethike";
+    sta->index[2].no = 3;
+    sta->index[2].name = "Perera";
+    sta->index[3].no = 4;
+    sta->index[3].name = "Malshi";
 
     Student_Array_Reverse (sta);
 
@@ -296,18 +296,18 @@ Test_Sorted_Array_Search_Var ()
     EC_Print_Error ("Test_Sorted_Array_Search_Var: ", "BEGIN");
 
     StudentArray *sta = Student_Array (4);
-    sta->array[0].no = 1;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 3;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 4;
-    sta->array[3].name = "Malshi";
+    sta->index[0].no = 1;
+    sta->index[0].name = "Malith";
+    sta->index[1].no = 2;
+    sta->index[1].name = "Geethike";
+    sta->index[2].no = 3;
+    sta->index[2].name = "Perera";
+    sta->index[3].no = 4;
+    sta->index[3].name = "Malshi";
 
     int index = Student_Sorted_Search_no (sta, 3);
 
-    assert (sta->array[index].no == 3);
+    assert (sta->index[index].no == 3);
 
     EC_Print_Error ("Search sorted array", "OK");
 
@@ -323,14 +323,14 @@ Test_Array_Max_Var ()
     Student *st_max;
 
     StudentArray *sta = Student_Array (4);
-    sta->array[0].no = 4;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 3;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 2;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 1;
-    sta->array[3].name = "Malshi";
+    sta->index[0].no = 4;
+    sta->index[0].name = "Malith";
+    sta->index[1].no = 3;
+    sta->index[1].name = "Geethike";
+    sta->index[2].no = 2;
+    sta->index[2].name = "Perera";
+    sta->index[3].no = 1;
+    sta->index[3].name = "Malshi";
 
     // max found in array first
     st_max = Student_Max_no (sta);
@@ -339,8 +339,8 @@ Test_Array_Max_Var ()
     EC_Print_Error ("Max found in array first", "OK");
 
     // max found in array last
-    sta->array[0].no = 1;
-    sta->array[3].no = 4;
+    sta->index[0].no = 1;
+    sta->index[3].no = 4;
 
     st_max = Student_Max_no (sta);
     assert (st_max->no == 4);
@@ -348,8 +348,8 @@ Test_Array_Max_Var ()
     EC_Print_Error ("Max found in array first", "OK");
 
     // max found in array mid
-    sta->array[0].no = 3;
-    sta->array[1].no = 4;
+    sta->index[0].no = 3;
+    sta->index[1].no = 4;
 
     st_max = Student_Max_no (sta);
     assert (st_max->no == 4);
@@ -368,14 +368,14 @@ Test_Array_Min_Var ()
     Student *st_min;
 
     StudentArray *sta = Student_Array (4);
-    sta->array[0].no = 1;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 3;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 4;
-    sta->array[3].name = "Malshi";
+    sta->index[0].no = 1;
+    sta->index[0].name = "Malith";
+    sta->index[1].no = 2;
+    sta->index[1].name = "Geethike";
+    sta->index[2].no = 3;
+    sta->index[2].name = "Perera";
+    sta->index[3].no = 4;
+    sta->index[3].name = "Malshi";
 
 
     // min found in array first
@@ -385,8 +385,8 @@ Test_Array_Min_Var ()
     EC_Print_Error ("Min found in array first", "OK");
 
     // min found in array last
-    sta->array[0].no = 4;
-    sta->array[3].no = 1;
+    sta->index[0].no = 4;
+    sta->index[3].no = 1;
 
     st_min = Student_Min_no (sta);
     assert (st_min->no == 1);
@@ -394,8 +394,8 @@ Test_Array_Min_Var ()
     EC_Print_Error ("Min found in array first", "OK");
 
     // min found in array mid
-    sta->array[0].no = 2;
-    sta->array[1].no = 1;
+    sta->index[0].no = 2;
+    sta->index[1].no = 1;
 
     st_min = Student_Min_no (sta);
     assert (st_min->no == 1);

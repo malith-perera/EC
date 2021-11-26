@@ -3,8 +3,8 @@
 
 #include "ec.h"
 
-#define foreach_list(list_type, list)                                       \
-  for (list_type* var = list->first;  var != NULL; var = var->next)
+#define foreach_list(TYPE, list)                                       \
+  for (TYPE* var = list->first;  var != NULL; var = var->next)
 
 
 /* Function name macros */

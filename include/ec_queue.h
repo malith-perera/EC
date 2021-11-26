@@ -3,8 +3,8 @@
 
 #include "ec.h"
 
-//#define foreach_queue(queue_type, queue)                                       \
-  //for (queue_type *item = queue->first;  item != NULL; item = item->next)
+#define foreach_queue(TYPE, queue)                                       \
+  for (TYPE *var = queue->first;  var != NULL; var = var->next)
 
 #define EC_QUEUE_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT(Free_, TYPE,) // memory Free
 #define EC_QUEUE_NEW_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Queue,)

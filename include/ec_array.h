@@ -3,9 +3,9 @@
 
 #include "ec.h"
 
-#define foreach_array(arr_type, arr)                                                    \
-  arr->i = 0;                                                                           \
-  for (arr_type* item = arr->array;  arr->i < arr->count; item = arr->array + ++arr->i)
+#define foreach_array(TYPE, array)                                                              \
+  arr->i = 0;                                                                                   \
+  for (TYPE* item = array->index;  array->i < array->count; item = array->index + ++array->i)
 
 /*
 
@@ -32,7 +32,7 @@
 
 #define EC_ARRAY(TYPE, VAR)                             \
 typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
-    TYPE*   array;                                      \
+    TYPE*   index;                                      \
     int     count;                                      \
     int     i;                                          \
     EC_MEMORY_LOCK                                      \
@@ -160,7 +160,7 @@ EC_ARRAY_FREE_FUNCTION_NAME(EC_ARRAY_STRUCT(TYPE))                  \
 )                                                                   \
 {                                                                   \
     EC_ARRAY_STRUCT(TYPE)* p = (EC_ARRAY_STRUCT(TYPE)*) var;        \
-    free (p->array);                                                \
+    free (p->index);                                                \
     free (p);                                                       \
 }
 
@@ -189,7 +189,7 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                
     }                                                                                                       \
                                                                                                             \
     var->count = count;                                                                                     \
-    var->array = array;                                                                                     \
+    var->index = array;                                                                                     \
                                                                                                             \
     if (EC_MEMORY)                                                                                          \
     {                                                                                                       \
@@ -233,18 +233,18 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)                                    
                                                                                 \
     for (i; i < array->count - 1; i++)                                          \
     {                                                                           \
-        min_ref = &array->array[i];                                             \
+        min_ref = &array->index[i];                                             \
                                                                                 \
         for (j = i + 1; j < array->count; j++)                                  \
         {                                                                       \
-            if (array->array[j].SORT_WITH < min_ref->SORT_WITH)                 \
+            if (array->index[j].SORT_WITH < min_ref->SORT_WITH)                 \
             {                                                                   \
-                min_ref = &array->array[j];                                     \
+                min_ref = &array->index[j];                                     \
             }                                                                   \
         }                                                                       \
                                                                                 \
-        temp = array->array[i];                                                 \
-        array->array[i] = *min_ref;                                             \
+        temp = array->index[i];                                                 \
+        array->index[i] = *min_ref;                                             \
         *min_ref = temp;                                                        \
     }                                                                           \
 }
@@ -261,9 +261,9 @@ EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                                    \
                                                                         \
     for (int i = 0; i < (array->count) / 2; i++)                        \
     {                                                                   \
-        temp = array->array[i];                                         \
-        array->array[i] = array->array[array->count - (1 + i)];         \
-        array->array[array->count - 1 - i] = temp;                      \
+        temp = array->index[i];                                         \
+        array->index[i] = array->index[array->count - (1 + i)];         \
+        array->index[array->count - 1 - i] = temp;                      \
     }                                                                   \
 }
 
@@ -284,12 +284,12 @@ EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SEARCH_WITH)                                
     uei = array->count - 1;                                                         \
     mi = (lei + uei) / 2;                                                           \
                                                                                     \
-    if (search_value < array->array[lei].SEARCH_WITH)                               \
+    if (search_value < array->index[lei].SEARCH_WITH)                               \
     {                                                                               \
         printf ("Search value is lower than minimum value\n");                      \
         return -1;                                                                  \
     }                                                                               \
-    else if (search_value > array->array[uei].SEARCH_WITH)                          \
+    else if (search_value > array->index[uei].SEARCH_WITH)                          \
     {                                                                               \
         printf ("Search value is grater than maximum value\n");                     \
         return -1;                                                                  \
@@ -299,22 +299,22 @@ EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SEARCH_WITH)                                
     {                                                                               \
         printf ("lei %d uei %d mi %d\n", lei, uei, mi);                             \
                                                                                     \
-        if (search_value == array->array[mi].SEARCH_WITH)                           \
+        if (search_value == array->index[mi].SEARCH_WITH)                           \
         {                                                                           \
             printf ("mi %d\n", mi);                                                 \
             return mi;                                                              \
         }                                                                           \
-        else if (search_value == array->array[lei].SEARCH_WITH)                     \
+        else if (search_value == array->index[lei].SEARCH_WITH)                     \
         {                                                                           \
             printf ("lei %d\n", lei);                                               \
             return lei;                                                             \
         }                                                                           \
-        else if (search_value == array->array[uei].SEARCH_WITH)                     \
+        else if (search_value == array->index[uei].SEARCH_WITH)                     \
         {                                                                           \
             printf ("uei %d\n", uei);                                               \
             return uei;                                                             \
         }                                                                           \
-        else if (search_value > array->array[mi].SEARCH_WITH)                       \
+        else if (search_value > array->index[mi].SEARCH_WITH)                       \
         {                                                                           \
             printf ("v > mi\n");                                                    \
             lei = mi + 1;                                                           \
@@ -331,7 +331,7 @@ EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SEARCH_WITH)                                
                                                                                     \
         if (lei == uei)                                                             \
         {                                                                           \
-            if (search_value == array->array[lei].SEARCH_WITH)                      \
+            if (search_value == array->index[lei].SEARCH_WITH)                      \
             {                                                                       \
                 printf ("lei = uei %d\n", lei);                                     \
                 return lei;                                                         \
@@ -354,13 +354,13 @@ EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SEARCH_WITH)                        \
     EC_ARRAY_STRUCT(TYPE)* array                                            \
 )                                                                           \
 {                                                                           \
-    TYPE* max = &array->array[0];                                           \
+    TYPE* max = &array->index[0];                                           \
                                                                             \
     for (int i = 1; i < array->count; i++)                                  \
     {                                                                       \
-        if (array->array[i].SEARCH_WITH > max->SEARCH_WITH)                 \
+        if (array->index[i].SEARCH_WITH > max->SEARCH_WITH)                 \
         {                                                                   \
-            max = &array->array[i];                                         \
+            max = &array->index[i];                                         \
         }                                                                   \
     }                                                                       \
                                                                             \
@@ -377,13 +377,13 @@ EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SEARCH_WITH)                        \
     EC_ARRAY_STRUCT(TYPE)* array                                            \
 )                                                                           \
 {                                                                           \
-    TYPE* min = &array->array[0];                                           \
+    TYPE* min = &array->index[0];                                           \
                                                                             \
     for (int i = 1; i < array->count; i++)                                  \
     {                                                                       \
-        if (array->array[i].SEARCH_WITH < min->SEARCH_WITH)                 \
+        if (array->index[i].SEARCH_WITH < min->SEARCH_WITH)                 \
         {                                                                   \
-            min = &array->array[i];                                         \
+            min = &array->index[i];                                         \
         }                                                                   \
     }                                                                       \
                                                                             \
