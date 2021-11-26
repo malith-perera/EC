@@ -15,6 +15,7 @@
 
 #include "ec_string.h"
 #include "ec_error.h"
+#include "ec_file.h"
 
 typedef enum {
     EC_VAR_TYPE,

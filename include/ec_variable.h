@@ -11,12 +11,14 @@
 /* Structure macros */
 // EC_MEMORY_LOCK defined in ec_memory.h
 
+
+#ifndef EC_VAR
 #define EC_VAR(TYPE, VAR)                               \
 typedef struct TYPE {                                   \
     VAR                                                 \
     EC_MEMORY_LOCK                                      \
 } TYPE;
-
+#endif // EC_VAR
 
 /* Function prototype macros */
 

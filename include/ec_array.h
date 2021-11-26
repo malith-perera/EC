@@ -3,11 +3,9 @@
 
 #include "ec.h"
 
-int ec_i; // check again you Cannot use for two variable at once
-
-#define foreach_array(arr_type, arr)                                                 \
-  ec_i = 0;                                                                          \
-  for (arr_type* item = arr->array;  ec_i < arr->count; item = arr->array + ++ec_i)
+#define foreach_array(arr_type, arr)                                                    \
+  arr->i = 0;                                                                           \
+  for (arr_type* item = arr->array;  arr->i < arr->count; item = arr->array + ++arr->i)
 
 /*
 
@@ -32,16 +30,13 @@ int ec_i; // check again you Cannot use for two variable at once
 // defined in ec_memory.h
 #define EC_ARRAY_STRUCT(TYPE) EC_CONCAT(TYPE, Array,)
 
-
 #define EC_ARRAY(TYPE, VAR)                             \
-typedef struct EC_CONCAT(TYPE, Array,){                 \
-    VAR                                                 \
+typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
     TYPE*   array;                                      \
     int     count;                                      \
+    int     i;                                          \
     EC_MEMORY_LOCK                                      \
-} EC_ARRAY_STRUCT(TYPE);                                \
-                                                        \
-typedef TYPE EC_CONCAT(TYPE, ArrayVar,);
+} EC_ARRAY_STRUCT(TYPE);
 
 
 /* Function prototype macros */
