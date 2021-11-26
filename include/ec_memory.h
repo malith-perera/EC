@@ -1,6 +1,7 @@
 #ifndef EC_MEMORY_H
 #define EC_MEMORY_H
 
+#include <stdbool.h>
 #include "ec.h"
 
 typedef struct ECMemory {
