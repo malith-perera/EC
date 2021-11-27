@@ -212,6 +212,7 @@ EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                            
         }                                                                                           \
                                                                                                     \
         var->mem_ref = ec_memory_new;                                                               \
+        var->lock = true;                                                                           \
     }                                                                                               \
                                                                                                     \
     return var;                                                                                     \
