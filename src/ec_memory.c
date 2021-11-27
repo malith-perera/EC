@@ -1,6 +1,5 @@
 #include "ec_memory.h"
 
-
 void
 EC_Clean ()
 {
