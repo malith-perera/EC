@@ -3,8 +3,8 @@
 
 #include "ec.h"
 
-#define foreach_list(TYPE, list)                                       \
-  for (TYPE* var = list->first;  var != NULL; var = var->next)
+#define foreach_list(list)                                                          \
+  for (list->var = list->first; list->var != NULL; list->var = list->var->next)
 
 
 /* Function name macros */
@@ -39,6 +39,7 @@ typedef struct EC_LIST_VAR_STRUCT(TYPE){                \
 typedef struct EC_LIST_STRUCT(TYPE){                    \
     EC_LIST_VAR_STRUCT(TYPE)* first;                    \
     EC_LIST_VAR_STRUCT(TYPE)* last;                     \
+    EC_LIST_VAR_STRUCT(TYPE)* var;                      \
     EC_MEMORY_REF                                       \
 } EC_LIST_STRUCT(TYPE);
 
