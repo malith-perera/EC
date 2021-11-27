@@ -133,13 +133,7 @@ EC_QUEUE_NEW_FUNCTION_NAME(TYPE)                                                
         EC_ERROR_MEM_ALLOC()                                                                                \
         return NULL;                                                                                        \
     }                                                                                                       \
-                                                                                                            \
-    if (var == NULL)                                                                                        \
-    {                                                                                                       \
-        printf ("Cannot allocate memory to create queue\n");                                                \
-        return NULL;                                                                                        \
-    }                                                                                                       \
-                                                                                                            \
+                                                                                                      \
     var->first = NULL;                                                                                      \
     var->last = NULL;                                                                                       \
                                                                                                             \
