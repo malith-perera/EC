@@ -178,7 +178,7 @@ EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                            
                                                                                                     \
     if (var == NULL)                                                                                \
     {                                                                                               \
-        printf ("Cannot allocate memory to create list\n");                                         \
+        EC_ERROR_MEM_ALLOC()                                                                        \
         return NULL;                                                                                \
     }                                                                                               \
                                                                                                     \
@@ -188,6 +188,12 @@ EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                            
     if (EC_MEMORY)                                                                                  \
     {                                                                                               \
         ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));                            \
+                                                                                                    \
+        if (ec_memory_new == NULL)                                                                  \
+        {                                                                                           \
+            EC_ERROR_MEM_ALLOC()                                                                    \
+            return NULL;                                                                            \
+        }                                                                                           \
                                                                                                     \
         ec_memory_new->type = EC_LIST_TYPE;                                                         /* Defined in ec.h */ \
         ec_memory_new->var = var;                                                                   \

@@ -171,9 +171,21 @@ EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)                                            
 {                                                                                                               \
     EC_STACK_VAR_STRUCT(TYPE)* var = (EC_STACK_VAR_STRUCT(TYPE)*) malloc (sizeof (EC_STACK_VAR_STRUCT(TYPE)));  \
                                                                                                                 \
+    if (var == NULL)                                                                                            \
+    {                                                                                                           \
+        EC_ERROR_MEM_ALLOC()                                                                                    \
+        return NULL;                                                                                            \
+    }                                                                                                           \
+                                                                                                                \
     if (EC_MEMORY)                                                                                              \
     {                                                                                                           \
         ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof (ECMemory));                                       \
+                                                                                                                \
+        if (ec_memory_new == NULL)                                                                              \
+        {                                                                                                       \
+            EC_ERROR_MEM_ALLOC()                                                                                \
+            return NULL;                                                                                        \
+        }                                                                                                       \
                                                                                                                 \
         ec_memory_new->type = EC_STACK_VAR_TYPE;                                                                \
         ec_memory_new->var = var;                                                                               \

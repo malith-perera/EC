@@ -4,7 +4,7 @@
 #include "ec.h"
 
 #define foreach_array(TYPE, array)                                                              \
-  arr->i = 0;                                                                                   \
+  array->i = 0;                                                                                 \
   for (TYPE* item = array->index;  array->i < array->count; item = array->index + ++array->i)
 
 /*
@@ -176,7 +176,7 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                
                                                                                                             \
     if (var == NULL)                                                                                        \
     {                                                                                                       \
-        printf ("Cannot allocate memory to create array\n");                                                \
+        EC_ERROR_MEM_ALLOC()                                                                                \
         return NULL;                                                                                        \
     }                                                                                                       \
                                                                                                             \
@@ -184,7 +184,7 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                
                                                                                                             \
     if (var == NULL)                                                                                        \
     {                                                                                                       \
-        printf ("Cannot allocate memory to create array\n");                                                \
+        EC_ERROR_MEM_ALLOC()                                                                                \
         return NULL;                                                                                        \
     }                                                                                                       \
                                                                                                             \

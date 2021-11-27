@@ -130,6 +130,12 @@ EC_QUEUE_NEW_FUNCTION_NAME(TYPE)                                                
                                                                                                             \
     if (var == NULL)                                                                                        \
     {                                                                                                       \
+        EC_ERROR_MEM_ALLOC()                                                                                \
+        return NULL;                                                                                        \
+    }                                                                                                       \
+                                                                                                            \
+    if (var == NULL)                                                                                        \
+    {                                                                                                       \
         printf ("Cannot allocate memory to create queue\n");                                                \
         return NULL;                                                                                        \
     }                                                                                                       \
@@ -140,6 +146,12 @@ EC_QUEUE_NEW_FUNCTION_NAME(TYPE)                                                
     if (EC_MEMORY)                                                                                          \
     {                                                                                                       \
         ECMemory *ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));                                    \
+                                                                                                            \
+        if (ec_memory_new == NULL)                                                                          \
+        {                                                                                                   \
+            EC_ERROR_MEM_ALLOC()                                                                            \
+            return NULL;                                                                                    \
+        }                                                                                                   \
                                                                                                             \
         ec_memory_new->type = EC_QUEUE_TYPE;                                                                \
         ec_memory_new->var = var;                                                                           \

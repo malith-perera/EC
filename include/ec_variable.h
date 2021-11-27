@@ -64,7 +64,7 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                                
                                                                                     \
     if (var == NULL)                                                                \
     {                                                                               \
-        printf ("Cannot allocate memory to create variable\n");                     \
+        EC_ERROR_MEM_ALLOC()                                                        \
         return NULL;                                                                \
     }                                                                               \
                                                                                     \
@@ -74,7 +74,7 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                                
                                                                                     \
         if (ec_memory_new == NULL)                                                  \
         {                                                                           \
-            printf ("Cannot allocate memory to create ec_memory_new\n");            \
+            EC_ERROR_MEM_ALLOC()                                                    \
             return NULL;                                                            \
         }                                                                           \
                                                                                     \
