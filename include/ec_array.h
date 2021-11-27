@@ -3,9 +3,9 @@
 
 #include "ec.h"
 
-#define foreach_array(TYPE, array)                                                              \
-  array->i = 0;                                                                                 \
-  for (TYPE* item = array->index;  array->i < array->count; item = array->index + ++array->i)
+#define foreach_array(array)                                                                        \
+  array->i = 0;                                                                                     \
+  for (array->var = array->index; array->i < array->count; array->var = array->index + ++array->i)
 
 /*
 
@@ -35,6 +35,7 @@ typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
     TYPE*   index;                                      \
     int     count;                                      \
     int     i;                                          \
+    TYPE*   var;                                        \
     EC_MEMORY_REF                                       \
 } EC_ARRAY_STRUCT(TYPE);
 
