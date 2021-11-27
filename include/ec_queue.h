@@ -3,8 +3,10 @@
 
 #include "ec.h"
 
-#define foreach_queue(TYPE, queue)                                       \
-  for (TYPE *var = queue->first;  var != NULL; var = var->next)
+
+#define foreach_queue(queue)                                                        \
+  for (queue->var = queue->first;  queue->var != NULL; queue->var = queue->var->next)
+
 
 #define EC_QUEUE_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT(Free_, TYPE,) // memory Free
 #define EC_QUEUE_NEW_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Queue,)
@@ -35,6 +37,7 @@ typedef struct EC_QUEUE_VAR_STRUCT(TYPE){           \
 typedef struct EC_QUEUE_STRUCT(TYPE){               \
     EC_QUEUE_VAR_STRUCT(TYPE)* first;               \
     EC_QUEUE_VAR_STRUCT(TYPE)* last;                \
+    EC_QUEUE_VAR_STRUCT(TYPE)* var;                 \
     EC_MEMORY_REF                                   \
 } EC_QUEUE_STRUCT(TYPE);
 
