@@ -1,6 +1,7 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
+#define EC_MEMORY 1 // should define before include ec.h
 #include "ec.h"
 
 #define student     \
@@ -8,7 +9,6 @@
     char*   name;
 
 
-#define EC_MEMORY 1
 EC_VAR(Student, student)
 EC_VAR_FUNCTION_PROTOTYPES(Student)
 

@@ -35,7 +35,7 @@ typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
     TYPE*   index;                                      \
     int     count;                                      \
     int     i;                                          \
-    EC_MEMORY_LOCK                                      \
+    EC_MEMORY_REF                                       \
 } EC_ARRAY_STRUCT(TYPE);
 
 
@@ -210,6 +210,8 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                
         {                                                                                                   \
             ec_memory = ec_memory_new;                                                                      \
         }                                                                                                   \
+                                                                                                            \
+        var->mem_ref = ec_memory_new;                                                                       \
     }                                                                                                       \
                                                                                                             \
     return var;                                                                                             \

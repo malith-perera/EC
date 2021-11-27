@@ -23,7 +23,7 @@
 
 
 /* Structure macros */
-// EC_MEMORY_LOCK defined in ec_memory.h
+// EC_MEMORY_REF defined in ec_memory.h
 #define EC_LIST_STRUCT(TYPE)                        EC_CONCAT(TYPE, List,)
 #define EC_LIST_VAR_STRUCT(TYPE)                    EC_CONCAT(TYPE, ListVar,)
 
@@ -33,14 +33,13 @@ typedef struct EC_LIST_VAR_STRUCT(TYPE){                \
     VAR                                                 \
     struct EC_LIST_VAR_STRUCT(TYPE)* next;              \
     struct EC_LIST_VAR_STRUCT(TYPE)* previous;          \
-    EC_MEMORY_LOCK                                      \
 } EC_LIST_VAR_STRUCT(TYPE);                             \
                                                         \
                                                         \
 typedef struct EC_LIST_STRUCT(TYPE){                    \
     EC_LIST_VAR_STRUCT(TYPE)* first;                    \
     EC_LIST_VAR_STRUCT(TYPE)* last;                     \
-    EC_MEMORY_LOCK                                      \
+    EC_MEMORY_REF                                       \
 } EC_LIST_STRUCT(TYPE);
 
 
@@ -211,6 +210,7 @@ EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                            
             ec_memory = ec_memory_new;                                                              \
         }                                                                                           \
                                                                                                     \
+        var->mem_ref = ec_memory_new;                                                               \
     }                                                                                               \
                                                                                                     \
     return var;                                                                                     \
@@ -226,9 +226,21 @@ EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)                                             
 {                                                                                                                   \
     EC_LIST_VAR_STRUCT(TYPE)* var = (EC_LIST_VAR_STRUCT(TYPE)*) malloc (sizeof (EC_LIST_VAR_STRUCT(TYPE)));         \
                                                                                                                     \
+    if (var == NULL)                                                                                                \
+    {                                                                                                               \
+        EC_ERROR_MEM_ALLOC()                                                                                        \
+        return NULL;                                                                                                \
+    }                                                                                                               \
+                                                                                                                    \
     if (EC_MEMORY)                                                                                                  \
     {                                                                                                               \
         ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof (ECMemory));                                           \
+                                                                                                                    \
+        if (ec_memory_new == NULL)                                                                                  \
+        {                                                                                                           \
+            EC_ERROR_MEM_ALLOC()                                                                                    \
+            return NULL;                                                                                            \
+        }                                                                                                           \
                                                                                                                     \
         ec_memory_new->type = EC_LIST_VAR_TYPE;                                                                     /* Defined in ec.h */ \
         ec_memory_new->var = var;                                                                                   \
@@ -236,7 +248,7 @@ EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)                                             
         ec_memory_new->Free_Func = EC_LIST_VAR_FREE_FUNCTION_NAME (TYPE);                                           \
         ec_memory_new->next = NULL;                                                                                 \
                                                                                                                     \
-        if (ec_memory != NULL)                                                                                      \
+        if (ec_memory != NULL)                                                                                      /* Defined in ec.h */\
         {                                                                                                           \
             ec_memory_new->next = ec_memory;                                                                        \
             ec_memory = ec_memory_new;                                                                              \

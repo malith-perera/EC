@@ -16,13 +16,11 @@ ECMemory* ec_memory;
 ECMemory* ec_garbage;
 
 #ifdef EC_MEMORY
-#define EC_MEMORY_LOCK      \
-    ECMemory* mem_ref;      \
+#define EC_MEMORY_REF     \
+    ECMemory* mem_ref;    \
     bool lock;
-#endif //EC_MEMORY
-
-#ifndef EC_MEMORY
-#define EC_MEMORY_LOCK
+#else
+#define EC_MEMORY_REF
 #endif //EC_MEMORY
 
 void

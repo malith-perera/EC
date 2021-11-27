@@ -30,13 +30,11 @@
 typedef struct EC_STACK_VAR_STRUCT(TYPE){           \
     VAR                                             \
     struct EC_STACK_VAR_STRUCT(TYPE)* next;         \
-    EC_MEMORY_LOCK                                  \
 } EC_STACK_VAR_STRUCT(TYPE);                        \
-                                                    \
                                                     \
 typedef struct EC_STACK_STRUCT(TYPE){               \
     EC_STACK_VAR_STRUCT(TYPE)* top;                 \
-    EC_MEMORY_LOCK                                  \
+    EC_MEMORY_REF                                   \
 } EC_STACK_STRUCT(TYPE);
 
 
@@ -117,9 +115,10 @@ EC_STACK_FREE_VAR_FUNCTION_NAME(TYPE)                               \
     void* var                                                       \
 )                                                                   \
 {                                                                   \
-    TYPE* p = (TYPE*) var;                                  \
+    TYPE* p = (TYPE*) var;                                          \
     free (p);                                                       \
 }
+
 
 #define EC_STACK_NEW_FUNCTION(TYPE)                                                                         \
 EC_STACK_STRUCT(TYPE)*                                                                                      \
@@ -163,6 +162,8 @@ EC_STACK_NEW_FUNCTION_NAME(TYPE)                                                
         {                                                                                                   \
             ec_memory = ec_memory_new;                                                                      \
         }                                                                                                   \
+                                                                                                            \
+        var->mem_ref = ec_memory_new;                                                                       \
     }                                                                                                       \
                                                                                                             \
     return var;                                                                                             \

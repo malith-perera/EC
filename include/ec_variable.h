@@ -9,14 +9,14 @@
 #define EC_VAR_UNLOCK_FUNCTION_NAME(TYPE)   EC_CONCAT(TYPE, _Unlock,)
 
 /* Structure macros */
-// EC_MEMORY_LOCK defined in ec_memory.h
+// EC_MEMORY_REF defined in ec_memory.h
 
 
 #ifndef EC_VAR
 #define EC_VAR(TYPE, VAR)                               \
 typedef struct TYPE {                                   \
     VAR                                                 \
-    EC_MEMORY_LOCK                                      \
+    EC_MEMORY_REF                                       \
 } TYPE;
 #endif // EC_VAR
 
@@ -93,6 +93,8 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                                
         {                                                                           \
             ec_memory = ec_memory_new;                                              \
         }                                                                           \
+                                                                                    \
+        var->mem_ref = ec_memory_new;                                               \
     }                                                                               \
                                                                                     \
     return var;                                                                     \
