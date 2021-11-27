@@ -19,9 +19,9 @@ Print_Student_List (StudentList *stl)
     }
     */
 
-    /*foreach_list (StudentListVar, stl)*/
+    /*foreach_list (stl)*/
     /*{*/
-    /*printf ("%d ", item->no);*/
+        /*printf ("%d ", stl->var->no);*/
     /*}*/
 
     /*printf ("\n");*/
@@ -269,10 +269,10 @@ Test_Sort_List ()
 
     char *names[6] = {"Malith", "Geethike", "Perera", "Malshi", "Prisenthi", "Fernando"};
 
-    foreach_list (StudentListVar, stl)
+    foreach_list (stl)
     {
-        assert (var->no == i);
-        assert (!strcmp (var->name, names[i-1]));
+        assert (stl->var->no == i);
+        assert (!strcmp (stl->var->name, names[i-1]));
         i++;
     }
 

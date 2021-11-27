@@ -19,9 +19,9 @@
     }
     */
 
-/*    foreach_queue (StudentQueueVar, stq)*/
+/*    foreach_queue (stq)*/
     /*{*/
-        /*printf ("%d ", item->no);*/
+        /*printf ("%d ", stq->var->no);*/
     /*}*/
 
     /*printf ("\n");*/

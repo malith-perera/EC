@@ -13,9 +13,9 @@
     /*StudentArray *sta*/
 /*)*/
 /*{*/
-    /*foreach_array (StudentArrayVar, sta)*/
+    /*foreach_array (sta)*/
     /*{*/
-        /*printf ("%d ", item->no);*/
+        /*printf ("%d ", sta->var->no);*/
     /*}*/
 /*}*/
 
@@ -64,9 +64,9 @@ Test_Array_Sort ()
 
     i = 1;
 
-    foreach_array(Student, sta)
+    foreach_array(sta)
     {
-        assert (item->no == i);
+        assert (sta->var->no == i);
         i++;
     }
 
@@ -87,10 +87,10 @@ Test_Array_Sort ()
     char *names1[] = {"Malshi", "Geethike", "Perera", "Malith"};
 
     i = 0;
-    foreach_array(Student, sta)
+    foreach_array(sta)
     {
-        assert (item->no == i + 1);
-        assert (!strcmp (item->name, names1[i])); // strcmp return 0 when equal. assert fail when 0. so use !
+        assert (sta->var->no == i + 1);
+        assert (!strcmp (sta->var->name, names1[i])); // strcmp return 0 when equal. assert fail when 0. so use !
         i++;
     }
 
@@ -111,46 +111,46 @@ Test_Array_Sort ()
     char *names2[] = {"Malshi", "Geethike", "Perera", "Malith"};
 
     i = 0;
-    foreach_array(Student, sta)
-    {
-        assert (item->no == i + 1);
-        assert (!strcmp (item->name, names2[i])); // strcmp return 0 when equal. assert fail when 0. so use !
+  foreach_array(sta)
+  {
+      assert (sta->var->no == i + 1);
+      assert (!strcmp (sta->var->name, names2[i])); // strcmp return 0 when equal. assert fail when 0. so use !
 
-        i++;
-    }
+      i++;
+  }
 
-    EC_Print_Error ("Sort when maximum is first element ", "OK");
+  EC_Print_Error ("Sort when maximum is first element ", "OK");
 
-    EC_Print_Error ("Test_Array_Sort: ", "END");
+  EC_Print_Error ("Test_Array_Sort: ", "END");
 }
 
 
 void
 Test_Array_Reverse ()
 {
-    EC_Print_Error ("Test_Array_Reverse: ", "BEGIN");
+  EC_Print_Error ("Test_Array_Reverse: ", "BEGIN");
 
-    int i;
+  int i;
 
-    StudentArray *sta = Student_Array (4);
-    sta->index[0].no = 1;
-    sta->index[0].name = "Malith";
-    sta->index[1].no = 2;
-    sta->index[1].name = "Geethike";
-    sta->index[2].no = 3;
-    sta->index[2].name = "Perera";
-    sta->index[3].no = 4;
-    sta->index[3].name = "Malshi";
+  StudentArray *sta = Student_Array (4);
+  sta->index[0].no = 1;
+  sta->index[0].name = "Malith";
+  sta->index[1].no = 2;
+  sta->index[1].name = "Geethike";
+  sta->index[2].no = 3;
+  sta->index[2].name = "Perera";
+  sta->index[3].no = 4;
+  sta->index[3].name = "Malshi";
 
-    Student_Array_Reverse (sta);
+  Student_Array_Reverse (sta);
 
-    char *names[] = {"Malshi", "Perera", "Geethike",  "Malith"};
+  char *names[] = {"Malshi", "Perera", "Geethike",  "Malith"};
 
-    i = 0;
-    foreach_array(Student, sta)
+  i = 0;
+  foreach_array(sta)
     {
-        assert (item->no == 4 - i);
-        assert (!strcmp (item->name, names[i])); // strcmp return 0 when equal. assert fail when 0. so use !
+        assert (sta->var->no == 4 - i);
+        assert (!strcmp (sta->var->name, names[i])); // strcmp return 0 when equal. assert fail when 0. so use !
         i++;
     }
 
@@ -452,9 +452,9 @@ Run_Array_Test ()
 }
 
 /*
- foreach_array (Student, sta)
+ foreach_array (sta)
   {
-    printf ("Number %d Name %s\n", item->no,  item->name);
+    printf ("Number %d Name %s\n", sta->var->no,  sta->var->name);
   }
   */
 
