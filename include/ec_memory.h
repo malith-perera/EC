@@ -1,7 +1,6 @@
 #ifndef EC_MEMORY_H
 #define EC_MEMORY_H
 
-#include <stdbool.h>
 #include "ec.h"
 
 typedef struct ECMemory {
@@ -9,11 +8,11 @@ typedef struct ECMemory {
     void*               var;
     void*               memory;
     void                (*Free_Func) (void*);
+    bool                lock;
     struct ECMemory*    next;
 } ECMemory;
 
 ECMemory* ec_memory;
-ECMemory* ec_garbage;
 
 #ifdef EC_MEMORY
 #define EC_MEMORY_REF     \
