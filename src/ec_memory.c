@@ -30,17 +30,16 @@ EC_Clean ()
     ec_memory = NULL;
 }
 
-
-/*void*/
-/*EC_Memory_Append(ECMemory* ec_memory_new)*/
-/*{*/
-    /*if (ec_memory != NULL)                                                                              \*/
-    /*{                                                                                                   \*/
-        /*ec_memory_new->next = ec_memory;                                                                \*/
-        /*ec_memory = ec_memory_new;                                                                      \*/
-    /*}                                                                                                   \*/
-    /*else                                                                                                \*/
-    /*{                                                                                                   \*/
-        /*ec_memory = ec_memory_new;                                                                      \*/
-    /*}*/
-/*}*/
+void
+EC_Memory_Append (ECMemory* ec_memory_new)
+{
+    if (ec_memory != NULL)
+    {
+        ec_memory_new->next = ec_memory;
+        ec_memory = ec_memory_new;
+    }
+    else
+    {
+        ec_memory = ec_memory_new;
+    }
+}

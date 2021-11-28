@@ -201,15 +201,7 @@ EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                            
         ec_memory_new->Free_Func = EC_LIST_FREE_FUNCTION_NAME (EC_LIST_STRUCT(TYPE));               \
         ec_memory_new->next = NULL;                                                                 \
                                                                                                     \
-        if (ec_memory != NULL)                                                                      \
-        {                                                                                           \
-            ec_memory_new->next = ec_memory;                                                        \
-            ec_memory = ec_memory_new;                                                              \
-        }                                                                                           \
-        else                                                                                        \
-        {                                                                                           \
-            ec_memory = ec_memory_new;                                                              \
-        }                                                                                           \
+        EC_Memory_Append (ec_memory_new);                                                           \
                                                                                                     \
         var->mem_ref = ec_memory_new;                                                               \
         var->lock = true;                                                                           \
@@ -250,15 +242,7 @@ EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)                                             
         ec_memory_new->Free_Func = EC_LIST_VAR_FREE_FUNCTION_NAME (TYPE);                                           \
         ec_memory_new->next = NULL;                                                                                 \
                                                                                                                     \
-        if (ec_memory != NULL)                                                                                      /* Defined in ec.h */\
-        {                                                                                                           \
-            ec_memory_new->next = ec_memory;                                                                        \
-            ec_memory = ec_memory_new;                                                                              \
-        }                                                                                                           \
-        else                                                                                                        \
-        {                                                                                                           \
-            ec_memory = ec_memory_new;                                                                              \
-        }                                                                                                           \
+        EC_Memory_Append (ec_memory_new);                                                                           \
     }                                                                                                               \
                                                                                                                     \
     return var;                                                                                                     \

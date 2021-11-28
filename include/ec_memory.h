@@ -4,7 +4,7 @@
 #include "ec.h"
 
 typedef struct ECMemory {
-    ECType              type;
+    ECType              type;                           //
     void*               var;
     void*               memory;
     void                (*Free_Func) (void*);
@@ -26,6 +26,8 @@ ECMemory* ec_memory;
 void
 EC_Clean ();
 
+void
+EC_Memory_Append(ECMemory* ec_memory_new);
 
 #define ec_unlock(EC_VAR)       \
     EC_VAR->lock = false;       \

@@ -135,7 +135,7 @@ EC_QUEUE_NEW_FUNCTION_NAME(TYPE)                                                
         EC_ERROR_MEM_ALLOC()                                                                                \
         return NULL;                                                                                        \
     }                                                                                                       \
-                                                                                                      \
+                                                                                                            \
     var->first = NULL;                                                                                      \
     var->last = NULL;                                                                                       \
                                                                                                             \
@@ -155,15 +155,7 @@ EC_QUEUE_NEW_FUNCTION_NAME(TYPE)                                                
         ec_memory_new->Free_Func = EC_QUEUE_FREE_FUNCTION_NAME (EC_QUEUE_STRUCT(TYPE));                     \
         ec_memory_new->next = NULL;                                                                         \
                                                                                                             \
-        if (ec_memory != NULL)                                                                              \
-        {                                                                                                   \
-            ec_memory_new->next = ec_memory;                                                                \
-            ec_memory = ec_memory_new;                                                                      \
-        }                                                                                                   \
-        else                                                                                                \
-        {                                                                                                   \
-            ec_memory = ec_memory_new;                                                                      \
-        }                                                                                                   \
+        EC_Memory_Append (ec_memory_new);                                                                   \
                                                                                                             \
         var->mem_ref = ec_memory_new;                                                                       \
         var->lock = true;                                                                                   \
@@ -204,15 +196,7 @@ EC_QUEUE_NEW_VAR_FUNCTION_NAME(TYPE)                                            
         ec_memory_new->Free_Func = EC_QUEUE_VAR_FREE_FUNCTION_NAME (TYPE);                                          \
         ec_memory_new->next = NULL;                                                                                 \
                                                                                                                     \
-        if (ec_memory != NULL)                                                                                      \
-        {                                                                                                           \
-            ec_memory_new->next = ec_memory;                                                                        \
-            ec_memory = ec_memory_new;                                                                              \
-        }                                                                                                           \
-        else                                                                                                        \
-        {                                                                                                           \
-            ec_memory = ec_memory_new;                                                                              \
-        }                                                                                                           \
+        EC_Memory_Append (ec_memory_new);                                                                           \
     }                                                                                                               \
                                                                                                                     \
     return var;                                                                                                     \
