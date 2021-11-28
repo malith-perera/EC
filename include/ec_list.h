@@ -197,7 +197,7 @@ EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                            
                                                                                                     \
         ec_memory_new->type = EC_LIST_TYPE;                                                         /* Defined in ec.h */ \
         ec_memory_new->var = var;                                                                   \
-        ec_memory_new->memory = NULL;                                                               \
+        ec_memory_new->lock = true;                                                                 \
         ec_memory_new->Free_Func = EC_LIST_FREE_FUNCTION_NAME (EC_LIST_STRUCT(TYPE));               \
         ec_memory_new->next = NULL;                                                                 \
                                                                                                     \
@@ -238,7 +238,7 @@ EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)                                             
                                                                                                                     \
         ec_memory_new->type = EC_LIST_VAR_TYPE;                                                                     /* Defined in ec.h */ \
         ec_memory_new->var = var;                                                                                   \
-        ec_memory_new->memory = NULL;                                                                               \
+        ec_memory_new->lock = true;                                                                                 \
         ec_memory_new->Free_Func = EC_LIST_VAR_FREE_FUNCTION_NAME (TYPE);                                           \
         ec_memory_new->next = NULL;                                                                                 \
                                                                                                                     \

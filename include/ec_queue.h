@@ -151,7 +151,7 @@ EC_QUEUE_NEW_FUNCTION_NAME(TYPE)                                                
                                                                                                             \
         ec_memory_new->type = EC_QUEUE_TYPE;                                                                \
         ec_memory_new->var = var;                                                                           \
-        ec_memory_new->memory = NULL;                                                                       \
+        ec_memory_new->lock = true;                                                                         \
         ec_memory_new->Free_Func = EC_QUEUE_FREE_FUNCTION_NAME (EC_QUEUE_STRUCT(TYPE));                     \
         ec_memory_new->next = NULL;                                                                         \
                                                                                                             \
@@ -192,7 +192,7 @@ EC_QUEUE_NEW_VAR_FUNCTION_NAME(TYPE)                                            
                                                                                                                     \
         ec_memory_new->type = EC_QUEUE_VAR_TYPE;                                                                    \
         ec_memory_new->var = var;                                                                                   \
-        ec_memory_new->memory = NULL;                                                                               \
+        ec_memory_new->lock = true;                                                                                 \
         ec_memory_new->Free_Func = EC_QUEUE_VAR_FREE_FUNCTION_NAME (TYPE);                                          \
         ec_memory_new->next = NULL;                                                                                 \
                                                                                                                     \

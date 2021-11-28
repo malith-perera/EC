@@ -80,7 +80,7 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                                
                                                                                     \
         ec_memory_new->type = EC_VAR_TYPE;                                          \
         ec_memory_new->var = var;                                                   \
-        ec_memory_new->memory = NULL;                                               \
+        ec_memory_new->lock = true;                                                 \
         ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);                \
         ec_memory_new->next = NULL;                                                 \
                                                                                     \

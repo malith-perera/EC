@@ -149,7 +149,7 @@ EC_STACK_NEW_FUNCTION_NAME(TYPE)                                                
                                                                                                             \
         ec_memory_new->type = EC_STACK_TYPE;                                                                \
         ec_memory_new->var = var;                                                                           \
-        ec_memory_new->memory = NULL;                                                                       \
+        ec_memory_new->lock = true;                                                                         \
         ec_memory_new->Free_Func = EC_STACK_FREE_FUNCTION_NAME(EC_STACK_STRUCT(TYPE));                      \
         ec_memory_new->next = NULL;                                                                         \
                                                                                                             \
@@ -189,7 +189,7 @@ EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)                                            
                                                                                                                 \
         ec_memory_new->type = EC_STACK_VAR_TYPE;                                                                \
         ec_memory_new->var = var;                                                                               \
-        ec_memory_new->memory = NULL;                                                                           \
+        ec_memory_new->lock = true;                                                                             \
         ec_memory_new->Free_Func = EC_STACK_FREE_VAR_FUNCTION_NAME(TYPE);                                       \
         ec_memory_new->next = NULL;                                                                             \
                                                                                                                 \
