@@ -6,13 +6,18 @@
 
 
 void
-EC_Print_Error
-(
-  char *test,
-  char *result
-)
+EC_Print_Error (char *test, char *result)
 {
   printf ("%-40s %s\n", test, result);
+}
+
+// EC_Error_Mem_Alloc (__FILE__, __LINE__);
+// EC_ERROR_MEM_ALLOC() relative macro is available
+
+void
+EC_Error_Mem_Alloc (char* file, int line)
+{
+    fprintf(stderr, "Error: Cannot allocate memory in file:%s: %d\n", file, line);
 }
 
 #if 0

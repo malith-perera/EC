@@ -178,7 +178,7 @@ EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                            
                                                                                                     \
     if (var == NULL)                                                                                \
     {                                                                                               \
-        EC_ERROR_MEM_ALLOC()                                                                        \
+        EC_Error_Mem_Alloc (__FILE__, __LINE__);                                                    \
         return NULL;                                                                                \
     }                                                                                               \
                                                                                                     \
@@ -191,7 +191,7 @@ EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                            
                                                                                                     \
         if (ec_memory_new == NULL)                                                                  \
         {                                                                                           \
-            EC_ERROR_MEM_ALLOC()                                                                    \
+            EC_Error_Mem_Alloc (__FILE__, __LINE__);                                                \
             return NULL;                                                                            \
         }                                                                                           \
                                                                                                     \
@@ -222,7 +222,7 @@ EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)                                             
                                                                                                                     \
     if (var == NULL)                                                                                                \
     {                                                                                                               \
-        EC_ERROR_MEM_ALLOC()                                                                                        \
+        EC_Error_Mem_Alloc (__FILE__, __LINE__);                                                                    \
         return NULL;                                                                                                \
     }                                                                                                               \
                                                                                                                     \
@@ -232,7 +232,7 @@ EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)                                             
                                                                                                                     \
         if (ec_memory_new == NULL)                                                                                  \
         {                                                                                                           \
-            EC_ERROR_MEM_ALLOC()                                                                                    \
+            EC_Error_Mem_Alloc (__FILE__, __LINE__);                                                                \
             return NULL;                                                                                            \
         }                                                                                                           \
                                                                                                                     \

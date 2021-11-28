@@ -177,7 +177,7 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                
                                                                                                             \
     if (var == NULL)                                                                                        \
     {                                                                                                       \
-        EC_ERROR_MEM_ALLOC()                                                                                \
+        EC_Error_Mem_Alloc (__FILE__, __LINE__);                                                            \
         return NULL;                                                                                        \
     }                                                                                                       \
                                                                                                             \
@@ -185,7 +185,7 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                
                                                                                                             \
     if (var == NULL)                                                                                        \
     {                                                                                                       \
-        EC_ERROR_MEM_ALLOC()                                                                                \
+        EC_Error_Mem_Alloc (__FILE__, __LINE__);                                                            \
         return NULL;                                                                                        \
     }                                                                                                       \
                                                                                                             \
