@@ -14,6 +14,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "ec_string.h"
+#include "ec_error.h"
+
 typedef enum {
     EC_VAR_TYPE,
     EC_ARRAY_TYPE,
@@ -25,17 +28,13 @@ typedef enum {
     EC_STACK_VAR_TYPE
 } ECType;
 
-#include "ec_string.h"
-#include "ec_error.h"
-#include "ec_file.h"
-
-
 #include "ec_memory.h"
-#include "ec_list.h"
 #include "ec_variable.h"
 #include "ec_array.h"
+#include "ec_list.h"
 #include "ec_queue.h"
 #include "ec_stack.h"
+//#include "ec_bool.h"
 //#include "ec_syntax.h"
 //#include "ec_bits.h"
 //#include "ec_vector.h"

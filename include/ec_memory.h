@@ -3,6 +3,14 @@
 
 #include "ec.h"
 
+typedef struct ECMemory {
+    ECType              type;
+    void*               var;
+    void*               memory;
+    void                (*Free_Func) (void*);
+    struct ECMemory*    next;
+} ECMemory;
+
 #ifdef EC_MEMORY
 #define EC_MEMORY_REF     \
     ECMemory* mem_ref;    \
@@ -11,24 +19,9 @@
 #define EC_MEMORY_REF
 #endif //EC_MEMORY
 
-
-//#define EC_MEM_VARS                             \
-    //ECType              type;                   \
-    //void*               var;                    \
-    //void*               memory;                 \
-    //void                (*Free_Func) (void*);   \
-    //bool                lock;
-
-typedef struct ECMemory {
-    ECType              type;
-    void*               var;
-    void*               memory;
-    void                (*Free_Func) (void*);
-    bool                lock;
-    struct ECMemory* next;
-} ECMemory;
-
 ECMemory* ec_memory;
+
+//ECMemoryList* ec_memory_list;
 
 void
 EC_Clean ();
