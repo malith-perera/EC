@@ -84,15 +84,7 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                                
         ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);                \
         ec_memory_new->next = NULL;                                                 \
                                                                                     \
-        if (ec_memory != NULL)                                                      \
-        {                                                                           \
-            ec_memory_new->next = ec_memory;                                        \
-            ec_memory = ec_memory_new;                                              \
-        }                                                                           \
-        else                                                                        \
-        {                                                                           \
-            ec_memory = ec_memory_new;                                              \
-        }                                                                           \
+        EC_Memory_Append (ec_memory_new);                                           \
                                                                                     \
         var->mem_ref = ec_memory_new;                                               \
         var->lock = true;                                                           \
