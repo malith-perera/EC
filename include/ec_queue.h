@@ -3,7 +3,6 @@
 
 #include "ec.h"
 
-
 #define foreach_queue(queue)                                                        \
   for (queue->var = queue->first;  queue->var != NULL; queue->var = queue->var->next)
 

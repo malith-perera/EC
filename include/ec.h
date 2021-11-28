@@ -29,11 +29,11 @@ typedef enum {
 #include "ec_error.h"
 #include "ec_file.h"
 
-#include "ec_memory.h"
 
+#include "ec_memory.h"
+#include "ec_list.h"
 #include "ec_variable.h"
 #include "ec_array.h"
-#include "ec_list.h"
 #include "ec_queue.h"
 #include "ec_stack.h"
 //#include "ec_syntax.h"
