@@ -16,6 +16,8 @@ char* ec_type_names[] = {
 };
 
 
+/* Return ECVarType in string
+ * ECType type defined in ec_type.h*/
 char*
 EC_Type_Get_Name (ECType type)
 {
