@@ -1,6 +1,5 @@
 #include "ec_memory.h"
 
-
 void
 EC_Clean ()
 {
@@ -53,7 +52,7 @@ EC_Memory_Free_Unlock ()
 
     while (current != NULL)
     {
-        if (current->lock == false)
+        if (current->lock == EC_UNLOCK)
         {
             if (current->var != NULL)
             {

@@ -9,6 +9,7 @@ typedef enum {
     EC_NONE_LOCK
 } ECMemoryLock;
 
+
 typedef struct ECMemory {
     ECType              type;
     void*               var;
@@ -16,6 +17,7 @@ typedef struct ECMemory {
     void                (*Free_Func) (void*);
     struct ECMemory*    next;
 } ECMemory;
+
 
 #ifdef EC_MEMORY
 #define EC_MEMORY_REF     \
