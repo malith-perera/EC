@@ -1,9 +1,12 @@
 #include "ec_memory.h"
 
+/* User to free ec_memory one at a time with EC_Memory_Free_Unlock_One function
+ * to track current position */
 
 ECMemory* free_one = NULL;
 
 
+/* Clean all ec_memory at the end of the program */
 void
 EC_Clean ()
 {
@@ -29,6 +32,7 @@ EC_Clean ()
 }
 
 
+/* Append new_ec_memory to ec_memory */
 void
 EC_Memory_Append (ECMemory* ec_memory_new)
 {
@@ -44,8 +48,7 @@ EC_Memory_Append (ECMemory* ec_memory_new)
 }
 
 
-/* Delete memory if lock == false in ec_memory variable */
-
+/* Delete memory if lock == EC_UNLOCK in ec_memory lock variable */
 void
 EC_Memory_Free_Unlock ()
 {
@@ -72,8 +75,9 @@ EC_Memory_Free_Unlock ()
 }
 
 
+/* Free ec_memory if lock == EC_UNLOCK but only one at a time */
 void
-EC_Memory_Free_Unlock_One_By_One ()
+EC_Memory_Free_Unlock_One ()
 {
     ECMemory *current;
     ECMemory *temp;
@@ -86,7 +90,6 @@ EC_Memory_Free_Unlock_One_By_One ()
     {
         current = ec_memory;
     }
-
 
     while (current != NULL)
     {
