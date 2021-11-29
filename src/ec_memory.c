@@ -16,11 +16,6 @@ EC_Clean ()
             current->Free_Func (current->var);
         }
 
-        if (current->memory != NULL)
-        {
-            current->Free_Func (current->memory);
-        }
-
         temp = current;
         current = current->next;
         free (temp);
@@ -29,6 +24,7 @@ EC_Clean ()
 
     ec_memory = NULL;
 }
+
 
 void
 EC_Memory_Append (ECMemory* ec_memory_new)
@@ -42,4 +38,34 @@ EC_Memory_Append (ECMemory* ec_memory_new)
     {
         ec_memory = ec_memory_new;
     }
+}
+
+
+/* Delete memory if lock == false in ec_memory variable */
+
+void
+EC_Memory_Free_Unlock ()
+{
+    ECMemory *current;
+    ECMemory *temp;
+
+    current = ec_memory;
+
+    while (current != NULL)
+    {
+        if (current->lock == false)
+        {
+            if (current->var != NULL)
+            {
+                current->Free_Func (current->var);
+            }
+
+            temp = current;
+            current = current->next;
+            free (temp);
+            temp = NULL;
+        }
+    }
+
+    ec_memory = NULL;
 }
