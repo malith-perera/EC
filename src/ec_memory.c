@@ -1,5 +1,9 @@
 #include "ec_memory.h"
 
+
+ECMemory* free_one = NULL;
+
+
 void
 EC_Clean ()
 {
@@ -65,6 +69,41 @@ EC_Memory_Free_Unlock ()
             temp = NULL;
         }
     }
+}
 
-    ec_memory = NULL;
+
+void
+EC_Memory_Free_Unlock_One_By_One ()
+{
+    ECMemory *current;
+    ECMemory *temp;
+
+    if (free_one != NULL)
+    {
+        current = free_one;         // ECMemory* free_one; global variable defined above
+    }
+    else
+    {
+        current = ec_memory;
+    }
+
+
+    while (current != NULL)
+    {
+        if (current->lock == EC_UNLOCK)
+        {
+            if (current->var != NULL)
+            {
+                current->Free_Func (current->var);
+            }
+
+            temp = current;
+            current = current->next;
+            free (temp);
+            temp = NULL;
+
+            free_one = current;
+            break;
+        }
+    }
 }

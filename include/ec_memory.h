@@ -34,7 +34,14 @@ EC_Clean ();
 
 
 void
-EC_Memory_Append(ECMemory* ec_memory_new);
+EC_Memory_Append (ECMemory* ec_memory_new);
+
+void
+EC_Memory_Free_Unlock ();
+
+void
+EC_Memory_Free_Unlock_One_By_One ();
+
 
 #define ec_unlock(EC_VAR)       \
     EC_VAR->lock = false;       \
