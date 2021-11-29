@@ -155,7 +155,7 @@ EC_STACK_NEW_FUNCTION_NAME(TYPE)                                                
                                                                                                             \
         EC_Memory_Append (ec_memory_new);                                                                   \
                                                                                                             \
-        var->mem_ref = ec_memory_new;                                                                       \
+        var->ec_memory_ref = ec_memory_new;                                                                       \
         var->lock = EC_LOCK;                                                                                \
     }                                                                                                       \
                                                                                                             \

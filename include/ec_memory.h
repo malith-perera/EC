@@ -24,7 +24,7 @@ typedef struct ECMemory {
 /* Define lock and mem_ref */
 #ifdef EC_MEMORY
 #define EC_MEMORY_REF     \
-    ECMemory* mem_ref;    \
+    ECMemory* ec_memory_ref;    \
     bool lock;
 #else
 #define EC_MEMORY_REF
@@ -65,8 +65,8 @@ EC_Memory_Free_Unlock_One ();
 
 
 #define ec_memory_free(EC_VAR)                              \
-    EC_VAR->mem_ref->previous = EC_VAR->mem_ref->next;      \
-    free(EC_VAR->mem_ref);                                  \
+    EC_VAR->ec_memory_ref->previous = EC_VAR->ec_memory_ref->next;      \
+    free(EC_VAR->ec_memory_ref);                                  \
     free(EC_VAR);
 
 
