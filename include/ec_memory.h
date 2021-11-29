@@ -3,10 +3,16 @@
 
 #include "ec.h"
 
+typedef enum {
+    EC_UNLOCK,
+    EC_LOCK,
+    EC_NONE_LOCK
+} ECMemoryLock;
+
 typedef struct ECMemory {
     ECType              type;
     void*               var;
-    bool                lock;
+    ECMemoryLock        lock;
     void                (*Free_Func) (void*);
     struct ECMemory*    next;
 } ECMemory;

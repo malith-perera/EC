@@ -41,8 +41,7 @@ EC_Memory_Append (ECMemory* ec_memory_new)
 }
 
 
-/* Delete memory only if lock == false in ec_memory variable */
-
+/* Delete memory if lock == false in ec_memory variable */
 
 void
 EC_Memory_Free_Unlock ()
@@ -54,18 +53,18 @@ EC_Memory_Free_Unlock ()
 
     while (current != NULL)
     {
-        if (current->var != NULL)
+        if (current->lock == false)
         {
-            if (current->lock == false)
+            if (current->var != NULL)
             {
                 current->Free_Func (current->var);
             }
-        }
 
-        temp = current;
-        current = current->next;
-        free (temp);
-        temp = NULL;
+            temp = current;
+            current = current->next;
+            free (temp);
+            temp = NULL;
+        }
     }
 
     ec_memory = NULL;
