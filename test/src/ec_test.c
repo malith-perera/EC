@@ -48,28 +48,27 @@ main (int argc, char *argv[])
 
     if (no == 1 || no == 0)
     {
-        /*Run_Variable_Test ();*/
+        Run_Variable_Test ();
     }
 
     if (no == 2 || no == 0)
     {
-        /*Run_Array_Test ();*/
+        Run_Array_Test ();
     }
 
     if (no == 3 || no == 0)
     {
-        /*Run_List_Test ();*/
+        Run_List_Test ();
     }
 
     if (no == 4 || no == 0)
     {
-        /*Run_Queue_Test ();*/
+        Run_Queue_Test ();
     }
-
 
     if (no == 5 || no == 0)
     {
-        /*Run_Stack_Test ();*/
+        Run_Stack_Test ();
     }
 
 
