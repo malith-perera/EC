@@ -2,6 +2,8 @@
 
 #include "ec_type.h"
 
+/* Related with ECType in ec_type.h
+ * If you change anything here change it too */
 char* ec_type_names[] = {
     "EC_VAR",
     "EC_ARRAY",
@@ -14,8 +16,8 @@ char* ec_type_names[] = {
 };
 
 
-void
-EC_Type_Get(ECType type)
+char*
+EC_Type_Get_Name (ECType type)
 {
-    printf("%s", ec_type_names[type]);
+    return ec_type_names[type];
 }
