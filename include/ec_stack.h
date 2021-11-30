@@ -9,11 +9,12 @@
 
 /* Function name macros */
 
-#define EC_STACK_FREE_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Free, ) // memory Free
+#define EC_STACK_FREE_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Stack_Free,) // memory Free
+#define EC_STACK_FREE_VAR_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Stack_Var_Free,)
 #define EC_STACK_NEW_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Stack,)
 #define EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Stack_Var,)
+
 #define EC_STACK_FOREACH(TYPE)                          EC_CONCAT(TYPE, _Foreach,)
-#define EC_STACK_FREE_VAR_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Free, _Stack_Var)
 #define EC_STACK_PUSH_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Push,)
 #define EC_STACK_POP_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Pop,)
 #define EC_STACK_FREE_STACK_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Free, _Stack)
@@ -42,7 +43,7 @@ typedef struct EC_STACK_STRUCT(TYPE){               \
 
 #define EC_STACK_FREE_FUNCTION_PROTOTYPE(TYPE)             \
 void                                                       \
-EC_STACK_FREE_FUNCTION_NAME(EC_STACK_STRUCT(TYPE))         \
+EC_STACK_FREE_FUNCTION_NAME(TYPE)                          \
 (                                                          \
     void* var                                              \
 );
@@ -98,7 +99,7 @@ EC_STACK_POP_FUNCTION_NAME(TYPE)                            \
 
 #define EC_STACK_FREE_FUNCTION(TYPE)                                \
 void                                                                \
-EC_STACK_FREE_FUNCTION_NAME(EC_STACK_STRUCT(TYPE))                  \
+EC_STACK_FREE_FUNCTION_NAME(TYPE)                                   \
 (                                                                   \
     void* var                                                       \
 )                                                                   \
@@ -120,46 +121,47 @@ EC_STACK_FREE_VAR_FUNCTION_NAME(TYPE)                               \
 }
 
 
-#define EC_STACK_NEW_FUNCTION(TYPE)                                                                         \
-EC_STACK_STRUCT(TYPE)*                                                                                      \
-EC_STACK_NEW_FUNCTION_NAME(TYPE)                                                                            \
-(                                                                                                           \
-    int max                                                                                                 \
-)                                                                                                           \
-{                                                                                                           \
-    EC_STACK_STRUCT(TYPE)* var = (EC_STACK_STRUCT(TYPE)*) malloc (sizeof (EC_STACK_STRUCT(TYPE)));          \
-                                                                                                            \
-    if (var == NULL)                                                                                        \
-    {                                                                                                       \
-        EC_Error_Mem_Alloc (__FILE__, __LINE__);                                                            \
-        return NULL;                                                                                        \
-    }                                                                                                       \
-                                                                                                            \
-    var->top = NULL;                                                                                        \
-                                                                                                            \
-    if (EC_MEMORY)                                                                                          \
-    {                                                                                                       \
-        ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));                                    \
-                                                                                                            \
-        if (ec_memory_new == NULL)                                                                          \
-        {                                                                                                   \
-            EC_Error_Mem_Alloc (__FILE__, __LINE__);                                                        \
-            return NULL;                                                                                    \
-        }                                                                                                   \
-                                                                                                            \
-        ec_memory_new->type = EC_STACK_TYPE;                                                                \
-        ec_memory_new->var = var;                                                                           \
-        ec_memory_new->lock = EC_LOCK;                                                                      \
-        ec_memory_new->Free_Func = EC_STACK_FREE_FUNCTION_NAME(EC_STACK_STRUCT(TYPE));                      \
-        ec_memory_new->next = NULL;                                                                         \
-                                                                                                            \
-        EC_Memory_Append (ec_memory_new);                                                                   \
-                                                                                                            \
-        var->mem_ref = ec_memory_new;                                                                       \
-        var->lock = EC_LOCK;                                                                                \
-    }                                                                                                       \
-                                                                                                            \
-    return var;                                                                                             \
+#define EC_STACK_NEW_FUNCTION(TYPE)                                                                     \
+EC_STACK_STRUCT(TYPE)*                                                                                  \
+EC_STACK_NEW_FUNCTION_NAME(TYPE)                                                                        \
+(                                                                                                       \
+    int max                                                                                             \
+)                                                                                                       \
+{                                                                                                       \
+    EC_STACK_STRUCT(TYPE)* var = (EC_STACK_STRUCT(TYPE)*) malloc (sizeof (EC_STACK_STRUCT(TYPE)));      \
+                                                                                                        \
+    if (var == NULL)                                                                                    \
+    {                                                                                                   \
+        EC_Error_Mem_Alloc (__FILE__, __LINE__);                                                        \
+        return NULL;                                                                                    \
+    }                                                                                                   \
+                                                                                                        \
+    var->top = NULL;                                                                                    \
+                                                                                                        \
+    if (EC_MEMORY)                                                                                      \
+    {                                                                                                   \
+        ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));                                \
+                                                                                                        \
+        if (ec_memory_new == NULL)                                                                      \
+        {                                                                                               \
+            EC_Error_Mem_Alloc (__FILE__, __LINE__);                                                    \
+            return NULL;                                                                                \
+        }                                                                                               \
+                                                                                                        \
+        ec_memory_new->type = EC_STACK_TYPE;                                                            \
+        ec_memory_new->var = var;                                                                       \
+        ec_memory_new->lock = EC_LOCK;                                                                  \
+        ec_memory_new->Free_Func = EC_STACK_FREE_FUNCTION_NAME(TYPE);                                   \
+        ec_memory_new->Free_Var_Func = EC_STACK_FREE_VAR_FUNCTION_NAME(TYPE);                           \
+        ec_memory_new->next = NULL;                                                                     \
+                                                                                                        \
+        EC_Memory_Append (ec_memory_new);                                                               \
+                                                                                                        \
+        var->ec_memory_ref = ec_memory_new;                                                             \
+        var->lock = EC_LOCK;                                                                            \
+    }                                                                                                   \
+                                                                                                        \
+    return var;                                                                                         \
 }
 
 
@@ -189,7 +191,7 @@ EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)                                            
                                                                                                                 \
         ec_memory_new->type = EC_STACK_VAR_TYPE;                                                                \
         ec_memory_new->var = var;                                                                               \
-        ec_memory_new->lock = EC_NONE_LOCK;                                                                          \
+        ec_memory_new->lock = EC_NONE_LOCK;                                                                     \
         ec_memory_new->Free_Func = EC_STACK_FREE_VAR_FUNCTION_NAME(TYPE);                                       \
         ec_memory_new->next = NULL;                                                                             \
                                                                                                                 \
