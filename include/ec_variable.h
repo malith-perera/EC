@@ -4,8 +4,9 @@
 #include "ec.h"
 
 /* Function name macros */
+#define EC_VAR_FREE_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Free_var,)
 #define EC_VAR_NEW_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _Var,)
-#define EC_VAR_FREE_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Free,)
+
 #define EC_VAR_UNLOCK_FUNCTION_NAME(TYPE)   EC_CONCAT(TYPE, _Unlock,)
 
 /* Structure macros */
@@ -35,14 +36,12 @@ TYPE*                                           \
 EC_VAR_NEW_FUNCTION_NAME(TYPE)();
 
 
-
 #define EC_VAR_FUNCTION_PROTOTYPES(TYPE)        \
     EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)        \
     EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)
 
 
 /* Function macros */
-
 #define EC_VAR_FREE_FUNCTION(TYPE)      \
 void                                    \
 EC_VAR_FREE_FUNCTION_NAME(TYPE)         \
@@ -86,7 +85,7 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                            \
                                                                             \
         EC_Memory_Append (ec_memory_new);                                   \
                                                                             \
-        var->ec_memory_ref = ec_memory_new;                                       \
+        var->ec_memory_ref = ec_memory_new;                                 \
         var->lock = EC_LOCK;                                                \
     }                                                                       \
                                                                             \

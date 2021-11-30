@@ -17,8 +17,9 @@
 */
 
 /* Function name macros */
+#define EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                           EC_CONCAT(TYPE, _Free,) // memory Free
 #define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                            EC_CONCAT(TYPE, _Array,)
-#define EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                           EC_CONCAT(Free_, TYPE,) // memory Free
+
 #define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)                EC_CONCAT(TYPE, _Array_Sort_, SORT_WITH)
 #define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                        EC_CONCAT(TYPE, _Array, _Reverse)
 #define EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SORT_WITH)              EC_CONCAT(TYPE, _Sorted_Search_, SORT_WITH)
@@ -44,7 +45,7 @@ typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
 
 #define EC_ARRAY_FREE_FUNCTION_PROTOTYPE(TYPE)          \
 void                                                    \
-EC_ARRAY_FREE_FUNCTION_NAME(EC_ARRAY_STRUCT(TYPE))      \
+EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                       \
 (                                                       \
     void* var                                           \
 );
@@ -155,7 +156,7 @@ Int_Array_Min
 
 #define EC_ARRAY_FREE_FUNCTION(TYPE)                                \
 void                                                                \
-EC_ARRAY_FREE_FUNCTION_NAME(EC_ARRAY_STRUCT(TYPE))                  \
+EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                                   \
 (                                                                   \
     void* var                                                       \
 )                                                                   \
@@ -199,12 +200,12 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                    \
         ec_memory_new->type = EC_ARRAY_TYPE;                        \
         ec_memory_new->var = var;                                   \
         ec_memory_new->lock = EC_LOCK;                              \
-        ec_memory_new->Free_Func = EC_ARRAY_FREE_FUNCTION_NAME (EC_ARRAY_STRUCT(TYPE)); \
+        ec_memory_new->Free_Func = EC_ARRAY_FREE_FUNCTION_NAME (TYPE); \
         ec_memory_new->next = NULL;                                 \
                                                                     \
         EC_Memory_Append (ec_memory_new);                           \
                                                                     \
-        var->ec_memory_ref = ec_memory_new;                               \
+        var->ec_memory_ref = ec_memory_new;                         \
         var->lock = EC_LOCK;                                        \
     }                                                               \
                                                                     \

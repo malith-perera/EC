@@ -17,13 +17,15 @@ typedef struct ECMemory {
     void*               var;
     ECMemoryLock        lock;
     void                (*Free_Func) (void*);
+    void                (*Free_Var_Func) (void*);
+    struct ECMemory*    previous;
     struct ECMemory*    next;
 } ECMemory;
 
 
 /* Define lock and mem_ref */
 #ifdef EC_MEMORY
-#define EC_MEMORY_REF     \
+#define EC_MEMORY_REF           \
     ECMemory* ec_memory_ref;    \
     bool lock;
 #else
