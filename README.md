@@ -1,6 +1,6 @@
 # Extended C  
 
-Extended C is a cross platform library and tools set for writing C programs with easy to use variables, arrays, lists, queues and stacks and gain their related functions without additional work. It also help you to develop programs with objects in mind with C. Also you can manage memory automatically without leaks if you are interested in. Furthermore there is good opportunity to you to optimize performance in your code.
+Extended C is a cross platform library and tools kit for writing C programs with easy to use variables, arrays, lists, queues and stacks and gain their related functions without additional work. It also help you to develop programs with objects in mind with C. Also you can manage memory automatically without leaks if you are interested in. Furthermore there is good opportunity to you to optimize performance in your code.
   
 As a simple example think you need to create a list of students in a classroom.  
 
@@ -8,7 +8,7 @@ As a simple example think you need to create a list of students in a classroom.
 
 >*EC_LIST_FUNCTIONS(Student, student_vars)*  
 
-With this line of code above where student_vars simply a set of variables which define student name, index_no, age, grade etc... then you will gain,
+With this line of code above where student_vars simply a set of variables which define student's name, index_no, age, grade etc... then you will gain,
 
 - Student_New()  
 - Student_Append()  
