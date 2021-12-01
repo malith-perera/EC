@@ -53,6 +53,33 @@ Test_New_Variable_Memory_Free ()
     EC_Print_Error ("Test_New_Variable_Memory_Free:", "END");
 }
 
+void
+Test_Var_Copy ()
+{
+    EC_Print_Error ("Test_Copy_Var: ", "BEGIN");
+
+    Student *st1 = Student_Var ();
+    EC_Print_Error ("Create new ec variable", "OK");
+
+    st->no = 1;
+    st->name = "Malith";
+
+    Student *st2 = Student_Var ();
+
+    Student_Var_Copy (st1, st2);
+
+/*    assert (b->number == 5);*/
+
+    /*b->number = 7;*/
+
+    /*assert (a->number == 5);*/
+    /*assert (b->number == 7);*/
+
+    EC_Print_Error ("Variable copied: ", "OK");
+
+    EC_Print_Error ("Test_Copy_Var: ", "END");
+}
+
 
 void
 Run_Variable_Test ()
@@ -65,6 +92,9 @@ Run_Variable_Test ()
     printf ("\n");
 
     Test_New_Variable_Memory_Free ();
+    printf ("\n");
+
+    Test_Var_Copy ();
     printf ("\n");
 
     EC_Print_Error ("Test: ec_variable.h", "PASS");
