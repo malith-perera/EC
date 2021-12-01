@@ -1,3 +1,9 @@
+/* If you add or remove a function you should be careful to add or remove followings.
+ * Add or remove function definition
+ * Add or remove function to EC_VAR_FUNCTIONS
+ * Add or remove function prototype definition
+ * Add or remove function prototype to EC_VAR_FUNCTION_PROTOTYPES */
+
 #ifndef EC_VARIABLE_H
 #define EC_VARIABLE_H
 
@@ -6,6 +12,7 @@
 /* Function name macros */
 #define EC_VAR_FREE_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Free_var,)
 #define EC_VAR_NEW_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _Var,)
+#define EC_VAR_COPY_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Var_Copy,)
 
 #define EC_VAR_UNLOCK_FUNCTION_NAME(TYPE)   EC_CONCAT(TYPE, _Unlock,)
 
@@ -20,6 +27,7 @@ typedef struct TYPE {                                   \
     EC_MEMORY_REF                                       \
 } TYPE;
 #endif // EC_VAR
+
 
 /* Function prototype macros */
 
@@ -36,9 +44,19 @@ TYPE*                                           \
 EC_VAR_NEW_FUNCTION_NAME(TYPE)();
 
 
+#define EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)    \
+void                                            \
+EC_VAR_COPY_FUNCTION_NAME(TYPE)                 \
+(                                               \
+    TYPE* a,                                    \
+    TYPE* b                                     \
+);
+
+
 #define EC_VAR_FUNCTION_PROTOTYPES(TYPE)        \
     EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)        \
-    EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)
+    EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)         \
+    EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)
 
 
 /* Function macros */
@@ -92,9 +110,23 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                            \
     return var;                                                             \
 }
 
+// Copy variable a to b
+#define EC_VAR_COPY_FUNCTION(TYPE)      \
+void                                    \
+EC_VAR_COPY_FUNCTION_NAME(TYPE)         \
+(                                       \
+    TYPE* a,                            \
+    TYPE* b                             \
+)                                       \
+{                                       \
+    *b = *a;                            \
+}
+
 
 #define EC_VAR_FUNCTIONS(TYPE)  \
     EC_VAR_FREE_FUNCTION(TYPE)  \
-    EC_VAR_NEW_FUNCTION(TYPE)
+    EC_VAR_NEW_FUNCTION(TYPE)   \
+    EC_VAR_COPY_FUNCTION(TYPE)
+
 
 #endif // EC_VARIABLE_H
