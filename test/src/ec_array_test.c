@@ -433,7 +433,7 @@ Test_Array_Copy ()
     strcpy(st2->index[1].name, "Malshi");
     assert (strcmp(st1->index[1].name, "Malshi") != 0);
 
-    EC_Print_Error ("Changing array variable do not affect other: ", "OK");
+    EC_Print_Error ("Changing one array variable do not affect other array: ", "OK");
 
     EC_Print_Error ("Test_Copy_Array: ", "END");
 }
