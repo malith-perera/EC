@@ -104,14 +104,17 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                            \
 
 
 // Copy variable b to a
-#define EC_VAR_COPY_FUNCTION(TYPE)      \
-TYPE*                                   \
-EC_VAR_COPY_FUNCTION_NAME(TYPE)         \
-(                                       \
-    TYPE* array                         \
-)                                       \
-{                                       \
-    return array;                       \
+#define EC_VAR_COPY_FUNCTION(TYPE)                          \
+TYPE*                                                       \
+EC_VAR_COPY_FUNCTION_NAME(TYPE)                             \
+(                                                           \
+    TYPE* var                                               \
+)                                                           \
+{                                                           \
+    TYPE* new_var = EC_VAR_NEW_FUNCTION_NAME(TYPE)();       \
+    *new_var = *var;                                        \
+                                                            \
+    return var;                                             \
 }
 
 
