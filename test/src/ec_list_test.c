@@ -347,6 +347,9 @@ Run_List_Test ()
     Test_Sort_List ();
     printf ("\n");
 
+    Test_List_Copy ();
+    printf ("\n");
+
     EC_Print_Error ("Test: ec_list.h", "PASS");
     printf ("\n");
 }
