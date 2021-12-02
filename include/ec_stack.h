@@ -4,7 +4,7 @@
 #include "ec.h"
 
 #define foreach_stack(stack)                                                            \
-  for (stack->var = stack->first;  stack->var != NULL; stack->var = stack->var->next)
+  for (stack->var = stack->top;  stack->var != NULL; stack->var = stack->var->next)
 
 
 /* Function name macros */
@@ -13,6 +13,7 @@
 #define EC_STACK_FREE_VAR_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Stack_Var_Free,)
 #define EC_STACK_NEW_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Stack,)
 #define EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Stack_Var,)
+#define EC_STACK_COPY_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Stack_Copy,)
 
 #define EC_STACK_FOREACH(TYPE)                          EC_CONCAT(TYPE, _Foreach,)
 #define EC_STACK_PUSH_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Push,)
@@ -35,6 +36,7 @@ typedef struct EC_STACK_VAR_STRUCT(TYPE){           \
                                                     \
 typedef struct EC_STACK_STRUCT(TYPE){               \
     EC_STACK_VAR_STRUCT(TYPE)* top;                 \
+    EC_STACK_VAR_STRUCT(TYPE)* var;                 \
     EC_MEMORY_REF                                   \
 } EC_STACK_STRUCT(TYPE);
 
@@ -86,13 +88,22 @@ EC_STACK_POP_FUNCTION_NAME(TYPE)                            \
 );
 
 
+#define EC_STACK_COPY_FUNCTION_PROTOTYPE(TYPE)              \
+EC_STACK_STRUCT(TYPE)*                                      \
+EC_STACK_COPY_FUNCTION_NAME(TYPE)                           \
+(                                                           \
+    EC_STACK_STRUCT(TYPE)* stack                            \
+);
+
+
 #define EC_STACK_FUNCTION_PROTOTYPES(TYPE)          \
     EC_STACK_FREE_FUNCTION_PROTOTYPE(TYPE)          \
     EC_STACK_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)      \
     EC_STACK_NEW_FUNCTION_PROTOTYPE(TYPE)           \
     EC_STACK_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)       \
     EC_STACK_PUSH_FUNCTION_PROTOTYPE(TYPE)          \
-    EC_STACK_POP_FUNCTION_PROTOTYPE(TYPE)
+    EC_STACK_POP_FUNCTION_PROTOTYPE(TYPE)           \
+    EC_STACK_COPY_FUNCTION_PROTOTYPE(TYPE)
 
 
 /* Function macros */
@@ -234,13 +245,38 @@ EC_STACK_POP_FUNCTION_NAME(TYPE)                            \
 }
 
 
+// Copy stack
+#define EC_STACK_COPY_FUNCTION(TYPE)                                \
+EC_STACK_STRUCT(TYPE)*                                              \
+EC_STACK_COPY_FUNCTION_NAME(TYPE)                                   \
+(                                                                   \
+    EC_STACK_STRUCT(TYPE)* stack                                    \
+)                                                                   \
+{                                                                   \
+    EC_STACK_STRUCT(TYPE)* stack_copy = (EC_STACK_STRUCT(TYPE)*)    \
+        malloc (sizeof(EC_STACK_STRUCT(TYPE)));                     \
+                                                                    \
+    EC_STACK_VAR_STRUCT(TYPE)* var;                                 \
+                                                                    \
+    foreach_stack(stack)                                            \
+    {                                                               \
+        var = EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)();               \
+        var = stack->var;                                           \
+        EC_STACK_PUSH_FUNCTION_NAME(TYPE)(stack_copy, var);         \
+    }                                                               \
+                                                                    \
+    return stack_copy;                                              \
+}
+
+
 #define EC_STACK_FUNCTIONS(TYPE)            \
     EC_STACK_VAR_FREE_FUNCTION(TYPE)        \
     EC_STACK_FREE_FUNCTION(TYPE)            \
     EC_STACK_NEW_FUNCTION(TYPE)             \
     EC_STACK_NEW_VAR_FUNCTION(TYPE)         \
     EC_STACK_PUSH_FUNCTION(TYPE)            \
-    EC_STACK_POP_FUNCTION(TYPE)
+    EC_STACK_POP_FUNCTION(TYPE)             \
+    EC_STACK_COPY_FUNCTION(TYPE)
 
 #endif // EC_STACK_H
 
