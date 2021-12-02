@@ -4,13 +4,19 @@
 ## Implemention Details
 
 #### EC Var:
-> Type_Var_Copy (var a, var b) : Done  
-> > Copy var a to var b  
+> Type_Var_Copy (var a) : **Done**  
+> > Copy and return a variable. Created with malloc  
+
+> Test_Type_Var_Copy (var a, var b) : **Done**  
+> > Test copied correctly and do not affect variable change on another variable  
 
 #### EC Array:  
 
-> Type_Array_Copy (array a, array b)  
-> > Copy array a to array b  
+> Type_Array_Copy (array a)  : **Done**  
+> > Copy and return an array. Created with malloc  
+
+> Test_Type_Array_Copy (array a, array b)  : **Done**  
+> > Test copied correctly and do not affect one array variable change on other array variable  
 
 > Type_Array_To_list(array)  
 > >  Convert array into a list and return a list type pointer  
@@ -29,8 +35,11 @@
 
 #### EC List:  
 
-> Type_List_Copy (list a, list b)  
-> > Copy list a to list b  
+> Type_List_Copy (list a)  : **Done**  
+> > Copy and return a list. Created with malloc  
+
+> Test_Type_List_Copy (list a)  : **Done**  
+> > Test copied correctly and do not affect one list variable change on other list variable  
 
 > Type_List_To_Array (list)  
 > > Convert list into array and return a array type pointer  
@@ -50,8 +59,11 @@
 
 #### EC Queue:  
 
-> Type_Queue_Copy (queue a, queue b)  
-> > Copy queue a to queue b  
+> Type_Queue_Copy (queue a)  
+> > Copy and return a queue. Create with malloc  
+> 
+> Test_Type_Queue_Copy (queue a)  
+> > Test copied correctly and do not affect one queue variable change on other queue variable  
 
 > Type_Queue_To_Array (queue)  
 > > Convert queue into array and return a array type pointer  
@@ -68,7 +80,10 @@
 #### EC Stack:  
 
 > Type_Stack_Copy (stack a, stack b)  
-> > Copy stack a to queue b  
+> > Copy and return a stack. Create with malloc  
+
+> Test_Type_Stack_Copy (stack a)  
+> > Test copied correctly and do not affect one stack variable change on other stack variable  
 
 > Type_Stack_To_Array (stack)  
 > > Convert stack into array and return a array type pointer  
