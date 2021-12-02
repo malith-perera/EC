@@ -38,11 +38,10 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)();
 
 
 #define EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)    \
-void                                            \
+TYPE*                                           \
 EC_VAR_COPY_FUNCTION_NAME(TYPE)                 \
 (                                               \
-    TYPE* a,                                    \
-    TYPE* b                                     \
+    TYPE* a                                     \
 );
 
 
@@ -50,6 +49,7 @@ EC_VAR_COPY_FUNCTION_NAME(TYPE)                 \
     EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)        \
     EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)         \
     EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)
+
 
 /* Function macros */
 #define EC_VAR_FREE_FUNCTION(TYPE)      \
@@ -105,14 +105,13 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                            \
 
 // Copy variable b to a
 #define EC_VAR_COPY_FUNCTION(TYPE)      \
-void                                    \
+TYPE*                                   \
 EC_VAR_COPY_FUNCTION_NAME(TYPE)         \
 (                                       \
-    TYPE* a,                            \
-    TYPE* b                             \
+    TYPE* array                         \
 )                                       \
 {                                       \
-    *a = *b;                            \
+    return array;                       \
 }
 
 

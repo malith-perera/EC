@@ -53,6 +53,7 @@ Test_New_Variable_Memory_Free ()
     EC_Print_Error ("Test_New_Variable_Memory_Free:", "END");
 }
 
+/* This function do not affect copied variables each other */
 void
 Test_Var_Copy ()
 {
@@ -61,21 +62,23 @@ Test_Var_Copy ()
     Student *st1 = Student_Var ();
     EC_Print_Error ("Create new ec variable", "OK");
 
-    st->no = 1;
-    st->name = "Malith";
+    st1->no = 1;
+    strcpy(st1->name , "Malith");
 
-    Student *st2 = Student_Var ();
+    Student *st2 = Student_Var_Copy (st1);
 
-    Student_Var_Copy (st1, st2);
-
-/*    assert (b->number == 5);*/
-
-    /*b->number = 7;*/
-
-    /*assert (a->number == 5);*/
-    /*assert (b->number == 7);*/
+    assert (st2->no == 1);
+    assert (strcmp(st2->name, "Malith") == 0);
 
     EC_Print_Error ("Variable copied: ", "OK");
+
+    st1->no = 2;
+    strcpy(st2->name , "Geethike");
+
+    assert (st2->no != 2);
+    assert (strcmp(st1->name, "Geethike") != 0);
+
+    EC_Print_Error ("Changing one array variable do not affect other array : ", "OK");
 
     EC_Print_Error ("Test_Copy_Var: ", "END");
 }
