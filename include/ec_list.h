@@ -508,6 +508,29 @@ EC_LIST_FREE_VAR_FUNCTION_NAME(TYPE)                    \
 }
 
 
+// Copy variable b to a
+#define EC_LIST_COPY_FUNCTION(TYPE)                                             \
+EC_LIST_STRUCT(TYPE)*                                                           \
+EC_LIST_COPY_FUNCTION_NAME(TYPE)                                                \
+(                                                                               \
+    EC_LIST_STRUCT(TYPE)* list                                                  \
+)                                                                               \
+{                                                                               \
+    EC_LIST_VAR_STRUCT(TYPE)* var;                                              \
+    EC_LIST_STRUCT(TYPE)* list_copy = (EC_LIST_STRUCT(TYPE)*)                   \
+        malloc (sizeof(EC_LIST_STRUCT(TYPE)));                                  \
+                                                                                \
+    foreach_list(list)                                                          \
+    {                                                                           \
+        var = EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)();                            \
+        var = list->var;                                                        \
+        EC_LIST_APPEND_FUNCTION_NAME(TYPE)(list_copy, var);                     \
+    }                                                                           \
+                                                                                \
+    return list_copy;                                                           \
+}
+
+
 #define EC_LIST_FUNCTIONS(TYPE)         \
     EC_LIST_FREE_FUNCTION(TYPE)         \
     EC_LIST_VAR_FREE_FUNCTION(TYPE)     \
