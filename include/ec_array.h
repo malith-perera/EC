@@ -3,23 +3,23 @@
 
 #include "ec.h"
 
-#define foreach_array(array)                                                                        \
-  array->i = 0;                                                                                     \
-  for (array->var = array->index; array->i < array->count; array->var = array->index + ++array->i)
 
-/*
+#define foreach_array(array)                                                                            \
+    array->i = 0;                                                                                       \
+    for (array->var = array->index; array->i < array->count; array->var = array->index + ++array->i)
+
 
 #define NELEMS(x) (sizeof(x) / sizeof((x)[0]))
 
+/*
 #define EC_ARRAY_FIND_FUNCTION_NAME(T, F) EC_CONCAT(Find_, T, F)
 #define EC_ARRAY_RESIZE_FUNCTION_NAME(TYPE) EC_CONCAT(Resize_, T,)
-
 */
 
 /* Function name macros */
 #define EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                           EC_CONCAT(TYPE, _Free,) // memory Free
 #define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                            EC_CONCAT(TYPE, _Array,)
-
+#define EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                           EC_CONCAT(TYPE, _Array_Copy,)
 #define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)                EC_CONCAT(TYPE, _Array_Sort_, SORT_WITH)
 #define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                        EC_CONCAT(TYPE, _Array, _Reverse)
 #define EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SORT_WITH)              EC_CONCAT(TYPE, _Sorted_Search_, SORT_WITH)
@@ -31,7 +31,7 @@
 // defined in ec_memory.h
 #define EC_ARRAY_STRUCT(TYPE) EC_CONCAT(TYPE, Array,)
 
-#define EC_ARRAY(TYPE, VAR)                             \
+#define EC_ARRAY(TYPE)                                  \
 typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
     TYPE*   index;                                      \
     int     count;                                      \
@@ -67,10 +67,19 @@ EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                    \
 );
 
 
+#define EC_ARRAY_COPY_FUNCTION_PROTOTYPE(TYPE)                          \
+EC_ARRAY_STRUCT(TYPE)*                                                  \
+EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                                       \
+(                                                                       \
+    EC_ARRAY_STRUCT(TYPE)* array                                        \
+);
+
+
 #define EC_ARRAY_FUNCTION_PROTOTYPES(TYPE)              \
     EC_ARRAY_FREE_FUNCTION_PROTOTYPE(TYPE)              \
     EC_ARRAY_NEW_FUNCTION_PROTOTYPE(TYPE)               \
-    EC_ARRAY_REVERSE_FUNCTION_PROTOTYPE(TYPE)
+    EC_ARRAY_REVERSE_FUNCTION_PROTOTYPE(TYPE)           \
+    EC_ARRAY_COPY_FUNCTION_PROTOTYPE(TYPE)
 
 
 #define EC_ARRAY_SORT_FUNCTION_PROTOTYPE(TYPE, SORT_WITH)       \
@@ -388,10 +397,29 @@ EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SEARCH_WITH)                \
     return min;                                                     \
 }
 
+// Copy variable b to a
+#define EC_ARRAY_COPY_FUNCTION(TYPE)                                    \
+EC_ARRAY_STRUCT(TYPE)*                                                  \
+EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                                       \
+(                                                                       \
+    EC_ARRAY_STRUCT(TYPE)* array                                        \
+)                                                                       \
+{                                                                       \
+    EC_ARRAY_STRUCT(TYPE)* array_copy = (EC_ARRAY_STRUCT(TYPE)*) malloc (sizeof(EC_ARRAY_STRUCT(TYPE)) * array->count);    \
+                                                                        \
+    for (int i = 0; i < array->count; i++)                              \
+    {                                                                   \
+        array_copy->index[i] = array->index[i];                         \
+    }                                                                   \
+                                                                        \
+    return array_copy;                                                  \
+}
+
 
 #define EC_ARRAY_FUNCTIONS(TYPE)    \
     EC_ARRAY_FREE_FUNCTION(TYPE)    \
-    EC_ARRAY_NEW_FUNCTION(TYPE)
+    EC_ARRAY_NEW_FUNCTION(TYPE)     \
+    EC_ARRAY_COPY_FUNCTION(TYPE)
 
 #endif // EC_ARRAY_H
 

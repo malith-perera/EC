@@ -103,7 +103,7 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                            \
 }
 
 
-// Copy variable a to b
+// Copy variable b to a
 #define EC_VAR_COPY_FUNCTION(TYPE)      \
 void                                    \
 EC_VAR_COPY_FUNCTION_NAME(TYPE)         \
@@ -112,7 +112,7 @@ EC_VAR_COPY_FUNCTION_NAME(TYPE)         \
     TYPE* b                             \
 )                                       \
 {                                       \
-    *b = *a;                            \
+    *a = *b;                            \
 }
 
 
