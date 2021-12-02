@@ -79,10 +79,10 @@
 
 #### EC Stack:  
 
-> Type_Stack_Copy (stack a, stack b)  
+> Type_Stack_Copy (stack a, stack b)  : **Done**  
 > > Copy and return a stack. Create with malloc  
 
-> Test_Type_Stack_Copy (stack a)  
+> Test_Type_Stack_Copy (stack a)  : **Done**  
 > > Test copied correctly and do not affect one stack variable change on other stack variable  
 
 > Type_Stack_To_Array (stack)  
