@@ -283,6 +283,49 @@ Test_Sort_List ()
 
 
 void
+Test_List_Copy ()
+{
+    EC_Print_Error ("Test_List_Copy: ", "BEGIN");
+
+    StudentList *stl1 = Student_List ();
+
+    StudentListVar *st1 = Student_List_Var ();
+    st1->no = 1;
+    strcpy(st1->name, "Malith");
+    Append_Student (stl1, st1);
+
+    StudentListVar *st2 = Student_List_Var ();
+    st2->no = 2;
+    strcpy(st2->name, "Geethike");
+    Append_Student (stl1, st2);
+
+    StudentList* stl2 = Student_List_Copy (stl1);
+
+    assert (stl2->first->no = 1);
+    assert (strcmp(stl2->first->name ,"Malith") == 0 );
+
+    assert (stl2->first->next->no = 2);
+    assert (strcmp(stl2->first->next->name ,"Geethike") == 0 );
+
+    EC_Print_Error ("List Copy Variables", "OK");
+
+    st1->no = 3;
+    st1->name = "Malshi";
+    assert (stl2->first->no != 3);
+    assert (strcmp(stl2->first->name ,"Malshi") != 0 );
+
+    st2->no = 4;
+    st2->name = "Prisenthi";
+    assert (stl1->first->no != 4);
+    assert (strcmp(stl1->first->name ,"Prisenthi") != 0 );
+
+    EC_Print_Error ("Copied list do not affect other list", "OK");
+
+    EC_Print_Error ("Test_List_Copy: ", "END");
+}
+
+
+void
 Run_List_Test ()
 {
     printf ("---------------\n");
