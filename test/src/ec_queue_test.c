@@ -175,6 +175,49 @@ Test_Dequeue_Queue ()
 
 
 void
+Test_Queue_Copy ()
+{
+    EC_Print_Error ("Test_Queue_Copy: ", "BEGIN");
+
+    StudentQueue *stq1 = Student_Queue ();
+
+    StudentQueueVar *st1 = Student_Queue_Var ();
+    st1->no = 1;
+    strcpy(st1->name, "Malith");
+    Enqueue_Student (stq1, st1);
+
+    StudentQueueVar *st2 = Student_Queue_Var ();
+    st2->no = 2;
+    strcpy(st2->name, "Geethike");
+    Enqueue_Student (stq1, st2);
+
+    StudentQueue* stq2 = Student_Queue_Copy (stq1);
+
+    assert (stq2->first->no = 1);
+    assert (strcmp(stq2->first->name ,"Malith") == 0 );
+
+    assert (stq2->first->next->no = 2);
+    assert (strcmp(stq2->first->next->name ,"Geethike") == 0 );
+
+    EC_Print_Error ("Queue Copy Variables", "OK");
+
+    st1->no = 3;
+    st1->name = "Malshi";
+    assert (stq2->first->no != 3);
+    assert (strcmp(stq2->first->name ,"Malshi") != 0 );
+
+    st2->no = 4;
+    st2->name = "Prisenthi";
+    assert (stq1->first->no != 4);
+    assert (strcmp(stq1->first->name ,"Prisenthi") != 0 );
+
+    EC_Print_Error ("Copied list do not affect other list", "OK");
+
+    EC_Print_Error ("Test_Queue_Copy: ", "END");
+}
+
+
+void
 Run_Queue_Test ()
 {
     printf ("----------------\n");
