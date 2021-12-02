@@ -16,7 +16,7 @@ With this line of code above where student_vars simply a set of variables which 
 - Student_Sort() 
 - Student_Delete() 
 
-and many other functions which related with a list are freely available for you. What you have to do is just use them. Also EC is purposely written so that it's much more customizable to optimize your code to gain it's maximum performance while optimization process. Some times it may not necessary but possibilities may arise if you wish. 
+and many other functions which related with a list are freely available for you. What you have to do is just use them. Also EC is purposely written so that it's much more customizable to optimize your code to gain it's maximum performance. Some times it may not necessary but possibilities may arise if you wish. 
 
 For binary downloads, manuals, documentations, tutorials please visit: 
 
