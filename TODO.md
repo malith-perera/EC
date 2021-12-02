@@ -59,10 +59,10 @@
 
 #### EC Queue:  
 
-> Type_Queue_Copy (queue a)  
+> Type_Queue_Copy (queue a)  : **Done**  
 > > Copy and return a queue. Create with malloc  
 > 
-> Test_Type_Queue_Copy (queue a)  
+> Test_Type_Queue_Copy (queue a)  : **Done**  
 > > Test copied correctly and do not affect one queue variable change on other queue variable  
 
 > Type_Queue_To_Array (queue)  
