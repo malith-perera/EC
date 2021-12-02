@@ -11,6 +11,7 @@
 #define EC_QUEUE_VAR_FREE_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _Queue_Var_Free,)
 #define EC_QUEUE_NEW_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Queue,)
 #define EC_QUEUE_NEW_VAR_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Queue_Var,)
+#define EC_QUEUE_COPY_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Queue_Copy)
 
 #define EC_QUEUE_FOREACH(TYPE)                      EC_CONCAT(Foreach_, TYPE,)
 #define EC_QUEUE_DROP_FUNCTION_NAME(TYPE)           EC_CONCAT(Drop_, TYPE,)
@@ -89,13 +90,22 @@ EC_QUEUE_DEQUEUE_FUNCTION_NAME(TYPE)                        \
 );
 
 
+#define EC_QUEUE_COPY_FUNCTION_PROTOTYPE(TYPE)              \
+EC_QUEUE_STRUCT(TYPE)*                                      \
+EC_QUEUE_COPY_FUNCTION_NAME(TYPE)                           \
+(                                                           \
+    EC_QUEUE_STRUCT(TYPE)* queue                            \
+);
+
+
 #define EC_QUEUE_FUNCTION_PROTOTYPES(TYPE)                      \
     EC_QUEUE_FREE_FUNCTION_PROTOTYPE(TYPE)                      \
     EC_QUEUE_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)                  \
     EC_QUEUE_NEW_FUNCTION_PROTOTYPE(TYPE)                       \
     EC_QUEUE_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)                   \
     EC_QUEUE_ENQUEUE_FUNCTION_PROTOTYPE(TYPE)                   \
-    EC_QUEUE_DEQUEUE_FUNCTION_PROTOTYPE(TYPE)
+    EC_QUEUE_DEQUEUE_FUNCTION_PROTOTYPE(TYPE)                   \
+    EC_QUEUE_COPY_FUNCTION_PROTOTYPE(TYPE)
 
 /* Function macros */
 
@@ -281,12 +291,37 @@ EC_QUEUE_FREE_VAR_FUNCTION_NAME(TYPE)                       \
 }
 
 
+// Copy queue
+#define EC_QUEUE_COPY_FUNCTION(TYPE)                                \
+EC_QUEUE_STRUCT(TYPE)*                                              \
+EC_QUEUE_COPY_FUNCTION_NAME(TYPE)                                   \
+(                                                                   \
+    EC_QUEUE_STRUCT(TYPE)* queue                                    \
+)                                                                   \
+{                                                                   \
+    EC_QUEUE_STRUCT(TYPE)* queue_copy = (EC_QUEUE_STRUCT(TYPE)*)    \
+        malloc (sizeof(EC_QUEUE_STRUCT(TYPE)));                     \
+                                                                    \
+    EC_QUEUE_VAR_STRUCT(TYPE)* var;                                 \
+                                                                    \
+    foreach_queue(queue)                                            \
+    {                                                               \
+        var = EC_QUEUE_NEW_VAR_FUNCTION_NAME(TYPE)();               \
+        var = queue->var;                                           \
+        EC_QUEUE_ENQUEUE_FUNCTION_NAME(TYPE)(queue_copy, var);      \
+    }                                                               \
+                                                                    \
+    return queue_copy;                                              \
+}
+
+
 #define EC_QUEUE_FUNCTIONS(TYPE)        \
     EC_QUEUE_FREE_FUNCTION(TYPE)        \
     EC_QUEUE_VAR_FREE_FUNCTION(TYPE)    \
     EC_QUEUE_NEW_FUNCTION(TYPE)         \
     EC_QUEUE_NEW_VAR_FUNCTION(TYPE)     \
     EC_QUEUE_ENQUEUE_FUNCTION(TYPE)     \
-    EC_QUEUE_DEQUEUE_FUNCTION(TYPE)
+    EC_QUEUE_DEQUEUE_FUNCTION(TYPE)     \
+    EC_QUEUE_COPY_FUNCTION(TYPE)
 
 #endif // EC_QUEUE_H
