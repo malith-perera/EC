@@ -12,6 +12,7 @@
 #define EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Free,)
 #define EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List,)
 #define EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _List_Var,)
+#define EC_LIST_COPY_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _List_Copy,)
 
 #define EC_LIST_APPEND_FUNCTION_NAME(TYPE)          EC_CONCAT(Append_, TYPE,)
 #define EC_LIST_INSERT_FUNCTION_NAME(TYPE)          EC_CONCAT(Insert_, TYPE,)
@@ -131,6 +132,14 @@ EC_LIST_FREE_VAR_FUNCTION_NAME(TYPE)                        \
 );
 
 
+#define EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)               \
+EC_LIST_STRUCT(TYPE)*                                       \
+EC_LIST_COPY_FUNCTION_NAME(TYPE)                            \
+(                                                           \
+    EC_LIST_STRUCT(TYPE)* list                              \
+);
+
+
 #define EC_LIST_FUNCTION_PROTOTYPES(TYPE)                   \
     EC_LIST_FREE_FUNCTION_PROTOTYPE(TYPE)                   \
     EC_LIST_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)               \
@@ -140,7 +149,8 @@ EC_LIST_FREE_VAR_FUNCTION_NAME(TYPE)                        \
     EC_LIST_INSERT_FUNCTION_PROTOTYPE(TYPE)                 \
     EC_LIST_REPLACE_FUNCTION_PROTOTYPE(TYPE)                \
     EC_LIST_DROP_FUNCTION_PROTOTYPE(TYPE)                   \
-    EC_LIST_FREE_VAR_FUNCTION_PROTOTYPE(TYPE)
+    EC_LIST_FREE_VAR_FUNCTION_PROTOTYPE(TYPE)               \
+    EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)
 
 
 /* Function macros */
@@ -508,7 +518,7 @@ EC_LIST_FREE_VAR_FUNCTION_NAME(TYPE)                    \
 }
 
 
-// Copy variable b to a
+// Copy array
 #define EC_LIST_COPY_FUNCTION(TYPE)                                             \
 EC_LIST_STRUCT(TYPE)*                                                           \
 EC_LIST_COPY_FUNCTION_NAME(TYPE)                                                \
@@ -516,9 +526,10 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                                                
     EC_LIST_STRUCT(TYPE)* list                                                  \
 )                                                                               \
 {                                                                               \
-    EC_LIST_VAR_STRUCT(TYPE)* var;                                              \
     EC_LIST_STRUCT(TYPE)* list_copy = (EC_LIST_STRUCT(TYPE)*)                   \
         malloc (sizeof(EC_LIST_STRUCT(TYPE)));                                  \
+                                                                                \
+    EC_LIST_VAR_STRUCT(TYPE)* var;                                              \
                                                                                 \
     foreach_list(list)                                                          \
     {                                                                           \
@@ -531,6 +542,7 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                                                
 }
 
 
+
 #define EC_LIST_FUNCTIONS(TYPE)         \
     EC_LIST_FREE_FUNCTION(TYPE)         \
     EC_LIST_VAR_FREE_FUNCTION(TYPE)     \
@@ -540,7 +552,8 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                                                
     EC_LIST_INSERT_FUNCTION(TYPE)       \
     EC_LIST_REPLACE_FUNCTION(TYPE)      \
     EC_LIST_DROP_FUNCTION(TYPE)         \
-    EC_LIST_FREE_VAR_FUNCTION(TYPE)
+    EC_LIST_FREE_VAR_FUNCTION(TYPE)     \
+    EC_LIST_COPY_FUNCTION(TYPE)
 
 
 #endif // EC_LIST_H

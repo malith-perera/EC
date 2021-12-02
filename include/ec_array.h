@@ -397,7 +397,7 @@ EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SEARCH_WITH)                \
     return min;                                                     \
 }
 
-// Copy variable b to a
+// Copy
 #define EC_ARRAY_COPY_FUNCTION(TYPE)                                    \
 EC_ARRAY_STRUCT(TYPE)*                                                  \
 EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                                       \
