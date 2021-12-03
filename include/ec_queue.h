@@ -40,7 +40,22 @@ typedef struct EC_QUEUE_STRUCT(TYPE){               \
     EC_QUEUE_VAR_STRUCT(TYPE)* last;                \
     EC_QUEUE_VAR_STRUCT(TYPE)* var;                 \
     EC_MEMORY_REF                                   \
-} EC_QUEUE_STRUCT(TYPE);
+} EC_QUEUE_STRUCT(TYPE);                            \
+                                                    \
+                                                    \
+typedef struct EC_QUEUE_VAR_REF_STRUCT(TYPE) {      \
+    struct EC_QUEUE_VAR_STRUCT(TYPE)* ref;          \
+    struct EC_QUEUE_VAR_REF_STRUCT(TYPE)* next;     \
+} EC_QUEUE_VAR_REF_STRUCT(TYPE);                    \
+                                                    \
+                                                    \
+typedef struct EC_QUEUE_REF_STRUCT(TYPE) {          \
+    EC_QUEUE_VAR_REF_STRUCT(TYPE)* first;           \
+    EC_QUEUE_VAR_REF_STRUCT(TYPE)* last;            \
+    EC_QUEUE_VAR_REF_STRUCT(TYPE)* var;             \
+    EC_MEMORY_REF                                   \
+} EC_QUEUE_REF_STRUCT(TYPE);
+
 
 
 /* Function prototype macros */
