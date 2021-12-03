@@ -26,6 +26,8 @@
 // defined in ec_memory.h
 #define EC_QUEUE_STRUCT(TYPE)                       EC_CONCAT(TYPE, Queue,)
 #define EC_QUEUE_VAR_STRUCT(TYPE)                   EC_CONCAT(TYPE, QueueVar,)
+#define EC_QUEUE_VAR_REF_STRUCT(TYPE)               EC_CONCAT(TYPE, QueueVarRef,)
+#define EC_QUEUE_REF_STRUCT(TYPE)                   EC_CONCAT(TYPE, QueueRef,)
 
 
 #define EC_QUEUE(TYPE, VAR)                         \
