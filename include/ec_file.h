@@ -84,4 +84,7 @@ typedef struct _EcFile EcFile;
 void
 ec_read (EcFile *obj, char *file_name);
 
+void
+Lines_Of_Code (char* filename);
+
 #endif // EC_FILE_H
