@@ -35,10 +35,10 @@
 
 #define EC_ARRAY(TYPE)                                  \
 typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
-    TYPE*   index;                                      \
-    int     count;                                      \
-    int     i;                                          \
-    TYPE*   var;                                        \
+    TYPE*           index;                              \
+    int             count;                              \
+    int             i;                                  \
+    TYPE*           var;                                \
     EC_MEMORY_REF                                       \
 } EC_ARRAY_STRUCT(TYPE);                                \
                                                         \

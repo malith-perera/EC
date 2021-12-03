@@ -31,13 +31,13 @@
 
 
 #define EC_STACK(TYPE, VAR)                         \
-typedef struct EC_STACK_VAR_STRUCT(TYPE){           \
+typedef struct EC_STACK_VAR_STRUCT(TYPE) {          \
     VAR                                             \
     struct EC_STACK_VAR_STRUCT(TYPE)* next;         \
 } EC_STACK_VAR_STRUCT(TYPE);                        \
                                                     \
                                                     \
-typedef struct EC_STACK_STRUCT(TYPE){               \
+typedef struct EC_STACK_STRUCT(TYPE) {              \
     EC_STACK_VAR_STRUCT(TYPE)* top;                 \
     EC_STACK_VAR_STRUCT(TYPE)* var;                 \
     EC_MEMORY_REF                                   \
