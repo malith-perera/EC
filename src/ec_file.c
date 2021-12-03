@@ -10,6 +10,105 @@ typedef struct ecfile {
 } ecfile;
 
 
+
+void
+Lines_Of_Code (char* filename)
+{
+    FILE* f = fopen(filename, "r");
+    if (f != NULL)
+    {
+        char c;
+        int lines = 0;
+        int comment_lines = 0;
+        int empty_lines = 0;
+        bool at_begining = true;
+        int comment_line = 0;
+        bool empty_line = true;
+        int total_lines = 0;
+
+        while ((c = fgetc(f)) != EOF)
+        {
+            if (c != '\n')
+            {
+                if (comment_line != 2)
+                {
+                    if (comment_line == 0 && c == '/')
+                    {
+                        comment_line = 1;
+                    }
+                    else if (comment_line == 1 && (c == '/' || c== '*'))
+                    {
+                        comment_line = 2;
+                    }
+                    else
+                    {
+                        comment_line = 0;
+                    }
+
+                    if (empty_line == true)
+                    {
+                        if  (c != ' ' && c != '{' && c != '}')
+                        {
+                            empty_line = false;
+                        }
+                    }
+                }
+
+                at_begining = false;
+            }
+            else
+            {
+                if (comment_line == 2)
+                {
+                    comment_lines++;
+                }
+
+                if (empty_line == true)
+                {
+                    empty_lines++;
+                }
+
+                if (comment_line != 2 && empty_line != true)
+                {
+                    lines++;
+                }
+
+                empty_line = true;
+                comment_line = 0;
+                at_begining = true;
+                total_lines++;
+            }
+        }
+
+        printf("Code lines    : %d\n", lines);
+        printf("Comment lines : %d\n", comment_lines);
+        printf("Empty lines   : %d\n", empty_lines);
+        printf("Total lines   : %d\n", total_lines);
+
+        fclose(f);
+    }
+    else
+    {
+        fprintf(stderr, "file not found\n");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void ecfile_ECFile_init ( ECFilePtr obj, char *file_name )
 {
 	obj->name = file_name;
