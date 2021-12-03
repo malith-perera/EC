@@ -29,7 +29,9 @@
 
 /* Structure macros */
 // defined in ec_memory.h
-#define EC_ARRAY_STRUCT(TYPE) EC_CONCAT(TYPE, Array,)
+#define EC_ARRAY_STRUCT(TYPE)               EC_CONCAT(TYPE, Array,)
+#define EC_ARRAY_REF_STRUCT(TYPE)           EC_CONCAT(TYPE, ArrayRef,)
+
 
 #define EC_ARRAY(TYPE)                                  \
 typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
@@ -38,7 +40,16 @@ typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
     int     i;                                          \
     TYPE*   var;                                        \
     EC_MEMORY_REF                                       \
-} EC_ARRAY_STRUCT(TYPE);
+} EC_ARRAY_STRUCT(TYPE);                                \
+                                                        \
+                                                        \
+typedef struct EC_ARRAY_REF_STRUCT(TYPE) {              \
+    TYPE**          index;                              \
+    int             count;                              \
+    int             i;                                  \
+    TYPE**          var;                                \
+    EC_MEMORY_REF                                       \
+} EC_ARRAY_REF_STRUCT(TYPE);
 
 
 /* Function prototype macros */
