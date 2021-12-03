@@ -18,6 +18,9 @@
 > Test_Type_Array_Copy (array a, array b)  : **Done**  
 > > Test copied correctly and do not affect one array variable change on other array variable  
 
+> Type_Array_Ref()  : **Done**  
+> > Reference list to it's variables  
+
 > Type_Array_To_list(array)  
 > >  Convert array into a list and return a list type pointer  
 
@@ -30,8 +33,7 @@
 > Type_Array_Toggle_Index(index1, index2)  
 > > Exchange array variables with related indices  
 
-> Type_Array_Ref()  
-> > Reference list to it's variables  
+
 
 #### EC List:  
 
@@ -40,6 +42,9 @@
 
 > Test_Type_List_Copy (list a)  : **Done**  
 > > Test copied correctly and do not affect one list variable change on other list variable  
+
+> Type_List_Ref()  : **Done**  
+> > Reference list to it's variables  
 
 > Type_List_To_Array (list)  
 > > Convert list into array and return a array type pointer  
@@ -53,8 +58,6 @@
 > Type_List_Var_Move()  
 > > Move variable up or down in the list  
 
-> Type_List_Ref()  
-> > Reference list to it's variables  
 
 
 #### EC Queue:  
@@ -65,6 +68,9 @@
 > Test_Type_Queue_Copy (queue a)  : **Done**  
 > > Test copied correctly and do not affect one queue variable change on other queue variable  
 
+> Type_Queue_Ref()  : **Done**  
+> > Reference list to it's variables  
+
 > Type_Queue_To_Array (queue)  
 > > Convert queue into array and return a array type pointer  
 
@@ -74,8 +80,6 @@
 > Type_Queue_To_Stack (queue)  
 > > Convert queue into stack and return a stack type pointer  
 
-> Type_Queue_Ref()  
-> > Reference list to it's variables  
 
 #### EC Stack:  
 
@@ -85,6 +89,9 @@
 > Test_Type_Stack_Copy (stack a)  : **Done**  
 > > Test copied correctly and do not affect one stack variable change on other stack variable  
 
+> Type_Stack_Ref()  : **Done**  
+> > Reference list to it's variables  
+
 > Type_Stack_To_Array (stack)  
 > > Convert stack into array and return a array type pointer  
 
@@ -93,9 +100,6 @@
 
 > Type_Stack_To_Queue (stack)  
 > > Convert stack into queue and return a queue type pointer  
-
-> Type_Stack_Ref()  
-> > Reference list to it's variables  
 
 #### EC Memory:  
 > EC Unlock  
