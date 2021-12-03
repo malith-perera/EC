@@ -32,11 +32,10 @@
 #define EC_ARRAY_STRUCT(TYPE)               EC_CONCAT(TYPE, Array,)
 #define EC_ARRAY_REF_STRUCT(TYPE)           EC_CONCAT(TYPE, ArrayRef,)
 
-
 #define EC_ARRAY(TYPE)                                  \
 typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
     TYPE*           index;                              \
-    int             size;                              \
+    int             size;                               \
     int             i;                                  \
     TYPE*           var;                                \
     EC_MEMORY_REF                                       \
@@ -45,7 +44,7 @@ typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
                                                         \
 typedef struct EC_ARRAY_REF_STRUCT(TYPE) {              \
     TYPE**          index;                              \
-    int             size;                              \
+    int             size;                               \
     int             i;                                  \
     TYPE**          var;                                \
     EC_MEMORY_REF                                       \
@@ -66,7 +65,7 @@ EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                       \
 EC_ARRAY_STRUCT(TYPE)*                                  \
 EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                        \
 (                                                       \
-    int size                                           \
+    int size                                            \
 );
 
 
@@ -191,7 +190,7 @@ EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                                   \
 EC_ARRAY_STRUCT(TYPE)*                                              \
 EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                    \
 (                                                                   \
-    int size                                                       \
+    int size                                                        \
 )                                                                   \
 {                                                                   \
     EC_ARRAY_STRUCT(TYPE)* var = (EC_ARRAY_STRUCT(TYPE)*) malloc (sizeof (EC_ARRAY_STRUCT(TYPE))); \
@@ -202,7 +201,7 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                    \
         return NULL;                                                \
     }                                                               \
                                                                     \
-    TYPE* array = (TYPE*) malloc (sizeof (TYPE) * size);           \
+    TYPE* array = (TYPE*) malloc (sizeof (TYPE) * size);            \
                                                                     \
     if (array == NULL)                                              \
     {                                                               \
@@ -210,7 +209,7 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                    \
         return NULL;                                                \
     }                                                               \
                                                                     \
-    var->size = size;                                             \
+    var->size = size;                                               \
     var->index = array;                                             \
                                                                     \
     if (EC_MEMORY)                                                  \
@@ -233,6 +232,66 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                    \
 }
 
 
+#define EC_ARRAY_REF_FREE_FUNCTION(TYPE)                                \
+void                                                                    \
+EC_ARRAY_REF_FREE_FUNCTION_NAME(TYPE)                                   \
+(                                                                       \
+    void* var                                                           \
+)                                                                       \
+{                                                                       \
+    EC_ARRAY_REF_STRUCT(TYPE)* p = (EC_ARRAY_REF_STRUCT(TYPE)*) var;    \
+    free (p->index);                                                    \
+    free (p);                                                           \
+}
+
+
+#define EC_ARRAY_REF_NEW_FUNCTION(TYPE)                                     \
+EC_ARRAY_REF_STRUCT(TYPE)*                                                  \
+EC_ARRAY_REF_NEW_FUNCTION_NAME(TYPE)                                        \
+(                                                                           \
+    int size                                                                \
+)                                                                           \
+{                                                                           \
+    EC_ARRAY_REF_STRUCT(TYPE)* var = (EC_ARRAY_REF_STRUCT(TYPE)*)           \
+        malloc (sizeof (EC_ARRAY_REF_STRUCT(TYPE)));                        \
+                                                                            \
+    if (var == NULL)                                                        \
+    {                                                                       \
+        EC_Error_Mem_Alloc (__FILE__, __LINE__);                            \
+        return NULL;                                                        \
+    }                                                                       \
+                                                                            \
+    TYPE** array = (TYPE**) malloc (sizeof (TYPE*) * size);                 \
+                                                                            \
+    if (array == NULL)                                                      \
+    {                                                                       \
+        EC_Error_Mem_Alloc (__FILE__, __LINE__);                            \
+        return NULL;                                                        \
+    }                                                                       \
+                                                                            \
+    var->size = size;                                                       \
+    var->index = array;                                                     \
+                                                                            \
+    if (EC_MEMORY)                                                          \
+    {                                                                       \
+        ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));    \
+                                                                            \
+        ec_memory_new->type = EC_ARRAY_REF_TYPE;                            \
+        ec_memory_new->var = var;                                           \
+        ec_memory_new->lock = EC_LOCK;                                      \
+        ec_memory_new->Free_Func = EC_ARRAY_REF_FREE_FUNCTION_NAME (TYPE);  \
+        ec_memory_new->next = NULL;                                         \
+                                                                            \
+        EC_Memory_Append (ec_memory_new);                                   \
+                                                                            \
+        var->ec_memory_ref = ec_memory_new;                                 \
+        var->lock = EC_LOCK;                                                \
+    }                                                                       \
+                                                                            \
+    return var;                                                             \
+}
+
+
 /* EC_Array_Sort */
 
 #define EC_ARRAY_SORT_FUNCTION(TYPE, SORT_WITH)                     \
@@ -248,11 +307,11 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)                        \
     int j = 0;                                                      \
     int i = 0;                                                      \
                                                                     \
-    for (i; i < array->size - 1; i++)                              \
+    for (i; i < array->size - 1; i++)                               \
     {                                                               \
         min_ref = &array->index[i];                                 \
                                                                     \
-        for (j = i + 1; j < array->size; j++)                      \
+        for (j = i + 1; j < array->size; j++)                       \
         {                                                           \
             if (array->index[j].SORT_WITH < min_ref->SORT_WITH)     \
             {                                                       \
@@ -276,11 +335,11 @@ EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                                \
 {                                                                   \
     TYPE temp;                                                      \
                                                                     \
-    for (int i = 0; i < (array->size) / 2; i++)                    \
+    for (int i = 0; i < (array->size) / 2; i++)                     \
     {                                                               \
         temp = array->index[i];                                     \
-        array->index[i] = array->index[array->size - (1 + i)];     \
-        array->index[array->size - 1 - i] = temp;                  \
+        array->index[i] = array->index[array->size - (1 + i)];      \
+        array->index[array->size - 1 - i] = temp;                   \
     }                                                               \
 }
 
@@ -298,7 +357,7 @@ EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SEARCH_WITH)                    \
     int lei, uei, mi;                                               /* lei = lower end index, uei = upper end index, mi = mid index */\
                                                                     \
     lei = 0;                                                        \
-    uei = array->size - 1;                                         \
+    uei = array->size - 1;                                          \
     mi = (lei + uei) / 2;                                           \
                                                                     \
     if (search_value < array->index[lei].SEARCH_WITH)               \
@@ -374,7 +433,7 @@ EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SEARCH_WITH)                \
 {                                                                   \
     TYPE* max = &array->index[0];                                   \
                                                                     \
-    for (int i = 1; i < array->size; i++)                          \
+    for (int i = 1; i < array->size; i++)                           \
     {                                                               \
         if (array->index[i].SEARCH_WITH > max->SEARCH_WITH)         \
         {                                                           \
@@ -397,7 +456,7 @@ EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SEARCH_WITH)                \
 {                                                                   \
     TYPE* min = &array->index[0];                                   \
                                                                     \
-    for (int i = 1; i < array->size; i++)                          \
+    for (int i = 1; i < array->size; i++)                           \
     {                                                               \
         if (array->index[i].SEARCH_WITH < min->SEARCH_WITH)         \
         {                                                           \
@@ -418,7 +477,7 @@ EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                                       \
 {                                                                       \
     EC_ARRAY_STRUCT(TYPE)* array_copy = (EC_ARRAY_STRUCT(TYPE)*) malloc (sizeof(EC_ARRAY_STRUCT(TYPE)) * array->size);    \
                                                                         \
-    for (int i = 0; i < array->size; i++)                              \
+    for (int i = 0; i < array->size; i++)                               \
     {                                                                   \
         array_copy->index[i] = array->index[i];                         \
     }                                                                   \
