@@ -24,8 +24,10 @@
 /* Structure macros */
 // defined in ec_memory.h
 
-#define EC_STACK_STRUCT(TYPE)                  EC_CONCAT(TYPE, Stack,)
-#define EC_STACK_VAR_STRUCT(TYPE)              EC_CONCAT(TYPE, StackVar,)
+#define EC_STACK_STRUCT(TYPE)                   EC_CONCAT(TYPE, Stack,)
+#define EC_STACK_VAR_STRUCT(TYPE)               EC_CONCAT(TYPE, StackVar,)
+#define EC_STACK_VAR_REF_STRUCT(TYPE)           EC_CONCAT(TYPE, StackVarRef,)
+#define EC_STACK_REF_STRUCT(TYPE)               EC_CONCAT(TYPE, StackRef,)
 
 
 #define EC_STACK(TYPE, VAR)                         \
@@ -34,11 +36,26 @@ typedef struct EC_STACK_VAR_STRUCT(TYPE){           \
     struct EC_STACK_VAR_STRUCT(TYPE)* next;         \
 } EC_STACK_VAR_STRUCT(TYPE);                        \
                                                     \
+                                                    \
 typedef struct EC_STACK_STRUCT(TYPE){               \
     EC_STACK_VAR_STRUCT(TYPE)* top;                 \
     EC_STACK_VAR_STRUCT(TYPE)* var;                 \
     EC_MEMORY_REF                                   \
-} EC_STACK_STRUCT(TYPE);
+} EC_STACK_STRUCT(TYPE);                            \
+                                                    \
+                                                    \
+typedef struct EC_STACK_VAR_REF_STRUCT(TYPE) {      \
+    struct EC_STACK_VAR_STRUCT(TYPE)* ref;          \
+    struct EC_STACK_VAR_REF_STRUCT(TYPE)* next;     \
+} EC_STACK_VAR_REF_STRUCT(TYPE);                    \
+                                                    \
+                                                    \
+typedef struct EC_STACK_REF_STRUCT(TYPE) {          \
+    EC_STACK_VAR_REF_STRUCT(TYPE)* top;             \
+    EC_STACK_VAR_REF_STRUCT(TYPE)* var;             \
+    EC_MEMORY_REF                                   \
+} EC_STACK_REF_STRUCT(TYPE);
+
 
 
 /* Function prototype macros */
