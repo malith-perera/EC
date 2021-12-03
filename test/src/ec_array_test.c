@@ -36,8 +36,8 @@ Test_New_Array ()
 
     EC_Print_Error ("Assign array elements", "OK");
 
-    assert (sta->count == 2);
-    EC_Print_Error ("Array count exist", "OK");
+    assert (sta->size == 2);
+    EC_Print_Error ("Array size exist", "OK");
 
     EC_Print_Error ("Test_New_Array: ", "END");
 }
