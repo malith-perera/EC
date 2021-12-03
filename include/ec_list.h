@@ -28,23 +28,39 @@
 // EC_MEMORY_REF defined in ec_memory.h
 #define EC_LIST_STRUCT(TYPE)                        EC_CONCAT(TYPE, List,)
 #define EC_LIST_VAR_STRUCT(TYPE)                    EC_CONCAT(TYPE, ListVar,)
+#define EC_LIST_VAR_REF_STRUCT(TYPE)                EC_CONCAT(TYPE, ListVarRef,)
+#define EC_LIST_REF_STRUCT(TYPE)                    EC_CONCAT(TYPE, ListRef,)
 
 
 #define EC_LIST(TYPE, VAR)                              \
-typedef struct EC_LIST_VAR_STRUCT(TYPE){                \
+typedef struct EC_LIST_VAR_STRUCT(TYPE) {               \
     VAR                                                 \
     struct EC_LIST_VAR_STRUCT(TYPE)* next;              \
     struct EC_LIST_VAR_STRUCT(TYPE)* previous;          \
 } EC_LIST_VAR_STRUCT(TYPE);                             \
                                                         \
                                                         \
-typedef struct EC_LIST_STRUCT(TYPE){                    \
+typedef struct EC_LIST_STRUCT(TYPE) {                   \
     EC_LIST_VAR_STRUCT(TYPE)* first;                    \
     EC_LIST_VAR_STRUCT(TYPE)* last;                     \
     EC_LIST_VAR_STRUCT(TYPE)* var;                      \
     EC_MEMORY_REF                                       \
-} EC_LIST_STRUCT(TYPE);
-
+} EC_LIST_STRUCT(TYPE);                                 \
+                                                        \
+                                                        \
+typedef struct EC_LIST_VAR_REF_STRUCT(TYPE) {           \
+    struct EC_LIST_VAR_STRUCT(TYPE)* ref;               \
+    struct EC_LIST_VAR_REF_STRUCT(TYPE)* next;          \
+    struct EC_LIST_VAR_REF_STRUCT(TYPE)* previous;      \
+} EC_LIST_VAR_REF_STRUCT(TYPE);                         \
+                                                        \
+                                                        \
+typedef struct EC_LIST_REF_STRUCT(TYPE) {               \
+    EC_LIST_VAR_REF_STRUCT(TYPE)* first;                \
+    EC_LIST_VAR_REF_STRUCT(TYPE)* last;                 \
+    EC_LIST_VAR_REF_STRUCT(TYPE)* var;                  \
+    EC_MEMORY_REF                                       \
+} EC_LIST_REF_STRUCT(TYPE);
 
 /* Function prototype macros */
 
