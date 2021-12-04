@@ -3,12 +3,30 @@
 #include "ec_file.h"
 #include "ec_error.h"
 
-typedef struct ecfile {
-	char *name;
-	char *type;
-	char *lines[];
-} ecfile;
+#define DEBUG 1
 
+typedef enum {
+    EMPTY,
+    NONE_EMPTY,
+    CODE_LINE,
+    FIRST_SLASH,
+    SINGLE_LINE,
+    MULTI_LINE_IN,
+    MULTI_LINE_IN_END,
+    MULTI_LINE
+} LineType;
+
+
+char *line_type_name[] = {
+    "EMPTY",
+    "NONE_EMPTY",
+    "CODE_LINE",
+    "FIRST_SLASH",
+    "SINGLE_LINE",
+    "MULTI_LINE_IN",
+    "MULTI_LINE_IN_END",
+    "MULTI_LINE"
+};
 
 
 void
@@ -17,65 +35,109 @@ Lines_Of_Code (char* filename)
     FILE* f = fopen(filename, "r");
     if (f != NULL)
     {
-        char c;
-        int lines = 0;
-        int comment_lines = 0;
-        int empty_lines = 0;
-        bool at_begining = true;
-        int comment_line = 0;
-        bool empty_line = true;
-        int total_lines = 0;
+        char        c;
+        int         lines           = 0;
+        int         comment_lines   = 0;
+        int         empty_lines     = 0;
+        int         total_lines     = 0;
+        LineType    line_type       = EMPTY;
+
 
         while ((c = fgetc(f)) != EOF)
         {
+            if (DEBUG)
+            {
+                if (c != '\n')
+                    printf ("%c", c);
+            }
+
             if (c != '\n')
             {
-                if (comment_line != 2)
+                if (line_type == EMPTY)
                 {
-                    if (comment_line == 0 && c == '/')
+                    if  (!(c == ' ' || c == '{' || c == '}'))
                     {
-                        comment_line = 1;
-                    }
-                    else if (comment_line == 1 && (c == '/' || c== '*'))
-                    {
-                        comment_line = 2;
-                    }
-                    else
-                    {
-                        comment_line = 0;
+                        if (c == '/')
+                        {
+                            line_type = FIRST_SLASH;
+                        }
+                        else
+                        {
+                            line_type = CODE_LINE;
+                        }
+
+                        continue;
                     }
 
-                    if (empty_line == true)
-                    {
-                        if  (c != ' ' && c != '{' && c != '}')
-                        {
-                            empty_line = false;
-                        }
-                    }
                 }
 
-                at_begining = false;
+                if (line_type == FIRST_SLASH && c == '/')
+                {
+                    line_type = SINGLE_LINE;
+                }
+                else if (line_type == FIRST_SLASH && c == '*')
+                {
+                    line_type = MULTI_LINE_IN;
+                }
+                else if (line_type == FIRST_SLASH && c != '/')
+                {
+                    line_type = CODE_LINE;
+                }
+                else if (line_type == FIRST_SLASH && c != '*')
+                {
+                    line_type = EMPTY;
+                }
+                else if (line_type == MULTI_LINE_IN && c == '*')
+                {
+                    line_type = MULTI_LINE_IN_END;
+                }
+                else if (line_type == MULTI_LINE_IN_END && c != '/')
+                {
+                    line_type = MULTI_LINE_IN;
+                }
+                else if (line_type == MULTI_LINE_IN_END && c == '/')
+                {
+                    line_type = MULTI_LINE;
+                }
             }
             else
             {
-                if (comment_line == 2)
+                if (DEBUG)
                 {
-                    comment_lines++;
+                    printf (" : %s\n", line_type_name[line_type]);
                 }
 
-                if (empty_line == true)
+                if (line_type == EMPTY)
                 {
                     empty_lines++;
                 }
 
-                if (comment_line != 2 && empty_line != true)
+                if (line_type == CODE_LINE)
                 {
                     lines++;
+                    line_type = EMPTY;
                 }
 
-                empty_line = true;
-                comment_line = 0;
-                at_begining = true;
+                if (line_type == SINGLE_LINE)
+                {
+                    comment_lines++;
+                    line_type = EMPTY;
+                }
+                else if (line_type == MULTI_LINE_IN)
+                {
+                    comment_lines++;
+                }
+                else if (line_type == MULTI_LINE_IN_END)
+                {
+                    comment_lines++;
+                    line_type = MULTI_LINE_IN;
+                }
+                else if (line_type == MULTI_LINE)
+                {
+                    comment_lines++;
+                    line_type = EMPTY;
+                }
+
                 total_lines++;
             }
         }
@@ -98,15 +160,11 @@ Lines_Of_Code (char* filename)
 
 
 
-
-
-
-
-
-
-
-
-
+typedef struct ecfile {
+	char *name;
+	char *type;
+	char *lines[];
+} ecfile;
 
 
 void ecfile_ECFile_init ( ECFilePtr obj, char *file_name )
