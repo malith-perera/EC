@@ -114,7 +114,7 @@ EC_VAR_COPY_FUNCTION_NAME(TYPE)                             \
     TYPE* new_var = EC_VAR_NEW_FUNCTION_NAME(TYPE)();       \
     *new_var = *var;                                        \
                                                             \
-    return var;                                             \
+    return new_var;                                         \
 }
 
 

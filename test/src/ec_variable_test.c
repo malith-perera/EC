@@ -59,11 +59,11 @@ Test_Var_Copy ()
 {
     EC_Print_Error ("Test_Copy_Var: ", "BEGIN");
 
-    Student *st1 = Student_Var ();
+    Student* st1 = Student_Var ();
     EC_Print_Error ("Create new ec variable", "OK");
 
     st1->no = 1;
-    strcpy(st1->name , "Malith");
+    st1->name = "Malith";
 
     Student *st2 = Student_Var_Copy (st1);
 
@@ -73,12 +73,12 @@ Test_Var_Copy ()
     EC_Print_Error ("Variable copied: ", "OK");
 
     st1->no = 2;
-    strcpy(st2->name , "Geethike");
+    st2->name = "Geethike";
 
-    assert (st2->no != 2);
+    assert (st2->no == 1);
     assert (strcmp(st1->name, "Geethike") != 0);
 
-    EC_Print_Error ("Changing one array variable do not affect other array : ", "OK");
+    EC_Print_Error ("Changing one array should not affect other", "OK");
 
     EC_Print_Error ("Test_Copy_Var: ", "END");
 }
