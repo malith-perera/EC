@@ -235,21 +235,21 @@ EC_QUEUE_NEW_VAR_FUNCTION_NAME(TYPE)                                            
 
 
 /* REF */
-#define EC_QUEUE_REF_FREE_FUNCTION(TYPE)                            \
-void                                                            \
-EC_QUEUE_REF_FREE_FUNCTION_NAME(TYPE)                               \
-(                                                               \
-    void* var                                                   \
-)                                                               \
-{                                                               \
+#define EC_QUEUE_REF_FREE_FUNCTION(TYPE)                                \
+void                                                                    \
+EC_QUEUE_REF_FREE_FUNCTION_NAME(TYPE)                                   \
+(                                                                       \
+    void* var                                                           \
+)                                                                       \
+{                                                                       \
     EC_QUEUE_REF_STRUCT(TYPE)* p = (EC_QUEUE_REF_STRUCT(TYPE)*) var;    \
-    free (p);                                                   \
+    free (p);                                                           \
 }
 
 
-#define EC_QUEUE_REF_VAR_FREE_FUNCTION(TYPE)                        \
+#define EC_QUEUE_REF_VAR_FREE_FUNCTION(TYPE)                    \
 void                                                            \
-EC_QUEUE_REF_VAR_FREE_FUNCTION_NAME(TYPE)                           \
+EC_QUEUE_REF_VAR_FREE_FUNCTION_NAME(TYPE)                       \
 (                                                               \
     void* var                                                   \
 )                                                               \
