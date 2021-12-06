@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
 
 #include "ec_type.h"
 
@@ -23,3 +25,16 @@ EC_Type_Get_Name (ECType type)
 {
     return ec_type_names[type];
 }
+
+
+
+int32_t*
+ec_int(int32_t val)
+{
+    int32_t* var =  (int32_t*) malloc (sizeof(int32_t));
+    *var = val;
+
+    return var;
+}
+/*i32* x = ec_int(6);*/
+
