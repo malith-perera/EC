@@ -649,21 +649,19 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                                                
     EC_LIST_STRUCT(TYPE)* list                                                  \
 )                                                                               \
 {                                                                               \
-    EC_LIST_STRUCT(TYPE)* list_copy = (EC_LIST_STRUCT(TYPE)*)                   \
-        malloc (sizeof(EC_LIST_STRUCT(TYPE)));                                  \
+    EC_LIST_STRUCT(TYPE)* list_copy = EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)();   \
                                                                                 \
     EC_LIST_VAR_STRUCT(TYPE)* var;                                              \
                                                                                 \
     foreach_list(list)                                                          \
     {                                                                           \
         var = EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)();                            \
-        var = list->var;                                                        \
+        memcpy(var, list->var, sizeof(EC_LIST_VAR_STRUCT(TYPE)));               \
         EC_LIST_APPEND_FUNCTION_NAME(TYPE)(list_copy, var);                     \
     }                                                                           \
                                                                                 \
     return list_copy;                                                           \
 }
-
 
 
 #define EC_LIST_FUNCTIONS(TYPE)         \

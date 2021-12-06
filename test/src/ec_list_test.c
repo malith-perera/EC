@@ -287,25 +287,26 @@ Test_List_Copy ()
 {
     EC_Print_Error ("Test_List_Copy: ", "BEGIN");
 
-    StudentList *stl1 = Student_List ();
+    StudentList* stl1 = Student_List ();
 
-    StudentListVar *st1 = Student_List_Var ();
+    StudentListVar* st1 = Student_List_Var ();
     st1->no = 1;
-    strcpy(st1->name, "Malith");
+    st1->name = "Malith";
     Append_Student (stl1, st1);
 
-    StudentListVar *st2 = Student_List_Var ();
+    StudentListVar* st2 = Student_List_Var ();
     st2->no = 2;
-    strcpy(st2->name, "Geethike");
+    st2->name = "Geethike";
     Append_Student (stl1, st2);
 
     StudentList* stl2 = Student_List_Copy (stl1);
 
-    assert (stl2->first->no = 1);
+    assert (stl2->first->no == 1);
     assert (strcmp(stl2->first->name ,"Malith") == 0 );
 
-    assert (stl2->first->next->no = 2);
-    assert (strcmp(stl2->first->next->name ,"Geethike") == 0 );
+    StudentListVar* var = stl2->first;
+    assert (var->next->no == 2);
+    assert (strcmp(stl2->first->next->name, "Geethike") == 0 );
 
     EC_Print_Error ("List Copy Variables", "OK");
 
