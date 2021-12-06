@@ -4,6 +4,7 @@
 ## Implemention Details
 
 #### EC Var:
+<<<<<<< HEAD
 > Type_Var_Copy (var a) : **Done**  
 > > Copy and return a variable. Created with malloc  
 
@@ -19,6 +20,17 @@
 > > Test copied correctly and do not affect one array variable change on other array variable  
 
 > Type_Array_Ref()  : **Done**  
+=======
+> Type_Var_Copy (var a, var b) : Done  
+> > Copy var a to var b  
+
+#### EC Array:  
+
+> Type_Array_Copy (array a, array b) : Done  
+> > Copy array a to array b  
+
+> Type_Array_Ref()  
+>>>>>>> memory
 > > Reference list to it's variables  
 
 > Type_Array_To_list(array)  
@@ -34,6 +46,7 @@
 > > Exchange array variables with related indices  
 
 
+<<<<<<< HEAD
 
 #### EC List:  
 
@@ -44,6 +57,14 @@
 > > Test copied correctly and do not affect one list variable change on other list variable  
 
 > Type_List_Ref()  : **Done**  
+=======
+#### EC List:  
+
+> Type_List_Copy (list a, list b) : Done  
+> > Copy list a to list b  
+
+> Type_List_Ref()  
+>>>>>>> memory
 > > Reference list to it's variables  
 
 > Type_List_To_Array (list)  
@@ -60,6 +81,7 @@
 
 
 
+<<<<<<< HEAD
 #### EC Queue:  
 
 > Type_Queue_Copy (queue a)  : **Done**  
@@ -69,6 +91,15 @@
 > > Test copied correctly and do not affect one queue variable change on other queue variable  
 
 > Type_Queue_Ref()  : **Done**  
+=======
+
+#### EC Queue:  
+
+> Type_Queue_Copy (queue a, queue b) : Done  
+> > Copy queue a to queue b  
+
+> Type_Queue_Ref()  
+>>>>>>> memory
 > > Reference list to it's variables  
 
 > Type_Queue_To_Array (queue)  
@@ -83,6 +114,7 @@
 
 #### EC Stack:  
 
+<<<<<<< HEAD
 > Type_Stack_Copy (stack a, stack b)  : **Done**  
 > > Copy and return a stack. Create with malloc  
 
@@ -117,6 +149,37 @@
 
 #### Test all:  
 > In progress  
+=======
+> Type_Stack_Copy (stack a, stack b) : Done  
+> > Copy stack a to queue b  
+
+> Type_Stack_Ref()  
+> > Reference list to it's variables  
+
+> Type_Stack_To_Array (stack)  
+> > Convert stack into array and return a array type pointer  
+
+> Type_Stack_To_List (stack)  
+> > Convert stack into list and return a list type pointer  
+
+> Type_Stack_To_Queue (stack)  
+> > Convert stack into queue and return a queue type pointer  
+
+
+#### EC Memory:  
+> EC Unlock  
+> EC Free  
+> EC_Memory_Free  
+> EC_Memory_Free_One  
+> EC_Memory_Clean  
+> EC_Memory_Delete  
+
+
+#### User flexible naming:  
+
+#### EC Shell:  
+> .c and .h open with vim  
+>>>>>>> memory
   
 
 ---
@@ -129,15 +192,45 @@
 ### Mac:  
 > Mac OS : Help needed  
   
-  
----
-## Documentation  
 
+---
+#### Refine code:  
+> Refine all  
+  
+
+#### Test all:  
+> Test all code  
+  
+
+---
+## Documentations  
+
+<<<<<<< HEAD
 ### Objects in mind  
 ### Create documentation  
 ### Create man pages  
 ### Create Website  
+=======
+### Back To C Basic  
+### Back To C EC Guide  
+### Back To C Play with C  
+### Back To C Vetarance  
+### EC Core Developer Guide  
+
+
+### EC Examples
+### EC Manuel API
+### man pages
+
+
+## Website
+
+## User/Community
+### StackOverflow
+### GitHub
+>>>>>>> memory
   
+
 ---
 ## Future development road map  
 <http://wiki.libEC.org/Roadmap>  

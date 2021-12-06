@@ -9,6 +9,15 @@
 #define EC_CONCAT4(a, b, c, d) a ## b ## c  ## d
 #endif
 
+// Check letter is upper or lower case
+#define IS_UPPER(x) (x >= 'A' && x <= 'Z')
+#define IS_LOWER(x) (x >= 'a' && x <= 'z')
+
+#define SET_UPPER(word)         \
+    char word_arr[] = #word;    \
+    word_arr[0] -= 32;
+
+
 struct _StrList
 {
   char *line;

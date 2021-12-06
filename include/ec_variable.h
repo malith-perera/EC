@@ -1,3 +1,9 @@
+/* If you add or remove a function you should be careful to add or remove followings.
+ * Add or remove function definition
+ * Add or remove function to EC_VAR_FUNCTIONS
+ * Add or remove function prototype definition
+ * Add or remove function prototype to EC_VAR_FUNCTION_PROTOTYPES */
+
 #ifndef EC_VARIABLE_H
 #define EC_VARIABLE_H
 
@@ -22,6 +28,7 @@ typedef struct TYPE {                                   \
 } TYPE;
 #endif // EC_VAR
 
+
 /* Function prototype macros */
 
 #define EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)    \
@@ -38,10 +45,18 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)();
 
 
 #define EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)    \
+<<<<<<< HEAD
 TYPE*                                           \
 EC_VAR_COPY_FUNCTION_NAME(TYPE)                 \
 (                                               \
     TYPE* a                                     \
+=======
+void                                            \
+EC_VAR_COPY_FUNCTION_NAME(TYPE)                 \
+(                                               \
+    TYPE* a,                                    \
+    TYPE* b                                     \
+>>>>>>> memory
 );
 
 
@@ -102,6 +117,18 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                            \
     return var;                                                             \
 }
 
+// Copy variable a to b
+#define EC_VAR_COPY_FUNCTION(TYPE)      \
+void                                    \
+EC_VAR_COPY_FUNCTION_NAME(TYPE)         \
+(                                       \
+    TYPE* a,                            \
+    TYPE* b                             \
+)                                       \
+{                                       \
+    *b = *a;                            \
+}
+
 
 // Copy variable b to a
 #define EC_VAR_COPY_FUNCTION(TYPE)                          \
@@ -122,5 +149,9 @@ EC_VAR_COPY_FUNCTION_NAME(TYPE)                             \
     EC_VAR_FREE_FUNCTION(TYPE)  \
     EC_VAR_NEW_FUNCTION(TYPE)   \
     EC_VAR_COPY_FUNCTION(TYPE)
+<<<<<<< HEAD
+=======
+
+>>>>>>> memory
 
 #endif // EC_VARIABLE_H

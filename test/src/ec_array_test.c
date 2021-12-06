@@ -1,3 +1,7 @@
+/* Todo */
+
+/*** should return variable that related to search **/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -296,6 +300,7 @@ Test_Sorted_Array_Search_Var ()
     EC_Print_Error ("Test_Sorted_Array_Search_Var: ", "BEGIN");
 
     StudentArray *sta = Student_Array (4);
+
     sta->index[0].no = 1;
     sta->index[0].name = "Malith";
     sta->index[1].no = 2;
@@ -305,9 +310,16 @@ Test_Sorted_Array_Search_Var ()
     sta->index[3].no = 4;
     sta->index[3].name = "Malshi";
 
+/*** should return variable that related to search **/
+
     int index = Student_Sorted_Search_no (sta, 3);
 
+<<<<<<< HEAD
     /*assert (sta->index[index].no == 3);*/
+=======
+    assert (sta->index[index].no == 3);
+    assert (strcmp (sta->index[index].name, "Perera") == 0);
+>>>>>>> memory
 
     EC_Print_Error ("Search sorted array", "OK");
 

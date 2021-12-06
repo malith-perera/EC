@@ -1,0 +1,340 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/malith/ExtendedC/lib/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/0673dacf/
+BlockType	include/ec_file.h	/^typedef enum _BlockType BlockType;$/;"	t	typeref:enum:_BlockType
+Comman Line:	TODO.md	/^#### Comman Line:  $/;"	t	section:ToDo""Implemention
+Create Website	TODO.md	/^### Create Website  $/;"	S	section:ToDo""Documentation
+Create documentation	TODO.md	/^### Create documentation  $/;"	S	section:ToDo""Documentation
+Create man pages	TODO.md	/^### Create man pages  $/;"	S	section:ToDo""Documentation
+Documentation	TODO.md	/^## Documentation  $/;"	s	chapter:ToDo
+EC Array:	TODO.md	/^#### EC Array:  $/;"	t	section:ToDo""Implemention
+EC List:	TODO.md	/^#### EC List:  $/;"	t	section:ToDo""Implemention
+EC Memory:	TODO.md	/^#### EC Memory:  $/;"	t	section:ToDo""Implemention
+EC Queue:	TODO.md	/^#### EC Queue:  $/;"	t	section:ToDo""Implemention
+EC Stack:	TODO.md	/^#### EC Stack:  $/;"	t	section:ToDo""Implemention
+EC Var:	TODO.md	/^#### EC Var:$/;"	t	section:ToDo""Implemention
+ECFile	include/ec_file.h	/^typedef struct _ECFile ECFile;$/;"	t	typeref:struct:_ECFile
+ECFilePtr	include/ec_file.h	/^typedef ECFile * ECFilePtr;$/;"	t	typeref:typename:ECFile *
+ECLine	include/ec_file.h	/^} ECLine;$/;"	t	typeref:struct:_ECLine
+ECLinePtr	include/ec_file.h	/^typedef ECLine * ECLinePtr;$/;"	t	typeref:typename:ECLine *
+ECMemory	include/ec_memory.h	/^typedef struct ECMemory {$/;"	s
+ECMemory	include/ec_memory.h	/^} ECMemory;$/;"	t	typeref:struct:ECMemory
+ECMemoryLock	include/ec_memory.h	/^} ECMemoryLock;$/;"	t	typeref:enum:__anon7234104e0103
+ECType	include/ec_type.h	/^} ECType;$/;"	t	typeref:enum:__anond0f8a4370103
+EC_ARRAY	include/ec_array.h	/^#define EC_ARRAY(/;"	d
+EC_ARRAY_FREE_FUNCTION	include/ec_array.h	/^#define EC_ARRAY_FREE_FUNCTION(/;"	d
+EC_ARRAY_FREE_FUNCTION_NAME	include/ec_array.h	/^#define EC_ARRAY_FREE_FUNCTION_NAME(/;"	d
+EC_ARRAY_FREE_FUNCTION_PROTOTYPE	include/ec_array.h	/^#define EC_ARRAY_FREE_FUNCTION_PROTOTYPE(/;"	d
+EC_ARRAY_FUNCTIONS	include/ec_array.h	/^#define EC_ARRAY_FUNCTIONS(/;"	d
+EC_ARRAY_FUNCTION_PROTOTYPES	include/ec_array.h	/^#define EC_ARRAY_FUNCTION_PROTOTYPES(/;"	d
+EC_ARRAY_H	include/ec_array.h	/^#define EC_ARRAY_H$/;"	d
+EC_ARRAY_NEW_FUNCTION	include/ec_array.h	/^#define EC_ARRAY_NEW_FUNCTION(/;"	d
+EC_ARRAY_NEW_FUNCTION_NAME	include/ec_array.h	/^#define EC_ARRAY_NEW_FUNCTION_NAME(/;"	d
+EC_ARRAY_NEW_FUNCTION_PROTOTYPE	include/ec_array.h	/^#define EC_ARRAY_NEW_FUNCTION_PROTOTYPE(/;"	d
+EC_ARRAY_REVERSE_FUNCTION	include/ec_array.h	/^#define EC_ARRAY_REVERSE_FUNCTION(/;"	d
+EC_ARRAY_REVERSE_FUNCTION_NAME	include/ec_array.h	/^#define EC_ARRAY_REVERSE_FUNCTION_NAME(/;"	d
+EC_ARRAY_REVERSE_FUNCTION_PROTOTYPE	include/ec_array.h	/^#define EC_ARRAY_REVERSE_FUNCTION_PROTOTYPE(/;"	d
+EC_ARRAY_SEARCH_FUNCTION	include/ec_array.h	/^#define EC_ARRAY_SEARCH_FUNCTION(/;"	d
+EC_ARRAY_SEARCH_FUNCTION_NAME	include/ec_array.h	/^#define EC_ARRAY_SEARCH_FUNCTION_NAME(/;"	d
+EC_ARRAY_SEARCH_FUNCTION_PROTOTYPE	include/ec_array.h	/^#define EC_ARRAY_SEARCH_FUNCTION_PROTOTYPE(/;"	d
+EC_ARRAY_SEARCH_MAX_FUNCTION	include/ec_array.h	/^#define EC_ARRAY_SEARCH_MAX_FUNCTION(/;"	d
+EC_ARRAY_SEARCH_MAX_FUNCTION_NAME	include/ec_array.h	/^#define EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(/;"	d
+EC_ARRAY_SEARCH_MAX_FUNCTION_PROTOTYPE	include/ec_array.h	/^#define EC_ARRAY_SEARCH_MAX_FUNCTION_PROTOTYPE(/;"	d
+EC_ARRAY_SEARCH_MIN_FUNCTION	include/ec_array.h	/^#define EC_ARRAY_SEARCH_MIN_FUNCTION(/;"	d
+EC_ARRAY_SEARCH_MIN_FUNCTION_NAME	include/ec_array.h	/^#define EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(/;"	d
+EC_ARRAY_SEARCH_MIN_FUNCTION_PROTOTYPE	include/ec_array.h	/^#define EC_ARRAY_SEARCH_MIN_FUNCTION_PROTOTYPE(/;"	d
+EC_ARRAY_SORT_FUNCTION	include/ec_array.h	/^#define EC_ARRAY_SORT_FUNCTION(/;"	d
+EC_ARRAY_SORT_FUNCTION_NAME	include/ec_array.h	/^#define EC_ARRAY_SORT_FUNCTION_NAME(/;"	d
+EC_ARRAY_SORT_FUNCTION_PROTOTYPE	include/ec_array.h	/^#define EC_ARRAY_SORT_FUNCTION_PROTOTYPE(/;"	d
+EC_ARRAY_STRUCT	include/ec_array.h	/^#define EC_ARRAY_STRUCT(/;"	d
+EC_ARRAY_TEST_H	test/include/ec_array_test.h	/^#define EC_ARRAY_TEST_H$/;"	d
+EC_ARRAY_TYPE	include/ec_type.h	/^    EC_ARRAY_TYPE,$/;"	e	enum:__anond0f8a4370103
+EC_CONCAT	include/ec_string.h	/^#define EC_CONCAT(/;"	d
+EC_CONCAT4	include/ec_string.h	/^#define EC_CONCAT4(/;"	d
+EC_Clean	src/ec_memory.c	/^EC_Clean ()$/;"	f	typeref:typename:void
+EC_ERROR_H	include/ec_error.h	/^#define EC_ERROR_H$/;"	d
+EC_ERROR_MEM_ALLOC	include/ec_error.h	/^#define EC_ERROR_MEM_ALLOC(/;"	d
+EC_Error_Mem_Alloc	src/ec_error.c	/^EC_Error_Mem_Alloc (char* file, int line)$/;"	f	typeref:typename:void
+EC_FILE_H	include/ec_file.h	/^#define EC_FILE_H$/;"	d
+EC_H	include/ec.h	/^#define EC_H$/;"	d
+EC_LIST	include/ec_list.h	/^#define EC_LIST(/;"	d
+EC_LIST_APPEND_FUNCTION	include/ec_list.h	/^#define EC_LIST_APPEND_FUNCTION(/;"	d
+EC_LIST_APPEND_FUNCTION_NAME	include/ec_list.h	/^#define EC_LIST_APPEND_FUNCTION_NAME(/;"	d
+EC_LIST_APPEND_FUNCTION_PROTOTYPE	include/ec_list.h	/^#define EC_LIST_APPEND_FUNCTION_PROTOTYPE(/;"	d
+EC_LIST_DROP_FUNCTION	include/ec_list.h	/^#define EC_LIST_DROP_FUNCTION(/;"	d
+EC_LIST_DROP_FUNCTION_NAME	include/ec_list.h	/^#define EC_LIST_DROP_FUNCTION_NAME(/;"	d
+EC_LIST_DROP_FUNCTION_PROTOTYPE	include/ec_list.h	/^#define EC_LIST_DROP_FUNCTION_PROTOTYPE(/;"	d
+EC_LIST_FOREACH	include/ec_list.h	/^#define EC_LIST_FOREACH(/;"	d
+EC_LIST_FREE_FUNCTION	include/ec_list.h	/^#define EC_LIST_FREE_FUNCTION(/;"	d
+EC_LIST_FREE_FUNCTION_NAME	include/ec_list.h	/^#define EC_LIST_FREE_FUNCTION_NAME(/;"	d
+EC_LIST_FREE_FUNCTION_PROTOTYPE	include/ec_list.h	/^#define EC_LIST_FREE_FUNCTION_PROTOTYPE(/;"	d
+EC_LIST_FREE_LIST_FUNCTION_NAME	include/ec_list.h	/^#define EC_LIST_FREE_LIST_FUNCTION_NAME(/;"	d
+EC_LIST_FREE_VAR_FUNCTION	include/ec_list.h	/^#define EC_LIST_FREE_VAR_FUNCTION(/;"	d
+EC_LIST_FREE_VAR_FUNCTION_NAME	include/ec_list.h	/^#define EC_LIST_FREE_VAR_FUNCTION_NAME(/;"	d
+EC_LIST_FREE_VAR_FUNCTION_PROTOTYPE	include/ec_list.h	/^#define EC_LIST_FREE_VAR_FUNCTION_PROTOTYPE(/;"	d
+EC_LIST_FUNCTIONS	include/ec_list.h	/^#define EC_LIST_FUNCTIONS(/;"	d
+EC_LIST_FUNCTION_PROTOTYPES	include/ec_list.h	/^#define EC_LIST_FUNCTION_PROTOTYPES(/;"	d
+EC_LIST_H	include/ec_list.h	/^#define EC_LIST_H$/;"	d
+EC_LIST_INSERT_FUNCTION	include/ec_list.h	/^#define EC_LIST_INSERT_FUNCTION(/;"	d
+EC_LIST_INSERT_FUNCTION_NAME	include/ec_list.h	/^#define EC_LIST_INSERT_FUNCTION_NAME(/;"	d
+EC_LIST_INSERT_FUNCTION_PROTOTYPE	include/ec_list.h	/^#define EC_LIST_INSERT_FUNCTION_PROTOTYPE(/;"	d
+EC_LIST_NEW_FUNCTION	include/ec_list.h	/^#define EC_LIST_NEW_FUNCTION(/;"	d
+EC_LIST_NEW_FUNCTION_PROTOTYPE	include/ec_list.h	/^#define EC_LIST_NEW_FUNCTION_PROTOTYPE(/;"	d
+EC_LIST_NEW_LIST_FUNCTION_NAME	include/ec_list.h	/^#define EC_LIST_NEW_LIST_FUNCTION_NAME(/;"	d
+EC_LIST_NEW_VAR_FUNCTION	include/ec_list.h	/^#define EC_LIST_NEW_VAR_FUNCTION(/;"	d
+EC_LIST_NEW_VAR_FUNCTION_NAME	include/ec_list.h	/^#define EC_LIST_NEW_VAR_FUNCTION_NAME(/;"	d
+EC_LIST_NEW_VAR_FUNCTION_PROTOTYPE	include/ec_list.h	/^#define EC_LIST_NEW_VAR_FUNCTION_PROTOTYPE(/;"	d
+EC_LIST_REPLACE_FUNCTION	include/ec_list.h	/^#define EC_LIST_REPLACE_FUNCTION(/;"	d
+EC_LIST_REPLACE_FUNCTION_NAME	include/ec_list.h	/^#define EC_LIST_REPLACE_FUNCTION_NAME(/;"	d
+EC_LIST_REPLACE_FUNCTION_PROTOTYPE	include/ec_list.h	/^#define EC_LIST_REPLACE_FUNCTION_PROTOTYPE(/;"	d
+EC_LIST_SORT_FUNCTION	include/ec_list.h	/^#define EC_LIST_SORT_FUNCTION(/;"	d
+EC_LIST_SORT_FUNCTION_NAME	include/ec_list.h	/^#define EC_LIST_SORT_FUNCTION_NAME(/;"	d
+EC_LIST_SORT_FUNCTION_PROTOTYPE	include/ec_list.h	/^#define EC_LIST_SORT_FUNCTION_PROTOTYPE(/;"	d
+EC_LIST_STRUCT	include/ec_list.h	/^#define EC_LIST_STRUCT(/;"	d
+EC_LIST_TEST_H	test/include/ec_list_test.h	/^#define EC_LIST_TEST_H$/;"	d
+EC_LIST_TYPE	include/ec_type.h	/^    EC_LIST_TYPE,$/;"	e	enum:__anond0f8a4370103
+EC_LIST_VAR_FREE_FUNCTION	include/ec_list.h	/^#define EC_LIST_VAR_FREE_FUNCTION(/;"	d
+EC_LIST_VAR_FREE_FUNCTION_NAME	include/ec_list.h	/^#define EC_LIST_VAR_FREE_FUNCTION_NAME(/;"	d
+EC_LIST_VAR_FREE_FUNCTION_PROTOTYPE	include/ec_list.h	/^#define EC_LIST_VAR_FREE_FUNCTION_PROTOTYPE(/;"	d
+EC_LIST_VAR_STRUCT	include/ec_list.h	/^#define EC_LIST_VAR_STRUCT(/;"	d
+EC_LIST_VAR_TYPE	include/ec_type.h	/^    EC_LIST_VAR_TYPE,$/;"	e	enum:__anond0f8a4370103
+EC_LOCK	include/ec_memory.h	/^    EC_LOCK,$/;"	e	enum:__anon7234104e0103
+EC_MEMORY	test/include/student.h	/^#define EC_MEMORY /;"	d
+EC_MEMORY_H	include/ec_memory.h	/^#define EC_MEMORY_H$/;"	d
+EC_MEMORY_REF	include/ec_memory.h	/^#define EC_MEMORY_REF /;"	d
+EC_MEMORY_REF	include/ec_memory.h	/^#define EC_MEMORY_REF$/;"	d
+EC_Memory_Append	src/ec_memory.c	/^EC_Memory_Append (ECMemory* ec_memory_new)$/;"	f	typeref:typename:void
+EC_Memory_Free_EC_Memory	src/ec_memory.c	/^EC_Memory_Free_EC_Memory (ECMemory* free_ec_memory)$/;"	f	typeref:typename:void
+EC_Memory_Free_Unlock	src/ec_memory.c	/^EC_Memory_Free_Unlock ()$/;"	f	typeref:typename:void
+EC_Memory_Free_Unlock_One	src/ec_memory.c	/^EC_Memory_Free_Unlock_One ()$/;"	f	typeref:typename:void
+EC_NONE_LOCK	include/ec_memory.h	/^    EC_NONE_LOCK$/;"	e	enum:__anon7234104e0103
+EC_Print_Error	src/ec_error.c	/^EC_Print_Error (char *test, char *result)$/;"	f	typeref:typename:void
+EC_QUEUE	include/ec_queue.h	/^#define EC_QUEUE(/;"	d
+EC_QUEUE_DEQUEUE_FUNCTION	include/ec_queue.h	/^#define EC_QUEUE_DEQUEUE_FUNCTION(/;"	d
+EC_QUEUE_DEQUEUE_FUNCTION_NAME	include/ec_queue.h	/^#define EC_QUEUE_DEQUEUE_FUNCTION_NAME(/;"	d
+EC_QUEUE_DEQUEUE_FUNCTION_PROTOTYPE	include/ec_queue.h	/^#define EC_QUEUE_DEQUEUE_FUNCTION_PROTOTYPE(/;"	d
+EC_QUEUE_DROP_FUNCTION_NAME	include/ec_queue.h	/^#define EC_QUEUE_DROP_FUNCTION_NAME(/;"	d
+EC_QUEUE_ENQUEUE_FUNCTION	include/ec_queue.h	/^#define EC_QUEUE_ENQUEUE_FUNCTION(/;"	d
+EC_QUEUE_ENQUEUE_FUNCTION_NAME	include/ec_queue.h	/^#define EC_QUEUE_ENQUEUE_FUNCTION_NAME(/;"	d
+EC_QUEUE_ENQUEUE_FUNCTION_PROTOTYPE	include/ec_queue.h	/^#define EC_QUEUE_ENQUEUE_FUNCTION_PROTOTYPE(/;"	d
+EC_QUEUE_FOREACH	include/ec_queue.h	/^#define EC_QUEUE_FOREACH(/;"	d
+EC_QUEUE_FREE_FUNCTION	include/ec_queue.h	/^#define EC_QUEUE_FREE_FUNCTION(/;"	d
+EC_QUEUE_FREE_FUNCTION_NAME	include/ec_queue.h	/^#define EC_QUEUE_FREE_FUNCTION_NAME(/;"	d
+EC_QUEUE_FREE_FUNCTION_PROTOTYPE	include/ec_queue.h	/^#define EC_QUEUE_FREE_FUNCTION_PROTOTYPE(/;"	d
+EC_QUEUE_FREE_QUEUE_FUNCTION_NAME	include/ec_queue.h	/^#define EC_QUEUE_FREE_QUEUE_FUNCTION_NAME(/;"	d
+EC_QUEUE_FREE_VAR_FUNCTION	include/ec_queue.h	/^#define EC_QUEUE_FREE_VAR_FUNCTION(/;"	d
+EC_QUEUE_FREE_VAR_FUNCTION_NAME	include/ec_queue.h	/^#define EC_QUEUE_FREE_VAR_FUNCTION_NAME(/;"	d
+EC_QUEUE_FRONT_FUNCTION	include/ec_queue.h	/^#define EC_QUEUE_FRONT_FUNCTION(/;"	d
+EC_QUEUE_FRONT_FUNCTION_NAME	include/ec_queue.h	/^#define EC_QUEUE_FRONT_FUNCTION_NAME(/;"	d
+EC_QUEUE_FUNCTIONS	include/ec_queue.h	/^#define EC_QUEUE_FUNCTIONS(/;"	d
+EC_QUEUE_FUNCTION_PROTOTYPES	include/ec_queue.h	/^#define EC_QUEUE_FUNCTION_PROTOTYPES(/;"	d
+EC_QUEUE_H	include/ec_queue.h	/^#define EC_QUEUE_H$/;"	d
+EC_QUEUE_NEW_FUNCTION	include/ec_queue.h	/^#define EC_QUEUE_NEW_FUNCTION(/;"	d
+EC_QUEUE_NEW_FUNCTION_NAME	include/ec_queue.h	/^#define EC_QUEUE_NEW_FUNCTION_NAME(/;"	d
+EC_QUEUE_NEW_FUNCTION_PROTOTYPE	include/ec_queue.h	/^#define EC_QUEUE_NEW_FUNCTION_PROTOTYPE(/;"	d
+EC_QUEUE_NEW_VAR_FUNCTION	include/ec_queue.h	/^#define EC_QUEUE_NEW_VAR_FUNCTION(/;"	d
+EC_QUEUE_NEW_VAR_FUNCTION_NAME	include/ec_queue.h	/^#define EC_QUEUE_NEW_VAR_FUNCTION_NAME(/;"	d
+EC_QUEUE_NEW_VAR_FUNCTION_PROTOTYPE	include/ec_queue.h	/^#define EC_QUEUE_NEW_VAR_FUNCTION_PROTOTYPE(/;"	d
+EC_QUEUE_STRUCT	include/ec_queue.h	/^#define EC_QUEUE_STRUCT(/;"	d
+EC_QUEUE_TEST_H	test/include/ec_queue_test.h	/^#define EC_QUEUE_TEST_H$/;"	d
+EC_QUEUE_TYPE	include/ec_type.h	/^    EC_QUEUE_TYPE,$/;"	e	enum:__anond0f8a4370103
+EC_QUEUE_VAR_FREE_FUNCTION	include/ec_queue.h	/^#define EC_QUEUE_VAR_FREE_FUNCTION(/;"	d
+EC_QUEUE_VAR_FREE_FUNCTION_NAME	include/ec_queue.h	/^#define EC_QUEUE_VAR_FREE_FUNCTION_NAME(/;"	d
+EC_QUEUE_VAR_FREE_FUNCTION_PROTOTYPE	include/ec_queue.h	/^#define EC_QUEUE_VAR_FREE_FUNCTION_PROTOTYPE(/;"	d
+EC_QUEUE_VAR_STRUCT	include/ec_queue.h	/^#define EC_QUEUE_VAR_STRUCT(/;"	d
+EC_QUEUE_VAR_TYPE	include/ec_type.h	/^    EC_QUEUE_VAR_TYPE,$/;"	e	enum:__anond0f8a4370103
+EC_STACK	include/ec_stack.h	/^#define EC_STACK(/;"	d
+EC_STACK_FOREACH	include/ec_stack.h	/^#define EC_STACK_FOREACH(/;"	d
+EC_STACK_FREE_FUNCTION	include/ec_stack.h	/^#define EC_STACK_FREE_FUNCTION(/;"	d
+EC_STACK_FREE_FUNCTION_NAME	include/ec_stack.h	/^#define EC_STACK_FREE_FUNCTION_NAME(/;"	d
+EC_STACK_FREE_FUNCTION_PROTOTYPE	include/ec_stack.h	/^#define EC_STACK_FREE_FUNCTION_PROTOTYPE(/;"	d
+EC_STACK_FREE_STACK_FUNCTION_NAME	include/ec_stack.h	/^#define EC_STACK_FREE_STACK_FUNCTION_NAME(/;"	d
+EC_STACK_FREE_VAR_FUNCTION_NAME	include/ec_stack.h	/^#define EC_STACK_FREE_VAR_FUNCTION_NAME(/;"	d
+EC_STACK_FUNCTIONS	include/ec_stack.h	/^#define EC_STACK_FUNCTIONS(/;"	d
+EC_STACK_FUNCTION_PROTOTYPES	include/ec_stack.h	/^#define EC_STACK_FUNCTION_PROTOTYPES(/;"	d
+EC_STACK_H	include/ec_stack.h	/^#define EC_STACK_H$/;"	d
+EC_STACK_NEW_FUNCTION	include/ec_stack.h	/^#define EC_STACK_NEW_FUNCTION(/;"	d
+EC_STACK_NEW_FUNCTION_NAME	include/ec_stack.h	/^#define EC_STACK_NEW_FUNCTION_NAME(/;"	d
+EC_STACK_NEW_FUNCTION_PROTOTYPE	include/ec_stack.h	/^#define EC_STACK_NEW_FUNCTION_PROTOTYPE(/;"	d
+EC_STACK_NEW_VAR_FUNCTION	include/ec_stack.h	/^#define EC_STACK_NEW_VAR_FUNCTION(/;"	d
+EC_STACK_NEW_VAR_FUNCTION_NAME	include/ec_stack.h	/^#define EC_STACK_NEW_VAR_FUNCTION_NAME(/;"	d
+EC_STACK_NEW_VAR_FUNCTION_PROTOTYPE	include/ec_stack.h	/^#define EC_STACK_NEW_VAR_FUNCTION_PROTOTYPE(/;"	d
+EC_STACK_POP_FUNCTION	include/ec_stack.h	/^#define EC_STACK_POP_FUNCTION(/;"	d
+EC_STACK_POP_FUNCTION_NAME	include/ec_stack.h	/^#define EC_STACK_POP_FUNCTION_NAME(/;"	d
+EC_STACK_POP_FUNCTION_PROTOTYPE	include/ec_stack.h	/^#define EC_STACK_POP_FUNCTION_PROTOTYPE(/;"	d
+EC_STACK_PUSH_FUNCTION	include/ec_stack.h	/^#define EC_STACK_PUSH_FUNCTION(/;"	d
+EC_STACK_PUSH_FUNCTION_NAME	include/ec_stack.h	/^#define EC_STACK_PUSH_FUNCTION_NAME(/;"	d
+EC_STACK_PUSH_FUNCTION_PROTOTYPE	include/ec_stack.h	/^#define EC_STACK_PUSH_FUNCTION_PROTOTYPE(/;"	d
+EC_STACK_SORT_FUNCTION_NAME	include/ec_stack.h	/^#define EC_STACK_SORT_FUNCTION_NAME(/;"	d
+EC_STACK_STRUCT	include/ec_stack.h	/^#define EC_STACK_STRUCT(/;"	d
+EC_STACK_TEST_H	test/include/ec_stack_test.h	/^#define EC_STACK_TEST_H$/;"	d
+EC_STACK_TYPE	include/ec_type.h	/^    EC_STACK_TYPE,$/;"	e	enum:__anond0f8a4370103
+EC_STACK_VAR_FREE_FUNCTION	include/ec_stack.h	/^#define EC_STACK_VAR_FREE_FUNCTION(/;"	d
+EC_STACK_VAR_FREE_FUNCTION_PROTOTYPE	include/ec_stack.h	/^#define EC_STACK_VAR_FREE_FUNCTION_PROTOTYPE(/;"	d
+EC_STACK_VAR_STRUCT	include/ec_stack.h	/^#define EC_STACK_VAR_STRUCT(/;"	d
+EC_STACK_VAR_TYPE	include/ec_type.h	/^    EC_STACK_VAR_TYPE$/;"	e	enum:__anond0f8a4370103
+EC_STRING	include/ec_string.h	/^#define EC_STRING$/;"	d
+EC_TEST_H	test/include/ec_test.h	/^#define EC_TEST_H$/;"	d
+EC_TYPE_H	include/ec_type.h	/^#define EC_TYPE_H$/;"	d
+EC_TYPE_TEST_H	test/include/ec_type_test.h	/^#define EC_TYPE_TEST_H$/;"	d
+EC_Type_Get_Name	src/ec_type.c	/^EC_Type_Get_Name (ECType type)$/;"	f	typeref:typename:char *
+EC_UNLOCK	include/ec_memory.h	/^    EC_UNLOCK,$/;"	e	enum:__anon7234104e0103
+EC_VAR	include/ec_variable.h	/^#define EC_VAR(/;"	d
+EC_VARIABLE_H	include/ec_variable.h	/^#define EC_VARIABLE_H$/;"	d
+EC_VARIABLE_TEST_H	test/include/ec_variable_test.h	/^#define EC_VARIABLE_TEST_H$/;"	d
+EC_VAR_FREE_FUNCTION	include/ec_variable.h	/^#define EC_VAR_FREE_FUNCTION(/;"	d
+EC_VAR_FREE_FUNCTION_NAME	include/ec_variable.h	/^#define EC_VAR_FREE_FUNCTION_NAME(/;"	d
+EC_VAR_FREE_FUNCTION_PROTOTYPE	include/ec_variable.h	/^#define EC_VAR_FREE_FUNCTION_PROTOTYPE(/;"	d
+EC_VAR_FUNCTIONS	include/ec_variable.h	/^#define EC_VAR_FUNCTIONS(/;"	d
+EC_VAR_FUNCTION_PROTOTYPES	include/ec_variable.h	/^#define EC_VAR_FUNCTION_PROTOTYPES(/;"	d
+EC_VAR_NEW_FUNCTION	include/ec_variable.h	/^#define EC_VAR_NEW_FUNCTION(/;"	d
+EC_VAR_NEW_FUNCTION_NAME	include/ec_variable.h	/^#define EC_VAR_NEW_FUNCTION_NAME(/;"	d
+EC_VAR_NEW_FUNCTION_PROTOTYPE	include/ec_variable.h	/^#define EC_VAR_NEW_FUNCTION_PROTOTYPE(/;"	d
+EC_VAR_TYPE	include/ec_type.h	/^    EC_VAR_TYPE,$/;"	e	enum:__anond0f8a4370103
+EC_VAR_UNLOCK_FUNCTION_NAME	include/ec_variable.h	/^#define EC_VAR_UNLOCK_FUNCTION_NAME(/;"	d
+EC_init	src/ec.c	/^EC_init()$/;"	f	typeref:typename:void
+EcBlock	include/ec_file.h	/^typedef struct _EcBlock EcBlock;$/;"	t	typeref:struct:_EcBlock
+EcFile	include/ec_file.h	/^typedef struct _EcFile EcFile;$/;"	t	typeref:struct:_EcFile
+EcFileLine	include/ec_file.h	/^typedef struct _EcFileLine EcFileLine;$/;"	t	typeref:struct:_EcFileLine
+EcWord	include/ec_file.h	/^typedef struct _EcWord EcWord;$/;"	t	typeref:struct:_EcWord
+Example:	README.md	/^### Example:  $/;"	S	chapter:Extended C
+Extended C	README.md	/^# Extended C  $/;"	c
+FILE_OBJECT	include/ec_file.h	/^  FILE_OBJECT,$/;"	e	enum:_BlockType
+FUNCTION	include/ec_file.h	/^  FUNCTION,$/;"	e	enum:_BlockType
+Free_Func	include/ec_memory.h	/^    void                (*Free_Func) (void*);$/;"	m	struct:ECMemory	typeref:typename:void (*)(void *)
+Free_Var_Func	include/ec_memory.h	/^    void                (*Free_Var_Func) (void*);$/;"	m	struct:ECMemory	typeref:typename:void (*)(void *)
+Future development road map	TODO.md	/^## Future development road map  $/;"	s	chapter:ToDo
+Implemention	TODO.md	/^## Implemention$/;"	s	chapter:ToDo
+Int_Array_Max	src/ec_array.c	/^Int_Array_Max$/;"	f	typeref:typename:int
+Int_Array_Min	src/ec_array.c	/^Int_Array_Min$/;"	f	typeref:typename:int
+Int_Array_Reverse	src/ec_array.c	/^Int_Array_Reverse$/;"	f	typeref:typename:void
+Int_Array_Search	src/ec_array.c	/^Int_Array_Search$/;"	f	typeref:typename:int *
+Int_Sorted_Array_Search	src/ec_array.c	/^Int_Sorted_Array_Search$/;"	f	typeref:typename:int
+Linux:	TODO.md	/^### Linux:$/;"	S	section:ToDo""Porting
+METHOD	include/ec_file.h	/^  METHOD$/;"	e	enum:_BlockType
+Mac:	TODO.md	/^### Mac:  $/;"	S	section:ToDo""Porting
+NUM_LINES	include/ec_file.h	/^#define NUM_LINES /;"	d
+OBJECT	include/ec_file.h	/^  OBJECT,$/;"	e	enum:_BlockType
+Objects in mind	TODO.md	/^### Objects in mind  $/;"	S	section:ToDo""Documentation
+Porting	TODO.md	/^## Porting$/;"	s	chapter:ToDo
+Print_Student_List	test/src/ec_list_test.c	/^Print_Student_List (StudentList *stl)$/;"	f	typeref:typename:void
+Refine code:	TODO.md	/^#### Refine code:  $/;"	t	section:ToDo""Implemention
+Run_Array_Test	test/src/ec_array_test.c	/^Run_Array_Test ()$/;"	f	typeref:typename:void
+Run_List_Test	test/src/ec_list_test.c	/^Run_List_Test ()$/;"	f	typeref:typename:void
+Run_Queue_Test	test/src/ec_queue_test.c	/^Run_Queue_Test ()$/;"	f	typeref:typename:void
+Run_Stack_Test	test/src/ec_stack_test.c	/^Run_Stack_Test ()$/;"	f	typeref:typename:void
+Run_Type_Test	test/src/ec_type_test.c	/^Run_Type_Test ()$/;"	f	typeref:typename:void
+Run_Variable_Test	test/src/ec_variable_test.c	/^Run_Variable_Test ()$/;"	f	typeref:typename:void
+STUDENT	test/include/student.h	/^#define STUDENT /;"	d
+STUDENT_H	test/include/student.h	/^#define STUDENT_H$/;"	d
+SessionLoad	session_ec.vim	/^let SessionLoad = 1$/;"	v
+StrList	include/ec_string.h	/^typedef struct _StrList StrList;$/;"	t	typeref:struct:_StrList
+StrListPtr	include/ec_string.h	/^typedef StrList * StrListPtr;$/;"	t	typeref:typename:StrList *
+Test all:	TODO.md	/^#### Test all:  $/;"	t	section:ToDo""Implemention
+Test_Append_List	test/src/ec_list_test.c	/^Test_Append_List ()$/;"	f	typeref:typename:void
+Test_Array_Max_Var	test/src/ec_array_test.c	/^Test_Array_Max_Var ()$/;"	f	typeref:typename:void
+Test_Array_Min_Var	test/src/ec_array_test.c	/^Test_Array_Min_Var ()$/;"	f	typeref:typename:void
+Test_Array_Reverse	test/src/ec_array_test.c	/^Test_Array_Reverse ()$/;"	f	typeref:typename:void
+Test_Array_Sort	test/src/ec_array_test.c	/^Test_Array_Sort ()$/;"	f	typeref:typename:void
+Test_Dequeue_Queue	test/src/ec_queue_test.c	/^Test_Dequeue_Queue ()$/;"	f	typeref:typename:void
+Test_Enqueue_Queue	test/src/ec_queue_test.c	/^Test_Enqueue_Queue ()$/;"	f	typeref:typename:void
+Test_Generated_Structures	test/src/ec_type_test.c	/^Test_Generated_Structures ()$/;"	f	typeref:typename:void
+Test_Insert_List	test/src/ec_list_test.c	/^Test_Insert_List ()$/;"	f	typeref:typename:void
+Test_Int_Array_Max	test/src/ec_array_test.c	/^Test_Int_Array_Max ()$/;"	f	typeref:typename:void
+Test_Int_Array_Min	test/src/ec_array_test.c	/^Test_Int_Array_Min ()$/;"	f	typeref:typename:void
+Test_Int_Array_Reverse	test/src/ec_array_test.c	/^Test_Int_Array_Reverse ()$/;"	f	typeref:typename:void
+Test_Int_Array_Search	test/src/ec_array_test.c	/^Test_Int_Array_Search ()$/;"	f	typeref:typename:void
+Test_Int_Sorted_Array_Search	test/src/ec_array_test.c	/^Test_Int_Sorted_Array_Search ()$/;"	f	typeref:typename:void
+Test_New_Array	test/src/ec_array_test.c	/^Test_New_Array ()$/;"	f	typeref:typename:void
+Test_New_List	test/src/ec_list_test.c	/^Test_New_List ()$/;"	f	typeref:typename:void
+Test_New_Queue	test/src/ec_queue_test.c	/^Test_New_Queue ()$/;"	f	typeref:typename:void
+Test_New_Stack	test/src/ec_stack_test.c	/^Test_New_Stack ()$/;"	f	typeref:typename:void
+Test_New_Variable	test/src/ec_variable_test.c	/^Test_New_Variable ()$/;"	f	typeref:typename:void
+Test_New_Variable_Memory_Free	test/src/ec_variable_test.c	/^Test_New_Variable_Memory_Free ()$/;"	f	typeref:typename:void
+Test_Pop_Stack	test/src/ec_stack_test.c	/^Test_Pop_Stack ()$/;"	f	typeref:typename:void
+Test_Push_Stack	test/src/ec_stack_test.c	/^Test_Push_Stack ()$/;"	f	typeref:typename:void
+Test_Replace_List	test/src/ec_list_test.c	/^Test_Replace_List ()$/;"	f	typeref:typename:void
+Test_Sort_List	test/src/ec_list_test.c	/^Test_Sort_List ()$/;"	f	typeref:typename:void
+Test_Sorted_Array_Search_Var	test/src/ec_array_test.c	/^Test_Sorted_Array_Search_Var ()$/;"	f	typeref:typename:void
+ToDo	TODO.md	/^# ToDo  $/;"	c
+Windows:	TODO.md	/^### Windows:  $/;"	S	section:ToDo""Porting
+_BlockType	include/ec_file.h	/^enum _BlockType$/;"	g
+_ECFile	include/ec_file.h	/^struct _ECFile {$/;"	s
+_ECLine	include/ec_file.h	/^typedef struct _ECLine {$/;"	s
+_EcBlock	include/ec_file.h	/^struct _EcBlock$/;"	s
+_EcFile	include/ec_file.h	/^struct _EcFile$/;"	s
+_EcFileLine	include/ec_file.h	/^struct _EcFileLine$/;"	s
+_EcWord	include/ec_file.h	/^struct _EcWord$/;"	s
+_StrList	include/ec_string.h	/^struct _StrList$/;"	s
+__anon7234104e0103	include/ec_memory.h	/^typedef enum {$/;"	g
+__anond0f8a4370103	include/ec_type.h	/^typedef enum {$/;"	g
+blocks	include/ec_file.h	/^  EcBlock blocks[];$/;"	m	struct:_EcFile	typeref:typename:EcBlock[]
+ec_arrary_free	include/ec_memory.h	/^#define ec_arrary_free(/;"	d
+ec_block	src/ec_file.c	/^ec_block (EcFile *obj) {$/;"	f	typeref:typename:void
+ec_memory	include/ec_memory.h	/^ECMemory* ec_memory;$/;"	v	typeref:typename:ECMemory *
+ec_memory_free	include/ec_memory.h	/^#define ec_memory_free(/;"	d
+ec_read	src/ec_file.c	/^ec_read (EcFile *obj, char *file_name)$/;"	f	typeref:typename:void
+ec_type_names	src/ec_type.c	/^char* ec_type_names[] = {$/;"	v	typeref:typename:char * []
+ec_unlock	include/ec_memory.h	/^#define ec_unlock(/;"	d
+ecfile	src/ec_file.c	/^typedef struct ecfile {$/;"	s	file:
+ecfile	src/ec_file.c	/^} ecfile;$/;"	t	typeref:struct:ecfile	file:
+ecfile_ECFile_init	src/ec_file.c	/^void ecfile_ECFile_init ( ECFilePtr obj, char *file_name )$/;"	f	typeref:typename:void
+ecfile_ECFile_parse	src/ec_file.c	/^void ecfile_ECFile_parse ( ECFilePtr obj )$/;"	f	typeref:typename:void
+foreach_array	include/ec_array.h	/^#define foreach_array(/;"	d
+foreach_list	include/ec_list.h	/^#define foreach_list(/;"	d
+foreach_queue	include/ec_queue.h	/^#define foreach_queue(/;"	d
+foreach_stack	include/ec_stack.h	/^#define foreach_stack(/;"	d
+free_one	src/ec_memory.c	/^ECMemory* free_one = NULL;$/;"	v	typeref:typename:ECMemory *
+level	include/ec_file.h	/^  int level;$/;"	m	struct:_EcBlock	typeref:typename:int
+line	include/ec_string.h	/^  char *line;$/;"	m	struct:_StrList	typeref:typename:char *
+line_counter	src/ec_file.c	/^int line_counter = 0;$/;"	v	typeref:typename:int
+lines	include/ec_file.h	/^	ECLinePtr lines;$/;"	m	struct:_ECFile	typeref:typename:ECLinePtr
+lines	include/ec_file.h	/^  EcFileLine lines[NUM_LINES];$/;"	m	struct:_EcFile	typeref:typename:EcFileLine[]
+lines	src/ec_file.c	/^	char *lines[];$/;"	m	struct:ecfile	typeref:typename:char * []	file:
+lock	include/ec_memory.h	/^    ECMemoryLock        lock;$/;"	m	struct:ECMemory	typeref:typename:ECMemoryLock
+main	test/src/ec_test.c	/^main (int argc, char *argv[])$/;"	f	typeref:typename:int
+name	include/ec_file.h	/^	char *name;$/;"	m	struct:_ECFile	typeref:typename:char *
+name	include/ec_file.h	/^  char *name;$/;"	m	struct:_EcBlock	typeref:typename:char *
+name	include/ec_file.h	/^  char *name;$/;"	m	struct:_EcFile	typeref:typename:char *
+name	src/ec_file.c	/^	char *name;$/;"	m	struct:ecfile	typeref:typename:char *	file:
+next	include/ec_memory.h	/^    struct ECMemory*    next;$/;"	m	struct:ECMemory	typeref:struct:ECMemory *
+nextPtr	include/ec_file.h	/^	struct ECLine * nextPtr;$/;"	m	struct:_ECLine	typeref:struct:ECLine *
+nextPtr	include/ec_file.h	/^	struct _ECFile * nextPtr;$/;"	m	struct:_ECFile	typeref:struct:_ECFile *
+nextPtr	include/ec_string.h	/^  struct _StrList *nextPtr;$/;"	m	struct:_StrList	typeref:struct:_StrList *
+number	include/ec_file.h	/^  int number;$/;"	m	struct:_EcFileLine	typeref:typename:int
+previous	include/ec_memory.h	/^    struct ECMemory*    previous;$/;"	m	struct:ECMemory	typeref:struct:ECMemory *
+s:l	session_ec.vim	/^let s:l = 1 - ((0 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	session_ec.vim	/^let s:l = 11 - ((10 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	session_ec.vim	/^let s:l = 13 - ((12 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	session_ec.vim	/^let s:l = 145 - ((51 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	session_ec.vim	/^let s:l = 19 - ((18 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	session_ec.vim	/^let s:l = 20 - ((19 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	session_ec.vim	/^let s:l = 21 - ((20 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	session_ec.vim	/^let s:l = 22 - ((21 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	session_ec.vim	/^let s:l = 28 - ((21 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	session_ec.vim	/^let s:l = 32 - ((25 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	session_ec.vim	/^let s:l = 68 - ((25 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	session_ec.vim	/^let s:l = 9 - ((8 * winheight(0) + 26) \/ 52)$/;"	v
+s:so_save	session_ec.vim	/^let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0$/;"	v
+s:sx	session_ec.vim	/^let s:sx = expand("<sfile>:p:r")."x.vim"$/;"	v
+s:wipebuf	session_ec.vim	/^  let s:wipebuf = bufnr('%')$/;"	v
+split	src/ec_file.c	/^void split ()$/;"	f	typeref:typename:void
+st	test/src/ec_variable_test.c	/^Student *st;$/;"	v	typeref:typename:Student *
+text	include/ec_file.h	/^	char *text;$/;"	m	struct:_ECLine	typeref:typename:char *
+text	include/ec_file.h	/^  char *text;$/;"	m	struct:_EcWord	typeref:typename:char *
+text	include/ec_file.h	/^  char text[200];$/;"	m	struct:_EcFileLine	typeref:typename:char[200]
+type	include/ec_file.h	/^  BlockType type;$/;"	m	struct:_EcBlock	typeref:typename:BlockType
+type	include/ec_file.h	/^  char *type;$/;"	m	struct:_EcFile	typeref:typename:char *
+type	include/ec_file.h	/^  int type;$/;"	m	struct:_EcWord	typeref:typename:int
+type	include/ec_memory.h	/^    ECType              type;$/;"	m	struct:ECMemory	typeref:typename:ECType
+type	src/ec_file.c	/^	char *type;$/;"	m	struct:ecfile	typeref:typename:char *	file:
+var	include/ec_memory.h	/^    void*               var;$/;"	m	struct:ECMemory	typeref:typename:void *
+words	include/ec_file.h	/^  EcWord words[100];$/;"	m	struct:_EcBlock	typeref:typename:EcWord[100]
