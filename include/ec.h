@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #include "ec_type.h"
 #include "ec_string.h"
@@ -23,7 +24,6 @@
 #include "ec_list.h"
 #include "ec_queue.h"
 #include "ec_stack.h"
-//#include "ec_bool.h"
 //#include "ec_syntax.h"
 //#include "ec_bits.h"
 //#include "ec_vector.h"
