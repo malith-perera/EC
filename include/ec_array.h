@@ -482,7 +482,7 @@ EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                                               
                                                                                             \
     memcpy (array_copy->index, array->index, sizeof(TYPE) * array->length);                 \
                                                                                             \
-    array_copy->length = array->length;                                                      \
+    array_copy->length = array->length;                                                     \
                                                                                             \
     return array_copy;                                                                      \
 }

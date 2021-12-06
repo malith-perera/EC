@@ -1,3 +1,6 @@
+/*Todo */
+/* ***************** should do a empty queue dequeue test */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -37,7 +40,6 @@ Test_New_Queue ()
     EC_Print_Error ("Create new queue", "OK");
 
     StudentQueueVar *st1 = Student_Queue_Var ();
-
     StudentQueueVar *st2 = Student_Queue_Var ();
 
     EC_Print_Error ("Create queue variables", "OK");
@@ -60,7 +62,7 @@ Test_New_Queue ()
     assert (!strcmp (stq->first->name, "Malith"));
 
     assert (stq->first->next->no == 2);
-    assert (!strcmp (stq->first->next->name, "Geethike"));
+    assert (strcmp (stq->first->next->name, "Geethike") == 0);
 
     EC_Print_Error ("link variables to queue", "OK");
 
@@ -183,12 +185,12 @@ Test_Queue_Copy ()
 
     StudentQueueVar *st1 = Student_Queue_Var ();
     st1->no = 1;
-    strcpy(st1->name, "Malith");
+    st1->name = "Malith";
     Student_Enqueue (stq1, st1);
 
     StudentQueueVar *st2 = Student_Queue_Var ();
     st2->no = 2;
-    strcpy(st2->name, "Geethike");
+    st2->name = "Geethike";
     Student_Enqueue (stq1, st2);
 
     StudentQueue* stq2 = Student_Queue_Copy (stq1);
@@ -231,6 +233,9 @@ Run_Queue_Test ()
     printf ("\n");
 
     Test_Dequeue_Queue ();
+    printf ("\n");
+
+    Test_Queue_Copy ();
     printf ("\n");
 
     EC_Print_Error ("Test: ec_queue.h", "PASS");

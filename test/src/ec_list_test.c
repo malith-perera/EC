@@ -304,8 +304,7 @@ Test_List_Copy ()
     assert (stl2->first->no == 1);
     assert (strcmp(stl2->first->name ,"Malith") == 0 );
 
-    StudentListVar* var = stl2->first;
-    assert (var->next->no == 2);
+    assert (stl2->first->next->no == 2);
     assert (strcmp(stl2->first->next->name, "Geethike") == 0 );
 
     EC_Print_Error ("List Copy Variables", "OK");

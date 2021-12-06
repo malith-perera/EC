@@ -3,7 +3,7 @@
 
 #include "ec.h"
 
-#define foreach_queue(queue)                                                        \
+#define foreach_queue(queue)                                                            \
   for (queue->var = queue->first;  queue->var != NULL; queue->var = queue->var->next)
 
 
@@ -380,26 +380,25 @@ EC_QUEUE_FREE_VAR_FUNCTION_NAME(TYPE)                       \
 
 
 // Copy queue
-#define EC_QUEUE_COPY_FUNCTION(TYPE)                                \
-EC_QUEUE_STRUCT(TYPE)*                                              \
-EC_QUEUE_COPY_FUNCTION_NAME(TYPE)                                   \
-(                                                                   \
-    EC_QUEUE_STRUCT(TYPE)* queue                                    \
-)                                                                   \
-{                                                                   \
-    EC_QUEUE_STRUCT(TYPE)* queue_copy = (EC_QUEUE_STRUCT(TYPE)*)    \
-        malloc (sizeof(EC_QUEUE_STRUCT(TYPE)));                     \
-                                                                    \
-    EC_QUEUE_VAR_STRUCT(TYPE)* var;                                 \
-                                                                    \
-    foreach_queue(queue)                                            \
-    {                                                               \
-        var = EC_QUEUE_NEW_VAR_FUNCTION_NAME(TYPE)();               \
-        var = queue->var;                                           \
-        EC_QUEUE_ENQUEUE_FUNCTION_NAME(TYPE)(queue_copy, var);      \
-    }                                                               \
-                                                                    \
-    return queue_copy;                                              \
+#define EC_QUEUE_COPY_FUNCTION(TYPE)                                        \
+EC_QUEUE_STRUCT(TYPE)*                                                      \
+EC_QUEUE_COPY_FUNCTION_NAME(TYPE)                                           \
+(                                                                           \
+    EC_QUEUE_STRUCT(TYPE)* queue                                            \
+)                                                                           \
+{                                                                           \
+    EC_QUEUE_STRUCT(TYPE)* queue_copy = EC_QUEUE_NEW_FUNCTION_NAME(TYPE)(); \
+                                                                            \
+    EC_QUEUE_VAR_STRUCT(TYPE)* var;                                         \
+                                                                            \
+    foreach_queue(queue)                                                    \
+    {                                                                       \
+        var = EC_QUEUE_NEW_VAR_FUNCTION_NAME(TYPE)();                       \
+        *var = *queue->var;                                                 \
+        EC_QUEUE_ENQUEUE_FUNCTION_NAME(TYPE)(queue_copy, var);              \
+    }                                                                       \
+                                                                            \
+    return queue_copy;                                                      \
 }
 
 
