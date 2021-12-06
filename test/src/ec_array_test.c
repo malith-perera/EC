@@ -425,13 +425,18 @@ Test_Array_Copy ()
     assert (sta2->index[1].no == 2);
     assert (strcmp(sta2->index[1].name, "Geethike") == 0);
 
-    EC_Print_Error ("Array copied: ", "OK");
+    EC_Print_Error ("Array variable copied: ", "OK");
+
+    assert (sta1->length == sta2->length);
+
+    EC_Print_Error ("Array length copied: ", "OK");
 
     sta1->index[0].no = 3;
     assert (sta2->index[0].no != 3);
 
     sta2->index[1].name = "Malshi";
     assert (strcmp(sta1->index[1].name, "Malshi") != 0);
+
 
     EC_Print_Error ("Changing one array variable do not affect other array: ", "OK");
 

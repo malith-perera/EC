@@ -480,7 +480,9 @@ EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                                               
 {                                                                                           \
     EC_ARRAY_STRUCT(TYPE)* array_copy = EC_ARRAY_NEW_FUNCTION_NAME(TYPE) (array->length);   \
                                                                                             \
-    memcpy (array_copy->index, array->index, sizeof(TYPE) * array->length);                  \
+    memcpy (array_copy->index, array->index, sizeof(TYPE) * array->length);                 \
+                                                                                            \
+    array_copy->length = array->length;                                                      \
                                                                                             \
     return array_copy;                                                                      \
 }
