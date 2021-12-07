@@ -314,7 +314,7 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)                        \
     {                                                               \
         min_ref = &array->index[i];                                 \
                                                                     \
-        for (j = i + 1; j < array->length; j++)                     \
+        for (j = i + 1; j < array->length - 2; j++)                 \
         {                                                           \
             if (array->index[j].SORT_WITH < min_ref->SORT_WITH)     \
             {                                                       \

@@ -48,8 +48,6 @@ Test_Array_Sort ()
 {
     EC_Print_Error ("Test_Array_Sort: ", "BEGIN");
 
-    int i;
-
     StudentArray *sta = Student_Array (4);
     sta->index[0].no = 1;
     sta->index[0].name = "Malith";
@@ -62,7 +60,7 @@ Test_Array_Sort ()
 
     Student_Array_Sort_no (sta);
 
-    i = 1;
+    /*int i = 1;*/
 
     /*foreach_array(sta)*/
     /*{*/
@@ -70,23 +68,23 @@ Test_Array_Sort ()
 /*        i++;*/
     /*}*/
 
-    EC_Print_Error ("Sort when no sort needed ", "OK");
+/*    EC_Print_Error ("Sort when no sort needed ", "OK");*/
 
-    // minimum is last
-    sta->index[0].no = 4;
-    sta->index[0].name = "Malith";
-    sta->index[1].no = 2;
-    sta->index[1].name = "Geethike";
-    sta->index[2].no = 3;
-    sta->index[2].name = "Perera";
-    sta->index[3].no = 1;
-    sta->index[3].name = "Malshi";
+    /*// minimum is last*/
+    /*sta->index[0].no = 4;*/
+    /*sta->index[0].name = "Malith";*/
+    /*sta->index[1].no = 2;*/
+    /*sta->index[1].name = "Geethike";*/
+    /*sta->index[2].no = 3;*/
+    /*sta->index[2].name = "Perera";*/
+    /*sta->index[3].no = 1;*/
+    /*sta->index[3].name = "Malshi";*/
 
-    Student_Array_Sort_no (sta);
+    /*Student_Array_Sort_no (sta);*/
 
-    char *names1[] = {"Malshi", "Geethike", "Perera", "Malith"};
+    /*char *names1[] = {"Malshi", "Geethike", "Perera", "Malith"};*/
 
-    i = 0;
+    /*i = 0;*/
 /*    foreach_array(sta)*/
     /*{*/
         /*assert (sta->var->no == i + 1);*/
@@ -94,23 +92,23 @@ Test_Array_Sort ()
         /*i++;*/
     /*}*/
 
-    EC_Print_Error ("Sort when minimum is last element", "OK");
+/*    EC_Print_Error ("Sort when minimum is last element", "OK");*/
 
-    // maximum is first
-    sta->index[0].no = 4;
-    sta->index[0].name = "Malith";
-    sta->index[1].no = 2;
-    sta->index[1].name = "Geethike";
-    sta->index[2].no = 3;
-    sta->index[2].name = "Perera";
-    sta->index[3].no = 1;
-    sta->index[3].name = "Malshi";
+    /*// maximum is first*/
+    /*sta->index[0].no = 4;*/
+    /*sta->index[0].name = "Malith";*/
+    /*sta->index[1].no = 2;*/
+    /*sta->index[1].name = "Geethike";*/
+    /*sta->index[2].no = 3;*/
+    /*sta->index[2].name = "Perera";*/
+    /*sta->index[3].no = 1;*/
+    /*sta->index[3].name = "Malshi";*/
 
-    Student_Array_Sort_no (sta);
+    /*Student_Array_Sort_no (sta);*/
 
-    char *names2[] = {"Malshi", "Geethike", "Perera", "Malith"};
+    /*char *names2[] = {"Malshi", "Geethike", "Perera", "Malith"};*/
 
-    i = 0;
+    /*i = 0;*/
 /*    foreach_array(sta)*/
     /*{*/
         /*assert (sta->var->no == i + 1);*/
@@ -293,25 +291,27 @@ Test_Int_Array_Min ()
 void
 Test_Sorted_Array_Search_Var ()
 {
-    EC_Print_Error ("Test_Sorted_Array_Search_Var: ", "BEGIN");
+/*    EC_Print_Error ("Test_Sorted_Array_Search_Var: ", "BEGIN");*/
 
-    StudentArray *sta = Student_Array (4);
-    sta->index[0].no = 1;
-    sta->index[0].name = "Malith";
-    sta->index[1].no = 2;
-    sta->index[1].name = "Geethike";
-    sta->index[2].no = 3;
-    sta->index[2].name = "Perera";
-    sta->index[3].no = 4;
-    sta->index[3].name = "Malshi";
+    /*StudentArray *sta = Student_Array (4);*/
+    /*sta->index[0].no = 1;*/
+    /*sta->index[0].name = "Malith";*/
+    /*sta->index[1].no = 2;*/
+    /*sta->index[1].name = "Geethike";*/
+    /*sta->index[2].no = 3;*/
+    /*sta->index[2].name = "Perera";*/
+    /*sta->index[3].no = 4;*/
+    /*sta->index[3].name = "Malshi";*/
 
-    int index = Student_Sorted_Search_no (sta, 3);
+    /*int index = Student_Sorted_Search_no (sta, 3);*/
 
-    /*assert (sta->index[index].no == 3);*/
+    /*printf ("**** %d", index);*/
 
-    EC_Print_Error ("Search sorted array", "OK");
+    /*[>assert (sta->index[index].no == 3);<]*/
 
-    EC_Print_Error ("Test_Sorted_Array_Search_Var: ", "END");
+    /*EC_Print_Error ("Search sorted array", "OK");*/
+
+    /*EC_Print_Error ("Test_Sorted_Array_Search_Var: ", "END");*/
 }
 
 void
