@@ -1,12 +1,12 @@
 # Extended C 
 
-Extended C is a library and a tool kit to write C programs easily with extended variables, automated memory and C objects in mind.
+Extended C is a C library and a tool kit to write C programs easily with extended variables, automated memory and C objects in mind.
 
 Think you need to create a list of students in a classroom.  
 
 >*EC_LIST(Student, student_vars)*  
 
-With above line of code where student_vars is simply a set of variables which related to a student like name, index, age, grade etc... then you will get,
+Where student_vars is simply a set of variables which related to a student like name, index, age, grade etc... then you will get,
 
 - Student_New()  
 - Student_Append()  
@@ -21,7 +21,7 @@ EC is purposely written so that it's much more customizable to optimize your cod
 
 For binary downloads, manuals, documentations, tutorials please visit:  
 
-<http://www.extendedc.com> *(not working yet)*  
+<http://www.extendedc.org> *(not working yet)*  
 
 ![Logo, Extended C logo ](docs/images/ec96.png)  
 
