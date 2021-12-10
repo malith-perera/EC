@@ -1,4 +1,5 @@
 build/
 session_ec.vim
+session_ec_ref.vim
 test/session_ec_test.vim
 test/build
