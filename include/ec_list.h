@@ -28,8 +28,6 @@
 // EC_MEMORY_REF defined in ec_memory.h
 #define EC_LIST_STRUCT(TYPE)                        EC_CONCAT(TYPE, List,)
 #define EC_LIST_VAR_STRUCT(TYPE)                    EC_CONCAT(TYPE, ListVar,)
-#define EC_LIST_VAR_REF_STRUCT(TYPE)                EC_CONCAT(TYPE, ListVarRef,)
-#define EC_LIST_REF_STRUCT(TYPE)                    EC_CONCAT(TYPE, ListRef,)
 
 
 #define EC_LIST(TYPE, VAR)                              \
@@ -45,22 +43,8 @@ typedef struct EC_LIST_STRUCT(TYPE) {                   \
     EC_LIST_VAR_STRUCT(TYPE)* last;                     \
     EC_LIST_VAR_STRUCT(TYPE)* var;                      \
     EC_MEMORY_REF                                       \
-} EC_LIST_STRUCT(TYPE);                                 \
-                                                        \
-                                                        \
-typedef struct EC_LIST_VAR_REF_STRUCT(TYPE) {           \
-    struct EC_LIST_VAR_STRUCT(TYPE)* ref;               \
-    struct EC_LIST_VAR_REF_STRUCT(TYPE)* next;          \
-    struct EC_LIST_VAR_REF_STRUCT(TYPE)* previous;      \
-} EC_LIST_VAR_REF_STRUCT(TYPE);                         \
-                                                        \
-                                                        \
-typedef struct EC_LIST_REF_STRUCT(TYPE) {               \
-    EC_LIST_VAR_REF_STRUCT(TYPE)* first;                \
-    EC_LIST_VAR_REF_STRUCT(TYPE)* last;                 \
-    EC_LIST_VAR_REF_STRUCT(TYPE)* var;                  \
-    EC_MEMORY_REF                                       \
-} EC_LIST_REF_STRUCT(TYPE);
+} EC_LIST_STRUCT(TYPE);
+
 
 /* Function prototype macros */
 
@@ -274,113 +258,6 @@ EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)                                             
     }                                                                                                           \
                                                                                                                 \
     return var;                                                                                                 \
-}
-
-
-#define EC_LIST_REF_FREE_FUNCTION(TYPE)                             \
-void                                                                \
-EC_LIST_REF_FREE_FUNCTION_NAME(TYPE)                                \
-(                                                                   \
-    void* var                                                       \
-)                                                                   \
-{                                                                   \
-    EC_LIST_REF_STRUCT(TYPE)* p = (EC_LIST_REF_STRUCT(TYPE)*) var;  \
-    free (p);                                                       \
-}
-
-
-#define EC_LIST_REF_VAR_FREE_FUNCTION(TYPE)                     \
-void                                                            \
-EC_LIST_REF_VAR_FREE_FUNCTION_NAME(TYPE)                        \
-(                                                               \
-    void* var                                                   \
-)                                                               \
-{                                                               \
-    TYPE* v = (TYPE*) var;                                      \
-    free (v);                                                   \
-    v = NULL;                                                   \
-}
-
-
-#define EC_LIST_REF_NEW_FUNCTION(TYPE)                                                              \
-EC_LIST_REF_STRUCT(TYPE)*                                                                           \
-EC_LIST_REF_NEW_LIST_REF_FUNCTION_NAME(TYPE)                                                        \
-()                                                                                                  \
-{                                                                                                   \
-    EC_LIST_REF_STRUCT(TYPE)* var = (EC_LIST_REF_STRUCT(TYPE)*) malloc (sizeof (EC_LIST_REF_STRUCT(TYPE)));     \
-                                                                                                    \
-    if (var == NULL)                                                                                \
-    {                                                                                               \
-        EC_Error_Mem_Alloc (__FILE__, __LINE__);                                                    \
-        return NULL;                                                                                \
-    }                                                                                               \
-                                                                                                    \
-    var->first = NULL;                                                                              \
-    var->last = NULL;                                                                               \
-                                                                                                    \
-    if (EC_MEMORY)                                                                                  \
-    {                                                                                               \
-        ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));                            \
-                                                                                                    \
-        if (ec_memory_new == NULL)                                                                  \
-        {                                                                                           \
-            EC_Error_Mem_Alloc (__FILE__, __LINE__);                                                \
-            return NULL;                                                                            \
-        }                                                                                           \
-                                                                                                    \
-        ec_memory_new->type = EC_LIST_REF_TYPE;                                                     /* Defined in ec.h */ \
-        ec_memory_new->var = var;                                                                   \
-        ec_memory_new->lock = EC_LOCK;                                                              \
-        ec_memory_new->Free_Func = EC_LIST_REF_FREE_FUNCTION_NAME (TYPE);                           \
-        ec_memory_new->Free_Var_Func = EC_LIST_REF_VAR_FREE_FUNCTION_NAME (TYPE);                   \
-        ec_memory_new->next = NULL;                                                                 \
-                                                                                                    \
-        EC_Memory_Append (ec_memory_new);                                                           \
-                                                                                                    \
-        var->ec_memory_ref = ec_memory_new;                                                         \
-        var->lock = EC_LOCK;                                                                        \
-    }                                                                                               \
-                                                                                                    \
-    return var;                                                                                     \
-}
-
-
-/* New List Ref Variable Function */
-
-#define EC_LIST_REF_NEW_VAR_FUNCTION(TYPE)                                      \
-EC_LIST_REF_VAR_STRUCT (TYPE)*                                                  \
-EC_LIST_REF_NEW_VAR_FUNCTION_NAME(TYPE)                                         \
-()                                                                              \
-{                                                                               \
-    EC_LIST_REF_VAR_STRUCT(TYPE)* var = (EC_LIST_REF_VAR_STRUCT(TYPE)*)         \
-        malloc (sizeof (EC_LIST_REF_VAR_STRUCT(TYPE)));                         \
-                                                                                \
-    if (var == NULL)                                                            \
-    {                                                                           \
-        EC_Error_Mem_Alloc (__FILE__, __LINE__);                                \
-        return NULL;                                                            \
-    }                                                                           \
-                                                                                \
-    if (EC_MEMORY)                                                              \
-    {                                                                           \
-        ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof (ECMemory));       \
-                                                                                \
-        if (ec_memory_new == NULL)                                              \
-        {                                                                       \
-            EC_Error_Mem_Alloc (__FILE__, __LINE__);                            \
-            return NULL;                                                        \
-        }                                                                       \
-                                                                                \
-        ec_memory_new->type = EC_LIST_REF_VAR_TYPE;                             /* Defined in ec.h */ \
-        ec_memory_new->var = var;                                               \
-        ec_memory_new->lock = EC_NONE_LOCK;                                     \
-        ec_memory_new->Free_Func = EC_LIST_REF_VAR_FREE_FUNCTION_NAME (TYPE);   \
-        ec_memory_new->next = NULL;                                             \
-                                                                                \
-        EC_Memory_Append (ec_memory_new);                                       \
-    }                                                                           \
-                                                                                \
-    return var;                                                                 \
 }
 
 

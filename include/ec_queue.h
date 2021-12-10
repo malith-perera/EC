@@ -26,8 +26,6 @@
 // defined in ec_memory.h
 #define EC_QUEUE_STRUCT(TYPE)                       EC_CONCAT(TYPE, Queue,)
 #define EC_QUEUE_VAR_STRUCT(TYPE)                   EC_CONCAT(TYPE, QueueVar,)
-#define EC_QUEUE_VAR_REF_STRUCT(TYPE)               EC_CONCAT(TYPE, QueueVarRef,)
-#define EC_QUEUE_REF_STRUCT(TYPE)                   EC_CONCAT(TYPE, QueueRef,)
 
 
 #define EC_QUEUE(TYPE, VAR)                         \
@@ -42,22 +40,7 @@ typedef struct EC_QUEUE_STRUCT(TYPE){               \
     EC_QUEUE_VAR_STRUCT(TYPE)* last;                \
     EC_QUEUE_VAR_STRUCT(TYPE)* var;                 \
     EC_MEMORY_REF                                   \
-} EC_QUEUE_STRUCT(TYPE);                            \
-                                                    \
-                                                    \
-typedef struct EC_QUEUE_VAR_REF_STRUCT(TYPE) {      \
-    struct EC_QUEUE_VAR_STRUCT(TYPE)* ref;          \
-    struct EC_QUEUE_VAR_REF_STRUCT(TYPE)* next;     \
-} EC_QUEUE_VAR_REF_STRUCT(TYPE);                    \
-                                                    \
-                                                    \
-typedef struct EC_QUEUE_REF_STRUCT(TYPE) {          \
-    EC_QUEUE_VAR_REF_STRUCT(TYPE)* first;           \
-    EC_QUEUE_VAR_REF_STRUCT(TYPE)* last;            \
-    EC_QUEUE_VAR_REF_STRUCT(TYPE)* var;             \
-    EC_MEMORY_REF                                   \
-} EC_QUEUE_REF_STRUCT(TYPE);
-
+} EC_QUEUE_STRUCT(TYPE);
 
 
 /* Function prototype macros */
@@ -231,75 +214,6 @@ EC_QUEUE_NEW_VAR_FUNCTION_NAME(TYPE)                                            
     }                                                                           \
                                                                                 \
     return var;                                                                 \
-}
-
-
-/* REF */
-#define EC_QUEUE_REF_FREE_FUNCTION(TYPE)                                \
-void                                                                    \
-EC_QUEUE_REF_FREE_FUNCTION_NAME(TYPE)                                   \
-(                                                                       \
-    void* var                                                           \
-)                                                                       \
-{                                                                       \
-    EC_QUEUE_REF_STRUCT(TYPE)* p = (EC_QUEUE_REF_STRUCT(TYPE)*) var;    \
-    free (p);                                                           \
-}
-
-
-#define EC_QUEUE_REF_VAR_FREE_FUNCTION(TYPE)                    \
-void                                                            \
-EC_QUEUE_REF_VAR_FREE_FUNCTION_NAME(TYPE)                       \
-(                                                               \
-    void* var                                                   \
-)                                                               \
-{                                                               \
-    TYPE* p = (TYPE*) var;                                      \
-    free (p);                                                   \
-}
-
-
-#define EC_QUEUE_REF_NEW_FUNCTION(TYPE)                                             \
-EC_QUEUE_REF_STRUCT(TYPE)*                                                          \
-EC_QUEUE_REF_NEW_FUNCTION_NAME(TYPE)                                                \
-()                                                                                  \
-{                                                                                   \
-    EC_QUEUE_REF_STRUCT(TYPE)* var = (EC_QUEUE_REF_STRUCT(TYPE)*)                   \
-        malloc (sizeof (EC_QUEUE_REF_STRUCT(TYPE)));                                \
-                                                                                    \
-    if (var == NULL)                                                                \
-    {                                                                               \
-        EC_Error_Mem_Alloc (__FILE__, __LINE__);                                    \
-        return NULL;                                                                \
-    }                                                                               \
-                                                                                    \
-    var->first = NULL;                                                              \
-    var->last = NULL;                                                               \
-                                                                                    \
-    if (EC_MEMORY)                                                                  \
-    {                                                                               \
-        ECMemory *ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));            \
-                                                                                    \
-        if (ec_memory_new == NULL)                                                  \
-        {                                                                           \
-            EC_Error_Mem_Alloc (__FILE__, __LINE__);                                \
-            return NULL;                                                            \
-        }                                                                           \
-                                                                                    \
-        ec_memory_new->type = EC_QUEUE_REF_TYPE;                                    \
-        ec_memory_new->var = var;                                                   \
-        ec_memory_new->lock = EC_LOCK;                                              \
-        ec_memory_new->Free_Func = EC_QUEUE_REF_FREE_FUNCTION_NAME (TYPE);          \
-        ec_memory_new->Free_Var_Func = EC_QUEUE_REF_VAR_FREE_FUNCTION_NAME (TYPE);  \
-        ec_memory_new->next = NULL;                                                 \
-                                                                                    \
-        EC_Memory_Append (ec_memory_new);                                           \
-                                                                                    \
-        var->ec_memory_ref = ec_memory_new;                                         \
-        var->lock = EC_LOCK;                                                        \
-    }                                                                               \
-                                                                                    \
-    return var;                                                                     \
 }
 
 
