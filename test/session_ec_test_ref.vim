@@ -61,12 +61,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 69 - ((42 * winheight(0) + 26) / 52)
+let s:l = 51 - ((24 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-69
-normal! 05|
+51
+normal! 016|
 lcd ~/ExtendedC/lib/test/src
 wincmd w
 exe 'vert 1resize ' . ((&columns * 101 + 101) / 203)
@@ -167,11 +167,11 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 450 - ((25 * winheight(0) + 26) / 52)
+let s:l = 481 - ((46 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-450
+481
 normal! 0
 lcd ~/ExtendedC/lib/test/src
 wincmd w
@@ -220,14 +220,15 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 341 - ((45 * winheight(0) + 26) / 52)
+let s:l = 334 - ((25 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-341
-normal! 03|
+334
+normal! 0
 lcd ~/ExtendedC/lib/test/src
 wincmd w
+2wincmd w
 exe 'vert 1resize ' . ((&columns * 101 + 101) / 203)
 exe 'vert 2resize ' . ((&columns * 101 + 101) / 203)
 tabnext
@@ -360,12 +361,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 16 - ((15 * winheight(0) + 26) / 52)
+let s:l = 15 - ((14 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-16
-normal! 07|
+15
+normal! 0
 lcd ~/ExtendedC/lib/test/include
 wincmd w
 argglobal
@@ -387,10 +388,9 @@ normal! zt
 normal! 07|
 lcd ~/ExtendedC/lib/test/src
 wincmd w
-2wincmd w
 exe 'vert 1resize ' . ((&columns * 101 + 101) / 203)
 exe 'vert 2resize ' . ((&columns * 101 + 101) / 203)
-tabnext 7
+tabnext 4
 set stal=1
 badd +8 ~/ExtendedC/lib/test/include/ec_var_test.h
 badd +1 ~/ExtendedC/lib/test/src/ec_ref_var_test.c
