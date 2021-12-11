@@ -4,4 +4,4 @@
  * Add or remove function prototype definition
  * Add or remove function prototype to EC_VAR_FUNCTION_PROTOTYPES */
 
-#include "ec_variable_ref.h"
+#include "ec_var_ref.h"
