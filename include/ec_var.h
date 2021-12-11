@@ -13,13 +13,16 @@
 /* Structure macros */
 // EC_MEMORY_REF defined in ec_memory.h
 
+#define EC_VAR_STRUCT(TYPE)                 EC_CONCAT(TYPE, Var,)
 
 #ifndef EC_VAR
 #define EC_VAR(TYPE, VAR)                               \
 typedef struct TYPE {                                   \
     VAR                                                 \
     EC_MEMORY_REF                                       \
-} TYPE;
+} TYPE;                                                 \
+                                                        \
+typedef TYPE EC_VAR_STRUCT(TYPE);
 #endif // EC_VAR
 
 /* Function prototype macros */
