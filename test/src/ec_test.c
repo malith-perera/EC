@@ -48,7 +48,7 @@ main (int argc, char *argv[])
 
     if (no == 1 || no == 0)
     {
-        Run_Variable_Test ();
+        Run_Var_Test ();
     }
 
     if (no == 2 || no == 0)

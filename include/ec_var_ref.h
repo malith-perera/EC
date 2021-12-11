@@ -15,10 +15,10 @@
 
 
 #ifndef EC_REF_VAR
-#define EC_REF_VAR(TYPE, VAR)                           \
-typedef struct TYPE {                                   \
-    TYPE* ref                                           \
-    EC_MEMORY_REF                                       \
+#define EC_REF_VAR(TYPE)                            \
+typedef struct TYPE {                               \
+    TYPE* ref                                       \
+    EC_MEMORY_REF                                   \
 } TYPE;
 #endif // EC_REF_VAR
 
