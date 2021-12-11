@@ -188,7 +188,7 @@ void
 Run_Ref_Stack_Test ()
 {
     printf ("---------------\n");
-    printf ("Test: ec_stack.h\n");
+    printf ("Test: ec_ref_stack\n");
     printf ("===============\n");
 
     Test_New_Ref_Stack ();
@@ -203,6 +203,6 @@ Run_Ref_Stack_Test ()
     Test_Ref_Stack_Copy ();
     printf ("\n");
 
-    EC_Print_Error ("Test: ec_stack.h", "PASS");
+    EC_Print_Error ("Test: ec_ref_stack", "PASS");
     printf ("\n");
 }

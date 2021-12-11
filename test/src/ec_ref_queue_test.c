@@ -223,7 +223,7 @@ void
 Run_Ref_Queue_Test ()
 {
     printf ("----------------\n");
-    printf ("Test: ec_queue.h\n");
+    printf ("Test: ec_ref_queue\n");
     printf ("================\n");
 
     Test_New_Ref_Queue ();
@@ -238,6 +238,6 @@ Run_Ref_Queue_Test ()
     Test_Ref_Queue_Copy ();
     printf ("\n");
 
-    EC_Print_Error ("Test: ec_queue.h", "PASS");
+    EC_Print_Error ("Test: ec_ref_queue", "PASS");
     printf ("\n");
 }

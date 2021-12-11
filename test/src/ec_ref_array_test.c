@@ -448,7 +448,7 @@ void
 Run_Ref_Array_Test ()
 {
     printf ("------------------\n");
-    printf ("Test: ec_array.h\n");
+    printf ("Test: ec_ref_array\n");
     printf ("==================\n");
 
     Test_New_Ref_Array ();
@@ -484,7 +484,7 @@ Run_Ref_Array_Test ()
     Test_Ref_Array_Copy ();
     printf ("\n");
 
-    EC_Print_Error ("Test: ec_array.h", "PASS");
+    EC_Print_Error ("Test: ec_ref_array", "PASS");
     printf ("\n");
 }
 

@@ -329,7 +329,7 @@ void
 Run_Ref_List_Test ()
 {
     printf ("---------------\n");
-    printf ("Test: ec_list.h\n");
+    printf ("Test: ec_ref_list\n");
     printf ("===============\n");
 
     /*Test_New_Ref_List ();*/
@@ -350,7 +350,7 @@ Run_Ref_List_Test ()
     /*Test_Ref_List_Copy ();*/
     /*printf ("\n");*/
 
-    EC_Print_Error ("Test: ec_list.h", "PASS");
+    EC_Print_Error ("Test: ec_ref_list", "PASS");
     printf ("\n");
 }
 
