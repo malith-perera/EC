@@ -1,7 +1,7 @@
 #include "student.h"
 
 EC_VAR_FUNCTIONS(Student)
-/*EC_REF_VAR_FUNCTIONS(Student)*/
+EC_REF_VAR_FUNCTIONS(Student)
 
 EC_ARRAY_FUNCTIONS(Student)
 

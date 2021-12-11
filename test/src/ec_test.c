@@ -22,13 +22,18 @@ main (int argc, char *argv[])
     {
         printf ("Select Test\n");
         printf ("-----------\n");
-        printf ("Test: All      0\n");
-        printf ("Test: Variable 1\n");
-        printf ("Test: Array    2\n");
-        printf ("Test: List     3\n");
-        printf ("Test: Queue    4\n");
-        printf ("Test: Stack    5\n");
-        printf ("Test: Exit    -1\n");
+        printf ("Test: All          0\n");
+        printf ("Test: Var          1\n");
+        printf ("Test: Array        2\n");
+        printf ("Test: List         3\n");
+        printf ("Test: Queue        4\n");
+        printf ("Test: Stack        5\n");
+        printf ("Test: Ref Var      6\n");
+        printf ("Test: Ref Array    7\n");
+        printf ("Test: Ref List     8\n");
+        printf ("Test: Ref Queue    9\n");
+        printf ("Test: Ref Stack    10\n");
+        printf ("Test: Exit         -1\n");
         printf ("\n");
 
         printf ("Test : ");
@@ -71,10 +76,34 @@ main (int argc, char *argv[])
         Run_Stack_Test ();
     }
 
+    if (no == 6 || no == 0)
+    {
+        Run_Ref_Var_Test ();
+    }
+
+    if (no == 7 || no == 0)
+    {
+        Run_Ref_Array_Test ();
+    }
+
+    if (no == 8 || no == 0)
+    {
+        Run_Ref_List_Test ();
+    }
+
+    if (no == 9 || no == 0)
+    {
+        Run_Ref_Queue_Test ();
+    }
+
+    if (no == 10 || no == 0)
+    {
+        Run_Ref_Stack_Test ();
+    }
 
     EC_Clean ();
 
-    printf ("Test: EClib    Successful\n");
+    printf ("Test: EClib Successful\n");
 
     return 0;
 }
