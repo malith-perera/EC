@@ -4,22 +4,23 @@
 #include "ec.h"
 
 /* Function name macros */
-#define EC_REF_VAR_FREE_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, Ref_Free_var,)
-#define EC_REF_VAR_NEW_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, Ref_Var,)
-#define EC_REF_VAR_COPY_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, Ref_Var_Copy,)
+#define EC_REF_VAR_FREE_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Ref_Free_var,)
+#define EC_REF_VAR_NEW_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Ref_Var,)
+#define EC_REF_VAR_COPY_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Ref_Var_Copy,)
 
-#define EC_REF_VAR_UNLOCK_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, Ref_Unlock,)
+#define EC_REF_VAR_UNLOCK_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _Ref_Unlock,)
 
 /* Structure macros */
 // EC_MEMORY_REF defined in ec_memory.h
 
+#define EC_REF_VAR_STRUCT(TYPE)                 EC_CONCAT(TYPE, RefVar,)
 
 #ifndef EC_REF_VAR
 #define EC_REF_VAR(TYPE)                            \
-typedef struct TYPE {                               \
-    TYPE* ref                                       \
+typedef struct EC_REF_VAR_STRUCT(TYPE) {            \
+    TYPE* ref;                                      \
     EC_MEMORY_REF                                   \
-} TYPE;
+} EC_REF_VAR_STRUCT(TYPE);
 #endif // EC_REF_VAR
 
 /* Function prototype macros */
@@ -33,17 +34,17 @@ EC_REF_VAR_FREE_FUNCTION_NAME(TYPE)                 \
 
 
 #define EC_REF_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)     \
-TYPE*                                               \
-EC_REF_VAR_NEW_FUNCTION_NAME(TYPE)();
+EC_REF_VAR_STRUCT(TYPE)*                            \
+EC_REF_VAR_NEW_FUNCTION_NAME(TYPE)                  \
+();
 
 
 #define EC_REF_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)    \
-TYPE*                                               \
+EC_REF_VAR_STRUCT(TYPE)*                            \
 EC_REF_VAR_COPY_FUNCTION_NAME(TYPE)                 \
 (                                                   \
-    TYPE* a                                         \
+    EC_REF_VAR_STRUCT(TYPE)* var                    \
 );
-
 
 #define EC_REF_VAR_FUNCTION_PROTOTYPES(TYPE)        \
     EC_REF_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)        \
@@ -66,10 +67,11 @@ EC_REF_VAR_FREE_FUNCTION_NAME(TYPE)         \
 
 
 #define EC_REF_VAR_NEW_FUNCTION(TYPE)                                       \
-TYPE*                                                                       \
+EC_REF_VAR_STRUCT(TYPE)*                                                    \
 EC_REF_VAR_NEW_FUNCTION_NAME(TYPE)()                                        \
 {                                                                           \
-    TYPE* var = (TYPE*) malloc (sizeof(TYPE));                              \
+    EC_REF_VAR_STRUCT(TYPE)* var = (EC_REF_VAR_STRUCT(TYPE)*)               \
+        malloc (sizeof(EC_REF_VAR_STRUCT(TYPE)));                           \
                                                                             \
     if (var == NULL)                                                        \
     {                                                                       \
@@ -104,17 +106,17 @@ EC_REF_VAR_NEW_FUNCTION_NAME(TYPE)()                                        \
 
 
 // Copy variable b to a
-#define EC_REF_VAR_COPY_FUNCTION(TYPE)                      \
-TYPE*                                                       \
-EC_REF_VAR_COPY_FUNCTION_NAME(TYPE)                         \
-(                                                           \
-    TYPE* var                                               \
-)                                                           \
-{                                                           \
-    TYPE* new_var = EC_REF_VAR_NEW_FUNCTION_NAME(TYPE)();   \
-    *new_var = *var;                                        \
-                                                            \
-    return new_var;                                         \
+#define EC_REF_VAR_COPY_FUNCTION(TYPE)                                          \
+EC_REF_VAR_STRUCT(TYPE)*                                                        \
+EC_REF_VAR_COPY_FUNCTION_NAME(TYPE)                                             \
+(                                                                               \
+    EC_REF_VAR_STRUCT(TYPE)* var                                                \
+)                                                                               \
+{                                                                               \
+    EC_REF_VAR_STRUCT(TYPE)* new_var = EC_REF_VAR_NEW_FUNCTION_NAME(TYPE)();    \
+    *new_var = *var;                                                            \
+                                                                                \
+    return new_var;                                                             \
 }
 
 
