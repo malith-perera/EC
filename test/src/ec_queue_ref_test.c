@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "ec_ref_queue_test.h"
+#include "ec_queue_ref_test.h"
 
 
 /*void*/

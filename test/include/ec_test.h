@@ -9,10 +9,10 @@
 #include "ec_queue_test.h"
 #include "ec_stack_test.h"
 
-#include "ec_ref_var_test.h"
-#include "ec_ref_array_test.h"
-#include "ec_ref_list_test.h"
-#include "ec_ref_queue_test.h"
-#include "ec_ref_stack_test.h"
+#include "ec_var_ref_test.h"
+#include "ec_array_ref_test.h"
+#include "ec_list_ref_test.h"
+#include "ec_queue_ref_test.h"
+#include "ec_stack_ref_test.h"
 
 #endif

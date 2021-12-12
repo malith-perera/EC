@@ -1,4 +1,4 @@
-#include "ec_ref_array.h"
+#include "ec_array_ref.h"
 
 
 /* reverse int array */

@@ -1,13 +1,10 @@
 #include "student.h"
 
 EC_VAR_FUNCTIONS(Student)
-EC_REF_VAR_FUNCTIONS(Student)
 
 EC_ARRAY_FUNCTIONS(Student)
 
 EC_ARRAY_SORT_FUNCTION(Student, no)
-
-EC_ARRAY_REVERSE_FUNCTION(Student)
 
 EC_ARRAY_SEARCH_FUNCTION(Student, no)
 EC_ARRAY_SEARCH_MAX_FUNCTION(Student, no)
@@ -19,3 +16,6 @@ EC_LIST_SORT_FUNCTION(Student, no)
 EC_QUEUE_FUNCTIONS(Student)
 
 EC_STACK_FUNCTIONS(Student)
+
+/* Reference */
+EC_ARRAY_REF_FUNCTIONS(Student)

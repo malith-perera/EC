@@ -14,20 +14,20 @@
 */
 
 /* Function name macros */
-#define EC_ARRAY_REF_FREE_FUNCTION_NAME(TYPE)                       EC_CONCAT(TYPE, _Free,) // memory Free
-#define EC_ARRAY_REF_NEW_FUNCTION_NAME(TYPE)                        EC_CONCAT(TYPE, _Array,)
-#define EC_ARRAY_REF_COPY_FUNCTION_NAME(TYPE)                       EC_CONCAT(TYPE, _Array_Copy,)
-#define EC_ARRAY_REF_SORT_FUNCTION_NAME(TYPE, SORT_WITH)            EC_CONCAT(TYPE, _Array_Sort_, SORT_WITH)
-#define EC_ARRAY_REF_REVERSE_FUNCTION_NAME(TYPE)                    EC_CONCAT(TYPE, _Array, _Reverse)
-#define EC_ARRAY_REF_SEARCH_FUNCTION_NAME(TYPE, SORT_WITH)          EC_CONCAT(TYPE, _Sorted_Search_, SORT_WITH)
-#define EC_ARRAY_REF_SEARCH_MAX_FUNCTION_NAME(TYPE, SORT_WITH)      EC_CONCAT(TYPE, _Max_, SORT_WITH)
-#define EC_ARRAY_REF_SEARCH_MIN_FUNCTION_NAME(TYPE, SORT_WITH)      EC_CONCAT(TYPE, _Min_, SORT_WITH)
+#define EC_ARRAY_REF_FREE_FUNCTION_NAME(TYPE)                       EC_CONCAT(TYPE, _Free_Ref,) // memory Free
+#define EC_ARRAY_REF_NEW_FUNCTION_NAME(TYPE)                        EC_CONCAT(TYPE, _Array_Ref,)
+#define EC_ARRAY_REF_COPY_FUNCTION_NAME(TYPE)                       EC_CONCAT(TYPE, _Array_Ref_Copy,)
+#define EC_ARRAY_REF_SORT_FUNCTION_NAME(TYPE, SORT_WITH)            EC_CONCAT(TYPE, _Array_Ref_Sort_, SORT_WITH)
+#define EC_ARRAY_REF_REVERSE_FUNCTION_NAME(TYPE)                    EC_CONCAT(TYPE, _Array_Ref_Reverse,)
+#define EC_ARRAY_REF_SEARCH_FUNCTION_NAME(TYPE, SORT_WITH)          EC_CONCAT(TYPE, _Sorted_Search_Ref_, SORT_WITH)
+#define EC_ARRAY_REF_SEARCH_MAX_FUNCTION_NAME(TYPE, SORT_WITH)      EC_CONCAT(TYPE, _Max_Ref_, SORT_WITH)
+#define EC_ARRAY_REF_SEARCH_MIN_FUNCTION_NAME(TYPE, SORT_WITH)      EC_CONCAT(TYPE, _Min_Ref_, SORT_WITH)
 
 
 /* Structure macros */
 // defined in ec_memory.h
-#define EC_ARRAY_REF_STRUCT(TYPE)           EC_CONCAT(TYPE, Array,)
-#define EC_ARRAY_VAR_REF_STRUCT(TYPE)       EC_CONCAT(TYPE, VarRef,)
+#define EC_ARRAY_REF_STRUCT(TYPE)           EC_CONCAT(TYPE, ArrayRef,)
+#define EC_ARRAY_VAR_REF_STRUCT(TYPE)       EC_CONCAT(TYPE, ArrayVarRef,)
 
 
 #define EC_ARRAY_REF(TYPE)                              \

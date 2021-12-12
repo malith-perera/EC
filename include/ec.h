@@ -27,11 +27,11 @@
 #include "ec_queue.h"
 #include "ec_stack.h"
 
-#include "ec_ref_var.h"
-#include "ec_ref_array.h"
-#include "ec_ref_list.h"
-#include "ec_ref_queue.h"
-#include "ec_ref_stack.h"
+#include "ec_var_ref.h"
+#include "ec_array_ref.h"
+#include "ec_list_ref.h"
+#include "ec_queue_ref.h"
+#include "ec_stack_ref.h"
 
 //#include "ec_syntax.h"
 //#include "ec_bits.h"

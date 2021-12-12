@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "ec_ref_stack_test.h"
+#include "ec_stack_ref_test.h"
 
 
 void

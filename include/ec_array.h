@@ -30,8 +30,6 @@
 /* Structure macros */
 // defined in ec_memory.h
 #define EC_ARRAY_STRUCT(TYPE)               EC_CONCAT(TYPE, Array,)
-#define EC_ARRAY_VAR_REF_STRUCT(TYPE)       EC_CONCAT(TYPE, VarRef,)
-
 
 #define EC_ARRAY(TYPE)                                  \
 typedef struct EC_ARRAY_STRUCT(TYPE) {                  \

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "ec_ref_list_test.h"
+#include "ec_list_ref_test.h"
 
 
 /*void*/
