@@ -78,30 +78,48 @@ Test_New_Ref_Var_Memory_Free ()
 void
 Test_Ref_Var_Copy ()
 {
-/*    EC_Print_Error ("Test_Copy_Ref_Var: ", "BEGIN");*/
+    EC_Print_Error ("Test_Ref_Var_Copy: ", "BEGIN");
 
-    /*Student* st1 = Student_Var ();*/
-    /*EC_Print_Error ("Create new ec var", "OK");*/
+    Student* st = Student_Var ();
+    EC_Print_Error ("Create new ec var", "OK");
 
-    /*st1->no = 1;*/
-    /*st1->name = "Malith";*/
+    st->no = 1;
+    st->name = "Malith";
 
-    /*Student *st2 = Student_Ref_Var_Copy (st1);*/
+    StudentRefVar *st_rv = Student_Ref_Var ();
+    EC_Print_Error ("Create new ec ref var", "OK");
 
-    /*assert (st2->no == 1);*/
-    /*assert (strcmp(st2->name, "Malith") == 0);*/
+    st_rv->ref = st;
+    EC_Print_Error ("Assign ec var to ec ref var", "OK");
 
-    /*EC_Print_Error ("Ref_Var copied: ", "OK");*/
+    assert (st_rv->ref->no == 1);
+    assert (strcmp(st_rv->ref->name, "Malith") == 0);
+    EC_Print_Error ("Access with ref var", "OK");
 
-    /*st1->no = 2;*/
-    /*st2->name = "Geethike";*/
+    StudentRefVar* st_rvc = Student_Ref_Var_Copy (st_rv);
+    EC_Print_Error ("Ref_Var_Copy function: ", "OK");
 
-    /*assert (st2->no == 1);*/
-    /*assert (strcmp(st1->name, "Geethike") != 0);*/
+    assert (st_rvc->ref->no == 1);
+    assert (strcmp(st_rvc->ref->name, "Malith") == 0);
+    EC_Print_Error ("Ref_Var copied: ", "OK");
 
-    /*EC_Print_Error ("Changing one array should not affect other", "OK");*/
+    st->no = 2;
+    st->name = "Geethike";
+    assert (st_rvc->ref->no == 2);
+    assert (strcmp(st_rvc->ref->name, "Geethike") == 0);
+    EC_Print_Error ("Change ec var should affect ref var copy: ", "OK");
 
-    /*EC_Print_Error ("Test_Copy_Ref_Var: ", "END");*/
+    st_rvc->ref->no = 3;
+    st_rvc->ref->name = "Perera";
+    assert (st->no == 3);
+    assert (strcmp(st->name, "Perera") == 0);
+    EC_Print_Error ("Change ref var copy should affect ec var: ", "OK");
+
+    assert (st_rv->ref->no == 3);
+    assert (strcmp(st_rv->ref->name, "Perera") == 0);
+    EC_Print_Error ("Change ref var copy should affect ref var: ", "OK");
+
+    EC_Print_Error ("Test_Copy_Ref_Var: ", "END");
 }
 
 
