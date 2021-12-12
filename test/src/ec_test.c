@@ -78,7 +78,7 @@ main (int argc, char *argv[])
 
     if (no == 6 || no == 0)
     {
-        Run_Ref_Var_Test ();
+        Run_Var_Ref_Test ();
     }
 
     if (no == 7 || no == 0)

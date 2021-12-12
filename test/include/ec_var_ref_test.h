@@ -5,6 +5,6 @@
 #include "student.h"
 
 void
-Run_Var_Test ();
+Run_Var_Ref_Test ();
 
 #endif //EC_VAR_TEST_H
