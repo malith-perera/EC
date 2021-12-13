@@ -76,9 +76,9 @@ EC_Memory_Free_Unlock_One ();
     free(EC_VAR->index);
 
 
-#define ec_memory_free(EC_VAR)                              \
-    EC_VAR->ec_memory_ref->previous = EC_VAR->ec_memory_ref->next;      \
-    free(EC_VAR->ec_memory_ref);                                  \
+#define ec_memory_free(EC_VAR)                                      \
+    EC_VAR->ec_memory_ref->previous = EC_VAR->ec_memory_ref->next;  \
+    free(EC_VAR->ec_memory_ref);                                    \
     free(EC_VAR);
 
 
