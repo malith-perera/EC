@@ -41,47 +41,47 @@ typedef struct EC_STACK_STRUCT(TYPE) {              \
 
 /* Function prototype macros */
 
-#define EC_STACK_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)              \
-void                                                            \
-EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)                           \
-(                                                               \
-    void* var                                                   \
+#define EC_STACK_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)  \
+void                                                \
+EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)               \
+(                                                   \
+    void* var                                       \
 );
 
-#define EC_STACK_NEW_FUNCTION_PROTOTYPE(TYPE)              \
-EC_STACK_STRUCT(TYPE)*                                     \
-EC_STACK_NEW_FUNCTION_NAME(TYPE)                           \
+#define EC_STACK_NEW_FUNCTION_PROTOTYPE(TYPE)       \
+EC_STACK_STRUCT(TYPE)*                              \
+EC_STACK_NEW_FUNCTION_NAME(TYPE)                    \
 ();
 
 
-#define EC_STACK_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)           \
-EC_STACK_VAR_STRUCT(TYPE)*                                  \
-EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)                        \
+#define EC_STACK_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)   \
+EC_STACK_VAR_STRUCT(TYPE)*                          \
+EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)                \
 ();
 
 
-#define EC_STACK_PUSH_FUNCTION_PROTOTYPE(TYPE)              \
-void                                                        \
-EC_STACK_PUSH_FUNCTION_NAME(TYPE)                           \
-(                                                           \
-    EC_STACK_STRUCT(TYPE)* stack,                           \
-    EC_STACK_VAR_STRUCT(TYPE)* var                          \
+#define EC_STACK_PUSH_FUNCTION_PROTOTYPE(TYPE)      \
+void                                                \
+EC_STACK_PUSH_FUNCTION_NAME(TYPE)                   \
+(                                                   \
+    EC_STACK_STRUCT(TYPE)* stack,                   \
+    EC_STACK_VAR_STRUCT(TYPE)* var                  \
 );
 
 
-#define EC_STACK_POP_FUNCTION_PROTOTYPE(TYPE)               \
-EC_STACK_VAR_STRUCT(TYPE)*                                  \
-EC_STACK_POP_FUNCTION_NAME(TYPE)                            \
-(                                                           \
-    EC_STACK_STRUCT(TYPE)* stack                            \
+#define EC_STACK_POP_FUNCTION_PROTOTYPE(TYPE)       \
+EC_STACK_VAR_STRUCT(TYPE)*                          \
+EC_STACK_POP_FUNCTION_NAME(TYPE)                    \
+(                                                   \
+    EC_STACK_STRUCT(TYPE)* stack                    \
 );
 
 
-#define EC_STACK_COPY_FUNCTION_PROTOTYPE(TYPE)              \
-EC_STACK_STRUCT(TYPE)*                                      \
-EC_STACK_COPY_FUNCTION_NAME(TYPE)                           \
-(                                                           \
-    EC_STACK_STRUCT(TYPE)* stack                            \
+#define EC_STACK_COPY_FUNCTION_PROTOTYPE(TYPE)      \
+EC_STACK_STRUCT(TYPE)*                              \
+EC_STACK_COPY_FUNCTION_NAME(TYPE)                   \
+(                                                   \
+    EC_STACK_STRUCT(TYPE)* stack                    \
 );
 
 
@@ -108,24 +108,24 @@ EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)                           \
 }
 
 
-#define EC_STACK_NEW_FUNCTION(TYPE)                                             \
-EC_STACK_STRUCT(TYPE)*                                                          \
-EC_STACK_NEW_FUNCTION_NAME(TYPE)                                                \
-()                                                                              \
-{                                                                               \
-    EC_VAR_CREATE(EC_STACK_STRUCT(TYPE))                                        /*TYPE* var is in this macro in ec_var.h*/ \
-                                                                                \
-    if (EC_MEMORY)                                                              \
-    {                                                                           \
-        EC_MEMORY_CREATE(TYPE, EC_STACK_TYPE)                                   \
-        ec_memory_new->Free_Var_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE);         \
-        var->ec_memory_ref = ec_memory_new;                                     \
-        var->lock = EC_LOCK;                                                    \
-    }                                                                           \
-                                                                                \
-    var->top = NULL;                                                            \
-                                                                                \
-    return var;                                                                 \
+#define EC_STACK_NEW_FUNCTION(TYPE)                                         \
+EC_STACK_STRUCT(TYPE)*                                                      \
+EC_STACK_NEW_FUNCTION_NAME(TYPE)                                            \
+()                                                                          \
+{                                                                           \
+    EC_VAR_CREATE(EC_STACK_STRUCT(TYPE))                                    /*TYPE* var is in this macro in ec_var.h*/ \
+                                                                            \
+    if (EC_MEMORY)                                                          \
+    {                                                                       \
+        EC_MEMORY_CREATE(TYPE, EC_STACK_TYPE)                               \
+        ec_memory_new->Free_Var_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE);     \
+        var->ec_memory_ref = ec_memory_new;                                 \
+        var->lock = EC_LOCK;                                                \
+    }                                                                       \
+                                                                            \
+    var->top = NULL;                                                        \
+                                                                            \
+    return var;                                                             \
 }
 
 
