@@ -178,36 +178,36 @@ EC_ARRAY_VAR_FREE_FUNCTION_NAME(TYPE)                                   \
 }
 
 
-#define EC_ARRAY_NEW_FUNCTION(TYPE)                                     \
-EC_ARRAY_STRUCT(TYPE)*                                                  \
-EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                        \
-(                                                                       \
-    int length                                                          \
-)                                                                       \
-{                                                                       \
-    EC_VAR_CREATE(EC_ARRAY_STRUCT(TYPE))                                /*TYPE* var is in this macro in ec_var.h*/ \
-                                                                        \
-    if (EC_MEMORY)                                                      \
-    {                                                                   \
-        EC_MEMORY_CREATE(TYPE, EC_ARRAY_TYPE)                           \
-        ec_memory_new->Free_Func = EC_ARRAY_VAR_FREE_FUNCTION_NAME(TYPE); /**** this works */\
-        ec_memory_new->Free_Var_Func = EC_ARRAY_VAR_FREE_FUNCTION_NAME(TYPE);/**** this not work */ \
-        var->ec_memory_ref = ec_memory_new;                             \
-        var->lock = EC_LOCK;                                            \
-    }                                                                   \
-                                                                        \
-    TYPE* array = (TYPE*) malloc (sizeof (TYPE) * length);              \
-                                                                        \
-    if (array == NULL)                                                  \
-    {                                                                   \
-        EC_Error_Mem_Alloc (__FILE__, __LINE__);                        \
-        return NULL;                                                    \
-    }                                                                   \
-                                                                        \
-    var->length = length;                                               \
-    var->index = array;                                                 \
-                                                                        \
-    return var;                                                         \
+#define EC_ARRAY_NEW_FUNCTION(TYPE)                                             \
+EC_ARRAY_STRUCT(TYPE)*                                                          \
+EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                \
+(                                                                               \
+    int length                                                                  \
+)                                                                               \
+{                                                                               \
+    EC_VAR_CREATE(EC_ARRAY_STRUCT(TYPE))                                        /*TYPE* var is in this macro in ec_var.h*/ \
+                                                                                \
+    if (EC_MEMORY)                                                              \
+    {                                                                           \
+        EC_MEMORY_CREATE(TYPE, EC_ARRAY_TYPE)                                   \
+        ec_memory_new->Free_Func = EC_ARRAY_VAR_FREE_FUNCTION_NAME(TYPE);       /**** this works */\
+        ec_memory_new->Free_Var_Func = EC_ARRAY_VAR_FREE_FUNCTION_NAME(TYPE);   /**** this not work */ \
+        var->ec_memory_ref = ec_memory_new;                                     \
+        var->lock = EC_LOCK;                                                    \
+    }                                                                           \
+                                                                                \
+    TYPE* array = (TYPE*) malloc (sizeof (TYPE) * length);                      \
+                                                                                \
+    if (array == NULL)                                                          \
+    {                                                                           \
+        EC_Error_Mem_Alloc (__FILE__, __LINE__);                                \
+        return NULL;                                                            \
+    }                                                                           \
+                                                                                \
+    var->length = length;                                                       \
+    var->index = array;                                                         \
+                                                                                \
+    return var;                                                                 \
 }
 
 
