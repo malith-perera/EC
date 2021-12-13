@@ -23,26 +23,26 @@
 void
 Test_New_Ref_Array ()
 {
-    EC_Print_Error ("Test_New_Ref_Array: ", "BEGIN");
+/*    EC_Print_Error ("Test_New_Ref_Array: ", "BEGIN");*/
 
-    StudentArray* sta = Student_Array (2);
-    EC_Print_Error ("Create new array", "OK");
+    /*StudentArray* sta = Student_Array (2);*/
+    /*EC_Print_Error ("Create new array", "OK");*/
 
-    sta->index[0].no    = 1;
-    sta->index[0].name  = "Malith";
+    /*sta->index[0].no    = 1;*/
+    /*sta->index[0].name  = "Malith";*/
 
-    sta->index[1].no    = 2;
-    sta->index[1].name  = "Geethike";
+    /*sta->index[1].no    = 2;*/
+    /*sta->index[1].name  = "Geethike";*/
 
-    EC_Print_Error ("Assign array elements", "OK");
+    /*EC_Print_Error ("Assign array elements", "OK");*/
 
-    StudentArrayRef* st_ra = Student_Array_Ref (2);
+    /*StudentArrayRef* st_ra = Student_Array_Ref (2);*/
 
 
-    assert (sta->length == 2);
-    EC_Print_Error ("Ref_Array length exist", "OK");
+    /*assert (sta->length == 2);*/
+    /*EC_Print_Error ("Ref_Array length exist", "OK");*/
 
-    EC_Print_Error ("Test_New_Ref_Array: ", "END");
+    /*EC_Print_Error ("Test_New_Ref_Array: ", "END");*/
 }
 
 

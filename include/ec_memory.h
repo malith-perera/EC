@@ -37,6 +37,16 @@ typedef struct ECMemory {
 ECMemory* ec_memory;
 
 
+#define EC_MEMORY_CREATE                                                \
+    ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));    \
+                                                                        \
+    if (ec_memory_new == NULL)                                          \
+    {                                                                   \
+        EC_Error_Mem_Alloc (__FILE__, __LINE__);                        \
+        return NULL;                                                    \
+    }
+
+
 /* Clean all remaining ec_memory at the end of the program */
 void
 EC_Clean ();

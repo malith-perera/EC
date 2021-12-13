@@ -68,41 +68,39 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)         \
 }
 
 
-#define EC_VAR_NEW_FUNCTION(TYPE)                                           \
-TYPE*                                                                       \
-EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                            \
-{                                                                           \
-    TYPE* var = (TYPE*) malloc (sizeof(TYPE));                              \
-                                                                            \
-    if (var == NULL)                                                        \
-    {                                                                       \
-        EC_Error_Mem_Alloc (__FILE__, __LINE__);                            \
-        return NULL;                                                        \
-    }                                                                       \
-                                                                            \
-    if (EC_MEMORY)                                                          \
-    {                                                                       \
-        ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));    \
-                                                                            \
-        if (ec_memory_new == NULL)                                          \
-        {                                                                   \
-            EC_Error_Mem_Alloc (__FILE__, __LINE__);                        \
-            return NULL;                                                    \
-        }                                                                   \
-                                                                            \
-        ec_memory_new->type = EC_VAR_TYPE;                                  \
-        ec_memory_new->var = var;                                           \
-        ec_memory_new->lock = EC_LOCK;                                      \
-        ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);        \
-        ec_memory_new->next = NULL;                                         \
-                                                                            \
-        EC_Memory_Append (ec_memory_new);                                   \
-                                                                            \
-        var->ec_memory_ref = ec_memory_new;                                 \
-        var->lock = EC_LOCK;                                                \
-    }                                                                       \
-                                                                            \
-    return var;                                                             \
+#define EC_VAR_CREATE(TYPE)                                             \
+    TYPE* var = (TYPE*) malloc (sizeof(TYPE));                          \
+                                                                        \
+    if (var == NULL)                                                    \
+    {                                                                   \
+        EC_Error_Mem_Alloc (__FILE__, __LINE__);                        \
+        return NULL;                                                    \
+    }
+
+
+#define EC_VAR_NEW_FUNCTION(TYPE)                                       \
+TYPE*                                                                   \
+EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                        \
+{                                                                       \
+    EC_VAR_CREATE(TYPE)                                                 /*TYPE* var is defined in this macro*/ \
+                                                                        \
+    if (EC_MEMORY)                                                      \
+    {                                                                   \
+        EC_MEMORY_CREATE                                                /* ec_memory_new is defined in this macro in ec_memory.h */ \
+                                                                        \
+        ec_memory_new->type = EC_VAR_TYPE;                              \
+        ec_memory_new->var = var;                                       \
+        ec_memory_new->lock = EC_LOCK;                                  \
+        ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);    \
+        ec_memory_new->next = NULL;                                     \
+                                                                        \
+        EC_Memory_Append (ec_memory_new);                               \
+                                                                        \
+        var->ec_memory_ref = ec_memory_new;                             \
+        var->lock = EC_LOCK;                                            \
+    }                                                                   \
+                                                                        \
+    return var;                                                         \
 }
 
 

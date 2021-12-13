@@ -139,27 +139,11 @@ EC_QUEUE_STRUCT(TYPE)*                                                          
 EC_QUEUE_NEW_FUNCTION_NAME(TYPE)                                                \
 ()                                                                              \
 {                                                                               \
-    EC_QUEUE_STRUCT(TYPE)* var = (EC_QUEUE_STRUCT(TYPE)*)                       \
-        malloc (sizeof (EC_QUEUE_STRUCT(TYPE)));                                \
-                                                                                \
-    if (var == NULL)                                                            \
-    {                                                                           \
-        EC_Error_Mem_Alloc (__FILE__, __LINE__);                                \
-        return NULL;                                                            \
-    }                                                                           \
-                                                                                \
-    var->first = NULL;                                                          \
-    var->last = NULL;                                                           \
+    EC_VAR_CREATE(EC_QUEUE_STRUCT(TYPE))                                        /*TYPE* var is in this macro in ec_var.h*/ \
                                                                                 \
     if (EC_MEMORY)                                                              \
     {                                                                           \
-        ECMemory *ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));        \
-                                                                                \
-        if (ec_memory_new == NULL)                                              \
-        {                                                                       \
-            EC_Error_Mem_Alloc (__FILE__, __LINE__);                            \
-            return NULL;                                                        \
-        }                                                                       \
+        EC_MEMORY_CREATE                                                        /* ec_memory_new is defined in this macro in ec_memory.h */ \
                                                                                 \
         ec_memory_new->type = EC_QUEUE_TYPE;                                    \
         ec_memory_new->var = var;                                               \
@@ -174,6 +158,9 @@ EC_QUEUE_NEW_FUNCTION_NAME(TYPE)                                                
         var->lock = EC_LOCK;                                                    \
     }                                                                           \
                                                                                 \
+    var->first = NULL;                                                          \
+    var->last = NULL;                                                           \
+                                                                                \
     return var;                                                                 \
 }
 
@@ -185,24 +172,11 @@ EC_QUEUE_VAR_STRUCT(TYPE)*                                                      
 EC_QUEUE_NEW_VAR_FUNCTION_NAME(TYPE)                                            \
 ()                                                                              \
 {                                                                               \
-    EC_QUEUE_VAR_STRUCT(TYPE)* var = (EC_QUEUE_VAR_STRUCT(TYPE)*)               \
-        malloc (sizeof (EC_QUEUE_VAR_STRUCT(TYPE)));                            \
-                                                                                \
-    if (var == NULL)                                                            \
-    {                                                                           \
-        EC_Error_Mem_Alloc (__FILE__, __LINE__);                                \
-        return NULL;                                                            \
-    }                                                                           \
+    EC_VAR_CREATE(EC_QUEUE_VAR_STRUCT(TYPE))                                    /*TYPE* var is in this macro in ec_var.h*/ \
                                                                                 \
     if (EC_MEMORY)                                                              \
     {                                                                           \
-        ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof (ECMemory));       \
-                                                                                \
-        if (ec_memory_new == NULL)                                              \
-        {                                                                       \
-            EC_Error_Mem_Alloc (__FILE__, __LINE__);                            \
-            return NULL;                                                        \
-        }                                                                       \
+        EC_MEMORY_CREATE                                                        /* ec_memory_new is defined in this macro in ec_memory.h */ \
                                                                                 \
         ec_memory_new->type = EC_QUEUE_VAR_TYPE;                                \
         ec_memory_new->var = var;                                               \
