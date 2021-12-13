@@ -95,17 +95,7 @@ EC_QUEUE_NEW_FUNCTION_NAME(TYPE)                                                
                                                                                 \
     if (EC_MEMORY)                                                              \
     {                                                                           \
-        EC_MEMORY_CREATE                                                        /* ec_memory_new is defined in this macro in ec_memory.h */ \
-                                                                                \
-        ec_memory_new->type = EC_QUEUE_TYPE;                                    \
-        ec_memory_new->var = var;                                               \
-        ec_memory_new->lock = EC_LOCK;                                          \
-        ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);            \
-        ec_memory_new->Free_Var_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);        \
-        ec_memory_new->next = NULL;                                             \
-                                                                                \
-        EC_Memory_Append (ec_memory_new);                                       \
-                                                                                \
+        EC_MEMORY_CREATE(TYPE, EC_QUEUE_TYPE)                                   \
         var->ec_memory_ref = ec_memory_new;                                     \
         var->lock = EC_LOCK;                                                    \
     }                                                                           \
@@ -128,15 +118,7 @@ EC_QUEUE_NEW_VAR_FUNCTION_NAME(TYPE)                                            
                                                                                 \
     if (EC_MEMORY)                                                              \
     {                                                                           \
-        EC_MEMORY_CREATE                                                        /* ec_memory_new is defined in this macro in ec_memory.h */ \
-                                                                                \
-        ec_memory_new->type = EC_QUEUE_VAR_TYPE;                                \
-        ec_memory_new->var = var;                                               \
-        ec_memory_new->lock = EC_NONE_LOCK;                                     \
-        ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);            \
-        ec_memory_new->next = NULL;                                             \
-                                                                                \
-        EC_Memory_Append (ec_memory_new);                                       \
+        EC_MEMORY_CREATE(TYPE, EC_QUEUE_VAR_TYPE)                               \
     }                                                                           \
                                                                                 \
     return var;                                                                 \

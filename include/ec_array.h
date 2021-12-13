@@ -17,7 +17,7 @@
 */
 
 /* Function name macros */
-#define EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                       EC_CONCAT(TYPE, _Free,) // memory Free
+#define EC_ARRAY_VAR_FREE_FUNCTION_NAME(TYPE)                   EC_CONCAT(TYPE, _Free,) // memory Free
 #define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                        EC_CONCAT(TYPE, _Array,)
 #define EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                       EC_CONCAT(TYPE, _Array_Copy,)
 #define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)            EC_CONCAT(TYPE, _Array_Sort_, SORT_WITH)
@@ -43,9 +43,9 @@ typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
 
 /* Function prototype macros */
 
-#define EC_ARRAY_FREE_FUNCTION_PROTOTYPE(TYPE)          \
+#define EC_ARRAY_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)      \
 void                                                    \
-EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                       \
+EC_ARRAY_VAR_FREE_FUNCTION_NAME(TYPE)                   \
 (                                                       \
     void* var                                           \
 );
@@ -76,7 +76,7 @@ EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                       \
 
 
 #define EC_ARRAY_FUNCTION_PROTOTYPES(TYPE)              \
-    EC_ARRAY_FREE_FUNCTION_PROTOTYPE(TYPE)              \
+    EC_ARRAY_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)          \
     EC_ARRAY_NEW_FUNCTION_PROTOTYPE(TYPE)               \
     EC_ARRAY_REVERSE_FUNCTION_PROTOTYPE(TYPE)           \
     EC_ARRAY_COPY_FUNCTION_PROTOTYPE(TYPE)
@@ -163,9 +163,9 @@ Int_Array_Min
 
 /* Function macros */
 
-#define EC_ARRAY_FREE_FUNCTION(TYPE)                                    \
+#define EC_ARRAY_VAR_FREE_FUNCTION(TYPE)                                \
 void                                                                    \
-EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                                       \
+EC_ARRAY_VAR_FREE_FUNCTION_NAME(TYPE)                                   \
 (                                                                       \
     void* var                                                           \
 )                                                                       \
@@ -187,16 +187,7 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                        \
                                                                         \
     if (EC_MEMORY)                                                      \
     {                                                                   \
-        EC_MEMORY_CREATE                                                /* ec_memory_new is defined in this macro in ec_memory.h */ \
-                                                                        \
-        ec_memory_new->type = EC_ARRAY_TYPE;                            \
-        ec_memory_new->var = var;                                       \
-        ec_memory_new->lock = EC_LOCK;                                  \
-        ec_memory_new->Free_Func = EC_ARRAY_FREE_FUNCTION_NAME (TYPE);  \
-        ec_memory_new->next = NULL;                                     \
-                                                                        \
-        EC_Memory_Append (ec_memory_new);                               \
-                                                                        \
+        EC_MEMORY_CREATE(TYPE, EC_ARRAY_TYPE)                           \
         var->ec_memory_ref = ec_memory_new;                             \
         var->lock = EC_LOCK;                                            \
     }                                                                   \
@@ -409,9 +400,9 @@ EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                                               
 }
 
 
-#define EC_ARRAY_FUNCTIONS(TYPE)    \
-    EC_ARRAY_FREE_FUNCTION(TYPE)    \
-    EC_ARRAY_NEW_FUNCTION(TYPE)     \
+#define EC_ARRAY_FUNCTIONS(TYPE)        \
+    EC_ARRAY_VAR_FREE_FUNCTION(TYPE)    \
+    EC_ARRAY_NEW_FUNCTION(TYPE)         \
     EC_ARRAY_COPY_FUNCTION(TYPE)
 
 #endif // EC_ARRAY_H

@@ -37,15 +37,23 @@ typedef struct ECMemory {
 ECMemory* ec_memory;
 
 
-#define EC_MEMORY_CREATE                                                \
+#define EC_MEMORY_CREATE(TYPE, EC_VAR_TYPE)                             \
     ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));    \
                                                                         \
     if (ec_memory_new == NULL)                                          \
     {                                                                   \
         EC_Error_Mem_Alloc (__FILE__, __LINE__);                        \
         return NULL;                                                    \
-    }
-
+    }                                                                   \
+                                                                        \
+    ec_memory_new->type = EC_VAR_TYPE;                                  \
+    ec_memory_new->var = var;                                           \
+    ec_memory_new->lock = EC_LOCK;                                      \
+    ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);        \
+    ec_memory_new->Free_Var_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);    \
+    ec_memory_new->next = NULL;                                         \
+                                                                        \
+    EC_Memory_Append (ec_memory_new);
 
 /* Clean all remaining ec_memory at the end of the program */
 void

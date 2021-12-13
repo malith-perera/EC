@@ -165,5 +165,3 @@ EC_Memory_Free_EC_Memory (ECMemory* free_ec_memory)
         }
     }
 }
-
-

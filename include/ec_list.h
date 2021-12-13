@@ -125,34 +125,24 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                            \
 /* Function macros */
 
 
-#define EC_LIST_NEW_FUNCTION(TYPE)                                              \
-EC_LIST_STRUCT(TYPE)*                                                           \
-EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                            \
-()                                                                              \
-{                                                                               \
-    EC_VAR_CREATE(EC_LIST_STRUCT(TYPE))                                         /*TYPE* var is in this macro in ec_var.h*/ \
-                                                                                \
-    if (EC_MEMORY)                                                              \
-    {                                                                           \
-        EC_MEMORY_CREATE                                                        /* ec_memory_new is defined in this macro in ec_memory.h */ \
-                                                                                \
-        ec_memory_new->type = EC_LIST_TYPE;                                     /* Defined in ec.h */ \
-        ec_memory_new->var = var;                                               \
-        ec_memory_new->lock = EC_LOCK;                                          \
-        ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);            \
-        ec_memory_new->Free_Var_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);        \
-        ec_memory_new->next = NULL;                                             \
-                                                                                \
-        EC_Memory_Append (ec_memory_new);                                       \
-                                                                                \
-        var->ec_memory_ref = ec_memory_new;                                     \
-        var->lock = EC_LOCK;                                                    \
-    }                                                                           \
-                                                                                \
-    var->first = NULL;                                                          \
-    var->last = NULL;                                                           \
-                                                                                \
-    return var;                                                                 \
+#define EC_LIST_NEW_FUNCTION(TYPE)                                          \
+EC_LIST_STRUCT(TYPE)*                                                       \
+EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                        \
+()                                                                          \
+{                                                                           \
+    EC_VAR_CREATE(EC_LIST_STRUCT(TYPE))                                     /*TYPE* var is in this macro in ec_var.h*/ \
+                                                                            \
+    if (EC_MEMORY)                                                          \
+    {                                                                       \
+        EC_MEMORY_CREATE(TYPE, EC_LIST_TYPE)                                \
+        var->ec_memory_ref = ec_memory_new;                                 \
+        var->lock = EC_LOCK;                                                \
+    }                                                                       \
+                                                                            \
+    var->first = NULL;                                                      \
+    var->last = NULL;                                                       \
+                                                                            \
+    return var;                                                             \
 }
 
 
@@ -167,21 +157,7 @@ EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)                                         \
                                                                             \
     if (EC_MEMORY)                                                          \
     {                                                                       \
-        ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof (ECMemory));   \
-                                                                            \
-        if (ec_memory_new == NULL)                                          \
-        {                                                                   \
-            EC_Error_Mem_Alloc (__FILE__, __LINE__);                        \
-            return NULL;                                                    \
-        }                                                                   \
-                                                                            \
-        ec_memory_new->type = EC_LIST_VAR_TYPE;                             /* Defined in ec.h */ \
-        ec_memory_new->var = var;                                           \
-        ec_memory_new->lock = EC_NONE_LOCK;                                 \
-        ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);        \
-        ec_memory_new->next = NULL;                                         \
-                                                                            \
-        EC_Memory_Append (ec_memory_new);                                   \
+        EC_MEMORY_CREATE(TYPE, EC_LIST_VAR_TYPE)                            \
     }                                                                       \
                                                                             \
     return var;                                                             \
