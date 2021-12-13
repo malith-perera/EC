@@ -190,6 +190,8 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                        \
     if (EC_MEMORY)                                                      \
     {                                                                   \
         EC_MEMORY_CREATE(TYPE, EC_ARRAY_TYPE)                           \
+        ec_memory_new->Free_Func = EC_ARRAY_VAR_FREE_FUNCTION_NAME(TYPE); /**** this works */\
+        ec_memory_new->Free_Var_Func = EC_ARRAY_VAR_FREE_FUNCTION_NAME(TYPE);/**** this not work */ \
         var->ec_memory_ref = ec_memory_new;                             \
         var->lock = EC_LOCK;                                            \
     }                                                                   \
