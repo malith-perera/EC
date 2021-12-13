@@ -8,6 +8,7 @@
 
 
 /* Function name macros */
+#define EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Free,)
 #define EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List,)
 #define EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _List_Var,)
 #define EC_LIST_COPY_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _List_Copy,)
@@ -43,6 +44,13 @@ typedef struct EC_LIST_STRUCT(TYPE) {                   \
 
 
 /* Function prototype macros */
+#define EC_LIST_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)       \
+void                                                    \
+EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                    \
+(                                                       \
+    void* var                                           \
+);
+
 
 #define EC_LIST_NEW_FUNCTION_PROTOTYPE(TYPE)            \
 EC_LIST_STRUCT(TYPE)*                                   \
@@ -113,6 +121,7 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                            \
 
 
 #define EC_LIST_FUNCTION_PROTOTYPES(TYPE)                   \
+    EC_LIST_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)               \
     EC_LIST_NEW_FUNCTION_PROTOTYPE(TYPE)                    \
     EC_LIST_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)                \
     EC_LIST_APPEND_FUNCTION_PROTOTYPE(TYPE)                 \
@@ -123,6 +132,17 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                            \
 
 
 /* Function macros */
+#define EC_LIST_VAR_FREE_FUNCTION(TYPE)                         \
+void                                                            \
+EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                            \
+(                                                               \
+    void* var                                                   \
+)                                                               \
+{                                                               \
+    EC_LIST_STRUCT(TYPE)* v = (EC_LIST_STRUCT(TYPE)*) var;      \
+    free (v);                                                   \
+    v = NULL;                                                   \
+}
 
 
 #define EC_LIST_NEW_FUNCTION(TYPE)                                          \
@@ -134,7 +154,8 @@ EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                        \
                                                                             \
     if (EC_MEMORY)                                                          \
     {                                                                       \
-        EC_MEMORY_CREATE(TYPE, EC_LIST_TYPE)                                \
+        EC_MEMORY_CREATE(TYPE, EC_LIST_TYPE)                                /*ec_memory_new defined here in ec_memory.h*/ \
+        ec_memory_new->Free_Var_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE);     \
         var->ec_memory_ref = ec_memory_new;                                 \
         var->lock = EC_LOCK;                                                \
     }                                                                       \
@@ -158,6 +179,7 @@ EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)                                         \
     if (EC_MEMORY)                                                          \
     {                                                                       \
         EC_MEMORY_CREATE(TYPE, EC_LIST_VAR_TYPE)                            \
+        ec_memory_new->Free_Var_Func = EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE);\
     }                                                                       \
                                                                             \
     return var;                                                             \
@@ -429,6 +451,7 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                                                
 
 
 #define EC_LIST_FUNCTIONS(TYPE)         \
+    EC_LIST_VAR_FREE_FUNCTION(TYPE)     \
     EC_LIST_NEW_FUNCTION(TYPE)          \
     EC_LIST_NEW_VAR_FUNCTION(TYPE)      \
     EC_LIST_APPEND_FUNCTION(TYPE)       \

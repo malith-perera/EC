@@ -17,7 +17,7 @@
 */
 
 /* Function name macros */
-#define EC_ARRAY_VAR_FREE_FUNCTION_NAME(TYPE)                   EC_CONCAT(TYPE, _Free,) // memory Free
+#define EC_ARRAY_VAR_FREE_FUNCTION_NAME(TYPE)                   EC_CONCAT(TYPE, _Free_Var,) // memory Free
 #define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                        EC_CONCAT(TYPE, _Array,)
 #define EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                       EC_CONCAT(TYPE, _Array_Copy,)
 #define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SORT_WITH)            EC_CONCAT(TYPE, _Array_Sort_, SORT_WITH)
@@ -170,9 +170,11 @@ EC_ARRAY_VAR_FREE_FUNCTION_NAME(TYPE)                                   \
     void* var                                                           \
 )                                                                       \
 {                                                                       \
-    EC_ARRAY_STRUCT(TYPE)* p = (EC_ARRAY_STRUCT(TYPE)*) var;            \
-    free (p->index);                                                    \
-    free (p);                                                           \
+    EC_ARRAY_STRUCT(TYPE)* v = (EC_ARRAY_STRUCT(TYPE)*) var;            \
+    free (v->index);                                                    \
+    v->index = NULL;                                                    \
+    free (v);                                                           \
+    v = NULL;                                                           \
 }
 
 

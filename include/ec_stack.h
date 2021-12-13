@@ -8,7 +8,7 @@
 
 
 /* Function name macros */
-
+#define EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Stack_Var_Free,)
 #define EC_STACK_NEW_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Stack,)
 #define EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Stack_Var,)
 #define EC_STACK_COPY_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Stack_Copy,)
@@ -41,6 +41,12 @@ typedef struct EC_STACK_STRUCT(TYPE) {              \
 
 /* Function prototype macros */
 
+#define EC_STACK_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)              \
+void                                                            \
+EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)                           \
+(                                                               \
+    void* var                                                   \
+);
 
 #define EC_STACK_NEW_FUNCTION_PROTOTYPE(TYPE)              \
 EC_STACK_STRUCT(TYPE)*                                     \
@@ -80,6 +86,7 @@ EC_STACK_COPY_FUNCTION_NAME(TYPE)                           \
 
 
 #define EC_STACK_FUNCTION_PROTOTYPES(TYPE)          \
+    EC_STACK_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)      \
     EC_STACK_NEW_FUNCTION_PROTOTYPE(TYPE)           \
     EC_STACK_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)       \
     EC_STACK_PUSH_FUNCTION_PROTOTYPE(TYPE)          \
@@ -88,6 +95,17 @@ EC_STACK_COPY_FUNCTION_NAME(TYPE)                           \
 
 
 /* Function macros */
+#define EC_STACK_VAR_FREE_FUNCTION(TYPE)                        \
+void                                                            \
+EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)                           \
+(                                                               \
+    void* var                                                   \
+)                                                               \
+{                                                               \
+    EC_STACK_STRUCT(TYPE)* v = (EC_STACK_STRUCT(TYPE)*) var;    \
+    free (v);                                                   \
+    v = NULL;                                                   \
+}
 
 
 #define EC_STACK_NEW_FUNCTION(TYPE)                                             \
@@ -100,6 +118,7 @@ EC_STACK_NEW_FUNCTION_NAME(TYPE)                                                
     if (EC_MEMORY)                                                              \
     {                                                                           \
         EC_MEMORY_CREATE(TYPE, EC_STACK_TYPE)                                   \
+        ec_memory_new->Free_Var_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE);         \
         var->ec_memory_ref = ec_memory_new;                                     \
         var->lock = EC_LOCK;                                                    \
     }                                                                           \
@@ -121,6 +140,7 @@ EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)                                            
     if (EC_MEMORY)                                                              \
     {                                                                           \
         EC_MEMORY_CREATE(TYPE, EC_STACK_VAR_TYPE)                               \
+        ec_memory_new->Free_Var_Func = EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE);   \
     }                                                                           \
                                                                                 \
     return var;                                                                 \
@@ -183,6 +203,7 @@ EC_STACK_COPY_FUNCTION_NAME(TYPE)                                           \
 
 
 #define EC_STACK_FUNCTIONS(TYPE)            \
+    EC_STACK_VAR_FREE_FUNCTION(TYPE)        \
     EC_STACK_NEW_FUNCTION(TYPE)             \
     EC_STACK_NEW_VAR_FUNCTION(TYPE)         \
     EC_STACK_PUSH_FUNCTION(TYPE)            \

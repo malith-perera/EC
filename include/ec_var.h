@@ -4,7 +4,7 @@
 #include "ec.h"
 
 /* Function name macros */
-#define EC_VAR_FREE_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Free_Var,)
+#define EC_VAR_FREE_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Free,)
 #define EC_VAR_NEW_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _Var,)
 #define EC_VAR_COPY_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Var_Copy,)
 
@@ -68,30 +68,30 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)         \
 }
 
 
-#define EC_VAR_CREATE(TYPE)                                             \
-    TYPE* var = (TYPE*) malloc (sizeof(TYPE));                          \
-                                                                        \
-    if (var == NULL)                                                    \
-    {                                                                   \
-        EC_Error_Mem_Alloc (__FILE__, __LINE__);                        \
-        return NULL;                                                    \
+#define EC_VAR_CREATE(TYPE)                                 \
+    TYPE* var = (TYPE*) malloc (sizeof(TYPE));              \
+                                                            \
+    if (var == NULL)                                        \
+    {                                                       \
+        EC_Error_Mem_Alloc (__FILE__, __LINE__);            \
+        return NULL;                                        \
     }
 
 
-#define EC_VAR_NEW_FUNCTION(TYPE)                                       \
-TYPE*                                                                   \
-EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                        \
-{                                                                       \
-    EC_VAR_CREATE(TYPE)                                                 /*TYPE* var is defined in this macro*/ \
-                                                                        \
-    if (EC_MEMORY)                                                      \
-    {                                                                   \
-        EC_MEMORY_CREATE(TYPE, EC_VAR_TYPE)                             /* ec_memory_new is defined in this macro in ec_memory.h */ \
-        var->ec_memory_ref = ec_memory_new;                             \
-        var->lock = EC_LOCK;                                            \
-    }                                                                   \
-                                                                        \
-    return var;                                                         \
+#define EC_VAR_NEW_FUNCTION(TYPE)                           \
+TYPE*                                                       \
+EC_VAR_NEW_FUNCTION_NAME(TYPE)()                            \
+{                                                           \
+    EC_VAR_CREATE(TYPE)                                     /*TYPE* var is defined in this macro*/ \
+                                                            \
+    if (EC_MEMORY)                                          \
+    {                                                       \
+        EC_MEMORY_CREATE(TYPE, EC_VAR_TYPE)                 /* ec_memory_new is defined in this macro in ec_memory.h */ \
+        var->ec_memory_ref = ec_memory_new;                 \
+        var->lock = EC_LOCK;                                \
+    }                                                       \
+                                                            \
+    return var;                                             \
 }
 
 
