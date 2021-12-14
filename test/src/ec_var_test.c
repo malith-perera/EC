@@ -7,21 +7,87 @@
 #include "ec_var.h"
 
 
+/* Test: New Var
+ * Creating and accessing a new variable */
 void
 Test_New_Var ()
 {
     EC_Print_Error ("Test_New_Var: ", "BEGIN");
 
-    Student *st = Student_Var ();
-    EC_Print_Error ("Create new ec var", "OK");
+    StudentVar* st = Student_Var ();
+    EC_Print_Error ("Create ec var", "OK");
 
     st->no = 1;
     st->name = "Malith";
-    EC_Print_Error ("Assign ec var attributes", "OK");
+    EC_Print_Error ("Assign ec var", "OK");
+
+    assert (st->no == 1);
+    assert (strcmp(st->name, "Malith") == 0);
+    EC_Print_Error ("Access ec var", "OK");
+
+    StudentVar st_on_stack;
+    EC_Print_Error ("Create ec var on stack", "OK");
+
+    st_on_stack.no = 2;
+    st_on_stack.name = "Geethike";
+    EC_Print_Error ("Assign ec var on stack", "OK");
+
+    assert (st_on_stack.no == 2);
+    assert (strcmp(st_on_stack.name, "Geethike") == 0);
+    EC_Print_Error ("Access ec var on stack", "OK");
 
     EC_Print_Error ("Test_New_Var:", "END");
 }
 
+
+/* Test: Var_Copy
+ * This function should not affect copied vars each other */
+void
+Test_Var_Copy ()
+{
+    EC_Print_Error ("Test_Copy_Var: ", "BEGIN");
+
+    StudentVar* st1 = Student_Var ();
+    EC_Print_Error ("Create new ec var", "OK");
+
+    st1->no = 1;
+    st1->name = "Malith";
+
+    StudentVar* st2 = Student_Var_Copy (st1);
+    assert (st2->no == 1);
+    assert (strcmp(st2->name, "Malith") == 0);
+    EC_Print_Error ("Var copied: ", "OK");
+
+    st1->no = 2;
+    st2->name = "Geethike";
+
+    assert (st2->no == 1);
+    assert (strcmp(st1->name, "Geethike") != 0);
+
+    EC_Print_Error ("Changing one var should not affect other", "OK");
+
+    StudentVar st_on_stack;
+    st_on_stack.no = 3;
+    st_on_stack.name = "Perera";
+
+    EC_Print_Error ("Create and assign ec var on stack", "OK");
+
+    st2 = Student_Var_Copy (&st_on_stack);
+    assert (st2->no == 3);
+    assert (strcmp(st2->name, "Perera") == 0);
+
+    EC_Print_Error ("Copy var on stack: ", "OK");
+
+    st_on_stack = *Student_Var_Copy (st1);
+    assert (st_on_stack.no == 2);
+    assert (strcmp(st_on_stack.name, "Malith") == 0);
+
+    EC_Print_Error ("Copy var to stack: ", "OK");
+
+    EC_Print_Error ("Test_Copy_Var: ", "END");
+}
+
+    /*Student_Var_Copy(st, st_var_in_stack);*/
 
 void
 Test_New_Var_Memory_Free ()
@@ -37,36 +103,6 @@ Test_New_Var_Memory_Free ()
     EC_Print_Error ("Test_New_Var_Memory_Free:", "END");
 }
 
-/* This function do not affect copied vars each other */
-void
-Test_Var_Copy ()
-{
-    EC_Print_Error ("Test_Copy_Var: ", "BEGIN");
-
-    Student* st1 = Student_Var ();
-    EC_Print_Error ("Create new ec var", "OK");
-
-    st1->no = 1;
-    st1->name = "Malith";
-
-    Student *st2 = Student_Var_Copy (st1);
-
-    assert (st2->no == 1);
-    assert (strcmp(st2->name, "Malith") == 0);
-
-    EC_Print_Error ("Var copied: ", "OK");
-
-    st1->no = 2;
-    st2->name = "Geethike";
-
-    assert (st2->no == 1);
-    assert (strcmp(st1->name, "Geethike") != 0);
-
-    EC_Print_Error ("Changing one array should not affect other", "OK");
-
-    EC_Print_Error ("Test_Copy_Var: ", "END");
-}
-
 
 void
 Run_Var_Test ()
@@ -78,10 +114,10 @@ Run_Var_Test ()
     Test_New_Var ();
     printf ("\n");
 
-    Test_New_Var_Memory_Free ();
+    Test_Var_Copy ();
     printf ("\n");
 
-    Test_Var_Copy ();
+    Test_New_Var_Memory_Free ();
     printf ("\n");
 
     EC_Print_Error ("Test: ec_var.h", "PASS");
