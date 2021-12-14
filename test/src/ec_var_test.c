@@ -45,15 +45,17 @@ Test_New_Var ()
 void
 Test_Var_Copy ()
 {
-    EC_Print_Error ("Test_Copy_Var: ", "BEGIN");
+    EC_Print_Error ("Test_Var_Copy: ", "BEGIN");
 
     StudentVar* st1 = Student_Var ();
+    StudentVar* st2 = Student_Var ();
     EC_Print_Error ("Create new ec var", "OK");
 
     st1->no = 1;
     st1->name = "Malith";
+    EC_Print_Error ("Assign new ec var", "OK");
 
-    StudentVar* st2 = Student_Var_Copy (st1);
+    *st2 = *st1;
     assert (st2->no == 1);
     assert (strcmp(st2->name, "Malith") == 0);
     EC_Print_Error ("Var copied: ", "OK");
@@ -72,22 +74,21 @@ Test_Var_Copy ()
 
     EC_Print_Error ("Create and assign ec var on stack", "OK");
 
-    st2 = Student_Var_Copy (&st_on_stack);
+    *st2 = st_on_stack;
     assert (st2->no == 3);
     assert (strcmp(st2->name, "Perera") == 0);
 
     EC_Print_Error ("Copy var on stack: ", "OK");
 
-    st_on_stack = *Student_Var_Copy (st1);
+    st_on_stack = *st1;
     assert (st_on_stack.no == 2);
     assert (strcmp(st_on_stack.name, "Malith") == 0);
 
     EC_Print_Error ("Copy var to stack: ", "OK");
 
-    EC_Print_Error ("Test_Copy_Var: ", "END");
+    EC_Print_Error ("Test_Var_Copy: ", "END");
 }
 
-    /*Student_Var_Copy(st, st_var_in_stack);*/
 
 void
 Test_New_Var_Memory_Free ()
