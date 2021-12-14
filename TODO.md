@@ -1,7 +1,9 @@
 # ToDo  
 ### (Version v1.0)  
 
+
 ## Implemention Details
+
 
 #### EC Var:
 > Type_Var_Copy (var a) : **Done**  
@@ -9,6 +11,7 @@
 
 > Test_Type_Var_Copy (var a, var b) : **Done**  
 > > Test copied correctly and do not affect variable change on another variable  
+
 
 #### EC Array:  
 
@@ -64,7 +67,7 @@
 
 > Type_Queue_Copy (queue a)  : **Done**  
 > > Copy and return a queue. Create with malloc  
-> 
+
 > Test_Type_Queue_Copy (queue a)  : **Done**  
 > > Test copied correctly and do not affect one queue variable change on other queue variable  
 
@@ -101,6 +104,7 @@
 > Type_Stack_To_Queue (stack)  
 > > Convert stack into queue and return a queue type pointer  
 
+
 #### EC Memory:  
 > EC Unlock  
 > EC Free  
@@ -109,15 +113,18 @@
 > EC_Memory_Clean  
 > EC_Memory_Delete  
 
+
 #### Comman Line:  
 > .c and .h open with vim  
+
 
 #### Refine code:  
 > In progress  
 
+
 #### Test all:  
 > In progress  
-  
+
 
 ---
 ## Porting
@@ -128,8 +135,8 @@
 > Windows 10: Help needed  
 ### Mac:  
 > Mac OS : Help needed  
-  
-  
+
+
 ---
 ## Documentation  
 
@@ -137,7 +144,8 @@
 ### Create documentation  
 ### Create man pages  
 ### Create Website  
-  
+
+
 ---
 ## Future development road map  
 <http://wiki.libEC.org/Roadmap>  
