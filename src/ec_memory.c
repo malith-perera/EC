@@ -142,26 +142,20 @@ EC_Memory_Free_Unlock_One ()
 
 
 void
-EC_Memory_Free_EC_Memory (ECMemory* free_ec_memory)
+EC_Memory_Free (ECMemory* ec_memory_var)
 {
-    ECMemory *current;
-    ECMemory *temp;
-
-    current = ec_memory;
-
-    while (current != NULL)
+    if (ec_memory_var != NULL)
     {
-        if (current->lock == EC_UNLOCK)
+        if (ec_memory_var != ec_memory) // Free first variable
         {
-            if (current->var != NULL)
-            {
-                current->Free_Func (current->var);
-            }
-
-            temp = current;
-            current = current->next;
-            free (temp);
-            temp = NULL;
+            ec_memory_var->previous->next = ec_memory_var->next;
         }
+        else
+        {
+            ec_memory = ec_memory_var->next;
+        }
+
+        free (ec_memory_var);
+        ec_memory_var = NULL;
     }
 }

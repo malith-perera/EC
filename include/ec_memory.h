@@ -55,9 +55,14 @@ ECMemory* ec_memory;
                                                                         \
     EC_Memory_Append (ec_memory_new);
 
+
 /* Clean all remaining ec_memory at the end of the program */
 void
 EC_Clean ();
+
+
+void
+EC_Memory_Free (ECMemory* ec_memory_var);
 
 
 /* Append to ec_memory */
