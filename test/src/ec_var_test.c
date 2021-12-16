@@ -213,6 +213,7 @@ Test_Var_Free ()
 
     assert (st->no != 1);
     assert (strcmp (st->name, "Malith") != 0);
+    assert (st->ec_memory_ref == NULL);
     EC_Print_Error ("EC var freed out", "OK");
 
     EC_Print_Error ("Test_Var_Free:", "END");
