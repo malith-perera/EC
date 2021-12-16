@@ -70,9 +70,9 @@ EC_Memory_Append (ECMemory* ec_memory_new)
 }
 
 
-/* Delete memory if lock == EC_UNLOCK in ec_memory lock variable */
+/* Free all memory if lock == EC_UNLOCK in ec_memory var */
 void
-EC_Memory_Free_Unlock ()
+EC_Memory_Free_Unlocked ()
 {
     ECMemory *current;
     ECMemory *temp;
@@ -85,42 +85,22 @@ EC_Memory_Free_Unlock ()
         {
             if (current->var != NULL)
             {
-                if (current->type == EC_VAR_TYPE)
-                {
-                    current->Free_Var_Func (current->var);
-                }
-                else if (current->type == EC_ARRAY_TYPE)
-                {
-
-                }
-                else if (current->type == EC_LIST_TYPE)
-                {
-
-                }
-                else if (current->type == EC_QUEUE_TYPE)
-                {
-
-                }
-                else if (current->type == EC_STACK_TYPE)
-                {
-
-                }
-                else
-                {
-
-                }
-
-                /*current->Free_Var_Func();*/
                 current->Free_Func (current->var);
             }
 
             temp = current;
             current = current->next;
-            current->previous->next = current->next;
             free (temp);
             temp = NULL;
+
+            break;
+
         }
+
+        current = current->next;
     }
+
+    free_one = ec_memory; // reset free_one to ec_memory. free_one use to track the var when free one by one in Free_Unlock_One function.
 }
 
 
@@ -159,6 +139,3 @@ EC_Memory_Free_Unlock_One ()
         }
     }
 }
-
-
-
