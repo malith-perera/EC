@@ -106,6 +106,7 @@ Test_Array_Free ()
     EC_Print_Error ("Create assign array", "OK");
 
     Student_Array_Free (sta);
+    EC_Print_Error ("Array_Free function", "OK");
 
     assert (sta->index == NULL);
     assert (sta->ec_memory_ref == NULL);
@@ -121,6 +122,36 @@ Test_Array_Free ()
 void
 Test_Array_Free_One ()
 {
+}
+
+
+/* Test: Array_Unlock
+ * This function test Array_Unlock function
+ * Unlock just unlock ec_memory var and release to free when needed*/
+void
+Test_Array_Unlock ()
+{
+    EC_Print_Error ("Test_Array_Unlock: ", "BEGIN");
+
+    StudentArray* sta = Student_Array (2);
+    EC_Print_Error ("Create new ec array", "OK");
+
+    sta->index[0].no = 1;
+    sta->index[0].name = "Malith";
+
+    sta->index[1].no = 2;
+    sta->index[1].name = "Geethike";
+
+    EC_Print_Error ("Create assign array", "OK");
+
+    Student_Array_Unlock (sta);
+
+    EC_Print_Error ("Array_Unlock function", "OK");
+
+    assert (sta->ec_memory_ref->lock == EC_UNLOCK);
+    EC_Print_Error ("Array_Unlock unlock", "OK");
+
+    EC_Print_Error ("Test_Array_Unlock: ", "END");
 }
 
 
@@ -500,6 +531,10 @@ Run_Array_Test ()
 
     Test_Array_Free ();
     printf ("\n");
+
+    Test_Array_Unlock ();
+    printf ("\n");
+
 
 /*    Test_Array_Sort ();*/
     /*printf ("\n");*/
