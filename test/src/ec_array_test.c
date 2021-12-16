@@ -85,6 +85,45 @@ Test_Array_Copy ()
 }
 
 
+/* Test: Array_Free
+ * This function test Array_Free function */
+void
+Test_Array_Free ()
+{
+    EC_Print_Error ("Test_Array_Free: ", "BEGIN");
+
+    StudentArray* sta = Student_Array (2);
+    EC_Print_Error ("Create new ec array", "OK");
+
+    sta->index[0].no = 1;
+    sta->index[0].name = "Malith";
+
+    sta->index[1].no = 2;
+    sta->index[1].name = "Geethike";
+
+    assert (sta->index != NULL);
+
+    EC_Print_Error ("Create assign array", "OK");
+
+    Student_Array_Free (sta);
+
+    assert (sta->index == NULL);
+    assert (sta->ec_memory_ref == NULL);
+
+    EC_Print_Error ("Array free", "OK");
+
+    EC_Print_Error ("Test_Array_Free: ", "END");
+}
+
+
+/* Test: Array_Free
+ * This function test Array_Free function */
+void
+Test_Array_Free_One ()
+{
+}
+
+
 void
 Test_Array_Sort ()
 {
@@ -456,35 +495,38 @@ Run_Array_Test ()
     Test_New_Array ();
     printf ("\n");
 
-    Test_Array_Sort ();
+    Test_Array_Copy ();
     printf ("\n");
 
-    Test_Array_Reverse ();
+    Test_Array_Free ();
     printf ("\n");
 
-    Test_Int_Array_Reverse ();
-    printf ("\n");
+/*    Test_Array_Sort ();*/
+    /*printf ("\n");*/
 
-    Test_Int_Array_Search ();
-    printf ("\n");
+    /*Test_Array_Reverse ();*/
+    /*printf ("\n");*/
 
-    Test_Int_Sorted_Array_Search ();
-    printf ("\n");
+    /*Test_Int_Array_Reverse ();*/
+    /*printf ("\n");*/
 
-    Test_Int_Array_Max ();
-    printf ("\n");
+    /*Test_Int_Array_Search ();*/
+    /*printf ("\n");*/
 
-    Test_Int_Array_Min ();
-    printf ("\n");
+    /*Test_Int_Sorted_Array_Search ();*/
+    /*printf ("\n");*/
 
-    Test_Sorted_Array_Search_Var ();
-    printf ("\n");
+    /*Test_Int_Array_Max ();*/
+    /*printf ("\n");*/
+
+    /*Test_Int_Array_Min ();*/
+    /*printf ("\n");*/
+
+    /*Test_Sorted_Array_Search_Var ();*/
+    /*printf ("\n");*/
 
     /*Test_Array_Max_Var ();*/
     /*printf ("\n");*/
-
-    Test_Array_Copy ();
-    printf ("\n");
 
     EC_Print_Error ("Test: ec_array.h", "PASS");
     printf ("\n");
