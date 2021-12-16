@@ -3,7 +3,6 @@
 #include "ec_file.h"
 #include "ec_error.h"
 
-#define DEBUG 1
 
 typedef enum {
     EMPTY,
