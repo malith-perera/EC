@@ -10,7 +10,7 @@
 #define EC_VAR_COPY_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Var_Copy,)
 #define EC_VAR_COPY2_FUNCTION_NAME(TYPE)    EC_CONCAT(TYPE, _Var_Copy2,)
 
-#define EC_VAR_UNLOCK_FUNCTION_NAME(TYPE)   EC_CONCAT(TYPE, _Var_Unlock,)
+#define EC_UNLOCK_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _Var_Unlock,)
 
 /* Structure macros */
 // EC_MEMORY_REF defined in ec_memory.h
@@ -46,9 +46,9 @@ EC_VAR_FREE_ONE_FUNCTION_NAME(TYPE)                 \
 );
 
 
-#define EC_VAR_UNLOCK_FUNCTION_PROTOTYPE(TYPE)  \
+#define EC_UNLOCK_FUNCTION_PROTOTYPE(TYPE)  \
 void                                            \
-EC_VAR_UNLOCK_FUNCTION_NAME(TYPE)               \
+EC_UNLOCK_FUNCTION_NAME(TYPE)               \
 (                                               \
     void* var                                   \
 );
@@ -79,7 +79,7 @@ EC_VAR_COPY2_FUNCTION_NAME(TYPE)                \
 #define EC_VAR_FUNCTION_PROTOTYPES(TYPE)        \
     EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)        \
     EC_VAR_FREE_ONE_FUNCTION_PROTOTYPE(TYPE)    \
-    EC_VAR_UNLOCK_FUNCTION_PROTOTYPE(TYPE)      \
+    EC_UNLOCK_FUNCTION_PROTOTYPE(TYPE)          \
     EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)         \
     EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)        \
     EC_VAR_COPY2_FUNCTION_PROTOTYPE(TYPE)
@@ -113,9 +113,9 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)                 \
 }
 
 
-#define EC_VAR_UNLOCK_FUNCTION(TYPE)            \
+#define EC_UNLOCK_FUNCTION(TYPE)                \
 void                                            \
-EC_VAR_UNLOCK_FUNCTION_NAME(TYPE)               \
+EC_UNLOCK_FUNCTION_NAME(TYPE)                   \
 (                                               \
     void* var                                   \
 )                                               \
@@ -183,7 +183,7 @@ EC_VAR_COPY2_FUNCTION_NAME(TYPE)                            \
 #define EC_VAR_FUNCTIONS(TYPE)      \
     EC_VAR_FREE_FUNCTION(TYPE)      \
     EC_VAR_FREE_ONE_FUNCTION(TYPE)  \
-    EC_VAR_UNLOCK_FUNCTION(TYPE)    \
+    EC_UNLOCK_FUNCTION(TYPE)        \
     EC_VAR_NEW_FUNCTION(TYPE)       \
     EC_VAR_COPY_FUNCTION(TYPE)      \
     EC_VAR_COPY2_FUNCTION(TYPE)

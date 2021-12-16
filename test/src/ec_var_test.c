@@ -218,12 +218,12 @@ Test_Var_Free ()
     EC_Print_Error ("Test_Var_Free:", "END");
 }
 
+
 /* Test: Var_Unlock
  * This function unlock ec_memory var and allow to free memories
  * when we free unlock memories when we need */
-
 void
-Test_Var_Unloc ()
+Test_Var_Unlock ()
 {
     EC_Print_Error ("Test_Var_Free: ", "BEGIN");
 
@@ -266,7 +266,7 @@ Run_Var_Test ()
     Test_Var_Free ();
     printf ("\n");
 
-    Test_Var_Unloc ();
+    Test_Var_Unlock ();
     printf ("\n");
 
     EC_Print_Error ("Test: ec_var.h", "PASS");
