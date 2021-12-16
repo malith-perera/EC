@@ -2,14 +2,6 @@
 #define EC_MEMORY_H
 
 
-#ifdef DEBUG
-int ec_memory_debug_counter;
-#define DEBUG_COUNTER_PRINT(WHERE) printf ("%s %d\n", #WHERE, ++ec_memory_debug_counter);
-#else
-int ec_memory_debug_counter;
-#define DEBUG_COUNTER_PRINT(WHERE)
-#endif
-
 #include "ec.h"
 
 /* ECMemoryLock types */
@@ -61,8 +53,6 @@ ECMemory* ec_memory;
     ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);        \
     ec_memory_new->Free_Var_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);    \
     ec_memory_new->next = NULL;                                         \
-                                                                        \
-    DEBUG_COUNTER_PRINT(Creat)                                          \
                                                                         \
     EC_Memory_Append (ec_memory_new);
 

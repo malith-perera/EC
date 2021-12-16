@@ -35,13 +35,8 @@ EC_Clean ()
 
     current = ec_memory;
 
-#ifdef DEBUG
-    ec_memory_debug_counter = 0;
-#endif
-
     while (current != NULL)
     {
-        DEBUG_COUNTER_PRINT(Clear)
         current->Free_Func (current->var);
         EC_Memory_Var_Free (current);
 
