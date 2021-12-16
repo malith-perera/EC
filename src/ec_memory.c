@@ -21,7 +21,6 @@ EC_Memory_Var_Free (ECMemory* ec_memory_var)
         }
 
         free (ec_memory_var);
-        ec_memory_var = NULL;
     }
 }
 
