@@ -3,10 +3,10 @@
 
 
 #ifdef DEBUG
-#define EC_DEBUG_COUNTER int ec_memory_debug_counter;
+int ec_memory_debug_counter;
 #define DEBUG_COUNTER_PRINT(WHERE) printf ("%s %d\n", #WHERE, ++ec_memory_debug_counter);
 #else
-#define EC_DEBUG_COUNTER
+int ec_memory_debug_counter;
 #define DEBUG_COUNTER_PRINT(WHERE)
 #endif
 

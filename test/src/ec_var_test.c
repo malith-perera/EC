@@ -181,7 +181,7 @@ Test_Var_Copy2 ()
 
     EC_Print_Error ("Copy var on stack: ", "OK");
 
-    /*Student_Var_Copy2 (&st_on_stack, st1);*/
+    /*Student_Var_Copy2 (&st_on_stack, st1);*/ /* this is not working */
 /*    assert (st_on_stack.no == 2);*/
     /*assert (strcmp(st_on_stack.name, "Malith") == 0);*/
 
@@ -191,6 +191,8 @@ Test_Var_Copy2 ()
 }
 
 
+/* Test: Var_Free
+ * This function free ec var and ec_memory var together */
 void
 Test_Var_Free ()
 {
@@ -207,11 +209,36 @@ Test_Var_Free ()
     EC_Print_Error ("Create, assign and access ec var", "OK");
 
     Student_Var_Free (st);
-    EC_Print_Error ("Free ec var function", "OK");
+    EC_Print_Error ("EC_Var_Free function", "OK");
 
     assert (st->no != 1);
     assert (strcmp (st->name, "Malith") != 0);
     EC_Print_Error ("EC var freed out", "OK");
+
+    EC_Print_Error ("Test_Var_Free:", "END");
+}
+
+/* Test: Var_Unlock
+ * This function unlock ec_memory var and allow to free memories
+ * when we free unlock memories when we need */
+
+void
+Test_Var_Unloc ()
+{
+    EC_Print_Error ("Test_Var_Free: ", "BEGIN");
+
+    StudentVar* st = Student_Var ();
+    st->no = 1;
+    st->name = "Malith";
+    assert (st->no == 1);
+    assert (strcmp (st->name, "Malith") == 0);
+    EC_Print_Error ("Create, assign and access ec var", "OK");
+
+    Student_Var_Unlock (st);
+    EC_Print_Error ("Unlock var ", "OK");
+
+    assert (st->ec_memory_ref->lock == EC_UNLOCK);
+    EC_Print_Error ("ec_memory unlocked", "OK");
 
     EC_Print_Error ("Test_Var_Free:", "END");
 }
@@ -237,6 +264,9 @@ Run_Var_Test ()
     printf ("\n");
 
     Test_Var_Free ();
+    printf ("\n");
+
+    Test_Var_Unloc ();
     printf ("\n");
 
     EC_Print_Error ("Test: ec_var.h", "PASS");

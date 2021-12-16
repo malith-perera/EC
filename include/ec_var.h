@@ -10,7 +10,7 @@
 #define EC_VAR_COPY_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Var_Copy,)
 #define EC_VAR_COPY2_FUNCTION_NAME(TYPE)    EC_CONCAT(TYPE, _Var_Copy2,)
 
-#define EC_VAR_UNLOCK_FUNCTION_NAME(TYPE)   EC_CONCAT(TYPE, _Unlock,)
+#define EC_VAR_UNLOCK_FUNCTION_NAME(TYPE)   EC_CONCAT(TYPE, _Var_Unlock,)
 
 /* Structure macros */
 // EC_MEMORY_REF defined in ec_memory.h
@@ -46,6 +46,14 @@ EC_VAR_FREE_ONE_FUNCTION_NAME(TYPE)                 \
 );
 
 
+#define EC_VAR_UNLOCK_FUNCTION_PROTOTYPE(TYPE)  \
+void                                            \
+EC_VAR_UNLOCK_FUNCTION_NAME(TYPE)               \
+(                                               \
+    void* var                                   \
+);
+
+
 #define EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)     \
 TYPE*                                           \
 EC_VAR_NEW_FUNCTION_NAME(TYPE)();
@@ -59,51 +67,62 @@ EC_VAR_COPY_FUNCTION_NAME(TYPE)                 \
 );
 
 
-#define EC_VAR_COPY2_FUNCTION_PROTOTYPE(TYPE)               \
-TYPE*                                                       \
-EC_VAR_COPY2_FUNCTION_NAME(TYPE)                            \
-(                                                           \
-    TYPE* var_copy,                                         \
-    TYPE* var                                               \
+#define EC_VAR_COPY2_FUNCTION_PROTOTYPE(TYPE)   \
+TYPE*                                           \
+EC_VAR_COPY2_FUNCTION_NAME(TYPE)                \
+(                                               \
+    TYPE* var_copy,                             \
+    TYPE* var                                   \
 );
 
 
 #define EC_VAR_FUNCTION_PROTOTYPES(TYPE)        \
     EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)        \
     EC_VAR_FREE_ONE_FUNCTION_PROTOTYPE(TYPE)    \
+    EC_VAR_UNLOCK_FUNCTION_PROTOTYPE(TYPE)      \
     EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)         \
     EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)        \
     EC_VAR_COPY2_FUNCTION_PROTOTYPE(TYPE)
 
 
 /* Function macros */
-#define EC_VAR_FREE_ONE_FUNCTION(TYPE)              \
-void                                                \
-EC_VAR_FREE_ONE_FUNCTION_NAME(TYPE)                 \
-(                                                   \
-    void* var                                       \
-)                                                   \
-{                                                   \
-    TYPE* v = (TYPE*) var;                          \
-    free (v);                                       \
-    v = NULL;                                       \
+#define EC_VAR_FREE_ONE_FUNCTION(TYPE)          \
+void                                            \
+EC_VAR_FREE_ONE_FUNCTION_NAME(TYPE)             \
+(                                               \
+    void* var                                   \
+)                                               \
+{                                               \
+    TYPE* v = (TYPE*) var;                      \
+    free (v);                                   \
+    v = NULL;                                   \
 }
 
 
-#define EC_VAR_FREE_FUNCTION(TYPE)                  \
-void                                                \
-EC_VAR_FREE_FUNCTION_NAME(TYPE)                     \
-(                                                   \
-    void* var                                       \
-)                                                   \
-{                                                   \
-    TYPE* v = (TYPE*) var;                          \
-    EC_Memory_Var_Free (v->ec_memory_ref);          \
-    free (v);                                       \
-    v = NULL;                                       \
+#define EC_VAR_FREE_FUNCTION(TYPE)              \
+void                                            \
+EC_VAR_FREE_FUNCTION_NAME(TYPE)                 \
+(                                               \
+    void* var                                   \
+)                                               \
+{                                               \
+    TYPE* v = (TYPE*) var;                      \
+    EC_Memory_Var_Free (v->ec_memory_ref);      \
+    free (v);                                   \
+    v = NULL;                                   \
 }
 
 
+#define EC_VAR_UNLOCK_FUNCTION(TYPE)            \
+void                                            \
+EC_VAR_UNLOCK_FUNCTION_NAME(TYPE)               \
+(                                               \
+    void* var                                   \
+)                                               \
+{                                               \
+    TYPE* v = (TYPE*) var;                      \
+    v->ec_memory_ref->lock = EC_UNLOCK;         \
+}
 
 
 #define EC_VAR_CREATE(TYPE)                                 \
@@ -161,11 +180,12 @@ EC_VAR_COPY2_FUNCTION_NAME(TYPE)                            \
 }
 
 
-#define EC_VAR_FUNCTIONS(TYPE)  \
-    EC_VAR_FREE_FUNCTION(TYPE)  \
-    EC_VAR_FREE_ONE_FUNCTION(TYPE) \
-    EC_VAR_NEW_FUNCTION(TYPE)   \
-    EC_VAR_COPY_FUNCTION(TYPE)  \
+#define EC_VAR_FUNCTIONS(TYPE)      \
+    EC_VAR_FREE_FUNCTION(TYPE)      \
+    EC_VAR_FREE_ONE_FUNCTION(TYPE)  \
+    EC_VAR_UNLOCK_FUNCTION(TYPE)    \
+    EC_VAR_NEW_FUNCTION(TYPE)       \
+    EC_VAR_COPY_FUNCTION(TYPE)      \
     EC_VAR_COPY2_FUNCTION(TYPE)
 
 #endif // EC_VAR_H

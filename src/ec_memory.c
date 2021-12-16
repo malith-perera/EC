@@ -35,7 +35,9 @@ EC_Clean ()
 
     current = ec_memory;
 
-    EC_DEBUG_COUNTER
+#ifdef DEBUG
+    ec_memory_debug_counter = 0;
+#endif
 
     while (current != NULL)
     {
