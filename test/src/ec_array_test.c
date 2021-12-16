@@ -6,20 +6,8 @@
 #include "ec_array_test.h"
 
 
-/********* implement test foreach_array */
-/*void*/
-/*Print_Student_Array*/
-/*(*/
-    /*StudentArray *sta*/
-/*)*/
-/*{*/
-    /*foreach_array (sta)*/
-    /*{*/
-        /*printf ("%d ", sta->var->no);*/
-    /*}*/
-/*}*/
-
-
+/* Test: New_Array
+ * This function test create new array and array access*/
 void
 Test_New_Array ()
 {
@@ -34,12 +22,62 @@ Test_New_Array ()
     sta->index[1].no    = 2;
     sta->index[1].name  = "Geethike";
 
-    EC_Print_Error ("Assign array elements", "OK");
+    EC_Print_Error ("Assign array variables", "OK");
+
+    assert (sta->index[0].no == 1);
+    assert (strcmp(sta->index[0].name, "Malith") == 0);
+    assert (sta->index[1].no == 2);
+    assert (strcmp(sta->index[1].name, "Geethike") == 0);
+
+    EC_Print_Error ("Access arry variables", "OK");
 
     assert (sta->length == 2);
     EC_Print_Error ("Array length exist", "OK");
 
     EC_Print_Error ("Test_New_Array: ", "END");
+}
+
+
+/* Test: Array_Copy
+ * This function test copied array have the same variables and
+ * Change of copy or original array does not affect each other */
+void
+Test_Array_Copy ()
+{
+    EC_Print_Error ("Test_Copy_Array: ", "BEGIN");
+
+    StudentArray* sta1 = Student_Array (2);
+    EC_Print_Error ("Create new ec array", "OK");
+
+    sta1->index[0].no = 1;
+    sta1->index[0].name = "Malith";
+
+    sta1->index[1].no = 2;
+    sta1->index[1].name = "Geethike";
+
+    StudentArray* sta2 = Student_Array_Copy (sta1);
+
+    assert (sta2->index[0].no == 1);
+    assert (strcmp(sta2->index[0].name, "Malith") == 0);
+
+    assert (sta2->index[1].no == 2);
+    assert (strcmp(sta2->index[1].name, "Geethike") == 0);
+
+    EC_Print_Error ("Array variable copied: ", "OK");
+
+    assert (sta1->length == sta2->length);
+
+    EC_Print_Error ("Array length copied: ", "OK");
+
+    sta1->index[0].no = 3;
+    assert (sta2->index[0].no != 3);
+
+    sta2->index[1].name = "Malshi";
+    assert (strcmp(sta1->index[1].name, "Malshi") != 0);
+
+    EC_Print_Error ("Changing one array variable do not affect other array: ", "OK");
+
+    EC_Print_Error ("Test_Copy_Array: ", "END");
 }
 
 
@@ -403,46 +441,6 @@ Test_Array_Min_Var ()
     EC_Print_Error ("Test_Array_Min_Var: ", "END");
 }
 
-void
-Test_Array_Copy ()
-{
-    EC_Print_Error ("Test_Copy_Array: ", "BEGIN");
-
-    StudentArray* sta1 = Student_Array (2);
-    EC_Print_Error ("Create new ec array", "OK");
-
-    sta1->index[0].no = 1;
-    sta1->index[0].name = "Malith";
-
-    sta1->index[1].no = 2;
-    sta1->index[1].name = "Geethike";
-
-    StudentArray* sta2 = Student_Array_Copy (sta1);
-
-    assert (sta2->index[0].no == 1);
-    assert (strcmp(sta2->index[0].name, "Malith") == 0);
-
-    assert (sta2->index[1].no == 2);
-    assert (strcmp(sta2->index[1].name, "Geethike") == 0);
-
-    EC_Print_Error ("Array variable copied: ", "OK");
-
-    assert (sta1->length == sta2->length);
-
-    EC_Print_Error ("Array length copied: ", "OK");
-
-    sta1->index[0].no = 3;
-    assert (sta2->index[0].no != 3);
-
-    sta2->index[1].name = "Malshi";
-    assert (strcmp(sta1->index[1].name, "Malshi") != 0);
-
-
-    EC_Print_Error ("Changing one array variable do not affect other array: ", "OK");
-
-    EC_Print_Error ("Test_Copy_Array: ", "END");
-}
-
 
 void
 Run_Array_Test ()
@@ -595,3 +593,21 @@ Run_Array_Test ()
   Free_int (&number);
   free(number);
 */
+
+
+
+
+/********* implement test foreach_array */
+/*void*/
+/*Print_Student_Array*/
+/*(*/
+    /*StudentArray *sta*/
+/*)*/
+/*{*/
+    /*foreach_array (sta)*/
+    /*{*/
+        /*printf ("%d ", sta->var->no);*/
+    /*}*/
+/*}*/
+
+
