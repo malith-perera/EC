@@ -6,6 +6,26 @@
 ECMemory* free_one = NULL;
 
 
+void
+EC_Memory_Var_Free (ECMemory* ec_memory_var)
+{
+    if (ec_memory_var != NULL)
+    {
+        if (ec_memory_var != ec_memory) // Free first variable
+        {
+            ec_memory_var->previous->next = ec_memory_var->next;
+        }
+        else
+        {
+            ec_memory = ec_memory_var->next;
+        }
+
+        free (ec_memory_var);
+        ec_memory_var = NULL;
+    }
+}
+
+
 /* Clean all ec_memory at the end of the program */
 void
 EC_Clean ()
@@ -15,17 +35,15 @@ EC_Clean ()
 
     current = ec_memory;
 
+    EC_DEBUG_COUNTER
+
     while (current != NULL)
     {
-        if (current->var != NULL)
-        {
-            current->Free_Func (current->var);
-        }
+        DEBUG_COUNTER_PRINT(Clear)
+        current->Free_Func (current->var);
+        EC_Memory_Var_Free (current);
 
-        temp = current;
         current = current->next;
-        free (temp);
-        temp = NULL;
     }
 
     ec_memory = NULL;
@@ -141,21 +159,4 @@ EC_Memory_Free_Unlock_One ()
 }
 
 
-void
-EC_Memory_Free (ECMemory* ec_memory_var)
-{
-    if (ec_memory_var != NULL)
-    {
-        if (ec_memory_var != ec_memory) // Free first variable
-        {
-            ec_memory_var->previous->next = ec_memory_var->next;
-        }
-        else
-        {
-            ec_memory = ec_memory_var->next;
-        }
 
-        free (ec_memory_var);
-        ec_memory_var = NULL;
-    }
-}

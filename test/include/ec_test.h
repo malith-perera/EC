@@ -1,6 +1,8 @@
 #ifndef EC_TEST_H
 #define EC_TEST_H
 
+#define EC_MEMORY 1 // should define before include ec.h
+
 #include "ec.h"
 
 #include "ec_var_test.h"

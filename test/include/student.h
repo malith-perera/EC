@@ -1,7 +1,7 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
-#define EC_MEMORY 1 // should define before include ec.h
+#include "ec_test.h"
 #include "ec.h"
 
 #define STUDENT     \

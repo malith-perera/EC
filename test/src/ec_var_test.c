@@ -192,17 +192,28 @@ Test_Var_Copy2 ()
 
 
 void
-Test_New_Var_Memory_Free ()
+Test_Var_Free ()
 {
-    EC_Print_Error ("Test_New_Var_Memory_Free: ", "BEGIN");
+    EC_Print_Error ("Test_Var_Free: ", "BEGIN");
 
-    if (EC_MEMORY)
-    {
-        EC_Clean ();
-        EC_Print_Error ("Call EC_Clean ()", "OK");
-    }
+    StudentVar* st = Student_Var ();
+    st->no = 1;
+    st->name = "Malith";
+    assert (st->no == 1);
+    assert (strcmp (st->name, "Malith") == 0);
+    EC_Print_Error ("Create, assign and access ec var", "OK");
 
-    EC_Print_Error ("Test_New_Var_Memory_Free:", "END");
+    assert (st->ec_memory_ref != NULL);
+    EC_Print_Error ("Create, assign and access ec var", "OK");
+
+    Student_Var_Free (st);
+    EC_Print_Error ("Free ec var function", "OK");
+
+    assert (st->no != 1);
+    assert (strcmp (st->name, "Malith") != 0);
+    EC_Print_Error ("EC var freed out", "OK");
+
+    EC_Print_Error ("Test_Var_Free:", "END");
 }
 
 
@@ -225,7 +236,7 @@ Run_Var_Test ()
     Test_Var_Copy2 ();
     printf ("\n");
 
-    Test_New_Var_Memory_Free ();
+    Test_Var_Free ();
     printf ("\n");
 
     EC_Print_Error ("Test: ec_var.h", "PASS");

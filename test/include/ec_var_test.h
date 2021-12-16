@@ -1,6 +1,7 @@
 #ifndef EC_REF_VAR_TEST_H
 #define EC_REF_VAR_TEST_H
 
+#include "ec_test.h"
 #include "ec.h"
 #include "student.h"
 
