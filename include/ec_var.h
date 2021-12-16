@@ -108,6 +108,7 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)                 \
 {                                               \
     TYPE* v = (TYPE*) var;                      \
     EC_Memory_Var_Free (v->ec_memory_ref);      \
+    v->ec_memory_ref = NULL;                    \
     free (v);                                   \
     v = NULL;                                   \
 }
