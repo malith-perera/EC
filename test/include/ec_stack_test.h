@@ -1,6 +1,7 @@
 #ifndef EC_STACK_TEST_H
 #define EC_STACK_TEST_H
 
+#include "ec_test.h"
 #include "ec.h"
 #include "student.h"
 
