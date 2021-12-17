@@ -25,6 +25,7 @@
 #define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Array, _Reverse)
 #define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)               EC_CONCAT(TYPE, _Array_Sort_With_, SW)
 #define EC_ARRAY_SEARCH_WITH_INT_FUNCTION_NAME(TYPE, SW)    EC_CONCAT(TYPE, _Array_Search_With_Int_, SW)
+#define EC_ARRAY_SEARCH_WITH_STR_FUNCTION_NAME(TYPE, SW)    EC_CONCAT(TYPE, _Array_Search_With_Str_, SW)
 #define EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SW)         EC_CONCAT(TYPE, _Max_, SW)
 #define EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SW)         EC_CONCAT(TYPE, _Min_, SW)
 
@@ -119,26 +120,36 @@ EC_ARRAY_SEARCH_WITH_INT_FUNCTION_NAME(TYPE, SW)                \
 );
 
 
-#define EC_ARRAY_SEARCH_MAX_FUNCTION_PROTOTYPE(TYPE, SW)   \
-TYPE*                                                      \
-EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SW)                \
-(                                                          \
-    EC_ARRAY_STRUCT(TYPE)* array                           \
+#define EC_ARRAY_SEARCH_WITH_STR_FUNCTION_PROTOTYPE(TYPE, SW)   \
+int                                                             \
+EC_ARRAY_SEARCH_WITH_STR_FUNCTION_NAME(TYPE, SW)                \
+(                                                               \
+    EC_ARRAY_STRUCT(TYPE)*  array,                              \
+    char*                   search_value                        \
 );
 
 
-#define EC_ARRAY_SEARCH_MIN_FUNCTION_PROTOTYPE(TYPE, SW)   \
-TYPE*                                                      \
-EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SW)                \
-(                                                          \
-    EC_ARRAY_STRUCT(TYPE)* array                           \
+#define EC_ARRAY_SEARCH_MAX_FUNCTION_PROTOTYPE(TYPE, SW)    \
+TYPE*                                                       \
+EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SW)                 \
+(                                                           \
+    EC_ARRAY_STRUCT(TYPE)* array                            \
 );
 
 
-#define EC_ARRAY_SW_FUNCTION_PROTOTYPES(TYPE, SW)          /* SW for Search With or Sort With */ \
-    EC_ARRAY_SORT_FUNCTION_PROTOTYPE(TYPE, SW)             \
-    EC_ARRAY_SEARCH_WITH_INT_FUNCTION_PROTOTYPE(TYPE, SW)  \
-    EC_ARRAY_SEARCH_MAX_FUNCTION_PROTOTYPE(TYPE, SW)       \
+#define EC_ARRAY_SEARCH_MIN_FUNCTION_PROTOTYPE(TYPE, SW)    \
+TYPE*                                                       \
+EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SW)                 \
+(                                                           \
+    EC_ARRAY_STRUCT(TYPE)* array                            \
+);
+
+
+#define EC_ARRAY_SW_FUNCTION_PROTOTYPES(TYPE, SW)           /* SW for Search With or Sort With */ \
+    EC_ARRAY_SORT_FUNCTION_PROTOTYPE(TYPE, SW)              \
+    EC_ARRAY_SEARCH_WITH_INT_FUNCTION_PROTOTYPE(TYPE, SW)   \
+    EC_ARRAY_SEARCH_WITH_STR_FUNCTION_PROTOTYPE(TYPE, SW)   \
+    EC_ARRAY_SEARCH_MAX_FUNCTION_PROTOTYPE(TYPE, SW)        \
     EC_ARRAY_SEARCH_MIN_FUNCTION_PROTOTYPE(TYPE, SW)
 
 
@@ -368,6 +379,27 @@ EC_ARRAY_SEARCH_WITH_INT_FUNCTION_NAME(TYPE, SW)                    \
                                                                     \
     return -1;                                                      \
 }
+
+
+#define EC_ARRAY_SEARCH_WITH_STR_FUNCTION(TYPE, SW)                 \
+int                                                                 \
+EC_ARRAY_SEARCH_WITH_STR_FUNCTION_NAME(TYPE, SW)                    \
+(                                                                   \
+    EC_ARRAY_STRUCT(TYPE)*  array,                                  \
+    char*                   search_value                            \
+)                                                                   \
+{                                                                   \
+    foreach_array (array)                                           \
+    {                                                               \
+        if (strcmp(array->var->SW, search_value) == 0)              \
+        {                                                           \
+            return array->i;                                        \
+        }                                                           \
+    }                                                               \
+                                                                    \
+    return -1;                                                      \
+}
+
 
 
 #define EC_ARRAY_SEARCH_WITH_SORTED__INT_FUNCTION(TYPE, SW)         \

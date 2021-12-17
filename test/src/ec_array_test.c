@@ -287,10 +287,42 @@ Test_Array_Search_With_Int ()
 
     assert (sta->index[index].no == 3);
 
-    EC_Print_Error ("Search sorted array", "OK");
+    EC_Print_Error ("Array_Search_With_Int", "OK");
 
     EC_Print_Error ("Test_Array_Search_Var: ", "END");
 }
+
+
+void
+Test_Array_Search_With_Str ()
+{
+    EC_Print_Error ("Test_Array_Search_With_Str: ", "BEGIN");
+
+    StudentArray *sta = Student_Array (4);
+    sta->index[0].no = 1;
+    sta->index[0].name = "Malith";
+    sta->index[1].no = 2;
+    sta->index[1].name = "Geethike";
+    sta->index[2].no = 3;
+    sta->index[2].name = "Perera";
+    sta->index[3].no = 4;
+    sta->index[3].name = "Malshi";
+
+    EC_Print_Error ("Array created and assigned", "OK");
+
+    int index = Student_Array_Search_With_Str_name (sta, "Perera");
+
+    EC_Print_Error ("Array_Search function call", "OK");
+
+    assert (index == 2);
+
+    assert (sta->index[index].no == 3);
+
+    EC_Print_Error ("Array_Search_With_Str", "OK");
+
+    EC_Print_Error ("Test_Array_Search_Str: ", "END");
+}
+
 
 void
 Test_Array_Max_Var ()
@@ -542,6 +574,9 @@ Run_Array_Test ()
     printf ("\n");
 
     Test_Array_Search_With_Int ();
+    printf ("\n");
+
+    Test_Array_Search_With_Str ();
     printf ("\n");
 
     /*Test_Array_Max_Var ();*/
