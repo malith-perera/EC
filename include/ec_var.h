@@ -46,9 +46,9 @@ EC_VAR_FREE_ONE_FUNCTION_NAME(TYPE)                 \
 );
 
 
-#define EC_UNLOCK_FUNCTION_PROTOTYPE(TYPE)  \
+#define EC_UNLOCK_FUNCTION_PROTOTYPE(TYPE)      \
 void                                            \
-EC_UNLOCK_FUNCTION_NAME(TYPE)               \
+EC_UNLOCK_FUNCTION_NAME(TYPE)                   \
 (                                               \
     void* var                                   \
 );
