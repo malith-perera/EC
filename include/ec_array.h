@@ -22,8 +22,8 @@
 #define EC_ARRAY_UNLOCK_FUNCTION_NAME(TYPE)             EC_CONCAT(TYPE, _Array_Unlock,)
 #define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Array,)
 #define EC_ARRAY_COPY_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Array_Copy,)
-#define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)           EC_CONCAT(TYPE, _Array_Sort_, SW)
 #define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Array, _Reverse)
+#define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)           EC_CONCAT(TYPE, _Array_Sort_With_, SW)
 #define EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SW)         EC_CONCAT(TYPE, _Sorted_Search_, SW)
 #define EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SW)     EC_CONCAT(TYPE, _Max_, SW)
 #define EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SW)     EC_CONCAT(TYPE, _Min_, SW)
@@ -287,12 +287,31 @@ EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                                               
 }
 
 
+#define EC_ARRAY_REVERSE_FUNCTION(TYPE)                             \
+void                                                                \
+EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                                \
+(                                                                   \
+    EC_ARRAY_STRUCT(TYPE)* array                                    \
+)                                                                   \
+{                                                                   \
+    TYPE temp;                                                      \
+                                                                    \
+    for (int i = 0; i < (array->length) / 2; i++)                   \
+    {                                                               \
+        temp = array->index[i];                                     \
+        array->index[i] = array->index[array->length - (1 + i)];    \
+        array->index[array->length - 1 - i] = temp;                 \
+    }                                                               \
+}
+
+
 #define EC_ARRAY_FUNCTIONS(TYPE)        \
     EC_ARRAY_FREE_FUNCTION(TYPE)        \
     EC_ARRAY_FREE_ONE_FUNCTION(TYPE)    \
     EC_ARRAY_UNLOCK_FUNCTION(TYPE)      \
     EC_ARRAY_NEW_FUNCTION(TYPE)         \
-    EC_ARRAY_COPY_FUNCTION(TYPE)
+    EC_ARRAY_COPY_FUNCTION(TYPE)        \
+    EC_ARRAY_REVERSE_FUNCTION(TYPE)
 
 
 /* EC_Array_Sort */
@@ -314,7 +333,7 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)                               \
     {                                                               \
         min_ref = &array->index[i];                                 \
                                                                     \
-        for (j = i + 1; j < array->length - 2; j++)                 \
+        for (j = i + 1; j < array->length; j++)                 \
         {                                                           \
             if (array->index[j].SW < min_ref->SW)                   \
             {                                                       \
@@ -328,23 +347,6 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)                               \
     }                                                               \
 }
 
-
-#define EC_ARRAY_REVERSE_FUNCTION(TYPE)                             \
-void                                                                \
-EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                                \
-(                                                                   \
-    EC_ARRAY_STRUCT(TYPE)* array                                    \
-)                                                                   \
-{                                                                   \
-    TYPE temp;                                                      \
-                                                                    \
-    for (int i = 0; i < (array->length) / 2; i++)                   \
-    {                                                               \
-        temp = array->index[i];                                     \
-        array->index[i] = array->index[array->length - (1 + i)];    \
-        array->index[array->length - 1 - i] = temp;                 \
-    }                                                               \
-}
 
 
 /* Array Search */
