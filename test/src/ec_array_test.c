@@ -233,29 +233,30 @@ Test_Array_Reverse ()
 {
     EC_Print_Error ("Test_Array_Reverse: ", "BEGIN");
 
-    int i;
+    char* names[] = {"Malith", "Geethike", "Perera", "Malshi"};
 
     StudentArray *sta = Student_Array (4);
     sta->index[0].no = 1;
-    sta->index[0].name = "Malith";
+    sta->index[0].name = names[0];
     sta->index[1].no = 2;
-    sta->index[1].name = "Geethike";
+    sta->index[1].name = names[1];
     sta->index[2].no = 3;
-    sta->index[2].name = "Perera";
+    sta->index[2].name = names[2];
     sta->index[3].no = 4;
-    sta->index[3].name = "Malshi";
+    sta->index[3].name = names[3];
+
+    EC_Print_Error ("Array created and assigned", "OK");
 
     Student_Array_Reverse (sta);
-
-    char *names[] = {"Malshi", "Perera", "Geethike",  "Malith"};
+    EC_Print_Error ("Reverse array function call", "OK");
 
     foreach_array(sta)
     {
         assert (sta->var->no == 4 - sta->i);
-        assert (!strcmp (sta->var->name, names[sta->i])); // strcmp return 0 when equal. assert fail when 0. so use !
+        assert (!strcmp (sta->var->name, names[3 - sta->i])); // strcmp return 0 when equal. assert fail when 0. so use !
     }
 
-    EC_Print_Error ("Reverse sorted array", "OK");
+    EC_Print_Error ("Array_Reverse", "OK");
 
     EC_Print_Error ("Test_Array_Reverse: ", "END");
 }
@@ -526,11 +527,11 @@ Run_Array_Test ()
     Test_Array_Unlock ();
     printf ("\n");
 
-    Test_Array_Sort ();
+    Test_Array_Reverse ();
     printf ("\n");
 
-    /*Test_Array_Reverse ();*/
-    /*printf ("\n");*/
+    Test_Array_Sort ();
+    printf ("\n");
 
     /*Test_Int_Array_Reverse ();*/
     /*printf ("\n");*/
