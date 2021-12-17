@@ -17,16 +17,16 @@
 */
 
 /* Function name macros */
-#define EC_ARRAY_FREE_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Array_Free,) // memory Free
-#define EC_ARRAY_FREE_ONE_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Array_Free_One,)
-#define EC_ARRAY_UNLOCK_FUNCTION_NAME(TYPE)             EC_CONCAT(TYPE, _Array_Unlock,)
-#define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Array,)
-#define EC_ARRAY_COPY_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Array_Copy,)
-#define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Array, _Reverse)
-#define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)           EC_CONCAT(TYPE, _Array_Sort_With_, SW)
-#define EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SW)         EC_CONCAT(TYPE, _Sorted_Search_, SW)
-#define EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SW)     EC_CONCAT(TYPE, _Max_, SW)
-#define EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SW)     EC_CONCAT(TYPE, _Min_, SW)
+#define EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                   EC_CONCAT(TYPE, _Array_Free,) // memory Free
+#define EC_ARRAY_FREE_ONE_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Array_Free_One,)
+#define EC_ARRAY_UNLOCK_FUNCTION_NAME(TYPE)                 EC_CONCAT(TYPE, _Array_Unlock,)
+#define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                    EC_CONCAT(TYPE, _Array,)
+#define EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                   EC_CONCAT(TYPE, _Array_Copy,)
+#define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Array, _Reverse)
+#define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)               EC_CONCAT(TYPE, _Array_Sort_With_, SW)
+#define EC_ARRAY_SEARCH_WITH_INT_FUNCTION_NAME(TYPE, SW)    EC_CONCAT(TYPE, _Array_Search_With_Int_, SW)
+#define EC_ARRAY_SEARCH_MAX_FUNCTION_NAME(TYPE, SW)         EC_CONCAT(TYPE, _Max_, SW)
+#define EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SW)         EC_CONCAT(TYPE, _Min_, SW)
 
 
 /* Structure macros */
@@ -110,12 +110,12 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)                   \
 );
 
 
-#define EC_ARRAY_SEARCH_FUNCTION_PROTOTYPE(TYPE, SW)       \
-int                                                        \
-EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SW)                    \
-(                                                          \
-    EC_ARRAY_STRUCT(TYPE)*  array,                         \
-    int                     search_value                   \
+#define EC_ARRAY_SEARCH_WITH_INT_FUNCTION_PROTOTYPE(TYPE, SW)   \
+int                                                             \
+EC_ARRAY_SEARCH_WITH_INT_FUNCTION_NAME(TYPE, SW)                \
+(                                                               \
+    EC_ARRAY_STRUCT(TYPE)*  array,                              \
+    int                     search_value                        \
 );
 
 
@@ -137,7 +137,7 @@ EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SW)                \
 
 #define EC_ARRAY_SW_FUNCTION_PROTOTYPES(TYPE, SW)          /* SW for Search With or Sort With */ \
     EC_ARRAY_SORT_FUNCTION_PROTOTYPE(TYPE, SW)             \
-    EC_ARRAY_SEARCH_FUNCTION_PROTOTYPE(TYPE, SW)           \
+    EC_ARRAY_SEARCH_WITH_INT_FUNCTION_PROTOTYPE(TYPE, SW)  \
     EC_ARRAY_SEARCH_MAX_FUNCTION_PROTOTYPE(TYPE, SW)       \
     EC_ARRAY_SEARCH_MIN_FUNCTION_PROTOTYPE(TYPE, SW)
 
@@ -333,7 +333,7 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)                               \
     {                                                               \
         min_ref = &array->index[i];                                 \
                                                                     \
-        for (j = i + 1; j < array->length; j++)                 \
+        for (j = i + 1; j < array->length; j++)                     \
         {                                                           \
             if (array->index[j].SW < min_ref->SW)                   \
             {                                                       \
@@ -348,12 +348,31 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)                               \
 }
 
 
-
 /* Array Search */
 
-#define EC_ARRAY_SEARCH_FUNCTION(TYPE, SW)                          \
+#define EC_ARRAY_SEARCH_WITH_INT_FUNCTION(TYPE, SW)                 \
 int                                                                 \
-EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SW)                             \
+EC_ARRAY_SEARCH_WITH_INT_FUNCTION_NAME(TYPE, SW)                    \
+(                                                                   \
+    EC_ARRAY_STRUCT(TYPE)*  array,                                  \
+    int                     search_value                            \
+)                                                                   \
+{                                                                   \
+    foreach_array (array)                                           \
+    {                                                               \
+        if (array->var->SW == search_value)                         \
+        {                                                           \
+            return array->i;                                        \
+        }                                                           \
+    }                                                               \
+                                                                    \
+    return -1;                                                      \
+}
+
+
+#define EC_ARRAY_SEARCH_WITH_SORTED__INT_FUNCTION(TYPE, SW)         \
+int                                                                 \
+EC_ARRAY_SEARCH_WITH_SORTED_INT_FUNCTION_NAME(TYPE, SW)             \
 (                                                                   \
     EC_ARRAY_STRUCT(TYPE)*  array,                                  \
     int                     search_value                            \
@@ -365,14 +384,12 @@ EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SW)                             \
     uei = array->length - 1;                                        \
     mi = (lei + uei) / 2;                                           \
                                                                     \
-    if (search_value < array->index[lei].SW)                        \
+    if (search_value < array->index[lei].SW)                        /* Search value is lower than minimum value */ \
     {                                                               \
-        printf ("Search value is lower than minimum value\n");      \
         return -1;                                                  \
     }                                                               \
-    else if (search_value > array->index[uei].SW)                   \
+    else if (search_value > array->index[uei].SW)                   /* Search value is grater than maximum value */ \
     {                                                               \
-        printf ("Search value is grater than maximum value\n");     \
         return -1;                                                  \
     }                                                               \
                                                                     \
@@ -427,6 +444,7 @@ EC_ARRAY_SEARCH_FUNCTION_NAME(TYPE, SW)                             \
     }                                                               \
 }
 
+
 /* Search maximum var according to var attribute SW */
 
 #define EC_ARRAY_SEARCH_MAX_FUNCTION(TYPE, SW)      \
@@ -474,7 +492,7 @@ EC_ARRAY_SEARCH_MIN_FUNCTION_NAME(TYPE, SW)         \
 
 #define EC_ARRAY_SW_FUNCTIONS(TYPE, SW)             /* SW for Search With or Sort With */ \
     EC_ARRAY_SORT_FUNCTION(TYPE, SW)                \
-    EC_ARRAY_SEARCH_FUNCTION(TYPE, SW)              \
+    EC_ARRAY_SEARCH_WITH_INT_FUNCTION(TYPE, SW)     \
     EC_ARRAY_SEARCH_MAX_FUNCTION(TYPE, SW)          \
     EC_ARRAY_SEARCH_MIN_FUNCTION(TYPE, SW)
 
