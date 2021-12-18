@@ -587,17 +587,17 @@ Run_Array_Test ()
     Test_Int_Array_Reverse ();
     printf ("\n");
 
-    /*Test_Int_Array_Search ();*/
-    /*printf ("\n");*/
+    Test_Int_Array_Search ();
+    printf ("\n");
 
-    /*Test_Int_Sorted_Array_Search ();*/
-    /*printf ("\n");*/
+    Test_Int_Sorted_Array_Search ();
+    printf ("\n");
 
-    /*Test_Int_Array_Max ();*/
-    /*printf ("\n");*/
+    Test_Int_Array_Max ();
+    printf ("\n");
 
-    /*Test_Int_Array_Min ();*/
-    /*printf ("\n");*/
+    Test_Int_Array_Min ();
+    printf ("\n");
 
     EC_Print_Error ("Test: ec_array.h", "PASS");
     printf ("\n");
