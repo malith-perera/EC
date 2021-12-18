@@ -263,11 +263,11 @@ Test_Array_Reverse ()
 
 
 void
-Test_Array_Search_With_Int ()
+Test_Array_Int ()
 {
     EC_Print_Error ("Test_Array_Search_Var: ", "BEGIN");
 
-    StudentArray *sta = Student_Array (4);
+    StudentArray* sta = Student_Array (4);
     sta->index[0].no = 1;
     sta->index[0].name = "Malith";
     sta->index[1].no = 2;
@@ -279,7 +279,7 @@ Test_Array_Search_With_Int ()
 
     EC_Print_Error ("Array created and assigned", "OK");
 
-    int index = Student_Array_Search_With_Int_no (sta, 3);
+    int index = Student_Array_Int_no (sta, 3);
 
     EC_Print_Error ("Array_Search function call", "OK");
 
@@ -287,18 +287,18 @@ Test_Array_Search_With_Int ()
 
     assert (sta->index[index].no == 3);
 
-    EC_Print_Error ("Array_Search_With_Int", "OK");
+    EC_Print_Error ("Array_Int", "OK");
 
     EC_Print_Error ("Test_Array_Search_Var: ", "END");
 }
 
 
 void
-Test_Array_Search_With_Str ()
+Test_Array_Str ()
 {
-    EC_Print_Error ("Test_Array_Search_With_Str: ", "BEGIN");
+    EC_Print_Error ("Test_Array: ", "BEGIN");
 
-    StudentArray *sta = Student_Array (4);
+    StudentArray* sta = Student_Array (4);
     sta->index[0].no = 1;
     sta->index[0].name = "Malith";
     sta->index[1].no = 2;
@@ -310,7 +310,7 @@ Test_Array_Search_With_Str ()
 
     EC_Print_Error ("Array created and assigned", "OK");
 
-    int index = Student_Array_Search_With_Str_name (sta, "Perera");
+    int index = Student_Array_Str_name (sta, "Perera");
 
     EC_Print_Error ("Array_Search function call", "OK");
 
@@ -318,20 +318,20 @@ Test_Array_Search_With_Str ()
 
     assert (sta->index[index].no == 3);
 
-    EC_Print_Error ("Array_Search_With_Str", "OK");
+    EC_Print_Error ("Array_Str", "OK");
 
     EC_Print_Error ("Test_Array_Search_Str: ", "END");
 }
 
 
 void
-Test_Array_Max_Var ()
+Test_Array_Max ()
 {
-    EC_Print_Error ("Test_Array_Max_Var: ", "BEGIN");
+    EC_Print_Error ("Test_Array_Max: ", "BEGIN");
 
-    Student *st_max;
+    Student* st_max;
 
-    StudentArray *sta = Student_Array (4);
+    StudentArray* sta = Student_Array (4);
     sta->index[0].no = 4;
     sta->index[0].name = "Malith";
     sta->index[1].no = 3;
@@ -342,7 +342,7 @@ Test_Array_Max_Var ()
     sta->index[3].name = "Malshi";
 
     // max found in array first
-    st_max = Student_Max_no (sta);
+    st_max = Student_Array_Max_no (sta);
     assert (st_max->no == 4);
     assert (!strcmp (st_max->name, "Malith")); // strcmp 0 when equel assert fail when 0 thats why ! used
     EC_Print_Error ("Max found in array first", "OK");
@@ -351,29 +351,29 @@ Test_Array_Max_Var ()
     sta->index[0].no = 1;
     sta->index[3].no = 4;
 
-    st_max = Student_Max_no (sta);
+    st_max = Student_Array_Max_no (sta);
     assert (st_max->no == 4);
     assert (!strcmp (st_max->name, "Malshi")); // strcmp 0 when equel assert fail when 0 thats why ! used
-    EC_Print_Error ("Max found in array first", "OK");
+    EC_Print_Error ("Max found in array last", "OK");
 
     // max found in array mid
     sta->index[0].no = 3;
     sta->index[1].no = 4;
 
-    st_max = Student_Max_no (sta);
+    st_max = Student_Array_Max_no (sta);
     assert (st_max->no == 4);
     assert (!strcmp (st_max->name, "Geethike")); // strcmp 0 when equel assert fail when 0 thats why ! used
-    EC_Print_Error ("Max found in array first", "OK");
+    EC_Print_Error ("Max found in array mid", "OK");
 
-    EC_Print_Error ("Test_Array_Max_Var: ", "END");
+    EC_Print_Error ("Test_Array_Max: ", "END");
 }
 
 void
-Test_Array_Min_Var ()
+Test_Array_Min ()
 {
-    EC_Print_Error ("Test_Array_Min_Var: ", "BEGIN");
+    EC_Print_Error ("Test_Array_Min: ", "BEGIN");
 
-    Student *st_min;
+    Student* st_min;
 
     StudentArray *sta = Student_Array (4);
     sta->index[0].no = 1;
@@ -385,9 +385,8 @@ Test_Array_Min_Var ()
     sta->index[3].no = 4;
     sta->index[3].name = "Malshi";
 
-
     // min found in array first
-    st_min = Student_Min_no (sta);
+    st_min = Student_Array_Min_no (sta);
     assert (st_min->no == 1);
     assert (!strcmp (st_min->name, "Malith")); // strcmp 0 when equel assert fail when 0 thats why ! used
     EC_Print_Error ("Min found in array first", "OK");
@@ -396,21 +395,21 @@ Test_Array_Min_Var ()
     sta->index[0].no = 4;
     sta->index[3].no = 1;
 
-    st_min = Student_Min_no (sta);
+    st_min = Student_Array_Min_no (sta);
     assert (st_min->no == 1);
     assert (!strcmp (st_min->name, "Malshi")); // strcmp 0 when equel assert fail when 0 thats why ! used
-    EC_Print_Error ("Min found in array first", "OK");
+    EC_Print_Error ("Min found in array last", "OK");
 
     // min found in array mid
     sta->index[0].no = 2;
     sta->index[1].no = 1;
 
-    st_min = Student_Min_no (sta);
+    st_min = Student_Array_Min_no (sta);
     assert (st_min->no == 1);
     assert (!strcmp (st_min->name, "Geethike")); // strcmp 0 when equel assert fail when 0 thats why ! used
-    EC_Print_Error ("Min found in array first", "OK");
+    EC_Print_Error ("Min found in array mid", "OK");
 
-    EC_Print_Error ("Test_Array_Min_Var: ", "END");
+    EC_Print_Error ("Test_Array_Min: ", "END");
 }
 
 
@@ -573,17 +572,20 @@ Run_Array_Test ()
     Test_Array_Sort ();
     printf ("\n");
 
-    Test_Array_Search_With_Int ();
+    Test_Array_Int ();
     printf ("\n");
 
-    Test_Array_Search_With_Str ();
+    Test_Array_Str ();
     printf ("\n");
 
-    /*Test_Array_Max_Var ();*/
-    /*printf ("\n");*/
+    Test_Array_Max ();
+    printf ("\n");
 
-    /*Test_Int_Array_Reverse ();*/
-    /*printf ("\n");*/
+    Test_Array_Min ();
+    printf ("\n");
+
+    Test_Int_Array_Reverse ();
+    printf ("\n");
 
     /*Test_Int_Array_Search ();*/
     /*printf ("\n");*/
@@ -600,6 +602,7 @@ Run_Array_Test ()
     EC_Print_Error ("Test: ec_array.h", "PASS");
     printf ("\n");
 }
+
 
 /*
  foreach_array (sta)
