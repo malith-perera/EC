@@ -335,23 +335,23 @@ Run_List_Test ()
     Test_New_List ();
     printf ("\n");
 
-    Test_Append_List ();
-    printf ("\n");
+    /*Test_Append_List ();*/
+    /*printf ("\n");*/
 
-    Test_Insert_List ();
-    printf ("\n");
+    /*Test_Insert_List ();*/
+    /*printf ("\n");*/
 
-    Test_Replace_List ();
-    printf ("\n");
+    /*Test_Replace_List ();*/
+    /*printf ("\n");*/
 
-    Test_Sort_List ();
-    printf ("\n");
+    /*Test_Sort_List ();*/
+    /*printf ("\n");*/
 
-    Test_List_Copy ();
-    printf ("\n");
+    /*Test_List_Copy ();*/
+    /*printf ("\n");*/
 
-    EC_Print_Error ("Test: ec_list.h", "PASS");
-    printf ("\n");
+    /*EC_Print_Error ("Test: ec_list.h", "PASS");*/
+    /*printf ("\n");*/
 }
 
 /*

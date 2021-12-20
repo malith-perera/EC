@@ -13,7 +13,10 @@ EC_Memory_Var_Free (ECMemory* ec_memory_var)
     {
         if (ec_memory_var != ec_memory) // Free first variable
         {
-            ec_memory_var->previous->next = ec_memory_var->next;
+            if (ec_memory_var->previous != NULL)
+            {
+                ec_memory_var->previous->next = ec_memory_var->next;
+            }
         }
         else
         {

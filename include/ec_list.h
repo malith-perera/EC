@@ -8,7 +8,8 @@
 
 
 /* Function name macros */
-#define EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Free,)
+#define EC_LIST_FREE_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _List_Var_Free,)
+#define EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Free_One,)
 #define EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List,)
 #define EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _List_Var,)
 #define EC_LIST_COPY_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _List_Copy,)
@@ -44,6 +45,14 @@ typedef struct EC_LIST_STRUCT(TYPE) {                   \
 
 
 /* Function prototype macros */
+#define EC_LIST_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)       \
+void                                                    \
+EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                    \
+(                                                       \
+    void* var                                           \
+);
+
+
 #define EC_LIST_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)       \
 void                                                    \
 EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                    \
@@ -131,7 +140,20 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                            \
     EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)
 
 
-/* Function macros */
+///* Function macros */
+//#define EC_LIST_VAR_FREE_FUNCTION(TYPE)                         \
+//void                                                            \
+//EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                            \
+//(                                                               \
+    //void* var                                                   \
+//)                                                               \
+//{                                                               \
+    //EC_LIST_STRUCT(TYPE)* v = (EC_LIST_STRUCT(TYPE)*) var;      \
+    //free (v);                                                   \
+    //v = NULL;                                                   \
+//}
+
+
 #define EC_LIST_VAR_FREE_FUNCTION(TYPE)                         \
 void                                                            \
 EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                            \
@@ -139,7 +161,30 @@ EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                            \
     void* var                                                   \
 )                                                               \
 {                                                               \
+    EC_LIST_VAR_STRUCT(TYPE)* v = (EC_LIST_VAR_STRUCT(TYPE)*) var;      \
+    v->previous->next = v->next;                                \
+    free (v);                                                   \
+    v = NULL;                                                   \
+}
+
+
+/* new for delete list all */
+#define EC_LIST_FREE_FUNCTION(TYPE)                             \
+void                                                            \
+EC_LIST_FREE_FUNCTION_NAME(TYPE)                                \
+(                                                               \
+    void* var                                                   \
+)                                                               \
+{                                                               \
     EC_LIST_STRUCT(TYPE)* v = (EC_LIST_STRUCT(TYPE)*) var;      \
+                                                                /* free it hrere */ \
+    foreach_list (v)                                            \
+    {                                                           \
+        EC_LIST_VAR_FREE_FUNCTION_NAME(&v->var);                \
+    }                                                           \
+                                                                \
+    EC_Memory_Var_Free (v->ec_memory_ref);                      \
+    v->ec_memory_ref = NULL;                                    \
     free (v);                                                   \
     v = NULL;                                                   \
 }
@@ -155,7 +200,7 @@ EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                        \
     if (EC_MEMORY)                                                          \
     {                                                                       \
         EC_MEMORY_CREATE(TYPE, EC_LIST_TYPE)                                /*ec_memory_new defined here in ec_memory.h*/ \
-        ec_memory_new->Free_Var_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE);     \
+        ec_memory_new->Free_Var_Func = EC_VAR_FREE_ONE_FUNCTION_NAME(TYPE); \
         var->ec_memory_ref = ec_memory_new;                                 \
         var->lock = EC_LOCK;                                                \
     }                                                                       \
