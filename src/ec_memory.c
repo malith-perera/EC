@@ -6,28 +6,6 @@
 ECMemory* free_one = NULL;
 
 
-void
-EC_Memory_Var_Free (ECMemory* ec_memory_var)
-{
-    if (ec_memory_var != NULL)
-    {
-        if (ec_memory_var != ec_memory) // Free first variable
-        {
-            if (ec_memory_var->previous != NULL)
-            {
-                ec_memory_var->previous->next = ec_memory_var->next;
-            }
-        }
-        else
-        {
-            ec_memory = ec_memory_var->next;
-        }
-
-        free (ec_memory_var);
-    }
-}
-
-
 /* Clean all ec_memory at the end of the program */
 void
 EC_Clean ()
@@ -39,23 +17,24 @@ EC_Clean ()
 
     while (current != NULL)
     {
+        temp = current->next;
         current->Free_Func (current->var);
-        EC_Memory_Var_Free (current);
-
-        current = current->next;
+        free (current);
+        current = temp;
     }
 
     ec_memory = NULL;
 }
 
 
-/* Append new_ec_memory to ec_memory */
+/* Push new_ec_memory to ec_memory */
 void
-EC_Memory_Append (ECMemory* ec_memory_new)
+EC_Memory_Push (ECMemory *ec_memory_new)
 {
     if (ec_memory != NULL)
     {
         ec_memory_new->next = ec_memory;
+        ec_memory_new->previous = NULL;
         ec_memory->previous = ec_memory_new;
         ec_memory = ec_memory_new;
     }
@@ -63,6 +42,7 @@ EC_Memory_Append (ECMemory* ec_memory_new)
     {
         ec_memory = ec_memory_new;
         ec_memory->previous = NULL;
+        ec_memory->next = NULL;
     }
 }
 

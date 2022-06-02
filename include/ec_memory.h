@@ -54,7 +54,7 @@ ECMemory* ec_memory;
     ec_memory_new->Free_Var_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);    \
     ec_memory_new->next = NULL;                                         \
                                                                         \
-    EC_Memory_Append (ec_memory_new);
+    EC_Memory_Push (ec_memory_new);
 
 
 /* Clean all remaining ec_memory at the end of the program */
@@ -66,9 +66,9 @@ void
 EC_Memory_Var_Free (ECMemory* ec_memory_var);
 
 
-/* Append to ec_memory */
+/* Push to ec_memory */
 void
-EC_Memory_Append (ECMemory* ec_memory_new);
+EC_Memory_Push (ECMemory* ec_memory_new);
 
 
 /* Delete memory if lock == EC_UNLOCK in ec_memory lock variable */
