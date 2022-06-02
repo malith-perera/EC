@@ -24,6 +24,19 @@
 > Type_Array_Ref()  : **Done**  
 > > Reference list to it's variables  
 
+> Type_Array_To_list(array)  
+> >  Convert array into a list and return a list type pointer  
+
+> Type_Array_To_Queue(array)  
+> > Convert array into a queue and return a queue type pointer  
+
+> Type_Array_To_Stack(array)  
+> > Convert array into a stack and return a stack type pointer  
+
+> Type_Array_Toggle_Index(index1, index2)  
+> > Exchange array variables with related indices  
+
+
 
 #### EC List:  
 
@@ -35,6 +48,15 @@
 
 > Type_List_Ref()  : **Done**  
 > > Reference list to it's variables  
+
+> Type_List_To_Array (list)  
+> > Convert list into array and return a array type pointer  
+
+> Type_List_To_Queue (list)  
+> > Convert list into queue and return a queue type pointer  
+
+> Type_List_To_Stack (list)  
+> > Convert list into stack and return a stack type pointer  
 
 > Type_List_Var_Move()  
 > > Move variable up or down in the list  
@@ -52,6 +74,15 @@
 > Type_Queue_Ref()  : **Done**  
 > > Reference list to it's variables  
 
+> Type_Queue_To_Array (queue)  
+> > Convert queue into array and return a array type pointer  
+
+> Type_Queue_To_List (queue)  
+> > Convert queue into list and return a list type pointer  
+
+> Type_Queue_To_Stack (queue)  
+> > Convert queue into stack and return a stack type pointer  
+
 
 #### EC Stack:  
 
@@ -64,6 +95,14 @@
 > Type_Stack_Ref()  : **Done**  
 > > Reference list to it's variables  
 
+> Type_Stack_To_Array (stack)  
+> > Convert stack into array and return a array type pointer  
+
+> Type_Stack_To_List (stack)  
+> > Convert stack into list and return a list type pointer  
+
+> Type_Stack_To_Queue (stack)  
+> > Convert stack into queue and return a queue type pointer  
 
 
 #### EC Memory:  

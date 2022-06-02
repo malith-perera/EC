@@ -1,8 +1,8 @@
 /* Extended C Library
  * ------------------
- * Extended C (ec) is a library help you to develop programs with objects in mind.
- * Allow you to create varibles, arrays, lists, queues, stacks and there relevent functions easily
- * And automate memory management without memory leaks if you are interested in.
+ * Extended C (ec) is a library help you to develop pure C programs with objects in mind.
+ * Allow you to create varibles, arrays, lists, queues, stacks and their relevent functions easily
+ * And automate memory without memory leaks if you are interested in.
  */
 
 /* vi: set ts=4 sw=4 expandtab: */

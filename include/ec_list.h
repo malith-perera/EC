@@ -28,7 +28,7 @@
 #define EC_LIST_VAR_STRUCT(TYPE)                    EC_CONCAT(TYPE, ListVar,)
 
 
-#define EC_LIST(TYPE, VAR)                              \
+#define EC_LIST(TYPE, VAR)                              /* VAR should define and pass by user as a macro */\
 typedef struct EC_LIST_VAR_STRUCT(TYPE) {               \
     VAR                                                 \
     struct EC_LIST_VAR_STRUCT(TYPE)* next;              \
@@ -64,13 +64,15 @@ EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                    \
 #define EC_LIST_NEW_FUNCTION_PROTOTYPE(TYPE)            \
 EC_LIST_STRUCT(TYPE)*                                   \
 EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                    \
-();
+(                                                       \
+);                                                      \
 
 
 #define EC_LIST_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)        \
 EC_LIST_VAR_STRUCT (TYPE)*                              \
 EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)                     \
-();
+(                                                       \
+);
 
 
 #define EC_LIST_APPEND_FUNCTION_PROTOTYPE(TYPE)         \
@@ -118,7 +120,6 @@ EC_LIST_DROP_FUNCTION_NAME(TYPE)                            \
     EC_LIST_STRUCT(TYPE)* list,                             \
     EC_LIST_VAR_STRUCT(TYPE)* var                           \
 );
-
 
 
 #define EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)               \
@@ -195,12 +196,12 @@ EC_LIST_STRUCT(TYPE)*                                                       \
 EC_LIST_NEW_LIST_FUNCTION_NAME(TYPE)                                        \
 ()                                                                          \
 {                                                                           \
-    EC_VAR_CREATE(EC_LIST_STRUCT(TYPE))                                     /*TYPE* var is in this macro in ec_var.h*/ \
+    EC_VAR_CREATE(EC_LIST_STRUCT(TYPE))                                     /* TYPE* var is in this macro in ec_var.h*/ \
                                                                             \
     if (EC_MEMORY)                                                          \
     {                                                                       \
-        EC_MEMORY_CREATE(TYPE, EC_LIST_TYPE)                                /*ec_memory_new defined here in ec_memory.h*/ \
-        ec_memory_new->Free_Var_Func = EC_VAR_FREE_ONE_FUNCTION_NAME(TYPE); \
+        EC_MEMORY_CREATE(TYPE, EC_LIST_TYPE)                                /* ec_memory_new defined here in ec_memory.h*/ \
+        ec_memory_new->Free_Func = EC_VAR_FREE_ONE_FUNCTION_NAME(TYPE);     \
         var->ec_memory_ref = ec_memory_new;                                 \
         var->lock = EC_LOCK;                                                \
     }                                                                       \
@@ -219,7 +220,7 @@ EC_LIST_VAR_STRUCT (TYPE)*                                                  \
 EC_LIST_NEW_VAR_FUNCTION_NAME(TYPE)                                         \
 ()                                                                          \
 {                                                                           \
-    EC_VAR_CREATE(EC_LIST_VAR_STRUCT(TYPE))                                 /*TYPE* var is in this macro in ec_var.h*/ \
+    EC_VAR_CREATE(EC_LIST_VAR_STRUCT(TYPE))                                 /* TYPE* var is in this macro in ec_var.h*/ \
                                                                             \
     if (EC_MEMORY)                                                          \
     {                                                                       \
@@ -243,12 +244,12 @@ EC_LIST_APPEND_FUNCTION_NAME(TYPE)          \
 {                                           \
     var->next = NULL;                       \
                                             \
-    if (list->first != NULL)                /* List var exit */ \
+    if (list->first != NULL)                /* List var exit */\
     {                                       \
         list->last->next = var;             \
         var->previous = list->last;         \
     }                                       \
-    else                                    /* empty list */ \
+    else                                    /* empty list */\
     {                                       \
         var->previous = NULL;               \
         list->first = var;                  \
@@ -269,23 +270,23 @@ EC_LIST_INSERT_FUNCTION_NAME(TYPE)              \
     short pos                                   \
 )                                               \
 {                                               \
-    if (list->first == NULL && ref == NULL)     /* Empty list */ \
+    if (list->first == NULL && ref == NULL)     /* Empty list */\
     {                                           \
         var->previous = NULL;                   \
         var->next = NULL;                       \
         list->first = var;                      \
         list->last = var;                       \
     }                                           \
-    else if (ref == list->first)                /* ref is the first list var */ \
+    else if (ref == list->first)                /* ref is the first list var */\
     {                                           \
-        if (pos < 0)                            /* Insert befor the first list var */ \
+        if (pos < 0)                            /* Insert befor the first list var */\
         {                                       \
             var->previous = NULL;               \
             var->next = ref;                    \
             ref->previous = var;                \
             list->first = var;                  \
         }                                       \
-        else                                    /* Insert after the first list var */ \
+        else                                    /* Insert after the first list var */\
         {                                       \
             if (ref == list->last)              /* ref var is the first and also the last list var */ \
             {                                   \
@@ -303,16 +304,16 @@ EC_LIST_INSERT_FUNCTION_NAME(TYPE)              \
             }                                   \
         }                                       \
     }                                           \
-    else if (ref == list->last)                 /* ref var is the last list var */ \
+    else if (ref == list->last)                 /* ref var is the last list var */\
     {                                           \
-        if (pos < 0)                            /* Insert before the last var */ \
+        if (pos < 0)                            /* Insert before the last var */\
         {                                       \
             var->previous = ref->previous;      \
             var->next = ref;                    \
             ref->previous->next = var;          \
             ref->previous = var;                \
         }                                       \
-        else                                    /* insert after the last list var as last var */ \
+        else                                    /* insert after the last list var as last var */\
         {                                       \
             var->previous = ref;                \
             var->next = NULL;                   \
@@ -322,14 +323,14 @@ EC_LIST_INSERT_FUNCTION_NAME(TYPE)              \
     }                                           \
     else                                        \
     {                                           \
-        if (pos < 0)                            /* Insert before the ref var */ \
+        if (pos < 0)                            /* Insert before the ref var */\
         {                                       \
             var->previous = ref->previous;      \
             var->next = ref;                    \
             ref->previous->next = var;          \
             ref->previous = var;                \
         }                                       \
-        else                                    /* insert after the ref var*/ \
+        else                                    /* insert after the ref var*/\
         {                                       \
             var->previous = ref;                \
             var->next = ref->next;              \
@@ -351,15 +352,15 @@ EC_LIST_REPLACE_FUNCTION_NAME(TYPE)             \
     EC_LIST_VAR_STRUCT(TYPE)* ref               \
 )                                               \
 {                                               \
-    if (var == list->first)                     /* ref var is the first var in the list */ \
+    if (var == list->first)                     /* ref var is the first var in the list */\
     {                                           \
-        if (var->next == NULL)                  /* ref var is the only var in the list */ \
+        if (var->next == NULL)                  /* ref var is the only var in the list */\
         {                                       \
             ref->previous = NULL;               \
             ref->next = NULL;                   \
             list->first = ref;                  \
         }                                       \
-        else                                    /* ref var is the first var but not the only var in the list */ \
+        else                                    /* ref var is the first var but not the only var in the list */\
         {                                       \
             ref->previous = NULL;               \
             ref->next = var->next;              \
@@ -367,13 +368,13 @@ EC_LIST_REPLACE_FUNCTION_NAME(TYPE)             \
             list->first = ref;                  \
         }                                       \
     }                                           \
-    else if (var == list->last)                 /* ref var is the last var in the list */ \
+    else if (var == list->last)                 /* ref var is the last var in the list */\
     {                                           \
         ref->previous = var->previous;          \
         ref->next = NULL;                       \
         var->previous->next = ref;              \
     }                                           \
-    else                                        /* ref var is an anyother var than the first and the last */ \
+    else                                        /* ref var is an anyother var than the first and the last */\
     {                                           \
         ref->previous = var->previous;          \
         ref->next = var->next;                  \
@@ -409,7 +410,7 @@ EC_LIST_SORT_FUNCTION_NAME (TYPE, SORT_WITH)                            \
             {                                                           \
                 if (current->SORT_WITH > ref->next->SORT_WITH)          \
                 {                                                       \
-                    if (previous == NULL)                               /* list first var */ \
+                    if (previous == NULL)                               /* list first var */\
                     {                                                   \
                         list->first = ref->next;                        \
                         ref->next = ref->next->next;                    \
@@ -449,7 +450,7 @@ EC_LIST_DROP_FUNCTION_NAME(TYPE)                    \
     EC_LIST_VAR_STRUCT(TYPE)* var                   \
 )                                                   \
 {                                                   \
-    if (var == list->first)                         /* drop the first var in the list */ \
+    if (var == list->first)                         /* drop the first var in the list */\
     {                                               \
         if (var->next == NULL)                      \
         {                                           \
@@ -461,7 +462,7 @@ EC_LIST_DROP_FUNCTION_NAME(TYPE)                    \
             list->first = var->next;                \
         }                                           \
     }                                               \
-    else if (var == list->last)                     /* drop the last item in the list */ \
+    else if (var == list->last)                     /* drop the last item in the list */\
     {                                               \
         var->previous->next = NULL;                 \
     }                                               \

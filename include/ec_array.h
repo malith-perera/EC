@@ -252,13 +252,13 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                
     int length                                                                  \
 )                                                                               \
 {                                                                               \
-    EC_VAR_CREATE(EC_ARRAY_STRUCT(TYPE))                                        /*TYPE* var is in this macro in ec_var.h*/ \
+    EC_VAR_CREATE(EC_ARRAY_STRUCT(TYPE))                                        /* TYPE* var is in this macro in ec_var.h*/\
                                                                                 \
     if (EC_MEMORY)                                                              \
     {                                                                           \
         EC_MEMORY_CREATE(TYPE, EC_ARRAY_TYPE)                                   \
         ec_memory_new->Free_Func = EC_ARRAY_FREE_ONE_FUNCTION_NAME(TYPE);       /**** this works */\
-        ec_memory_new->Free_Var_Func = EC_ARRAY_FREE_ONE_FUNCTION_NAME(TYPE);   /**** this not work */ \
+        ec_memory_new->Free_Var_Func = EC_ARRAY_FREE_ONE_FUNCTION_NAME(TYPE);   /**** this does not work */\
         var->ec_memory_ref = ec_memory_new;                                     \
         var->lock = EC_LOCK;                                                    \
     }                                                                           \

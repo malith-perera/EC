@@ -25,7 +25,7 @@
 #define EC_STACK_VAR_STRUCT(TYPE)               EC_CONCAT(TYPE, StackVar,)
 
 
-#define EC_STACK(TYPE, VAR)                         \
+#define EC_STACK(TYPE, VAR)                         /* VAR should define and pass by user as a macro */\
 typedef struct EC_STACK_VAR_STRUCT(TYPE) {          \
     VAR                                             \
     struct EC_STACK_VAR_STRUCT(TYPE)* next;         \
@@ -113,12 +113,12 @@ EC_STACK_STRUCT(TYPE)*                                                      \
 EC_STACK_NEW_FUNCTION_NAME(TYPE)                                            \
 ()                                                                          \
 {                                                                           \
-    EC_VAR_CREATE(EC_STACK_STRUCT(TYPE))                                    /*TYPE* var is in this macro in ec_var.h*/ \
+    EC_VAR_CREATE(EC_STACK_STRUCT(TYPE))                                    /*TYPE* var is in this macro in ec_var.h*/\
                                                                             \
     if (EC_MEMORY)                                                          \
     {                                                                       \
         EC_MEMORY_CREATE(TYPE, EC_STACK_TYPE)                               \
-        ec_memory_new->Free_Var_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE);     \
+        ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE);         \
         var->ec_memory_ref = ec_memory_new;                                 \
         var->lock = EC_LOCK;                                                \
     }                                                                       \
@@ -135,7 +135,7 @@ EC_STACK_VAR_STRUCT(TYPE)*                                                      
 EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)                                            \
 ()                                                                              \
 {                                                                               \
-    EC_VAR_CREATE(EC_STACK_VAR_STRUCT(TYPE))                                    /*TYPE* var is in this macro in ec_var.h*/ \
+    EC_VAR_CREATE(EC_STACK_VAR_STRUCT(TYPE))                                    /*TYPE* var is in this macro in ec_var.h*/\
                                                                                 \
     if (EC_MEMORY)                                                              \
     {                                                                           \
