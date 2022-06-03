@@ -13,29 +13,29 @@ typedef enum {
 
 
 /* EC_Memory to track memory */
-typedef struct ECMemory {
+struct ECMemory {
     ECType              type;
-    void*               var;
+    void                *var;
     ECMemoryLock        lock;
-    void                (*Free_Func) (void*);
     void                (*Free_Var_Func) (void*);
-    struct ECMemory*    previous;
-    struct ECMemory*    next;
-} ECMemory;
+    struct ECMemory     *previous;
+    struct ECMemory     *next;
+};
 
+typedef struct ECMemory ECMemory;
 
 /* Define lock and mem_ref */
 #ifdef EC_MEMORY
-#define EC_MEMORY_REF           \
-    ECMemory* ec_memory_ref;    \
-    bool lock;
+#define EC_MEMORY_REF               \
+    ECMemory* ec_memory_ref_back;   \
+    bool ec_memory_lock;
 #else
 #define EC_MEMORY_REF
 #endif //EC_MEMORY
 
 
 /* List of all allocated ec_memory */
-ECMemory* ec_memory;
+ECMemory *ec_memory;
 
 
 #define EC_MEMORY_CREATE(TYPE, EC_VAR_TYPE)                             \
@@ -50,8 +50,7 @@ ECMemory* ec_memory;
     ec_memory_new->type = EC_VAR_TYPE;                                  \
     ec_memory_new->var = var;                                           \
     ec_memory_new->lock = EC_LOCK;                                      \
-    ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);        \
-    ec_memory_new->Free_Var_Func = EC_VAR_FREE_FUNCTION_NAME (TYPE);    \
+    ec_memory_new->Free_Var_Func = EC_VAR_FREE_VAR_FUNCTION_NAME (TYPE);\
     ec_memory_new->next = NULL;                                         \
                                                                         \
     EC_Memory_Push (ec_memory_new);
@@ -63,12 +62,12 @@ EC_Clean ();
 
 
 void
-EC_Memory_Var_Free (ECMemory* ec_memory_var);
+EC_Memory_Var_Free (ECMemory *ec_memory_var);
 
 
 /* Push to ec_memory */
 void
-EC_Memory_Push (ECMemory* ec_memory_new);
+EC_Memory_Push (ECMemory *ec_memory_new);
 
 
 /* Delete memory if lock == EC_UNLOCK in ec_memory lock variable */
@@ -90,9 +89,9 @@ EC_Memory_Free_Unlock_One ();
     free(EC_VAR->index);
 
 
-#define ec_memory_free(EC_VAR)                                      \
-    EC_VAR->ec_memory_ref->previous = EC_VAR->ec_memory_ref->next;  \
-    free(EC_VAR->ec_memory_ref);                                    \
+#define ec_memory_free(EC_VAR)                                                  \
+    EC_VAR->ec_memory_ref_back->previous = EC_VAR->ec_memory_ref_back->next;    \
+    free(EC_VAR->ec_memory_ref_back);                                           \
     free(EC_VAR);
 
 

@@ -14,7 +14,7 @@ Test_New_Var ()
 {
     EC_Print_Error ("Test_New_Var: ", "BEGIN");
 
-    StudentVar* st = Student_Var ();
+    StudentVar *st = Student_Var ();
     EC_Print_Error ("Create ec var", "OK");
 
     st->no = 1;
@@ -47,8 +47,8 @@ Test_Var_Copy_Default ()
 {
     EC_Print_Error ("Test_Var_Copy_Default: ", "BEGIN");
 
-    StudentVar* st1 = Student_Var ();
-    StudentVar* st2 = Student_Var ();
+    StudentVar *st1 = Student_Var ();
+    StudentVar *st2 = Student_Var ();
     EC_Print_Error ("Create new ec var", "OK");
 
     st1->no = 1;
@@ -97,13 +97,13 @@ Test_Var_Copy ()
 {
     EC_Print_Error ("Test_Var_Copy: ", "BEGIN");
 
-    StudentVar* st1 = Student_Var ();
+    StudentVar *st1 = Student_Var ();
     EC_Print_Error ("Create new ec var", "OK");
 
     st1->no = 1;
     st1->name = "Malith";
 
-    StudentVar* st2 = Student_Var_Copy (st1);
+    StudentVar *st2 = Student_Var_Copy (st1);
     assert (st2->no == 1);
     assert (strcmp(st2->name, "Malith") == 0);
     EC_Print_Error ("Var copied: ", "OK");
@@ -145,12 +145,12 @@ Test_Var_Copy2 ()
 {
     EC_Print_Error ("Test_Var_Copy2: ", "BEGIN");
 
-    StudentVar* st1 = Student_Var ();
+    StudentVar *st1 = Student_Var ();
     st1->no = 1;
     st1->name = "Malith";
     EC_Print_Error ("Create and assign new ec var", "OK");
 
-    StudentVar* st2 = Student_Var ();
+    StudentVar *st2 = Student_Var ();
 
     Student_Var_Copy2 (st2, st1);
 
@@ -198,23 +198,21 @@ Test_Var_Free ()
 {
     EC_Print_Error ("Test_Var_Free: ", "BEGIN");
 
-    StudentVar* st = Student_Var ();
+    StudentVar *st = Student_Var ();
     st->no = 1;
     st->name = "Malith";
+    EC_Print_Error ("Create, assign ec var", "OK");
+
     assert (st->no == 1);
     assert (strcmp (st->name, "Malith") == 0);
-    EC_Print_Error ("Create, assign and access ec var", "OK");
-
-    assert (st->ec_memory_ref != NULL);
-    EC_Print_Error ("Create, assign and access ec var", "OK");
+    assert (st->ec_memory_ref_back != NULL);
+    EC_Print_Error ("access ec var", "OK");
 
     Student_Var_Free (st);
     EC_Print_Error ("EC_Var_Free function", "OK");
 
-    assert (st->no != 1);
-    assert (strcmp (st->name, "Malith") != 0);
-    assert (st->ec_memory_ref == NULL);
-    EC_Print_Error ("EC var freed out", "OK");
+    assert (st != NULL);
+    EC_Print_Error ("EC var freed out correctly", "OK");
 
     EC_Print_Error ("Test_Var_Free:", "END");
 }
@@ -228,7 +226,7 @@ Test_Var_Unlock ()
 {
     EC_Print_Error ("Test_Var_Free: ", "BEGIN");
 
-    StudentVar* st = Student_Var ();
+    StudentVar *st = Student_Var ();
     st->no = 1;
     st->name = "Malith";
     assert (st->no == 1);
@@ -238,7 +236,32 @@ Test_Var_Unlock ()
     Student_Var_Unlock (st);
     EC_Print_Error ("Unlock var ", "OK");
 
-    assert (st->ec_memory_ref->lock == EC_UNLOCK);
+    assert (st->ec_memory_ref_back->lock == EC_UNLOCK);
+    EC_Print_Error ("ec_memory unlocked", "OK");
+
+    EC_Print_Error ("Test_Var_Free:", "END");
+}
+
+
+/* Test: Var_Free_Unlocked
+ * This function unlock ec_memory var and allow to free memories
+ * when we free unlock memories when we need */
+void
+Test_Var_Free_Unlocked ()
+{
+    EC_Print_Error ("Test_Var_Free: ", "BEGIN");
+
+    StudentVar *st = Student_Var ();
+    st->no = 1;
+    st->name = "Malith";
+    assert (st->no == 1);
+    assert (strcmp (st->name, "Malith") == 0);
+    EC_Print_Error ("Create, assign and access ec var", "OK");
+
+    Student_Var_Unlock (st);
+    EC_Print_Error ("Unlock var ", "OK");
+
+    assert (st->ec_memory_ref_back->lock == EC_UNLOCK);
     EC_Print_Error ("ec_memory unlocked", "OK");
 
     EC_Print_Error ("Test_Var_Free:", "END");
