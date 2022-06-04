@@ -49,7 +49,8 @@ EC_Clean ()
     while (current != NULL)
     {
         temp = current->next;
-        current->Free_Var_Func (current->var);
+        if (current->var != NULL)
+            current->Free_Var_Func (current->var);
         EC_Memory_Var_Free (current);
         current = NULL;
         current = temp;
