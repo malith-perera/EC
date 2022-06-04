@@ -72,46 +72,46 @@ Test_New_List ()
 void
 Test_Append_List ()
 {
-/*    EC_Print_Error ("Append_List: ", "BEGIN");*/
+    EC_Print_Error ("Append_List: ", "BEGIN");
 
-    /*StudentList *stl = Student_List ();*/
+    StudentList *stl = Student_List ();
 
-    /*StudentListVar *st1 = Student_List_Var ();*/
-    /*st1->no = 1;*/
-    /*st1->name = "Malith";*/
+    StudentListVar *st1 = Student_List_Var ();
+    st1->no = 1;
+    st1->name = "Malith";
 
-    /*StudentListVar *st2 = Student_List_Var ();*/
-    /*st2->no = 2;*/
-    /*st2->name = "Geethike";*/
+    StudentListVar *st2 = Student_List_Var ();
+    st2->no = 2;
+    st2->name = "Geethike";
 
-    /*Append_Student (stl, st1);*/
+    Append_Student (stl, st1);
 
-    /*assert (stl->first->no == 1);*/
-    /*assert (!strcmp (stl->first->name, "Malith")); // strcmp return 0 when equal so ! used*/
-    /*assert (stl->first->next == NULL);*/
-    /*assert (stl->first->previous == NULL);*/
-    /*assert (stl->first->next == NULL);*/
-    /*assert (stl->first->previous == NULL);*/
-    /*assert (stl->last == st1);*/
+    assert (stl->first->no == 1);
+    assert (!strcmp (stl->first->name, "Malith")); // strcmp return 0 when equal so ! used
+    assert (stl->first->next == NULL);
+    assert (stl->first->previous == NULL);
+    assert (stl->first->next == NULL);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st1);
 
-    /*EC_Print_Error ("Append list first variable", "OK");*/
+    EC_Print_Error ("Append list first variable", "OK");
 
-    /*Append_Student (stl, st2);*/
+    Append_Student (stl, st2);
 
-    /*assert (stl->first->no == 1);*/
-    /*assert (!strcmp (stl->first->name, "Malith")); // strcmp return 0 when equal so ! used*/
-    /*assert (stl->first->previous == NULL);*/
-    /*assert (stl->first->next == st2);*/
-    /*assert (stl->first->next->no = 2);*/
-    /*assert (!strcmp (stl->first->next->name, "Geethike")); // strcmp return 0 when equal so ! used*/
-    /*assert (stl->first->next->previous == st1);*/
-    /*assert (stl->last == st2);*/
-    /*assert (st2->next == NULL);*/
-    /*assert (stl->last->next == NULL);*/
+    assert (stl->first->no == 1);
+    assert (!strcmp (stl->first->name, "Malith")); // strcmp return 0 when equal so ! used
+    assert (stl->first->previous == NULL);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->no = 2);
+    assert (!strcmp (stl->first->next->name, "Geethike")); // strcmp return 0 when equal so ! used
+    assert (stl->first->next->previous == st1);
+    assert (stl->last == st2);
+    assert (st2->next == NULL);
+    assert (stl->last->next == NULL);
 
-    /*EC_Print_Error ("Append list second variable", "OK");*/
+    EC_Print_Error ("Append list second variable", "OK");
 
-    /*EC_Print_Error ("Append_List: ", "END");*/
+    EC_Print_Error ("Append_List: ", "END");
 }
 
 
