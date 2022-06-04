@@ -18,7 +18,7 @@
 
 /* Function name macros */
 #define EC_ARRAY_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Array_Free,) // memory Free
-#define EC_ARRAY_FREE_ONE_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _Array_Free_One,)
+#define EC_ARRAY_FREE_FUNC_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _Array_Free_Func,)
 #define EC_ARRAY_UNLOCK_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Array_Unlock,)
 #define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Array,)
 #define EC_ARRAY_COPY_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Array_Copy,)
@@ -36,10 +36,10 @@
 
 #define EC_ARRAY(TYPE)                                  \
 typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
-    TYPE*           index;                              \
+    TYPE            *index;                             \
     int             length;                             \
     int             i;                                  \
-    TYPE*           var;                                \
+    TYPE            *var;                               \
     EC_MEMORY_REF                                       \
 } EC_ARRAY_STRUCT(TYPE);
 
@@ -50,15 +50,15 @@ typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
 void                                                    \
 EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                       \
 (                                                       \
-    void* var                                           \
+    void *var                                           \
 );
 
 
-#define EC_ARRAY_FREE_ONE_FUNCTION_PROTOTYPE(TYPE)      \
+#define EC_ARRAY_FREE_FUNC_FUNCTION_PROTOTYPE(TYPE)     \
 void                                                    \
-EC_ARRAY_FREE_ONE_FUNCTION_NAME(TYPE)                   \
+EC_ARRAY_FREE_FUNC_FUNCTION_NAME(TYPE)                  \
 (                                                       \
-    void* var                                           \
+    void *var                                           \
 );
 
 
@@ -66,12 +66,12 @@ EC_ARRAY_FREE_ONE_FUNCTION_NAME(TYPE)                   \
 void                                                    \
 EC_ARRAY_UNLOCK_FUNCTION_NAME(TYPE)                     \
 (                                                       \
-    void* var                                           \
+    void *var                                           \
 );
 
 
 #define EC_ARRAY_NEW_FUNCTION_PROTOTYPE(TYPE)           \
-EC_ARRAY_STRUCT(TYPE)*                                  \
+EC_ARRAY_STRUCT(TYPE) *                                 \
 EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                        \
 (                                                       \
     int length                                          \
@@ -79,10 +79,10 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                        \
 
 
 #define EC_ARRAY_COPY_FUNCTION_PROTOTYPE(TYPE)          \
-EC_ARRAY_STRUCT(TYPE)*                                  \
+EC_ARRAY_STRUCT(TYPE) *                                 \
 EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                       \
 (                                                       \
-    EC_ARRAY_STRUCT(TYPE)* array                        \
+    EC_ARRAY_STRUCT(TYPE) *array                        \
 );
 
 
@@ -90,13 +90,13 @@ EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                       \
 void                                                    \
 EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                    \
 (                                                       \
-    EC_ARRAY_STRUCT(TYPE)* array                        \
+    EC_ARRAY_STRUCT(TYPE) *array                        \
 );
 
 
 #define EC_ARRAY_FUNCTION_PROTOTYPES(TYPE)              \
     EC_ARRAY_FREE_FUNCTION_PROTOTYPE(TYPE)              \
-    EC_ARRAY_FREE_ONE_FUNCTION_PROTOTYPE(TYPE)          \
+    EC_ARRAY_FREE_FUNC_FUNCTION_PROTOTYPE(TYPE)         \
     EC_ARRAY_UNLOCK_FUNCTION_PROTOTYPE(TYPE)            \
     EC_ARRAY_NEW_FUNCTION_PROTOTYPE(TYPE)               \
     EC_ARRAY_COPY_FUNCTION_PROTOTYPE(TYPE)              \
@@ -107,7 +107,7 @@ EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                    \
 void                                                    \
 EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)                   \
 (                                                       \
-    EC_ARRAY_STRUCT(TYPE)* array                        \
+    EC_ARRAY_STRUCT(TYPE)   *array                      \
 );
 
 
@@ -115,7 +115,7 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)                   \
 int                                                     \
 EC_ARRAY_INT_FUNCTION_NAME(TYPE, SW)                    \
 (                                                       \
-    EC_ARRAY_STRUCT(TYPE)*  array,                      \
+    EC_ARRAY_STRUCT(TYPE)   *array,                     \
     int                     search_value                \
 );
 
@@ -124,28 +124,28 @@ EC_ARRAY_INT_FUNCTION_NAME(TYPE, SW)                    \
 int                                                     \
 EC_ARRAY_STR_FUNCTION_NAME(TYPE, SW)                    \
 (                                                       \
-    EC_ARRAY_STRUCT(TYPE)*  array,                      \
-    char*                   search_value                \
+    EC_ARRAY_STRUCT(TYPE)   *array,                     \
+    char                    *search_value               \
 );
 
 
 #define EC_ARRAY_MAX_FUNCTION_PROTOTYPE(TYPE, SW)       \
-TYPE*                                                   \
+TYPE *                                                  \
 EC_ARRAY_MAX_FUNCTION_NAME(TYPE, SW)                    \
 (                                                       \
-    EC_ARRAY_STRUCT(TYPE)* array                        \
+    EC_ARRAY_STRUCT(TYPE) *array                        \
 );
 
 
 #define EC_ARRAY_MIN_FUNCTION_PROTOTYPE(TYPE, SW)       \
-TYPE*                                                   \
+TYPE *                                                  \
 EC_ARRAY_MIN_FUNCTION_NAME(TYPE, SW)                    \
 (                                                       \
-    EC_ARRAY_STRUCT(TYPE)* array                        \
+    EC_ARRAY_STRUCT(TYPE) *array                        \
 );
 
 
-#define EC_ARRAY_SW_FUNCTION_PROTOTYPES(TYPE, SW)       /* SW for Search With or Sort With */ \
+#define EC_ARRAY_SW_FUNCTION_PROTOTYPES(TYPE, SW)       /* SW for Search With or Sort With */\
     EC_ARRAY_SORT_FUNCTION_PROTOTYPE(TYPE, SW)          \
     EC_ARRAY_INT_FUNCTION_PROTOTYPE(TYPE, SW)           \
     EC_ARRAY_STR_FUNCTION_PROTOTYPE(TYPE, SW)           \
@@ -157,27 +157,27 @@ EC_ARRAY_MIN_FUNCTION_NAME(TYPE, SW)                    \
 void
 Int_Array_Reverse
 (
-    int* array,
-    int  array_length
+    int *array,
+    int array_length
 );
 
 
 int*
 Int_Array_Search
 (
-    int* array,
-    int  array_length,
-    int  search_value, // search search_value
-    int  search_times  // how much times search
+    int *array,
+    int array_length,
+    int search_value, // search search_value
+    int search_times  // how much times search
 );
 
 
 int
 Int_Sorted_Array_Search
 (
-    int* array,
-    int  array_length,
-    int  search_value
+    int *array,
+    int array_length,
+    int search_value
 );
 
 
@@ -185,8 +185,8 @@ Int_Sorted_Array_Search
 int
 Int_Array_Max
 (
-    int* array,
-    int  array_length
+    int *array,
+    int array_length
 );
 
 
@@ -194,8 +194,8 @@ Int_Array_Max
 int
 Int_Array_Min
 (
-    int* array,
-    int  array_length
+    int *array,
+    int array_length
 );
 
 
@@ -205,27 +205,27 @@ Int_Array_Min
 void                                                                \
 EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                                   \
 (                                                                   \
-    void* var                                                       \
+    void *var                                                       \
 )                                                                   \
 {                                                                   \
-    EC_ARRAY_STRUCT(TYPE)* v = (EC_ARRAY_STRUCT(TYPE)*) var;        \
+    EC_ARRAY_STRUCT(TYPE) *v = (EC_ARRAY_STRUCT(TYPE) *) var;       \
     free (v->index);                                                \
     v->index = NULL;                                                \
-    EC_Memory_Var_Free (v->ec_memory_ref);                          \
-    v->ec_memory_ref = NULL;                                        \
+    EC_Memory_Var_Free (v->ec_memory_ref_back);                     \
+    v->ec_memory_ref_back = NULL;                                   \
     free (v);                                                       \
     v = NULL;                                                       \
 }
 
 
-#define EC_ARRAY_FREE_ONE_FUNCTION(TYPE)                            \
+#define EC_ARRAY_FREE_FUNC_FUNCTION(TYPE)                           \
 void                                                                \
-EC_ARRAY_FREE_ONE_FUNCTION_NAME(TYPE)                               \
+EC_ARRAY_FREE_FUNC_FUNCTION_NAME(TYPE)                              \
 (                                                                   \
-    void* var                                                       \
+    void *var                                                       \
 )                                                                   \
 {                                                                   \
-    EC_ARRAY_STRUCT(TYPE)* v = (EC_ARRAY_STRUCT(TYPE)*) var;        \
+    EC_ARRAY_STRUCT(TYPE) *v = (EC_ARRAY_STRUCT(TYPE) *) var;       \
     free (v->index);                                                \
     v->index = NULL;                                                \
     free (v);                                                       \
@@ -237,16 +237,16 @@ EC_ARRAY_FREE_ONE_FUNCTION_NAME(TYPE)                               \
 void                                                                \
 EC_ARRAY_UNLOCK_FUNCTION_NAME(TYPE)                                 \
 (                                                                   \
-    void* var                                                       \
+    void *var                                                       \
 )                                                                   \
 {                                                                   \
-    EC_ARRAY_STRUCT(TYPE)* v = (EC_ARRAY_STRUCT(TYPE)*) var;        \
-    v->ec_memory_ref->lock = EC_UNLOCK;                             \
+    EC_ARRAY_STRUCT(TYPE) *v = (EC_ARRAY_STRUCT(TYPE) *) var;       \
+    v->ec_memory_ref_back->lock = EC_UNLOCK;                        \
 }
 
 
 #define EC_ARRAY_NEW_FUNCTION(TYPE)                                             \
-EC_ARRAY_STRUCT(TYPE)*                                                          \
+EC_ARRAY_STRUCT(TYPE) *                                                         \
 EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                \
 (                                                                               \
     int length                                                                  \
@@ -257,13 +257,12 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                
     if (EC_MEMORY)                                                              \
     {                                                                           \
         EC_MEMORY_CREATE(TYPE, EC_ARRAY_TYPE)                                   \
-        ec_memory_new->Free_Func = EC_ARRAY_FREE_ONE_FUNCTION_NAME(TYPE);       /**** this works */\
-        ec_memory_new->Free_Var_Func = EC_ARRAY_FREE_ONE_FUNCTION_NAME(TYPE);   /**** this does not work */\
-        var->ec_memory_ref = ec_memory_new;                                     \
-        var->lock = EC_LOCK;                                                    \
+        ec_memory_new->Free_Var_Func = EC_ARRAY_FREE_FUNC_FUNCTION_NAME(TYPE);  \
+        var->ec_memory_ref_back = ec_memory_new;                                \
+        var->ec_memory_lock = EC_LOCK;                                          \
     }                                                                           \
                                                                                 \
-    TYPE* array = (TYPE*) malloc (sizeof (TYPE) * length);                      \
+    TYPE *array = (TYPE *) malloc (sizeof (TYPE) * length);                     \
                                                                                 \
     if (array == NULL)                                                          \
     {                                                                           \
@@ -282,13 +281,13 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                                
  * This function return exact copy of ec array.
  * But there is no inter connection between original and the copy */
 #define EC_ARRAY_COPY_FUNCTION(TYPE)                                                        \
-EC_ARRAY_STRUCT(TYPE)*                                                                      \
+EC_ARRAY_STRUCT(TYPE) *                                                                     \
 EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                                                           \
 (                                                                                           \
-    EC_ARRAY_STRUCT(TYPE)* array                                                            \
+    EC_ARRAY_STRUCT(TYPE) *array                                                            \
 )                                                                                           \
 {                                                                                           \
-    EC_ARRAY_STRUCT(TYPE)* array_copy = EC_ARRAY_NEW_FUNCTION_NAME(TYPE) (array->length);   \
+    EC_ARRAY_STRUCT(TYPE) *array_copy = EC_ARRAY_NEW_FUNCTION_NAME(TYPE) (array->length);   \
                                                                                             \
     memcpy (array_copy->index, array->index, sizeof(TYPE) * array->length);                 \
                                                                                             \
@@ -302,7 +301,7 @@ EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                                               
 void                                                                \
 EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                                \
 (                                                                   \
-    EC_ARRAY_STRUCT(TYPE)* array                                    \
+    EC_ARRAY_STRUCT(TYPE) *array                                    \
 )                                                                   \
 {                                                                   \
     TYPE temp;                                                      \
@@ -318,7 +317,7 @@ EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                                \
 
 #define EC_ARRAY_FUNCTIONS(TYPE)        \
     EC_ARRAY_FREE_FUNCTION(TYPE)        \
-    EC_ARRAY_FREE_ONE_FUNCTION(TYPE)    \
+    EC_ARRAY_FREE_FUNC_FUNCTION(TYPE)   \
     EC_ARRAY_UNLOCK_FUNCTION(TYPE)      \
     EC_ARRAY_NEW_FUNCTION(TYPE)         \
     EC_ARRAY_COPY_FUNCTION(TYPE)        \
@@ -331,10 +330,10 @@ EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                                \
 void                                                                \
 EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)                               \
 (                                                                   \
-    EC_ARRAY_STRUCT(TYPE)* array                                    \
+    EC_ARRAY_STRUCT(TYPE) *array                                    \
 )                                                                   \
 {                                                                   \
-    TYPE* min_ref;                                                  \
+    TYPE *min_ref;                                                  \
     TYPE temp;                                                      \
                                                                     \
     int j = 0;                                                      \
@@ -365,7 +364,7 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)                               \
 int                                                                 \
 EC_ARRAY_INT_FUNCTION_NAME(TYPE, SW)                                \
 (                                                                   \
-    EC_ARRAY_STRUCT(TYPE)*  array,                                  \
+    EC_ARRAY_STRUCT(TYPE)   *array,                                 \
     int                     search_value                            \
 )                                                                   \
 {                                                                   \
@@ -385,8 +384,8 @@ EC_ARRAY_INT_FUNCTION_NAME(TYPE, SW)                                \
 int                                                                 \
 EC_ARRAY_STR_FUNCTION_NAME(TYPE, SW)                                \
 (                                                                   \
-    EC_ARRAY_STRUCT(TYPE)*  array,                                  \
-    char*                   search_value                            \
+    EC_ARRAY_STRUCT(TYPE)   *array,                                 \
+    char                    *search_value                           \
 )                                                                   \
 {                                                                   \
     foreach_array (array)                                           \
@@ -406,7 +405,7 @@ EC_ARRAY_STR_FUNCTION_NAME(TYPE, SW)                                \
 int                                                                 \
 EC_ARRAY_SORTED_INT_FUNCTION_NAME(TYPE, SW)                         \
 (                                                                   \
-    EC_ARRAY_STRUCT(TYPE)*  array,                                  \
+    EC_ARRAY_STRUCT(TYPE)   *array,                                 \
     int                     search_value                            \
 )                                                                   \
 {                                                                   \
@@ -480,13 +479,13 @@ EC_ARRAY_SORTED_INT_FUNCTION_NAME(TYPE, SW)                         \
 /* Search maximum var according to var attribute SW */
 
 #define EC_ARRAY_MAX_FUNCTION(TYPE, SW)             \
-TYPE*                                               \
+TYPE *                                              \
 EC_ARRAY_MAX_FUNCTION_NAME(TYPE, SW)                \
 (                                                   \
-    EC_ARRAY_STRUCT(TYPE)* array                    \
+    EC_ARRAY_STRUCT(TYPE)   *array                  \
 )                                                   \
 {                                                   \
-    TYPE* max = &array->index[0];                   \
+    TYPE *max = &array->index[0];                   \
                                                     \
     for (int i = 1; i < array->length; i++)         \
     {                                               \
@@ -503,13 +502,13 @@ EC_ARRAY_MAX_FUNCTION_NAME(TYPE, SW)                \
 /* Search minimum var according to var attribute SW */
 
 #define EC_ARRAY_MIN_FUNCTION(TYPE, SW)             \
-TYPE*                                               \
+TYPE *                                              \
 EC_ARRAY_MIN_FUNCTION_NAME(TYPE, SW)                \
 (                                                   \
-    EC_ARRAY_STRUCT(TYPE)* array                    \
+    EC_ARRAY_STRUCT(TYPE) *array                    \
 )                                                   \
 {                                                   \
-    TYPE* min = &array->index[0];                   \
+    TYPE *min = &array->index[0];                   \
                                                     \
     for (int i = 1; i < array->length; i++)         \
     {                                               \

@@ -101,17 +101,12 @@ Test_Array_Free ()
     sta->index[1].no = 2;
     sta->index[1].name = "Geethike";
 
-    assert (sta->index != NULL);
-
+    assert (sta->index[1].no == 2);
+    assert (strcmp(sta->index[1].name, "Geethike") == 0);
     EC_Print_Error ("Create assign array", "OK");
 
     Student_Array_Free (sta);
     EC_Print_Error ("Array_Free function", "OK");
-
-    assert (sta->index == NULL);
-    assert (sta->ec_memory_ref == NULL);
-
-    EC_Print_Error ("Array free", "OK");
 
     EC_Print_Error ("Test_Array_Free: ", "END");
 }
@@ -148,7 +143,7 @@ Test_Array_Unlock ()
 
     EC_Print_Error ("Array_Unlock function", "OK");
 
-    assert (sta->ec_memory_ref->lock == EC_UNLOCK);
+    assert (sta->ec_memory_ref_back->lock == EC_UNLOCK);
     EC_Print_Error ("lock unlocked", "OK");
 
     EC_Print_Error ("Test_Array_Unlock: ", "END");
