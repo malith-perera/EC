@@ -211,9 +211,6 @@ Test_Var_Free ()
     Student_Var_Free (st);
     EC_Print_Error ("EC_Var_Free function", "OK");
 
-    assert (st != NULL);
-    EC_Print_Error ("EC var freed out correctly", "OK");
-
     EC_Print_Error ("Test_Var_Free:", "END");
 }
 
