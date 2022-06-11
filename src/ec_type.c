@@ -6,7 +6,7 @@
 
 /* Related with ECType in ec_type.h
  * If you change anything here change it too */
-char* ec_type_names[] = {
+char *ec_type_names[] = {
     "EC_VAR",
     "EC_ARRAY",
     "EC_LIST",
@@ -31,10 +31,10 @@ EC_Type_Get_Name (ECType type)
 int32_t*
 ec_int(int32_t val)
 {
-    int32_t* var =  (int32_t*) malloc (sizeof(int32_t));
+    int32_t *var =  (int32_t*) malloc (sizeof(int32_t));
     *var = val;
 
     return var;
 }
-/*i32* x = ec_int(6);*/
+/*i32 *x = ec_int(6);*/
 

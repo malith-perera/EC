@@ -18,7 +18,7 @@ typedef enum {
 /* portability */
 
 //#define int32(VAR) \
-    //int32_t* VAR = (int32_t*) malloc (sizeof(int32_t))
+    //int32_t *VAR = (int32_t*) malloc (sizeof(int32_t))
 /*int32(y);*/
 /**y = 7;*/
 
