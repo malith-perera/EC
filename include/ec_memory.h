@@ -17,7 +17,9 @@ struct ECMemory {
     ECType              type;
     void                *var;
     ECMemoryLock        lock;
+    void                (*Free_All) (void*);
     void                (*Free_Var_Func) (void*);
+    void                (*Free_Func) (void*);
     struct ECMemory     *previous;
     struct ECMemory     *next;
 };
@@ -27,7 +29,7 @@ typedef struct ECMemory ECMemory;
 /* Define lock and mem_ref */
 #ifdef EC_MEMORY
 #define EC_MEMORY_REF               \
-    ECMemory* ec_memory_ref_back;   \
+    ECMemory *ec_memory_ref_back;   \
     bool ec_memory_lock;
 #else
 #define EC_MEMORY_REF
@@ -39,7 +41,7 @@ ECMemory *ec_memory;
 
 
 #define EC_MEMORY_CREATE(TYPE, EC_VAR_TYPE)                             \
-    ECMemory* ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));    \
+    ECMemory *ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));    \
                                                                         \
     if (ec_memory_new == NULL)                                          \
     {                                                                   \
@@ -50,7 +52,6 @@ ECMemory *ec_memory;
     ec_memory_new->type = EC_VAR_TYPE;                                  \
     ec_memory_new->var = var;                                           \
     ec_memory_new->lock = EC_LOCK;                                      \
-    ec_memory_new->Free_Var_Func = EC_VAR_FREE_VAR_FUNCTION_NAME (TYPE);\
     ec_memory_new->next = NULL;                                         \
                                                                         \
     EC_Memory_Push (ec_memory_new);

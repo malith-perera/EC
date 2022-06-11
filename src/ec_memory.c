@@ -3,37 +3,57 @@
 /* User to free ec_memory one at a time with EC_Memory_Free_Unlock_One function
  * to track current position */
 
-ECMemory* free_one = NULL;
+ECMemory *free_one = NULL;
 
 /* Free an ec_memory_variable */
 void
 EC_Memory_Var_Free (ECMemory *ec_memory_var)
 {
-    if (ec_memory_var != ec_memory)
+    if (ec_memory_var != NULL)
     {
-        if (ec_memory_var->next != NULL)
+        if (ec_memory_var != ec_memory)
         {
-            ec_memory_var->previous->next = ec_memory_var->next;
+            if (ec_memory_var->next != NULL && ec_memory_var->previous != NULL)
+            {
+                ec_memory_var->previous->next = ec_memory_var->next;
+            }
+            else if (ec_memory_var->previous != NULL)
+            {
+                ec_memory_var->previous->next = NULL;
+            }
+
         }
         else
         {
-            ec_memory_var->previous->next = NULL;
+            if (ec_memory_var->next != NULL)
+            {
+                ec_memory = ec_memory->next;
+                ec_memory->previous = NULL;
+            }
+            else
+            {
+                ec_memory = NULL;
+            }
         }
 
+        free (ec_memory_var);
     }
-    else
+}
+
+void
+EC_Memory_Free_All
+(
+    ECMemory *ec_memory_var
+)
+{
+    if (ec_memory_var != NULL)
     {
-        if (ec_memory_var->next != NULL)
+        if (ec_memory_var->var != NULL)
         {
-            ec_memory = ec_memory->next;
+            free (ec_memory_var->var);
         }
-        else
-        {
-            ec_memory = NULL;
-        }
+        EC_Memory_Var_Free (ec_memory_var);
     }
-
-    free (ec_memory_var);
 }
 
 
@@ -49,9 +69,7 @@ EC_Clean ()
     while (current != NULL)
     {
         temp = current->next;
-        if (current->var != NULL)
-            current->Free_Var_Func (current->var);
-        EC_Memory_Var_Free (current);
+        EC_Memory_Free_All (current);
         current = NULL;
         current = temp;
     }
@@ -62,7 +80,7 @@ EC_Clean ()
 
 /* Push new_ec_memory to ec_memory */
 void
-EC_Memory_Push (ECMemory* ec_memory_new)
+EC_Memory_Push (ECMemory *ec_memory_new)
 {
     if (ec_memory != NULL)
     {
@@ -103,7 +121,6 @@ EC_Memory_Free_Unlocked ()
             temp = NULL;
 
             break;
-
         }
 
         current = current->next;
@@ -122,7 +139,7 @@ EC_Memory_Free_Unlock_One ()
 
     if (free_one != NULL)
     {
-        current = free_one;         // ECMemory* free_one; global variable defined above
+        current = free_one;         // ECMemory *free_one; global variable defined above
     }
     else
     {
