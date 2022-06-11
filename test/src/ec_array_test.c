@@ -552,50 +552,50 @@ Run_Array_Test ()
     Test_New_Array ();
     printf ("\n");
 
-    Test_Array_Copy ();
-    printf ("\n");
+/*    Test_Array_Copy ();*/
+    /*printf ("\n");*/
 
-    Test_Array_Free ();
-    printf ("\n");
+    /*Test_Array_Free ();*/
+    /*printf ("\n");*/
 
-    Test_Array_Unlock ();
-    printf ("\n");
+    /*Test_Array_Unlock ();*/
+    /*printf ("\n");*/
 
-    Test_Array_Reverse ();
-    printf ("\n");
+    /*Test_Array_Reverse ();*/
+    /*printf ("\n");*/
 
-    Test_Array_Sort ();
-    printf ("\n");
+    /*Test_Array_Sort ();*/
+    /*printf ("\n");*/
 
-    Test_Array_Int ();
-    printf ("\n");
+    /*Test_Array_Int ();*/
+    /*printf ("\n");*/
 
-    Test_Array_Str ();
-    printf ("\n");
+    /*Test_Array_Str ();*/
+    /*printf ("\n");*/
 
-    Test_Array_Max ();
-    printf ("\n");
+    /*Test_Array_Max ();*/
+    /*printf ("\n");*/
 
-    Test_Array_Min ();
-    printf ("\n");
+    /*Test_Array_Min ();*/
+    /*printf ("\n");*/
 
-    Test_Int_Array_Reverse ();
-    printf ("\n");
+    /*Test_Int_Array_Reverse ();*/
+    /*printf ("\n");*/
 
-    Test_Int_Array_Search ();
-    printf ("\n");
+    /*Test_Int_Array_Search ();*/
+    /*printf ("\n");*/
 
-    Test_Int_Sorted_Array_Search ();
-    printf ("\n");
+    /*Test_Int_Sorted_Array_Search ();*/
+    /*printf ("\n");*/
 
-    Test_Int_Array_Max ();
-    printf ("\n");
+    /*Test_Int_Array_Max ();*/
+    /*printf ("\n");*/
 
-    Test_Int_Array_Min ();
-    printf ("\n");
+    /*Test_Int_Array_Min ();*/
+    /*printf ("\n");*/
 
-    EC_Print_Error ("Test: ec_array.h", "PASS");
-    printf ("\n");
+    /*EC_Print_Error ("Test: ec_array.h", "PASS");*/
+    /*printf ("\n");*/
 }
 
 

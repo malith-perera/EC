@@ -6,7 +6,7 @@
 void
 Int_Array_Reverse
 (
-    int* array,
+    int  *array,
     int  array_count
 )
 {
@@ -36,7 +36,7 @@ Int_Array_Reverse
 int*
 Int_Array_Search
 (
-    int* array,
+    int  *array,
     int  array_count,
     int  search_value, // search search_value
     int  search_times  // how much times search
@@ -70,7 +70,7 @@ Int_Array_Search
 int
 Int_Sorted_Array_Search
 (
-    int* array,
+    int  *array,
     int  array_count,
     int  search_value
 )
@@ -147,7 +147,7 @@ Int_Sorted_Array_Search
 int
 Int_Array_Max
 (
-    int* array,
+    int  *array,
     int  array_count
 )
 {
@@ -169,7 +169,7 @@ Int_Array_Max
 int
 Int_Array_Min
 (
-    int* array,
+    int  *array,
     int  array_count
 )
 {
