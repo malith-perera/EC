@@ -23,6 +23,10 @@ typedef enum {
 /**y = 7;*/
 
 
+#define foreach(ec_data_structure)                                                                                                                  \
+  for (ec_data_structure->var = ec_data_structure->first; ec_data_structure->var != NULL; ec_data_structure->var = ec_data_structure->var->next)
+
+
 
 /* Return ECVarType in string
  * ECType type defined in ec_type.h*/

@@ -6,9 +6,9 @@
 
 /* ECMemoryLock types */
 typedef enum {
-    EC_UNLOCK,
-    EC_LOCK,
-    EC_NONE_LOCK
+    EC_UNLOCK,      /* permit to free existing ec_memory and ec variables */
+    EC_LOCK,        /* lock both ec memory and ec variables */
+    EC_MEM_LOCK     /* ec variable freed out but ec memory locked */
 } ECMemoryLock;
 
 
@@ -17,9 +17,9 @@ struct ECMemory {
     ECType              type;
     void                *var;
     ECMemoryLock        lock;
-    void                (*Free_All) (void*);
-    void                (*Free_Var_Func) (void*);
-    void                (*Free_Func) (void*);
+    void                (*Free_All) (void *);
+    void                (*Free_Var_Func) (void *, void *);
+    void                (*Free_Func) (void *);
     struct ECMemory     *previous;
     struct ECMemory     *next;
 };
@@ -28,9 +28,8 @@ typedef struct ECMemory ECMemory;
 
 /* Define lock and mem_ref */
 #ifdef EC_MEMORY
-#define EC_MEMORY_REF               \
-    ECMemory *ec_memory_ref_back;   \
-    bool ec_memory_lock;
+#define EC_MEMORY_REF       \
+    ECMemory *ec_mem;
 #else
 #define EC_MEMORY_REF
 #endif //EC_MEMORY
@@ -40,8 +39,9 @@ typedef struct ECMemory ECMemory;
 ECMemory *ec_memory;
 
 
-#define EC_MEMORY_CREATE(TYPE, EC_VAR_TYPE)                             \
+#define EC_MEMORY_CREATE(TYPE, ec_var_type)                             \
     ECMemory *ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));    \
+    if (DEBUG) EC_Print_Error ("ec memory create", ec_memory_new);      \
                                                                         \
     if (ec_memory_new == NULL)                                          \
     {                                                                   \
@@ -49,8 +49,8 @@ ECMemory *ec_memory;
         return NULL;                                                    \
     }                                                                   \
                                                                         \
-    ec_memory_new->type = EC_VAR_TYPE;                                  \
-    ec_memory_new->var = var;                                           \
+    ec_memory_new->type = ec_var_type;                                  \
+    ec_memory_new->var = var;                                           /* var is from EC_VAR_CREATE */\
     ec_memory_new->lock = EC_LOCK;                                      \
     ec_memory_new->next = NULL;                                         \
                                                                         \
@@ -63,7 +63,7 @@ EC_Clean ();
 
 
 void
-EC_Memory_Var_Free (ECMemory *ec_memory_var);
+EC_Memory_Var_Free (ECMemory *ec_mem);
 
 
 /* Push to ec_memory */
@@ -90,9 +90,9 @@ EC_Memory_Free_Unlock_One ();
     free(EC_VAR->index);
 
 
-#define ec_memory_free(EC_VAR)                                                  \
-    EC_VAR->ec_memory_ref_back->previous = EC_VAR->ec_memory_ref_back->next;    \
-    free(EC_VAR->ec_memory_ref_back);                                           \
+#define ec_memory_free(EC_VAR)                          \
+    EC_VAR->ec_mem->previous = EC_VAR->ec_mem->next;    \
+    free(EC_VAR->ec_mem);                               \
     free(EC_VAR);
 
 

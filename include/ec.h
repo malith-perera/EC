@@ -10,7 +10,7 @@
 #ifndef EC_H
 #define EC_H
 
-#define DEBUG 0
+#define DEBUG 1
 
 #include <stdio.h>
 #include <stdlib.h>

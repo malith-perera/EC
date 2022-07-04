@@ -4,11 +4,12 @@
 #include "ec.h"
 
 void
-EC_Print_Error
-(
-  char *test,
-  char *result
-);
+EC_Error_Print_Msg (char *test, char *result);
+
+
+void
+EC_Print_Error (char *msg, void *adrs);
+
 
 // Memory allocation error relative macro and functions are available
 // EC_ERROR_MEM_ALLOC()

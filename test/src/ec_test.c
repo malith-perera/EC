@@ -101,9 +101,12 @@ main (int argc, char *argv[])
         Run_Ref_Stack_Test ();
     }
 
+    EC_Error_Print_Msg ("EC_Clean", "BEGIN");
     EC_Clean ();
+    EC_Error_Print_Msg ("EC_Clean", "END");
 
-    printf ("Test: EClib Successful\n");
+    printf ("\n");
+    printf ("Test: EClib Successful\n\n");
 
     return 0;
 }

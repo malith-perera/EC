@@ -1,31 +1,33 @@
 #include "ec_memory.h"
 
+#define DEBUG_EC_MEMORY 1
+
 /* User to free ec_memory one at a time with EC_Memory_Free_Unlock_One function
  * to track current position */
 
 ECMemory *free_one = NULL;
 
-/* Free an ec_memory_variable */
+/* Free an ec_memory variable */
 void
-EC_Memory_Var_Free (ECMemory *ec_memory_var)
+EC_Memory_Var_Free (ECMemory *ec_mem)
 {
-    if (ec_memory_var != NULL)
+    if (ec_mem != NULL) /* if ec_mem exist */
     {
-        if (ec_memory_var != ec_memory)
+        if (ec_mem != ec_memory) /* not the first ec_mem */
         {
-            if (ec_memory_var->next != NULL && ec_memory_var->previous != NULL)
+            if (ec_mem->next != NULL && ec_mem->previous != NULL)
             {
-                ec_memory_var->previous->next = ec_memory_var->next;
+                ec_mem->previous->next = ec_mem->next;
             }
-            else if (ec_memory_var->previous != NULL)
+            else if (ec_mem->previous != NULL)
             {
-                ec_memory_var->previous->next = NULL;
+                ec_mem->previous->next = NULL;
             }
 
         }
-        else
+        else /* first ec_mem */
         {
-            if (ec_memory_var->next != NULL)
+            if (ec_mem->next != NULL) /* not the only ec_mem exist */
             {
                 ec_memory = ec_memory->next;
                 ec_memory->previous = NULL;
@@ -36,23 +38,29 @@ EC_Memory_Var_Free (ECMemory *ec_memory_var)
             }
         }
 
-        free (ec_memory_var);
+        if (DEBUG) EC_Print_Error ("ec memory var free", ec_mem);
+
+        free (ec_mem);
+    }
+    else
+    {
+        ec_memory = NULL;
     }
 }
+
 
 void
 EC_Memory_Free_All
 (
-    ECMemory *ec_memory_var
+    ECMemory *ec_mem
 )
 {
-    if (ec_memory_var != NULL)
+    if (ec_mem != NULL)
     {
-        if (ec_memory_var->var != NULL)
+        if (ec_mem->var != NULL)
         {
-            free (ec_memory_var->var);
+            ec_mem->Free_Func(ec_mem->var);
         }
-        EC_Memory_Var_Free (ec_memory_var);
     }
 }
 
@@ -68,10 +76,12 @@ EC_Clean ()
 
     while (current != NULL)
     {
-        temp = current->next;
-        EC_Memory_Free_All (current);
-        current = NULL;
-        current = temp;
+        if (current->lock != EC_UNLOCK)
+        {
+            current->Free_Func(current->var);
+        }
+
+        current = ec_memory;
     }
 
     ec_memory = NULL;
@@ -112,7 +122,7 @@ EC_Memory_Free_Unlocked ()
         {
             if (current->var != NULL)
             {
-                current->Free_Var_Func (current->var);
+                current->Free_Func (current->var);
             }
 
             temp = current;
@@ -152,7 +162,7 @@ EC_Memory_Free_Unlock_One ()
         {
             if (current->var != NULL)
             {
-                current->Free_Var_Func (current->var);
+                current->Free_Func (current->var);
             }
 
             temp = current;

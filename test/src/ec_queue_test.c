@@ -34,22 +34,22 @@
 void
 Test_New_Queue ()
 {
-    EC_Print_Error ("Test_New_Queue: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_New_Queue: ", "BEGIN");
 
     StudentQueue* stq = Student_Queue ();
-    EC_Print_Error ("Create new queue", "OK");
+    EC_Error_Print_Msg ("Create new queue", "OK");
 
     StudentQueueVar *st1 = Student_Queue_Var ();
     StudentQueueVar *st2 = Student_Queue_Var ();
 
-    EC_Print_Error ("Create queue variables", "OK");
+    EC_Error_Print_Msg ("Create queue variables", "OK");
 
     st1->no = 1;
     st1->name = "Malith";
     st2->no = 2;
     st2->name = "Geethike";
 
-    EC_Print_Error ("Assign queue variable attributes", "OK");
+    EC_Error_Print_Msg ("Assign queue variable attributes", "OK");
 
     stq->first = st1;
     st1->next = NULL;
@@ -64,16 +64,16 @@ Test_New_Queue ()
     assert (stq->first->next->no == 2);
     assert (strcmp (stq->first->next->name, "Geethike") == 0);
 
-    EC_Print_Error ("link variables to queue", "OK");
+    EC_Error_Print_Msg ("link variables to queue", "OK");
 
-    EC_Print_Error ("Test_New_Queue: ", "END");
+    EC_Error_Print_Msg ("Test_New_Queue: ", "END");
 }
 
 
 void
 Test_Enqueue_Queue ()
 {
-    EC_Print_Error ("Enqueue_Queue: ", "BEGIN");
+    EC_Error_Print_Msg ("Enqueue_Queue: ", "BEGIN");
 
     StudentQueue* stq = Student_Queue ();
 
@@ -93,7 +93,7 @@ Test_Enqueue_Queue ()
     assert (stq->last == st1);
     assert (stq->last->next == NULL);
 
-    EC_Print_Error ("Enqueue queue fist variable", "OK");
+    EC_Error_Print_Msg ("Enqueue queue fist variable", "OK");
 
     Student_Enqueue (stq, st2);
 
@@ -106,16 +106,16 @@ Test_Enqueue_Queue ()
     assert (st2->next == NULL);
     assert (stq->last->next == NULL);
 
-    EC_Print_Error ("Enqueue queue second variable", "OK");
+    EC_Error_Print_Msg ("Enqueue queue second variable", "OK");
 
-    EC_Print_Error ("Enqueue_Queue: ", "END");
+    EC_Error_Print_Msg ("Enqueue_Queue: ", "END");
 }
 
 
 void
 Test_Dequeue_Queue ()
 {
-    EC_Print_Error ("Deque_Queue: ", "BEGIN");
+    EC_Error_Print_Msg ("Deque_Queue: ", "BEGIN");
 
     StudentQueue *stq = Student_Queue ();
 
@@ -143,7 +143,7 @@ Test_Dequeue_Queue ()
         assert (stq->first = st2);
         assert (stq->last == st2);
 
-        EC_Print_Error ("Dequeue queue fist variable", "OK");
+        EC_Error_Print_Msg ("Dequeue queue fist variable", "OK");
     }
     else
     {
@@ -160,7 +160,7 @@ Test_Dequeue_Queue ()
         assert (stq->first == NULL);
         assert (stq->last == NULL);
 
-        EC_Print_Error ("Dequeue queue second variable", "OK");
+        EC_Error_Print_Msg ("Dequeue queue second variable", "OK");
     }
     else
     {
@@ -172,14 +172,14 @@ Test_Dequeue_Queue ()
     /* ***************** should do a empty queue dequeue test */
 
 
-    EC_Print_Error ("Dequeue_Queue: ", "END");
+    EC_Error_Print_Msg ("Dequeue_Queue: ", "END");
 }
 
 
 void
 Test_Queue_Copy ()
 {
-    EC_Print_Error ("Test_Queue_Copy: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Queue_Copy: ", "BEGIN");
 
     StudentQueue *stq1 = Student_Queue ();
 
@@ -201,7 +201,7 @@ Test_Queue_Copy ()
     assert (stq2->first->next->no = 2);
     assert (strcmp(stq2->first->next->name ,"Geethike") == 0 );
 
-    EC_Print_Error ("Queue Copy Variables", "OK");
+    EC_Error_Print_Msg ("Queue Copy Variables", "OK");
 
     st1->no = 3;
     st1->name = "Malshi";
@@ -213,9 +213,9 @@ Test_Queue_Copy ()
     assert (stq1->first->no != 4);
     assert (strcmp(stq1->first->name ,"Prisenthi") != 0 );
 
-    EC_Print_Error ("Copied list do not affect other list", "OK");
+    EC_Error_Print_Msg ("Copied list do not affect other list", "OK");
 
-    EC_Print_Error ("Test_Queue_Copy: ", "END");
+    EC_Error_Print_Msg ("Test_Queue_Copy: ", "END");
 }
 
 
@@ -238,6 +238,6 @@ Run_Queue_Test ()
     Test_Queue_Copy ();
     printf ("\n");
 
-    EC_Print_Error ("Test: ec_queue.h", "PASS");
+    EC_Error_Print_Msg ("Test: ec_queue.h", "PASS");
     printf ("\n");
 }

@@ -11,10 +11,10 @@
 void
 Test_New_Array ()
 {
-    EC_Print_Error ("Test_New_Array: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_New_Array: ", "BEGIN");
 
     StudentArray *sta = Student_Array (2);
-    EC_Print_Error ("Create new array", "OK");
+    EC_Error_Print_Msg ("Create new array", "OK");
 
     sta->index[0].no    = 1;
     sta->index[0].name  = "Malith";
@@ -22,19 +22,19 @@ Test_New_Array ()
     sta->index[1].no    = 2;
     sta->index[1].name  = "Geethike";
 
-    EC_Print_Error ("Assign array variables", "OK");
+    EC_Error_Print_Msg ("Assign array variables", "OK");
 
     assert (sta->index[0].no == 1);
     assert (strcmp(sta->index[0].name, "Malith") == 0);
     assert (sta->index[1].no == 2);
     assert (strcmp(sta->index[1].name, "Geethike") == 0);
 
-    EC_Print_Error ("Access arry variables", "OK");
+    EC_Error_Print_Msg ("Access arry variables", "OK");
 
     assert (sta->length == 2);
-    EC_Print_Error ("Array length exist", "OK");
+    EC_Error_Print_Msg ("Array length exist", "OK");
 
-    EC_Print_Error ("Test_New_Array: ", "END");
+    EC_Error_Print_Msg ("Test_New_Array: ", "END");
 }
 
 
@@ -44,10 +44,10 @@ Test_New_Array ()
 void
 Test_Array_Copy ()
 {
-    EC_Print_Error ("Test_Copy_Array: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Copy_Array: ", "BEGIN");
 
     StudentArray* sta1 = Student_Array (2);
-    EC_Print_Error ("Create new ec array", "OK");
+    EC_Error_Print_Msg ("Create new ec array", "OK");
 
     sta1->index[0].no = 1;
     sta1->index[0].name = "Malith";
@@ -63,11 +63,11 @@ Test_Array_Copy ()
     assert (sta2->index[1].no == 2);
     assert (strcmp(sta2->index[1].name, "Geethike") == 0);
 
-    EC_Print_Error ("Array variable copied: ", "OK");
+    EC_Error_Print_Msg ("Array variable copied: ", "OK");
 
     assert (sta1->length == sta2->length);
 
-    EC_Print_Error ("Array length copied: ", "OK");
+    EC_Error_Print_Msg ("Array length copied: ", "OK");
 
     sta1->index[0].no = 3;
     sta1->index[0].name = "Malshi";
@@ -79,9 +79,9 @@ Test_Array_Copy ()
     assert (sta1->index[1].no != 4);
     assert (strcmp(sta1->index[1].name, "Presenthi") != 0);
 
-    EC_Print_Error ("Changing one array variable do not affect other array: ", "OK");
+    EC_Error_Print_Msg ("Changing one array variable do not affect other array: ", "OK");
 
-    EC_Print_Error ("Test_Copy_Array: ", "END");
+    EC_Error_Print_Msg ("Test_Copy_Array: ", "END");
 }
 
 
@@ -90,10 +90,10 @@ Test_Array_Copy ()
 void
 Test_Array_Free ()
 {
-    EC_Print_Error ("Test_Array_Free: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Array_Free: ", "BEGIN");
 
     StudentArray* sta = Student_Array (2);
-    EC_Print_Error ("Create new ec array", "OK");
+    EC_Error_Print_Msg ("Create new ec array", "OK");
 
     sta->index[0].no = 1;
     sta->index[0].name = "Malith";
@@ -103,12 +103,12 @@ Test_Array_Free ()
 
     assert (sta->index[1].no == 2);
     assert (strcmp(sta->index[1].name, "Geethike") == 0);
-    EC_Print_Error ("Create assign array", "OK");
+    EC_Error_Print_Msg ("Create assign array", "OK");
 
     Student_Array_Free (sta);
-    EC_Print_Error ("Array_Free function", "OK");
+    EC_Error_Print_Msg ("Array_Free function", "OK");
 
-    EC_Print_Error ("Test_Array_Free: ", "END");
+    EC_Error_Print_Msg ("Test_Array_Free: ", "END");
 }
 
 
@@ -126,10 +126,10 @@ Test_Array_Free_One ()
 void
 Test_Array_Unlock ()
 {
-    EC_Print_Error ("Test_Array_Unlock: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Array_Unlock: ", "BEGIN");
 
     StudentArray* sta = Student_Array (2);
-    EC_Print_Error ("Create new ec array", "OK");
+    EC_Error_Print_Msg ("Create new ec array", "OK");
 
     sta->index[0].no = 1;
     sta->index[0].name = "Malith";
@@ -137,23 +137,23 @@ Test_Array_Unlock ()
     sta->index[1].no = 2;
     sta->index[1].name = "Geethike";
 
-    EC_Print_Error ("Create assign array", "OK");
+    EC_Error_Print_Msg ("Create assign array", "OK");
 
     Student_Array_Unlock (sta);
 
-    EC_Print_Error ("Array_Unlock function", "OK");
+    EC_Error_Print_Msg ("Array_Unlock function", "OK");
 
-    assert (sta->ec_memory_ref_back->lock == EC_UNLOCK);
-    EC_Print_Error ("lock unlocked", "OK");
+    assert (sta->ec_mem->lock == EC_UNLOCK);
+    EC_Error_Print_Msg ("lock unlocked", "OK");
 
-    EC_Print_Error ("Test_Array_Unlock: ", "END");
+    EC_Error_Print_Msg ("Test_Array_Unlock: ", "END");
 }
 
 
 void
 Test_Array_Sort ()
 {
-    EC_Print_Error ("Test_Array_Sort: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Array_Sort: ", "BEGIN");
 
     StudentArray *sta = Student_Array (4);
     sta->index[0].no = 1;
@@ -173,7 +173,7 @@ Test_Array_Sort ()
         assert (sta->var->no == sta->i + 1); // sta->i is an array internal variable to loop array
     }
 
-    EC_Print_Error ("Sort when no sort needed ", "OK");
+    EC_Error_Print_Msg ("Sort when no sort needed ", "OK");
 
     // minimum is last
     sta->index[0].no = 4;
@@ -195,7 +195,7 @@ Test_Array_Sort ()
         assert (!strcmp (sta->var->name, names1[sta->i])); // strcmp return 0 when equal. assert fail when 0. so use !
     }
 
-    EC_Print_Error ("Sort when minimum is last element", "OK");
+    EC_Error_Print_Msg ("Sort when minimum is last element", "OK");
 
     // maximum is first
     sta->index[0].no = 4;
@@ -217,16 +217,16 @@ Test_Array_Sort ()
         assert (!strcmp (sta->var->name, names2[sta->i])); // strcmp return 0 when equal. assert fail when 0. so use !
     }
 
-    EC_Print_Error ("Sort when maximum is first element ", "OK");
+    EC_Error_Print_Msg ("Sort when maximum is first element ", "OK");
 
-    EC_Print_Error ("Test_Array_Sort: ", "END");
+    EC_Error_Print_Msg ("Test_Array_Sort: ", "END");
 }
 
 
 void
 Test_Array_Reverse ()
 {
-    EC_Print_Error ("Test_Array_Reverse: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Array_Reverse: ", "BEGIN");
 
     char* names[] = {"Malith", "Geethike", "Perera", "Malshi"};
 
@@ -240,10 +240,10 @@ Test_Array_Reverse ()
     sta->index[3].no = 4;
     sta->index[3].name = names[3];
 
-    EC_Print_Error ("Array created and assigned", "OK");
+    EC_Error_Print_Msg ("Array created and assigned", "OK");
 
     Student_Array_Reverse (sta);
-    EC_Print_Error ("Reverse array function call", "OK");
+    EC_Error_Print_Msg ("Reverse array function call", "OK");
 
     foreach_array(sta)
     {
@@ -251,16 +251,16 @@ Test_Array_Reverse ()
         assert (!strcmp (sta->var->name, names[3 - sta->i])); // strcmp return 0 when equal. assert fail when 0. so use !
     }
 
-    EC_Print_Error ("Array_Reverse", "OK");
+    EC_Error_Print_Msg ("Array_Reverse", "OK");
 
-    EC_Print_Error ("Test_Array_Reverse: ", "END");
+    EC_Error_Print_Msg ("Test_Array_Reverse: ", "END");
 }
 
 
 void
 Test_Array_Int ()
 {
-    EC_Print_Error ("Test_Array_Search_Var: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Array_Search_Var: ", "BEGIN");
 
     StudentArray* sta = Student_Array (4);
     sta->index[0].no = 1;
@@ -272,26 +272,26 @@ Test_Array_Int ()
     sta->index[3].no = 4;
     sta->index[3].name = "Malshi";
 
-    EC_Print_Error ("Array created and assigned", "OK");
+    EC_Error_Print_Msg ("Array created and assigned", "OK");
 
     int index = Student_Array_Int_no (sta, 3);
 
-    EC_Print_Error ("Array_Search function call", "OK");
+    EC_Error_Print_Msg ("Array_Search function call", "OK");
 
     assert (index == 2);
 
     assert (sta->index[index].no == 3);
 
-    EC_Print_Error ("Array_Int", "OK");
+    EC_Error_Print_Msg ("Array_Int", "OK");
 
-    EC_Print_Error ("Test_Array_Search_Var: ", "END");
+    EC_Error_Print_Msg ("Test_Array_Search_Var: ", "END");
 }
 
 
 void
 Test_Array_Str ()
 {
-    EC_Print_Error ("Test_Array: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Array: ", "BEGIN");
 
     StudentArray* sta = Student_Array (4);
     sta->index[0].no = 1;
@@ -303,26 +303,26 @@ Test_Array_Str ()
     sta->index[3].no = 4;
     sta->index[3].name = "Malshi";
 
-    EC_Print_Error ("Array created and assigned", "OK");
+    EC_Error_Print_Msg ("Array created and assigned", "OK");
 
     int index = Student_Array_Str_name (sta, "Perera");
 
-    EC_Print_Error ("Array_Search function call", "OK");
+    EC_Error_Print_Msg ("Array_Search function call", "OK");
 
     assert (index == 2);
 
     assert (sta->index[index].no == 3);
 
-    EC_Print_Error ("Array_Str", "OK");
+    EC_Error_Print_Msg ("Array_Str", "OK");
 
-    EC_Print_Error ("Test_Array_Search_Str: ", "END");
+    EC_Error_Print_Msg ("Test_Array_Search_Str: ", "END");
 }
 
 
 void
 Test_Array_Max ()
 {
-    EC_Print_Error ("Test_Array_Max: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Array_Max: ", "BEGIN");
 
     Student* st_max;
 
@@ -340,7 +340,7 @@ Test_Array_Max ()
     st_max = Student_Array_Max_no (sta);
     assert (st_max->no == 4);
     assert (!strcmp (st_max->name, "Malith")); // strcmp 0 when equel assert fail when 0 thats why ! used
-    EC_Print_Error ("Max found in array first", "OK");
+    EC_Error_Print_Msg ("Max found in array first", "OK");
 
     // max found in array last
     sta->index[0].no = 1;
@@ -349,7 +349,7 @@ Test_Array_Max ()
     st_max = Student_Array_Max_no (sta);
     assert (st_max->no == 4);
     assert (!strcmp (st_max->name, "Malshi")); // strcmp 0 when equel assert fail when 0 thats why ! used
-    EC_Print_Error ("Max found in array last", "OK");
+    EC_Error_Print_Msg ("Max found in array last", "OK");
 
     // max found in array mid
     sta->index[0].no = 3;
@@ -358,15 +358,15 @@ Test_Array_Max ()
     st_max = Student_Array_Max_no (sta);
     assert (st_max->no == 4);
     assert (!strcmp (st_max->name, "Geethike")); // strcmp 0 when equel assert fail when 0 thats why ! used
-    EC_Print_Error ("Max found in array mid", "OK");
+    EC_Error_Print_Msg ("Max found in array mid", "OK");
 
-    EC_Print_Error ("Test_Array_Max: ", "END");
+    EC_Error_Print_Msg ("Test_Array_Max: ", "END");
 }
 
 void
 Test_Array_Min ()
 {
-    EC_Print_Error ("Test_Array_Min: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Array_Min: ", "BEGIN");
 
     Student* st_min;
 
@@ -384,7 +384,7 @@ Test_Array_Min ()
     st_min = Student_Array_Min_no (sta);
     assert (st_min->no == 1);
     assert (!strcmp (st_min->name, "Malith")); // strcmp 0 when equel assert fail when 0 thats why ! used
-    EC_Print_Error ("Min found in array first", "OK");
+    EC_Error_Print_Msg ("Min found in array first", "OK");
 
     // min found in array last
     sta->index[0].no = 4;
@@ -393,7 +393,7 @@ Test_Array_Min ()
     st_min = Student_Array_Min_no (sta);
     assert (st_min->no == 1);
     assert (!strcmp (st_min->name, "Malshi")); // strcmp 0 when equel assert fail when 0 thats why ! used
-    EC_Print_Error ("Min found in array last", "OK");
+    EC_Error_Print_Msg ("Min found in array last", "OK");
 
     // min found in array mid
     sta->index[0].no = 2;
@@ -402,9 +402,9 @@ Test_Array_Min ()
     st_min = Student_Array_Min_no (sta);
     assert (st_min->no == 1);
     assert (!strcmp (st_min->name, "Geethike")); // strcmp 0 when equel assert fail when 0 thats why ! used
-    EC_Print_Error ("Min found in array mid", "OK");
+    EC_Error_Print_Msg ("Min found in array mid", "OK");
 
-    EC_Print_Error ("Test_Array_Min: ", "END");
+    EC_Error_Print_Msg ("Test_Array_Min: ", "END");
 }
 
 
@@ -414,7 +414,7 @@ Test_Array_Min ()
 void
 Test_Int_Array_Reverse ()
 {
-    EC_Print_Error ("Test_Int_Array_Reverse: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Int_Array_Reverse: ", "BEGIN");
 
     int array[] = {4, 3, 2, 1};
 
@@ -425,119 +425,119 @@ Test_Int_Array_Reverse ()
         assert (array[i] == i + 1);
     }
 
-    EC_Print_Error ("Reverse_Int_Array", "OK");
+    EC_Error_Print_Msg ("Reverse_Int_Array", "OK");
 
-    EC_Print_Error ("Test_Int_Array_Reverse: ", "END");
+    EC_Error_Print_Msg ("Test_Int_Array_Reverse: ", "END");
 }
 
 
 void
 Test_Int_Array_Search ()
 {
-    EC_Print_Error ("Test_Search_Int_Array: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Search_Int_Array: ", "BEGIN");
 
     int array[8] = {1, 3, 4, 2, 7, 6, 8, 2};
 
     int *result = Int_Array_Search (array, 8, 1, 1);
 
-    EC_Print_Error ("Method state", "UNFINISHED");
+    EC_Error_Print_Msg ("Method state", "UNFINISHED");
 
-    EC_Print_Error ("Test_Search_Int_Array: ", "END");
+    EC_Error_Print_Msg ("Test_Search_Int_Array: ", "END");
 }
 
 
 void
 Test_Int_Sorted_Array_Search ()
 {
-    EC_Print_Error ("Test_Search_Sorted_Int_Array: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Search_Sorted_Int_Array: ", "BEGIN");
 
     int array[1] = {1};
 
     Int_Sorted_Array_Search (array, 1, 1);
 
-    EC_Print_Error ("Array has only one element and matched", "UNFINISHED");
+    EC_Error_Print_Msg ("Array has only one element and matched", "UNFINISHED");
 
-    EC_Print_Error ("Array has only one element but not matched", "UNFINISHED");
+    EC_Error_Print_Msg ("Array has only one element but not matched", "UNFINISHED");
 
 
     int array2[2] = {1, 2};
 
     Int_Sorted_Array_Search (array2, 2, 1);
 
-    EC_Print_Error ("Array has only two elements and first matched", "UNFINISHED");
+    EC_Error_Print_Msg ("Array has only two elements and first matched", "UNFINISHED");
 
-    EC_Print_Error ("Array has only two elements and last matched", "UNFINISHED");
+    EC_Error_Print_Msg ("Array has only two elements and last matched", "UNFINISHED");
 
-    EC_Print_Error ("Array has only two elements but not matched", "UNFINISHED");
+    EC_Error_Print_Msg ("Array has only two elements but not matched", "UNFINISHED");
 
-    EC_Print_Error ("Method state", "UNFINISHED");
+    EC_Error_Print_Msg ("Method state", "UNFINISHED");
 
 
     int array3[8] = {1, 3, 4, 2, 7, 6, 8, 2};
 
     Int_Sorted_Array_Search (array3, 8, 1);
 
-    EC_Print_Error ("Search first element", "UNFINISHED");
+    EC_Error_Print_Msg ("Search first element", "UNFINISHED");
 
-    EC_Print_Error ("Search last element", "UNFINISHED");
+    EC_Error_Print_Msg ("Search last element", "UNFINISHED");
 
-    EC_Print_Error ("Search any element", "UNFINISHED");
+    EC_Error_Print_Msg ("Search any element", "UNFINISHED");
 
-    EC_Print_Error ("Random number", "UNFINISHED");
+    EC_Error_Print_Msg ("Random number", "UNFINISHED");
 
-    EC_Print_Error ("Test_Search_Sorted_Int_Array: ", "END");
+    EC_Error_Print_Msg ("Test_Search_Sorted_Int_Array: ", "END");
 }
 
 
 void
 Test_Int_Array_Max ()
 {
-    EC_Print_Error ("Test_Int_Array_Max: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Int_Array_Max: ", "BEGIN");
 
     int max;
 
     int a[] = {5, 3, 2, 4, 1};
     max = Int_Array_Max (a, 5);
     assert (max == 5);
-    EC_Print_Error ("Max found in array first", "OK");
+    EC_Error_Print_Msg ("Max found in array first", "OK");
 
     int a1[] = {2, 3, 5, 4, 1};
     max = Int_Array_Max (a1, 5);
     assert (max == 5);
-    EC_Print_Error ("Max found in array mid", "OK");
+    EC_Error_Print_Msg ("Max found in array mid", "OK");
 
     int a2[] = {2, 3, 1, 4, 5};
     max = Int_Array_Max (a2, 5);
     assert (max == 5);
-    EC_Print_Error ("Max found in array end", "OK");
+    EC_Error_Print_Msg ("Max found in array end", "OK");
 
-    EC_Print_Error ("Test_Max_Int_Array: ", "END");
+    EC_Error_Print_Msg ("Test_Max_Int_Array: ", "END");
 }
 
 
 void
 Test_Int_Array_Min ()
 {
-    EC_Print_Error ("Test_Int_Array_Min: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Int_Array_Min: ", "BEGIN");
 
     int min;
 
     int a[] = {1, 3, 2, 4, 5};
     min = Int_Array_Min (a, 5);
     assert (min == 1);
-    EC_Print_Error ("Min found in array first", "OK");
+    EC_Error_Print_Msg ("Min found in array first", "OK");
 
     int a1[] = {5, 3, 1, 4, 2};
     min = Int_Array_Min (a1, 5);
     assert (min == 1);
-    EC_Print_Error ("Min found in array mid", "OK");
+    EC_Error_Print_Msg ("Min found in array mid", "OK");
 
     int a2[] = {2, 3, 5, 4, 1};
     min = Int_Array_Min (a2, 5);
     assert (min == 1);
-    EC_Print_Error ("Min found in array end", "OK");
+    EC_Error_Print_Msg ("Min found in array end", "OK");
 
-    EC_Print_Error ("Test_Min_Int_Array: ", "END");
+    EC_Error_Print_Msg ("Test_Min_Int_Array: ", "END");
 }
 
 
@@ -552,49 +552,49 @@ Run_Array_Test ()
     Test_New_Array ();
     printf ("\n");
 
-/*    Test_Array_Copy ();*/
-    /*printf ("\n");*/
+    Test_Array_Copy ();
+    printf ("\n");
 
-    /*Test_Array_Free ();*/
-    /*printf ("\n");*/
+    Test_Array_Free ();
+    printf ("\n");
 
     /*Test_Array_Unlock ();*/
     /*printf ("\n");*/
 
-    /*Test_Array_Reverse ();*/
-    /*printf ("\n");*/
+    Test_Array_Reverse ();
+    printf ("\n");
 
-    /*Test_Array_Sort ();*/
-    /*printf ("\n");*/
+    Test_Array_Sort ();
+    printf ("\n");
 
-    /*Test_Array_Int ();*/
-    /*printf ("\n");*/
+    Test_Array_Int ();
+    printf ("\n");
 
-    /*Test_Array_Str ();*/
-    /*printf ("\n");*/
+    Test_Array_Str ();
+    printf ("\n");
 
-    /*Test_Array_Max ();*/
-    /*printf ("\n");*/
+    Test_Array_Max ();
+    printf ("\n");
 
-    /*Test_Array_Min ();*/
-    /*printf ("\n");*/
+    Test_Array_Min ();
+    printf ("\n");
 
-    /*Test_Int_Array_Reverse ();*/
-    /*printf ("\n");*/
+    Test_Int_Array_Reverse ();
+    printf ("\n");
 
-    /*Test_Int_Array_Search ();*/
-    /*printf ("\n");*/
+    Test_Int_Array_Search ();
+    printf ("\n");
 
-    /*Test_Int_Sorted_Array_Search ();*/
-    /*printf ("\n");*/
+    Test_Int_Sorted_Array_Search ();
+    printf ("\n");
 
-    /*Test_Int_Array_Max ();*/
-    /*printf ("\n");*/
+    Test_Int_Array_Max ();
+    printf ("\n");
 
-    /*Test_Int_Array_Min ();*/
-    /*printf ("\n");*/
+    Test_Int_Array_Min ();
+    printf ("\n");
 
-    /*EC_Print_Error ("Test: ec_array.h", "PASS");*/
+    /*EC_Error_Print_Msg ("Test: ec_array.h", "PASS");*/
     /*printf ("\n");*/
 }
 

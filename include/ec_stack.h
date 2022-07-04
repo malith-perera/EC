@@ -3,17 +3,19 @@
 
 #include "ec.h"
 
-#define foreach_stack(stack)                                                            \
-  for (stack->var = stack->top;  stack->var != NULL; stack->var = stack->var->next)
+
+/* Anyone can use foreach in ec_type.h interchangebly with this. */
+#define foreach_stack(queue)                                                            \
+  for (stack->var = stack->first; stack->var != NULL; stack->var = stack->var->next)
 
 
 /* Function name macros */
 #define EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Stack_Var_Free,)
+#define EC_STACK_FREE_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Stack_Free,)
 #define EC_STACK_NEW_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Stack,)
 #define EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Stack_Var,)
 #define EC_STACK_COPY_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Stack_Copy,)
 
-#define EC_STACK_FOREACH(TYPE)                          EC_CONCAT(TYPE, _Foreach,)
 #define EC_STACK_PUSH_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Push,)
 #define EC_STACK_POP_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Pop,)
 #define EC_STACK_SORT_FUNCTION_NAME(TYPE, SW)           EC_CONCAT4(Sort_, TYPE, _Stack_With_, SW)
@@ -33,7 +35,7 @@ typedef struct EC_STACK_VAR_STRUCT(TYPE) {          \
                                                     \
                                                     \
 typedef struct EC_STACK_STRUCT(TYPE) {              \
-    EC_STACK_VAR_STRUCT(TYPE) *top;                 \
+    EC_STACK_VAR_STRUCT(TYPE) *first;               \
     EC_STACK_VAR_STRUCT(TYPE) *var;                 \
     EC_MEMORY_REF                                   \
 } EC_STACK_STRUCT(TYPE);
@@ -45,8 +47,17 @@ typedef struct EC_STACK_STRUCT(TYPE) {              \
 void                                                \
 EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)               \
 (                                                   \
+    EC_STACK_STRUCT(TYPE) *stack                    \
+);
+
+
+#define EC_STACK_FREE_FUNCTION_PROTOTYPE(TYPE)      \
+void                                                \
+EC_STACK_FREE_FUNCTION_NAME(TYPE)                   \
+(                                                   \
     void *var                                       \
 );
+
 
 #define EC_STACK_NEW_FUNCTION_PROTOTYPE(TYPE)       \
 EC_STACK_STRUCT(TYPE) *                             \
@@ -87,6 +98,7 @@ EC_STACK_COPY_FUNCTION_NAME(TYPE)                   \
 
 #define EC_STACK_FUNCTION_PROTOTYPES(TYPE)          \
     EC_STACK_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)      \
+    EC_STACK_FREE_FUNCTION_PROTOTYPE(TYPE)          \
     EC_STACK_NEW_FUNCTION_PROTOTYPE(TYPE)           \
     EC_STACK_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)       \
     EC_STACK_PUSH_FUNCTION_PROTOTYPE(TYPE)          \
@@ -95,55 +107,75 @@ EC_STACK_COPY_FUNCTION_NAME(TYPE)                   \
 
 
 /* Function macros */
-#define EC_STACK_VAR_FREE_FUNCTION(TYPE)                        \
-void                                                            \
-EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)                           \
-(                                                               \
-    void *var                                                   \
-)                                                               \
-{                                                               \
-    EC_STACK_STRUCT(TYPE) *v = (EC_STACK_STRUCT(TYPE)*) var;    \
-    free (v);                                                   \
-    v = NULL;                                                   \
+#define EC_STACK_VAR_FREE_FUNCTION(TYPE)            \
+void                                                \
+EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)               \
+(                                                   \
+    EC_STACK_STRUCT(TYPE) *stack                    \
+)                                                   \
+{                                                   \
+    EC_STACK_VAR_STRUCT(TYPE) *temp;                \
+    if (stack->first != NULL)                       \
+    {                                               \
+        temp = stack->first;                        \
+        stack->first = stack->first->next;          \
+        free (temp);                                \
+    }                                               \
 }
 
 
-#define EC_STACK_NEW_FUNCTION(TYPE)                                         \
-EC_STACK_STRUCT(TYPE) *                                                     \
-EC_STACK_NEW_FUNCTION_NAME(TYPE)                                            \
-()                                                                          \
-{                                                                           \
-    EC_VAR_CREATE(EC_STACK_STRUCT(TYPE))                                    /*TYPE *var is in this macro in ec_var.h*/\
-                                                                            \
-    if (EC_MEMORY)                                                          \
-    {                                                                       \
-        EC_MEMORY_CREATE(TYPE, EC_STACK_TYPE)                               \
-        ec_memory_new->Free_Var_Func = EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE); \
-        var->ec_memory_ref_back = ec_memory_new;                            \
-        var->ec_memory_lock = EC_LOCK;                                      \
-    }                                                                       \
-                                                                            \
-    var->top = NULL;                                                        \
-                                                                            \
-    return var;                                                             \
+#define EC_STACK_FREE_FUNCTION(TYPE)                            \
+void                                                            \
+EC_STACK_FREE_FUNCTION_NAME(TYPE)                               \
+(                                                               \
+    void *stack                                                 \
+)                                                               \
+{                                                               \
+    EC_STACK_STRUCT(TYPE) *s = (EC_STACK_STRUCT(TYPE)*) stack;  \
+    foreach (s)                                                 \
+    {                                                           \
+        EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)(s);               \
+    }                                                           \
+    free (s);                                                   \
+    s = NULL;                                                   \
+}
+
+
+#define EC_STACK_NEW_FUNCTION(TYPE)                                     \
+EC_STACK_STRUCT(TYPE) *                                                 \
+EC_STACK_NEW_FUNCTION_NAME(TYPE)                                        \
+()                                                                      \
+{                                                                       \
+    EC_VAR_CREATE(EC_STACK_STRUCT(TYPE))                                /*TYPE *var is in this macro in ec_var.h*/\
+                                                                        \
+    if (EC_MEMORY)                                                      \
+    {                                                                   \
+        EC_MEMORY_CREATE(TYPE, EC_STACK_TYPE)                           \
+        ec_memory_new->Free_Func = EC_STACK_FREE_FUNCTION_NAME(TYPE);   \
+        var->ec_mem = ec_memory_new;                                    \
+        var->ec_mem->lock = EC_LOCK;                                    \
+    }                                                                   \
+                                                                        \
+    var->first = NULL;                                                  \
+                                                                        \
+    return var;                                                         \
 }
 
 
 /* New Stack Variable Method */
-#define EC_STACK_NEW_VAR_FUNCTION(TYPE)                                         \
-EC_STACK_VAR_STRUCT(TYPE) *                                                     \
-EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)                                            \
-()                                                                              \
-{                                                                               \
-    EC_VAR_CREATE(EC_STACK_VAR_STRUCT(TYPE))                                    /*TYPE *var is in this macro in ec_var.h*/\
-                                                                                \
-    if (EC_MEMORY)                                                              \
-    {                                                                           \
-        EC_MEMORY_CREATE(TYPE, EC_STACK_VAR_TYPE)                               \
-        ec_memory_new->Free_Var_Func = EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE);   \
-    }                                                                           \
-                                                                                \
-    return var;                                                                 \
+#define EC_STACK_NEW_VAR_FUNCTION(TYPE)                                 \
+EC_STACK_VAR_STRUCT(TYPE) *                                             \
+EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)                                    \
+()                                                                      \
+{                                                                       \
+    EC_VAR_CREATE(EC_STACK_VAR_STRUCT(TYPE))                            /*TYPE *var is in this macro in ec_var.h*/\
+                                                                        \
+    if (EC_MEMORY)                                                      \
+    {                                                                   \
+        EC_MEMORY_CREATE(TYPE, EC_STACK_VAR_TYPE)                       \
+    }                                                                   \
+                                                                        \
+    return var;                                                         \
 }
 
 
@@ -155,8 +187,8 @@ EC_STACK_PUSH_FUNCTION_NAME(TYPE)                           \
     EC_STACK_VAR_STRUCT(TYPE) *var                          \
 )                                                           \
 {                                                           \
-    var->next = stack->top;                                 \
-    stack->top = var;                                       \
+    var->next = stack->first;                               \
+    stack->first = var;                                     \
 }
 
 
@@ -167,13 +199,13 @@ EC_STACK_POP_FUNCTION_NAME(TYPE)                            \
     EC_STACK_STRUCT(TYPE) *stack                            \
 )                                                           \
 {                                                           \
-    if (stack->top == NULL)                                 \
+    if (stack->first == NULL)                               \
     {                                                       \
         return NULL;                                        \
     }                                                       \
                                                             \
-    EC_STACK_VAR_STRUCT(TYPE) *pop_var = stack->top;        \
-    stack->top = stack->top->next;                          \
+    EC_STACK_VAR_STRUCT(TYPE) *pop_var = stack->first;      \
+    stack->first = stack->first->next;                      \
                                                             \
     return pop_var;                                         \
 }
@@ -191,7 +223,7 @@ EC_STACK_COPY_FUNCTION_NAME(TYPE)                                           \
                                                                             \
     EC_STACK_VAR_STRUCT(TYPE) *var;                                         \
                                                                             \
-    foreach_stack(stack)                                                    \
+    foreach(stack)                                                          \
     {                                                                       \
         var = EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)();                       \
         *var = *stack->var;                                                 \
@@ -204,6 +236,7 @@ EC_STACK_COPY_FUNCTION_NAME(TYPE)                                           \
 
 #define EC_STACK_FUNCTIONS(TYPE)            \
     EC_STACK_VAR_FREE_FUNCTION(TYPE)        \
+    EC_STACK_FREE_FUNCTION(TYPE)            \
     EC_STACK_NEW_FUNCTION(TYPE)             \
     EC_STACK_NEW_VAR_FUNCTION(TYPE)         \
     EC_STACK_PUSH_FUNCTION(TYPE)            \
