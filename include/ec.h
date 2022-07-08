@@ -11,6 +11,7 @@
 #define EC_H
 
 #define DEBUG 1
+#define EC_WARN 1
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,6 +19,7 @@
 #include <stdint.h>
 #include <string.h>
 
+#include "ec_text_color.h"
 #include "ec_type.h"
 #include "ec_string.h"
 #include "ec_error.h"
