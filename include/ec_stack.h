@@ -6,7 +6,7 @@
 
 /* Anyone can use foreach in ec_type.h interchangebly with this. */
 #define foreach_stack(queue)                                                            \
-  for (stack->var = stack->first; stack->var != NULL; stack->var = stack->var->next)
+    for (stack->var = stack->first; stack->var != NULL; stack->var = stack->var->next)
 
 
 /* Function name macros */
@@ -146,19 +146,20 @@ EC_STACK_STRUCT(TYPE) *                                                 \
 EC_STACK_NEW_FUNCTION_NAME(TYPE)                                        \
 ()                                                                      \
 {                                                                       \
-    EC_VAR_CREATE(EC_STACK_STRUCT(TYPE))                                /*TYPE *var is in this macro in ec_var.h*/\
+    EC_VAR_CREATE(EC_STACK_STRUCT(TYPE), stack)                         /*TYPE *var is in this macro in ec_var.h*/\
                                                                         \
     if (EC_MEMORY)                                                      \
     {                                                                   \
-        EC_MEMORY_CREATE(TYPE, EC_STACK_TYPE)                           \
+        EC_MEMORY_CREATE(TYPE, EC_STACK_TYPE, stack)                    \
         ec_memory_new->Free_Func = EC_STACK_FREE_FUNCTION_NAME(TYPE);   \
-        var->ec_mem = ec_memory_new;                                    \
-        var->ec_mem->lock = EC_LOCK;                                    \
+        stack->ec_mem = ec_memory_new;                                  \
+        stack->ec_mem->lock = EC_LOCK;                                  \
     }                                                                   \
                                                                         \
-    var->first = NULL;                                                  \
+    stack->first = NULL;                                                \
+    stack->var = NULL;                                                  \
                                                                         \
-    return var;                                                         \
+    return stack;                                                         \
 }
 
 
@@ -168,11 +169,11 @@ EC_STACK_VAR_STRUCT(TYPE) *                                             \
 EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)                                    \
 ()                                                                      \
 {                                                                       \
-    EC_VAR_CREATE(EC_STACK_VAR_STRUCT(TYPE))                            /*TYPE *var is in this macro in ec_var.h*/\
+    EC_VAR_CREATE(EC_STACK_VAR_STRUCT(TYPE), var)                            /*TYPE *var is in this macro in ec_var.h*/\
                                                                         \
     if (EC_MEMORY)                                                      \
     {                                                                   \
-        EC_MEMORY_CREATE(TYPE, EC_STACK_VAR_TYPE)                       \
+        EC_MEMORY_CREATE(TYPE, EC_STACK_VAR_TYPE, var)                  \
     }                                                                   \
                                                                         \
     return var;                                                         \

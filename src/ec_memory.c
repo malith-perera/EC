@@ -23,7 +23,6 @@ EC_Memory_Var_Free (ECMemory *ec_mem)
             {
                 ec_mem->previous->next = NULL;
             }
-
         }
         else /* first ec_mem */
         {
@@ -32,7 +31,7 @@ EC_Memory_Var_Free (ECMemory *ec_mem)
                 ec_memory = ec_memory->next;
                 ec_memory->previous = NULL;
             }
-            else
+            else /* the only ec_mem exist */
             {
                 ec_memory = NULL;
             }
@@ -57,9 +56,9 @@ EC_Memory_Free_All
 {
     if (ec_mem != NULL)
     {
-        if (ec_mem->var != NULL)
+        if (ec_mem->ec_var != NULL)
         {
-            ec_mem->Free_Func(ec_mem->var);
+            ec_mem->Free_Func(ec_mem->ec_var);
         }
     }
 }
@@ -76,10 +75,7 @@ EC_Clean ()
 
     while (current != NULL)
     {
-        if (current->lock != EC_UNLOCK)
-        {
-            current->Free_Func(current->var);
-        }
+        current->Free_Func(current->ec_var);
 
         current = ec_memory;
     }
@@ -92,7 +88,7 @@ EC_Clean ()
 void
 EC_Memory_Push (ECMemory *ec_memory_new)
 {
-    if (ec_memory != NULL)
+    if (ec_memory != NULL) /* if there ec_memory var exist */
     {
         ec_memory_new->next = ec_memory;
         ec_memory->previous = ec_memory_new;
@@ -120,9 +116,9 @@ EC_Memory_Free_Unlocked ()
     {
         if (current->lock == EC_UNLOCK)
         {
-            if (current->var != NULL)
+            if (current->ec_var != NULL)
             {
-                current->Free_Func (current->var);
+                current->Free_Func (current->ec_var);
             }
 
             temp = current;
@@ -160,9 +156,9 @@ EC_Memory_Free_Unlock_One ()
     {
         if (current->lock == EC_UNLOCK)
         {
-            if (current->var != NULL)
+            if (current->ec_var != NULL)
             {
-                current->Free_Func (current->var);
+                current->Free_Func (current->ec_var);
             }
 
             temp = current;

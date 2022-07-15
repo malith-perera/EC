@@ -5,7 +5,7 @@
 
 /* Anyone can use foreach in ec_type.h interchangebly with this. */
 #define foreach_queue(queue)                                                         \
-  for (queue->var = queue->first; queue->var != NULL; queue->var = queue->var->next)
+    for (queue->var = queue->first; queue->var != NULL; queue->var = queue->var->next)
 
 
 #define EC_QUEUE_VAR_FREE_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _Queue_Var_Free,)
@@ -151,20 +151,21 @@ EC_QUEUE_STRUCT(TYPE) *                                                         
 EC_QUEUE_NEW_FUNCTION_NAME(TYPE)                                                \
 ()                                                                              \
 {                                                                               \
-    EC_VAR_CREATE(EC_QUEUE_STRUCT(TYPE))                                        /*TYPE *var is in this macro in ec_var.h*/ \
+    EC_VAR_CREATE(EC_QUEUE_STRUCT(TYPE), queue);                                /* TYPE *var is in this macro in ec_var.h*/ \
                                                                                 \
     if (EC_MEMORY)                                                              \
     {                                                                           \
-        EC_MEMORY_CREATE(TYPE, EC_QUEUE_TYPE)                                   \
+        EC_MEMORY_CREATE(TYPE, EC_QUEUE_TYPE, queue)                            \
         ec_memory_new->Free_Func = EC_QUEUE_FREE_FUNCTION_NAME(TYPE);           \
-        var->ec_mem = ec_memory_new;                                            \
-        var->ec_mem->lock = EC_LOCK;                                            \
+        queue->ec_mem = ec_memory_new;                                          \
+        queue->ec_mem->lock = EC_LOCK;                                          \
     }                                                                           \
                                                                                 \
-    var->first = NULL;                                                          \
-    var->last = NULL;                                                           \
+    queue->first = NULL;                                                        \
+    queue->last = NULL;                                                         \
+    queue->var = NULL;                                                          \
                                                                                 \
-    return var;                                                                 \
+    return queue;                                                               \
 }
 
 
@@ -175,12 +176,12 @@ EC_QUEUE_VAR_STRUCT(TYPE) *                                                     
 EC_QUEUE_NEW_VAR_FUNCTION_NAME(TYPE)                                            \
 ()                                                                              \
 {                                                                               \
-    EC_VAR_CREATE(EC_QUEUE_VAR_STRUCT(TYPE))                                    /*TYPE *var is in this macro in ec_var.h*/ \
+    EC_VAR_CREATE(EC_QUEUE_VAR_STRUCT(TYPE), var)                               /*TYPE *var is in this macro in ec_var.h*/ \
                                                                                 \
     if (EC_MEMORY)                                                              \
     {                                                                           \
-        EC_MEMORY_CREATE(TYPE, EC_QUEUE_VAR_TYPE)                               \
-        ec_memory_new->Free_Func = EC_QUEUE_FREE_FUNCTION_NAME(TYPE);   \
+        EC_MEMORY_CREATE(TYPE, EC_QUEUE_VAR_TYPE, var)                          \
+        ec_memory_new->Free_Func = EC_QUEUE_FREE_FUNCTION_NAME(TYPE);           \
     }                                                                           \
                                                                                 \
     return var;                                                                 \

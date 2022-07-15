@@ -15,7 +15,7 @@ typedef enum {
 /* EC_Memory to track memory */
 struct ECMemory {
     ECType              type;
-    void                *var;
+    void                *ec_var;
     ECMemoryLock        lock;
     void                (*Free_All) (void *);
     void                (*Free_Var_Func) (void *, void *);
@@ -39,7 +39,7 @@ typedef struct ECMemory ECMemory;
 ECMemory *ec_memory;
 
 
-#define EC_MEMORY_CREATE(TYPE, ec_var_type)                             \
+#define EC_MEMORY_CREATE(TYPE, ec_var_type, var)                        \
     ECMemory *ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));    \
     if (DEBUG) EC_Print_Error ("ec memory create", ec_memory_new);      \
                                                                         \
@@ -50,7 +50,7 @@ ECMemory *ec_memory;
     }                                                                   \
                                                                         \
     ec_memory_new->type = ec_var_type;                                  \
-    ec_memory_new->var = var;                                           /* var is from EC_VAR_CREATE */\
+    ec_memory_new->ec_var = var;                                        /* var is from EC_VAR_CREATE */\
     ec_memory_new->lock = EC_LOCK;                                      \
     ec_memory_new->next = NULL;                                         \
                                                                         \

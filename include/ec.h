@@ -23,6 +23,7 @@
 #include "ec_type.h"
 #include "ec_string.h"
 #include "ec_error.h"
+#include "ec_warn.h"
 #include "ec_memory.h"
 
 #include "ec_var.h"

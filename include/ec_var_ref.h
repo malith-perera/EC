@@ -91,7 +91,7 @@ EC_VAR_REF_NEW_FUNCTION_NAME(TYPE)()                                        \
         }                                                                   \
                                                                             \
         ec_memory_new->type = EC_VAR_TYPE;                                  \
-        ec_memory_new->var = var;                                           \
+        ec_memory_new->ec_var = var;                                           \
         ec_memory_new->lock = EC_LOCK;                                      \
         ec_memory_new->Free_Func = EC_VAR_REF_FREE_FUNCTION_NAME (TYPE);\
         ec_memory_new->next = NULL;                                         \
