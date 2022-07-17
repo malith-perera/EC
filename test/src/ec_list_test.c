@@ -481,7 +481,6 @@ Test_List_Var_Move_Up ()
     /* move first var */
     Student_List_Var_Move_Up (stl3, stl3v1, 1);
     assert (stl3->first == stl3v1);
-    assert (stl3->first->next == stl3v2);
     assert (stl3->last == stl3v3);
     assert (stl3->first->next == stl3v2);
     assert (stl3->first->previous == NULL);
@@ -516,9 +515,9 @@ Test_List_Var_Move_Up ()
     /* move third var up 1 step*/
     Student_List_Var_Move_Up (stl3, stl3v3, 1);
     assert (stl3->first == stl3v2);
-    assert (stl3->last == stl3v1);
     assert (stl3->first->next == stl3v3);
     assert (stl3->first->previous == NULL);
+    assert (stl3->last == stl3v1);
     assert (stl3->last->previous == stl3v3);
     assert (stl3->last->next == NULL);
 
@@ -632,6 +631,258 @@ void
 Test_List_Var_Move_Down ()
 {
     EC_Error_Print_Msg ("Test_List_Var_Move_Down: ", "BEGIN");
+
+    struct Stu {
+        int no;
+        char* name;
+    };
+
+    struct Stu students[5] = {{1, "Malith"}, {2, "Geethike"}, {3, "Perera"}, {4, "Rohasha"}, {5, "Malshi"}};
+
+    int i = 0;
+
+    /* Test for 0 list vars */
+    StudentList *stl0 = Student_List (0);
+    EC_Error_Print_Msg ("Create new list with 0 list vars", "OK");
+
+    stl0->var = stl0->first;
+
+    Student_List_Var_Move_Down (stl0, stl0->var, 1);
+    assert (stl0->first == NULL);
+    assert (stl0->last == NULL);
+    EC_Error_Print_Msg ("List with 0 list vars", "OK");
+
+    /* Test for 1 list var */
+    StudentList *stl1 = Student_List (0);
+    EC_Error_Print_Msg ("Create new list with 1 list vars", "OK");
+
+    StudentListVar *stl1v = Student_List_Var (stl1);
+    stl1v->no = students[0].no;
+    stl1v->name = students[0].name;
+    EC_Error_Print_Msg ("Assign list 1 variable", "OK");
+
+    Student_List_Var_Move_Down (stl1, stl1v, 1);
+    assert (stl1->first == stl1v);
+    assert (stl1->last == stl1v);
+    EC_Error_Print_Msg ("List with 1 list var", "OK");
+
+    /* Test for 2 list vars */
+    StudentList *stl2 = Student_List (2);
+    EC_Error_Print_Msg ("Create new list with 2 list vars", "OK");
+
+    i = 0;
+    for_list (stl2)
+    {
+        stl2->var->no = students[i].no;
+        stl2->var->name = students[i].name;
+        i++;
+    }
+
+    for_list (stl2)
+    {
+        printf ("%d %s\n", stl2->var->no, stl2->var->name);
+    }
+
+    EC_Error_Print_Msg ("Assign list 2 variable", "OK");
+
+    /* set current var */
+    stl2->var = stl2->first;
+    StudentListVar *stl2v1 = stl2->first;
+    StudentListVar *stl2v2 = stl2->first->next;
+
+    Student_List_Var_Move_Down (stl2, stl2v1, 1);
+    assert (stl2->first == stl2v2);
+    assert (stl2->last == stl2v1);
+    assert (stl2->first->next == stl2v1);
+    assert (stl2->first->previous == NULL);
+    assert (stl2->last->previous == stl2v2);
+    assert (stl2->last->next == NULL);
+
+    for_list (stl2)
+    {
+        printf ("%d %s\n", stl2->var->no, stl2->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 2 vars. First var down", "OK");
+
+    Student_List_Var_Move_Down (stl2, stl2v1, 1);
+    assert (stl2->first == stl2v2);
+    assert (stl2->last == stl2v1);
+    assert (stl2->first->next == stl2v1);
+    assert (stl2->first->previous == NULL);
+    assert (stl2->last->previous == stl2v2);
+    assert (stl2->last->next == NULL);
+
+    for_list (stl2)
+    {
+        printf ("%d %s\n", stl2->var->no, stl2->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 2 vars second var down", "OK");
+
+    /* Test for 3 list vars */
+    StudentList *stl3 = Student_List (3);
+    EC_Error_Print_Msg ("Create new list with 3 list vars", "OK");
+
+    i = 0;
+    for_list (stl3)
+    {
+        stl3->var->no = students[i].no;
+        stl3->var->name = students[i].name;
+        i++;
+    }
+    EC_Error_Print_Msg ("Assign list 3 variable", "OK");
+
+    /* set current var */
+    stl3->var = stl3->first;
+    StudentListVar *stl3v1 = stl3->first;
+    StudentListVar *stl3v2 = stl3->first->next;
+    StudentListVar *stl3v3 = stl3->first->next->next;
+
+    /* move first var */
+    Student_List_Var_Move_Down (stl3, stl3v1, 1);
+    assert (stl3->first == stl3v2);
+    assert (stl3->first->next == stl3v1);
+    assert (stl3->first->previous == NULL);
+    assert (stl3->last == stl3v3);
+    assert (stl3->last->previous == stl3v1);
+    assert (stl3->last->next == NULL);
+
+    for_list (stl3)
+    {
+        printf ("%d %s\n", stl3->var->no, stl3->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 3 vars move first var down", "OK");
+
+    /* move second var down */
+    Student_List_Var_Move_Down (stl3, stl3v1, 1);
+    assert (stl3->first == stl3v2);
+    assert (stl3->first->next == stl3v3);
+    assert (stl3->first->next->next == stl3v1);
+    assert (stl3->first->previous == NULL);
+    assert (stl3->last == stl3v1);
+    assert (stl3->last->previous == stl3v3);
+    assert (stl3->last->next == NULL);
+
+    for_list (stl3)
+    {
+        printf ("%d %s\n", stl3->var->no, stl3->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 3 vars move second var down", "OK");
+
+    /* move third var down 1 step*/
+    Student_List_Var_Move_Down (stl3, stl3v1, 1);
+    assert (stl3->first == stl3v2);
+    assert (stl3->last == stl3v1);
+    assert (stl3->first->next == stl3v3);
+    assert (stl3->first->previous == NULL);
+    assert (stl3->last->previous == stl3v3);
+    assert (stl3->last->next == NULL);
+
+    for_list (stl3)
+    {
+        printf ("%d %s\n", stl3->var->no, stl3->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 3 vars move third var down", "OK");
+
+    /* move first var down 2 steps*/
+    Student_List_Var_Move_Down (stl3, stl3v2, 2);
+    assert (stl3->first == stl3v3);
+    assert (stl3->first->next == stl3v1);
+    assert (stl3->first->previous == NULL);
+    assert (stl3->last == stl3v2);
+    assert (stl3->last->previous == stl3v1);
+    assert (stl3->last->previous->previous == stl3v3);
+    assert (stl3->last->next == NULL);
+
+    for_list (stl3)
+    {
+        printf ("%d %s\n", stl3->var->no, stl3->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 3 vars move third var down", "OK");
+
+    /* Test for 5 list vars */
+    StudentList *stl5 = Student_List (5);
+    EC_Error_Print_Msg ("Create new list with 5 list vars", "OK");
+
+    i = 0;
+    for_list (stl5)
+    {
+        stl5->var->no = students[i].no;
+        stl5->var->name = students[i].name;
+        i++;
+    }
+
+    /* set current var */
+    stl5->var = stl5->first;
+    StudentListVar *stl5v1 = stl5->first;
+    StudentListVar *stl5v2 = stl5->first->next;
+    StudentListVar *stl5v3 = stl5->first->next->next;
+    StudentListVar *stl5v4 = stl5->first->next->next->next;
+    StudentListVar *stl5v5 = stl5->first->next->next->next->next;
+
+    for_list (stl5)
+    {
+        printf ("%d %s\n", stl5->var->no, stl5->var->name);
+    }
+
+    EC_Error_Print_Msg ("Assign list 5 variable", "OK");
+
+    /* move first var down 3 steps*/
+    Student_List_Var_Move_Down (stl5, stl5v1, 3);
+    assert (stl5->first == stl5v2);
+    assert (stl5->last == stl5v5);
+    assert (stl5->first->next->next == stl5v4);
+    assert (stl5->first->previous == NULL);
+    assert (stl5->last->previous == stl5v1);
+    assert (stl5->last->previous->previous == stl5v4);
+    assert (stl5->last->next == NULL);
+
+    for_list (stl5)
+    {
+        printf ("%d %s\n", stl5->var->no, stl5->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 5 vars move last var down 3 steps", "OK");
+
+    /* move first var down 4 steps*/
+    Student_List_Var_Move_Down (stl5, stl5v2, 4);
+    assert (stl5->first == stl5v3);
+    assert (stl5->last == stl5v2);
+    assert (stl5->first->next == stl5v4);
+    assert (stl5->first->previous == NULL);
+    assert (stl5->last->previous == stl5v5);
+    assert (stl5->last->previous->previous == stl5v1);
+    assert (stl5->last->next == NULL);
+
+    for_list (stl5)
+    {
+        printf ("%d %s\n", stl5->var->no, stl5->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 5 vars move mid var down 4 steps", "OK");
+
+    /* move second var down 2 steps for mid vars */
+    Student_List_Var_Move_Down (stl5, stl5v4, 2);
+    assert (stl5->first == stl5v3);
+    assert (stl5->last == stl5v2);
+    assert (stl5->first->next == stl5v1);
+    assert (stl5->first->previous == NULL);
+    assert (stl5->last->previous == stl5v4);
+    assert (stl5->last->previous->previous == stl5v5);
+    assert (stl5->last->next == NULL);
+
+    for_list (stl5)
+    {
+        printf ("%d %s\n", stl5->var->no, stl5->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 5 vars move mid var down 2 steps", "OK");
+
     EC_Error_Print_Msg ("Test_List_Var_Move_Down", "END");
 }
 
@@ -665,11 +916,11 @@ Run_List_Test ()
     /*Test_New_List2 ();*/
     /*printf ("\n");*/
 
-    Test_List_Var_Move_Up ();
-    printf ("\n");
-
-    /*Test_List_Var_Move_Down ();*/
+    /*Test_List_Var_Move_Up ();*/
     /*printf ("\n");*/
+
+    Test_List_Var_Move_Down ();
+    printf ("\n");
 
     /*Test_List_Var_Delete ();*/
     /*printf ("\n");*/

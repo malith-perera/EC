@@ -294,7 +294,7 @@ EC_LIST_VAR_FUNCTION_NAME(TYPE)                                     \
 EC_LIST_STRUCT(TYPE) *                                              \
 EC_LIST_FUNCTION_NAME(TYPE)                                         \
 (                                                                   \
-    int n                                                           \
+    int ec_n                                                        \
 )                                                                   \
 {                                                                   \
     EC_VAR_CREATE(EC_LIST_STRUCT(TYPE), list)                       /* TYPE *var is in this macro in ec_var.h*/\
@@ -309,12 +309,12 @@ EC_LIST_FUNCTION_NAME(TYPE)                                         \
     list->first = NULL;                                             \
     list->last = NULL;                                              \
     list->var = NULL;                                               \
-    list->n = n;                                                    \
     list->var_temp = NULL;                                          \
+    list->n = 0;                                                    \
                                                                     \
-    if (n != 0)                                                     \
+    if (ec_n != 0)                                                  \
     {                                                               \
-        for (int i = 0; i < n; i++)                                 \
+        for (int i = 0; i < ec_n; i++)                              \
         {                                                           \
             EC_LIST_VAR_FUNCTION_NAME(TYPE)(list);                  \
         }                                                           \
@@ -636,11 +636,11 @@ EC_LIST_VAR_MOVE_UP_FUNCTION_NAME(TYPE)                         \
         else                                                    \
             list->last = list->last->previous;                  \
                                                                 \
+        var->previous = list->var->previous;                    \
         if (pos != 0)                                           \
             list->var->previous->next = var;                    \
         else                                                    \
             list->first = var;                                  \
-        var->previous = list->var->previous;                    \
                                                                 \
         var->next = list->var;                                  \
         list->var->previous = var;                              \
@@ -652,16 +652,59 @@ EC_LIST_VAR_MOVE_UP_FUNCTION_NAME(TYPE)                         \
 }
 
 
-#define EC_LIST_VAR_MOVE_DOWN_FUNCTION(TYPE)                \
-void                                                        \
-EC_LIST_VAR_MOVE_DOWN_FUNCTION_NAME(TYPE)                   \
-(                                                           \
-    EC_LIST_STRUCT(TYPE)        *list,                      \
-    EC_LIST_VAR_STRUCT(TYPE)    *var,                       \
-    int                         steps                       \
-)                                                           \
-{                                                           \
-                                                            \
+#define EC_LIST_VAR_MOVE_DOWN_FUNCTION(TYPE)                    \
+void                                                            \
+EC_LIST_VAR_MOVE_DOWN_FUNCTION_NAME(TYPE)                       \
+(                                                               \
+    EC_LIST_STRUCT(TYPE)        *list,                          \
+    EC_LIST_VAR_STRUCT(TYPE)    *var,                           \
+    int                         steps                           \
+)                                                               \
+{                                                               \
+    int i, pos;                                                 \
+    if (var == NULL || steps == 0) return;                      /* unnessary involve should rise a warn */\
+                                                                \
+    if (list->last != var)                                      /* var is NULL */\
+    {                                                           \
+        list->var = list->first;                                \
+        for (i = 0; i < list->n - 1; i++)                       \
+        {                                                       \
+            if (list->var == var) break;                        \
+            list->var = list->var->next;                        \
+        }                                                       \
+                                                                \
+        pos = i + steps;                                        \
+        if (pos > list->n)                                      \
+        {                                                       \
+            pos = list->n;                                      \
+            if (EC_WARN) EC_Warn_Print_Msg ("List_Var_Move_Down var pos", "higher than list->n"); \
+        }                                                       \
+                                                                \
+        list->var = list->first;                                \
+        for (i = 0; i < pos; i++)                               \
+        {                                                       \
+            list->var = list->var->next;                        \
+        }                                                       \
+                                                                \
+        var->next->previous = var->previous;                    \
+        if (list->first != var)                                 \
+            var->previous->next = var->next;                    \
+        else                                                    \
+            list->first = list->first->next;                    \
+                                                                \
+        var->next = list->var->next;                            \
+        if (pos != list->n - 1)                                 \
+            list->var->next->previous = var;                    \
+        else                                                    \
+            list->last = var;                                   \
+                                                                \
+        var->previous = list->var;                              \
+        list->var->next = var;                                  \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        if (EC_WARN) EC_Warn_Print_Msg ("List_Var_Move_Down arg *var NULL", "OK"); \
+    }                                                           \
 }
 
 
