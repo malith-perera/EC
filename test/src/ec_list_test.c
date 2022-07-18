@@ -5,6 +5,12 @@
 
 #include "ec_list_test.h"
 
+struct Stu {
+    int no;
+    char* name;
+};
+
+struct Stu students[5] = {{1, "Malith"}, {2, "Geethike"}, {3, "Perera"}, {4, "Rohasha"}, {5, "Malshi"}};
 
 void
 Print_Student_List (StudentList *stl)
@@ -374,12 +380,6 @@ Test_List_Var_Move_Up ()
 {
     EC_Error_Print_Msg ("Test_List_Var_Move_Up: ", "BEGIN");
 
-    struct Stu {
-        int no;
-        char* name;
-    };
-
-    struct Stu students[5] = {{1, "Malith"}, {2, "Geethike"}, {3, "Perera"}, {4, "Rohasha"}, {5, "Malshi"}};
 
     int i = 0;
 
@@ -891,6 +891,273 @@ void
 Test_List_Var_Delete ()
 {
     EC_Error_Print_Msg ("Test_List_Var_Delete: ", "BEGIN");
+
+   /* Test for 0 list vars */
+    StudentList *stl0 = Student_List (0);
+    EC_Error_Print_Msg ("Create new list with 0 list vars", "OK");
+
+    stl0->var = stl0->first;
+
+    Student_List_Var_Delete (stl0, stl0->var);
+    assert (stl0->first == NULL);
+    assert (stl0->last == NULL);
+    EC_Error_Print_Msg ("List with 0 list vars", "OK");
+
+    /* Test for 1 list var */
+    StudentList *stl1 = Student_List (0);
+    EC_Error_Print_Msg ("Create new list with 1 list vars", "OK");
+
+    StudentListVar *stl1v = Student_List_Var (stl1);
+    stl1v->no = students[0].no;
+    stl1v->name = students[0].name;
+    EC_Error_Print_Msg ("Assign list 1 variable", "OK");
+
+    Student_List_Var_Delete (stl1, stl1v);
+    assert (stl1->first == NULL);
+    assert (stl1->last == NULL);
+    EC_Error_Print_Msg ("List with 1 list var", "OK");
+
+    /* Test for 2 list vars */
+    StudentList *stl2 = Student_List (2);
+    EC_Error_Print_Msg ("Create new list with 2 list vars", "OK");
+
+    int i = 0;
+    for_list (stl2)
+    {
+        stl2->var->no = students[i].no;
+        stl2->var->name = students[i].name;
+        i++;
+    }
+
+    for_list (stl2)
+    {
+        printf ("%d %s\n", stl2->var->no, stl2->var->name);
+    }
+
+    EC_Error_Print_Msg ("Assign list 2 variable", "OK");
+
+    /* set current var */
+    StudentListVar *stl2v1 = stl2->first;
+    StudentListVar *stl2v2 = stl2->first->next;
+
+    Student_List_Var_Delete (stl2, stl2v1);
+    assert (stl2->first == stl2v2);
+    assert (stl2->last == stl2v2);
+    assert (stl2->first->next == NULL);
+    assert (stl2->first->previous == NULL);
+    assert (stl2->last->previous == NULL);
+    assert (stl2->last->next == NULL);
+
+    for_list (stl2)
+    {
+        printf ("%d %s\n", stl2->var->no, stl2->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 2 vars. Delete first var", "OK");
+
+    Student_List_Var_Delete (stl2, stl2v2);
+    assert (stl2->first == NULL);
+    assert (stl2->last == NULL);
+
+    for_list (stl2)
+    {
+        printf ("%d %s\n", stl2->var->no, stl2->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 2 vars delete second var", "OK");
+
+    StudentListVar *stl2v3 = Student_List_Var (stl2);
+    StudentListVar *stl2v4 = Student_List_Var (stl2);
+
+    EC_Error_Print_Msg ("List with 2 vars append 2 new vars", "OK");
+
+    i = 0;
+    for_list (stl2)
+    {
+        stl2->var->no = students[i].no;
+        stl2->var->name = students[i].name;
+        i++;
+    }
+
+    EC_Error_Print_Msg ("Initialize list with 2 vars", "OK");
+
+    for_list (stl2)
+    {
+        printf ("%d %s\n", stl2->var->no, stl2->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 2 vars. Delete first var", "OK");
+
+    Student_List_Var_Delete (stl2, stl2v4);
+    assert (stl2->first == stl2v3);
+    assert (stl2->last == stl2v3);
+    assert (stl2->first->next == NULL);
+    assert (stl2->first->previous == NULL);
+    assert (stl2->last->previous == NULL);
+    assert (stl2->last->next == NULL);
+
+    for_list (stl2)
+    {
+        printf ("%d %s\n", stl2->var->no, stl2->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 2 vars. Delete second var", "OK");
+
+    Student_List_Var_Delete (stl2, stl2v3);
+    assert (stl2->first == NULL);
+    assert (stl2->last == NULL);
+
+    for_list (stl2)
+    {
+        printf ("%d %s\n", stl2->var->no, stl2->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 2 vars delete last var", "OK");
+
+    /* Test for 3 list vars */
+    StudentList *stl3 = Student_List (3);
+    EC_Error_Print_Msg ("Create new list with 3 list vars", "OK");
+
+    i = 0;
+    for_list (stl3)
+    {
+        stl3->var->no = students[i].no;
+        stl3->var->name = students[i].name;
+        i++;
+    }
+    EC_Error_Print_Msg ("Assign list 3 variable", "OK");
+
+    /* Set current var */
+    stl3->var = stl3->first;
+    StudentListVar *stl3v1 = stl3->first;
+    StudentListVar *stl3v2 = stl3->first->next;
+    StudentListVar *stl3v3 = stl3->first->next->next;
+
+    /* Delete first var */
+    Student_List_Var_Delete (stl3, stl3v1);
+    assert (stl3->first == stl3v2);
+    assert (stl3->first->next == stl3v3);
+    assert (stl3->first->previous == NULL);
+    assert (stl3->last == stl3v3);
+    assert (stl3->last->previous == stl3v2);
+    assert (stl3->last->next == NULL);
+
+    for_list (stl3)
+    {
+        printf ("%d %s\n", stl3->var->no, stl3->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 3 vars delete first var", "OK");
+
+    /* Delete second (last) var */
+    Student_List_Var_Delete (stl3, stl3v3);
+    assert (stl3->first == stl3v2);
+    assert (stl3->first->next == NULL);
+    assert (stl3->first->previous == NULL);
+    assert (stl3->last == stl3v2);
+    assert (stl3->last->previous == NULL);
+    assert (stl3->last->next == NULL);
+
+    for_list (stl3)
+    {
+        printf ("%d %s\n", stl3->var->no, stl3->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 3 vars delete second (last) var", "OK");
+
+    /* Delete third final var */
+    Student_List_Var_Delete (stl3, stl3v2);
+    assert (stl3->first == NULL);
+    assert (stl3->last == NULL);
+
+    for_list (stl3)
+    {
+        printf ("%d %s\n", stl3->var->no, stl3->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 3 vars delete last var", "OK");
+
+     /*Check is it ok with delete middle var with 3 vars */
+
+    StudentListVar *stl3v4 = Student_List_Var (stl3);
+    StudentListVar *stl3v5 = Student_List_Var (stl3);
+    StudentListVar *stl3v6 = Student_List_Var (stl3);
+
+    EC_Error_Print_Msg ("List with 3 vars append 3 new vars", "OK");
+
+    i = 0;
+    for_list (stl3)
+    {
+        stl3->var->no = students[i].no;
+        stl3->var->name = students[i].name;
+        i++;
+    }
+
+    EC_Error_Print_Msg ("Initialize list with 3 vars", "OK");
+
+    for_list (stl3)
+    {
+        printf ("%d %s\n", stl3->var->no, stl3->var->name);
+    }
+
+    Student_List_Var_Delete (stl3, stl3v5);
+    assert (stl3->first == stl3v4);
+    assert (stl3->first->next == stl3v6);
+    assert (stl3->first->previous == NULL);
+    assert (stl3->last == stl3v6);
+    assert (stl3->last->previous == stl3v4);
+    assert (stl3->last->next == NULL);
+
+    EC_Error_Print_Msg ("List with 3 vars delete mid var", "OK");
+
+    /* Test for 5 list vars */
+    StudentList *stl5 = Student_List (5);
+    EC_Error_Print_Msg ("Create new list with 5 list vars", "OK");
+
+    i = 0;
+    for_list (stl5)
+    {
+        stl5->var->no = students[i].no;
+        stl5->var->name = students[i].name;
+        i++;
+    }
+
+    for_list (stl5)
+    {
+        printf ("%d %s\n", stl5->var->no, stl5->var->name);
+    }
+
+    /* set current var */
+    stl5->var = stl5->first;
+    StudentListVar *stl5v1 = stl5->first;
+    StudentListVar *stl5v2 = stl5->first->next;
+    StudentListVar *stl5v3 = stl5->first->next->next;
+    StudentListVar *stl5v4 = stl5->first->next->next->next;
+    StudentListVar *stl5v5 = stl5->first->next->next->next->next;
+
+    Student_List_Var_Delete (stl5, stl5v3);
+    assert (stl5->first->next->next == stl5v4);
+    assert (stl5->last->previous->previous == stl5v2);
+
+    for_list (stl5)
+    {
+        printf ("%d %s\n", stl5->var->no, stl5->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 5 vars move mid var down 2 steps", "OK");
+
+    Student_List_Var_Delete (stl5, stl5v4);
+    assert (stl5->first->next->next == stl5v5);
+    assert (stl5->last == stl5v5);
+    assert (stl5->last->previous == stl5v2);
+
+    for_list (stl5)
+    {
+        printf ("%d %s\n", stl5->var->no, stl5->var->name);
+    }
+
+    EC_Error_Print_Msg ("List with 5 vars move mid var down 2 steps", "OK");
+
     EC_Error_Print_Msg ("Test_List_Var_Delete", "END");
 }
 
@@ -919,11 +1186,11 @@ Run_List_Test ()
     /*Test_List_Var_Move_Up ();*/
     /*printf ("\n");*/
 
-    Test_List_Var_Move_Down ();
-    printf ("\n");
-
-    /*Test_List_Var_Delete ();*/
+    /*Test_List_Var_Move_Down ();*/
     /*printf ("\n");*/
+
+    Test_List_Var_Delete ();
+    printf ("\n");
 
     /*Test_List_Var_Drop ();*/
     /*printf ("\n");*/

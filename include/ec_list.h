@@ -718,28 +718,30 @@ EC_LIST_VAR_DELETE_FUNCTION_NAME(TYPE)                      \
 {                                                           \
     if (var != NULL)                                        \
     {                                                       \
-        if (var != list->first)                             \
+        if (var != list->first)                             /* not the first var */\
         {                                                   \
-            if (var != list->last)                          \
+            if (var != list->last)                          /* not the first and the last */\
             {                                               \
+                var->next->previous = var->previous;        \
                 var->previous->next = var->next;            \
                 free (var);                                 \
             }                                               \
-            else                                            \
+            else                                            /* not the first but the last */\
             {                                               \
                 list->last = var->previous;                 \
                 var->previous->next = NULL;                 \
                 free (var);                                 \
             }                                               \
         }                                                   \
-        else                                                \
+        else                                                /* first var */\
         {                                                   \
-            if (var != list->last)                          \
+            if (var != list->last)                          /* first but not last */\
             {                                               \
                 list->first = var->next;                    \
+                var->next->previous = NULL;                 \
                 free (var);                                 \
             }                                               \
-            else                                            \
+            else                                            /* first and last */\
             {                                               \
                 list->first = NULL;                         \
                 list->last = NULL;                          \
