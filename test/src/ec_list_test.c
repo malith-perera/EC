@@ -160,24 +160,28 @@ Test_Append_List ()
 void
 Test_Insert_List ()
 {
-/*    EC_Error_Print_Msg ("Test_Insert_List: ", "BEGIN");*/
+    EC_Error_Print_Msg ("Test_Insert_List: ", "BEGIN");
 
-    /*StudentList *stl = Student_List ();*/
+    StudentList *stl = Student_List (0);
 
-    /*StudentListVar *st1 = Student_List_Var ();*/
-    /*st1->no = 1;*/
-    /*st1->name = "Malith";*/
-    /*Append_Student (stl, st1);*/
+    StudentListVar *st1 = Student_List_Var (stl);
+    st1->no = 1;
+    st1->name = "Malith";
 
-    /*StudentListVar *st2 = Student_List_Var ();*/
-    /*st2->no = 2;*/
-    /*st2->name = "Geethike";*/
-    /*Append_Student (stl, st2);*/
+    StudentListVar *st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
 
-    /*StudentListVar *st3 = Student_List_Var ();*/
-    /*st3->no = 3;*/
-    /*st3->name = "Perera";*/
-    /*Insert_Student (stl, st3, st1, -1);*/
+    StudentListVar *st3 = Student_List_Var (stl);
+    st3->no = 3;
+    st3->name = "Perera";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    /*Student_Insert (stl, st3, st1, -1);*/
     /*assert (stl->first->no == 3);*/
     /*assert (!strcmp (stl->first->name, "Perera")); // strcmp return 0 when equal use !*/
 
@@ -235,35 +239,45 @@ Test_Insert_List ()
 void
 Test_Replace_List ()
 {
-/*    EC_Error_Print_Msg ("Test_Replace_List: ", "BEGIN");*/
+    EC_Error_Print_Msg ("Test_Replace_List: ", "BEGIN");
 
-    /*StudentList *stl = Student_List ();*/
+    StudentList *stl = Student_List (0);
 
-    /*StudentListVar *st1 = Student_List_Var ();*/
-    /*st1->no = 1;*/
-    /*st1->name = "Malith";*/
-    /*Append_Student (stl, st1);*/
+    StudentListVar *st1 = Student_List_Var (stl);
+    st1->no = 1;
+    st1->name = "Malith";
 
-    /*StudentListVar *st2 = Student_List_Var ();*/
-    /*st2->no = 2;*/
-    /*st2->name = "Geethike";*/
-    /*Append_Student (stl, st2);*/
+    StudentListVar *st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
 
-    /*StudentListVar *st3 = Student_List_Var ();*/
-    /*st3->no = 3;*/
-    /*st3->name = "Perera";*/
+    StudentListVar *st3 = Student_List_Var (stl);
+    st3->no = 3;
+    st3->name = "Perera";
 
-    /*Replace_Student (stl, st1, st3);*/
-    /*assert (stl->first->no = 3);*/
-    /*assert (stl->first->name = "Perera");*/
+    Student_Replace (stl, st1, st3);
+    assert (stl->first == st3);
+    assert (stl->first->next = st2);
+    assert (stl->last = st2);
+    assert (stl->last->next == NULL);
+    assert (st2->next == NULL);
+    assert (stl->last->previous == st3);
+    assert (stl->last->previous->previous == NULL);
 
-    /*Replace_Student (stl, st2, st1);*/
-    /*assert (stl->last->no = 1);*/
-    /*assert (stl->last->name = "Malith");*/
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
 
-    /*EC_Error_Print_Msg ("Replace last item", "OK");*/
+    Student_Replace (stl, st2, st3);
+    assert (stl->first == st3);
+    assert (stl->last == st3);
+    assert (stl->last->next == NULL);
+    assert (stl->first->previous == NULL);
 
-    /*EC_Error_Print_Msg ("Test_Replace_List: ", "END");*/
+    EC_Error_Print_Msg ("Replace last item", "OK");
+
+    EC_Error_Print_Msg ("Test_Replace_List: ", "END");
 }
 
 
@@ -1189,8 +1203,8 @@ Run_List_Test ()
     /*Test_List_Var_Move_Down ();*/
     /*printf ("\n");*/
 
-    Test_List_Var_Delete ();
-    printf ("\n");
+    /*Test_List_Var_Delete ();*/
+    /*printf ("\n");*/
 
     /*Test_List_Var_Drop ();*/
     /*printf ("\n");*/
@@ -1201,8 +1215,8 @@ Run_List_Test ()
     /*Test_Insert_List ();*/
     /*printf ("\n");*/
 
-    /*Test_Replace_List ();*/
-    /*printf ("\n");*/
+    Test_Replace_List ();
+    printf ("\n");
 
     /*Test_Sort_List ();*/
     /*printf ("\n");*/
