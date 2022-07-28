@@ -241,41 +241,1262 @@ Test_Replace_List ()
 {
     EC_Error_Print_Msg ("Test_Replace_List: ", "BEGIN");
 
+    /* Test for 0 vars */
+    EC_Error_Print_Msg ("Test for empty vars", "Begin");
+
+    /* if list is empty */
     StudentList *stl = Student_List (0);
 
+    StudentListVar *st0 = NULL;
+    Student_Replace (stl, st0, st0);
+    EC_Error_Print_Msg ("empty listi warn", "OK");
+
+    /* Test for 1 var */
+    EC_Error_Print_Msg ("Test for 1 var", "Begin");
+
+    /* create first list var */
     StudentListVar *st1 = Student_List_Var (stl);
     st1->no = 1;
     st1->name = "Malith";
-
-    StudentListVar *st2 = Student_List_Var (stl);
-    st2->no = 2;
-    st2->name = "Geethike";
-
-    StudentListVar *st3 = Student_List_Var (stl);
-    st3->no = 3;
-    st3->name = "Perera";
-
-    Student_Replace (stl, st1, st3);
-    assert (stl->first == st3);
-    assert (stl->first->next = st2);
-    assert (stl->last = st2);
-    assert (stl->last->next == NULL);
-    assert (st2->next == NULL);
-    assert (stl->last->previous == st3);
-    assert (stl->last->previous->previous == NULL);
 
     for_list (stl)
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
+    Student_Replace (stl, st1, st1);
+    EC_Error_Print_Msg ("Replace same var warn", "OK");
+
+    /* --------------- */
+    /* Test for 2 vars */
+    /* --------------- */
+
+    EC_Error_Print_Msg ("Test for 2 vars", "Begin");
+
+    /* create and add second list var */
+    StudentListVar *st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    /* list -> 1, 2 */
+
+    /* Replace left adjecent rep */
+    Student_Replace (stl, st1, st2);
+    assert (stl->first == st2);
+    assert (stl->first->next == NULL);
+    assert (stl->last == st2);
+    assert (stl->last->previous == NULL);
+    EC_Error_Print_Msg ("Replace left adjecent rep by var", "OK");
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    /* create and add new list var (now 2 vars available st2 and st3) */
+    st1 = Student_List_Var (stl);
+    st1->no = 1;
+    st1->name = "Malith";
+
+    /* list -> 2, 1 */
+
+    /* Replace right adjecent rep */
+    Student_Replace (stl, st1, st2);
+    assert (stl->first == st2);
+    assert (stl->first->next == NULL);
+    assert (stl->last == st2);
+    assert (stl->last->previous == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace right adjecent rep by var", "OK");
+
+    /* --------------- */
+    /* Test for 3 vars */
+    /* --------------- */
+
+    /* assign new 2 vars now available vars are st2, st1 and st3 */
+    st1 = Student_List_Var (stl);
+    st1->no = 1;
+    st1->name = "Malith";
+
+    StudentListVar *st3 = Student_List_Var (stl);
+    st3->no = 3;
+    st3->name = "Perera";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    /* list -> 2, 1, 3 */
+
+    /* Replace left adjecent var by mid var */
+    Student_Replace (stl, st2, st1);
+    assert (stl->first == st1);
+    assert (stl->first->next == st3);
+    assert (stl->first->next->next == NULL);
+    assert (stl->last == st3);
+    assert (stl->last->previous == st1);
+    assert (stl->last->previous->previous == NULL);
+
+    EC_Error_Print_Msg ("Replace left adjecent var by mid var", "OK");
+
+    st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Append new var. Now 3 vars available", "OK");
+
+    /* list -> 1, 3, 2 */
+
+    /* Replace right adjecent var by mid var */
     Student_Replace (stl, st2, st3);
-    assert (stl->first == st3);
+    assert (stl->first == st1);
+    assert (stl->first->next == st3);
+    assert (stl->first->previous == NULL);
+    assert (stl->last->previous == st1);
     assert (stl->last == st3);
     assert (stl->last->next == NULL);
-    assert (stl->first->previous == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace right adjecent var by mid var", "OK");
 
-    EC_Error_Print_Msg ("Replace last item", "OK");
+    /* Append new var */
+    st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Append new var. Now 3 vars available", "OK");
+
+    /* list -> 1, 3, 2 */
+
+    /* Replace first var by last for 3 vars available */
+    Student_Replace (stl, st1, st2);
+    assert (stl->first == st2);
+    assert (stl->first->next == st3);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st3);
+    assert (stl->last->previous == st2);
+    assert (stl->last->next == NULL);
+    assert (stl->last->previous == st2);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace first var by last for 3 vars", "OK");
+
+    /* append new var */
+    st1 = Student_List_Var (stl);
+    st1->no = 1;
+    st1->name = "Malith";
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Append new var. Now 3 vars available", "OK");
+
+    /* list -> 2, 3, 1 */
+
+    /* Replace last var by first for 3 vars available */
+    Student_Replace (stl, st1, st2);
+    assert (stl->first == st3);
+    assert (stl->first->next == st2);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st2);
+    assert (stl->last->previous == st3);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace last var by first for 3 vars", "OK");
+
+    /* append new var */
+    st1 = Student_List_Var (stl);
+    st1->no = 1;
+    st1->name = "Malith";
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Append new var. Now 3 vars available", "OK");
+
+    /* list -> 3, 2, 1 */
+
+    /* Replace mid by first for 3 vars available */
+    Student_Replace (stl, st2, st3);
+    assert (stl->first == st3);
+    assert (stl->first->next == st1);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st1);
+    assert (stl->last->previous == st3);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace mid by first var for 3 vars", "OK");
+
+    /* append new var */
+    st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Append new var. Now 3 vars available", "OK");
+
+    /* list -> 3, 1, 2 */
+
+    /* Replace mid by last for 3 vars available */
+    Student_Replace (stl, st1, st2);
+    assert (stl->first == st3);
+    assert (stl->first->next == st2);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st2);
+    assert (stl->last->previous == st3);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace mid by last var for 3 vars", "OK");
+
+    /* --------------- */
+    /* Test for 4 vars */
+    /* --------------- */
+
+    EC_Error_Print_Msg ("Test for 4 vars", "Begin");
+
+    st1 = Student_List_Var (stl);
+    st1->no = 1;
+    st1->name = "Malith";
+
+    StudentListVar *st4 = Student_List_Var (stl);
+    st4->no = 4;
+    st4->name = "Rohasha";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    /* list -> 3, 2, 1, 4 */
+
+    EC_Error_Print_Msg ("Append new 2 vars. Now 4 vars available", "OK");
+
+    /* Replace second var by first var */
+    Student_Replace (stl, st2, st3);
+    assert (stl->first == st3);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st4);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st4);
+    assert (stl->last->previous == st1);
+    assert (stl->last->previous->previous == st3);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace second var by first var", "OK");
+
+    /* append new var. now 4 vars available */
+    st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+
+    /* list -> 3, 1, 4, 2 */
+
+    /* Replace third var by first var */
+    Student_Replace (stl, st4, st3);
+    assert (stl->first == st1);
+    assert (stl->first->next == st3);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st2);
+    assert (stl->last->previous == st3);
+    assert (stl->last->previous->previous == st1);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace third var by first var", "OK");
+
+    /* append new var. 4 vars available */
+    st4 = Student_List_Var (stl);
+    st4->no = 4;
+    st4->name = "Rohasha";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+
+    /* list -> 1, 3, 2, 4 */
+
+    /* Replace fourth var by first var */
+    Student_Replace (stl, st4, st1);
+    assert (stl->first == st3);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st1);
+    assert (stl->last->previous == st2);
+    assert (stl->last->previous->previous == st3);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace forth var by first var ", "OK");
+
+    /* Append new var. 4 vars available */
+    st4 = Student_List_Var (stl);
+    st4->no = 4;
+    st4->name = "Rohasha";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+
+    /* list -> 3, 2, 1, 4 */
+
+    /* Replace 3rd var by second var */
+    Student_Replace (stl, st1, st2);
+    assert (stl->first == st3);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st4);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st4);
+    assert (stl->last->previous == st2);
+    assert (stl->last->previous->previous == st3);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace 3rd var by second var", "OK");
+
+    /* Append new var and now 4 vars available */
+    st1 = Student_List_Var (stl);
+    st1->no = 1;
+    st1->name = "Malith";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+
+    /*list -> 3, 2, 4, 1 */
+
+    /* Replace last var by 2nd var */
+    Student_Replace (stl, st1, st2);
+    assert (stl->first == st3);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st2);
+    assert (stl->last->previous == st4);
+    assert (stl->last->previous->previous == st3);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace last var by 2nd var", "OK");
+
+    /*Append new var and now 4 vars available*/
+    st1 = Student_List_Var (stl);
+    st1->no = 1;
+    st1->name = "Malith";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+
+    /* list -> 3, 4, 2, 1 */
+
+    /* Replace last var by 3rd var */
+    Student_Replace (stl, st1, st2);
+    assert (stl->first == st3);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st2);
+    assert (stl->last->previous == st4);
+    assert (stl->last->previous->previous == st3);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace last var by 3rd var", "OK");
+
+    /*Append new var and now 4 vars available*/
+    st1 = Student_List_Var (stl);
+    st1->no = 1;
+    st1->name = "Malith";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+
+    /* list -> 3, 4, 2, 1 */
+
+    /* Replace 3rd var by last var */
+    Student_Replace (stl, st2, st1);
+    assert (stl->first == st3);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st1);
+    assert (stl->last->previous == st4);
+    assert (stl->last->previous->previous == st3);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace 3rd var by last var", "OK");
+
+    /*Append new var and now 4 vars available*/
+    st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+
+    /* list -> 3, 4, 1, 2 */
+
+    /* Replace 2nd var by last var */
+    Student_Replace (stl, st4, st2);
+    assert (stl->first == st3);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st1);
+    assert (stl->last->previous == st2);
+    assert (stl->last->previous->previous == st3);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace 2nd var by last var", "OK");
+
+    /*Append new var and now 4 vars available*/
+    st4 = Student_List_Var (stl);
+    st4->no = 4;
+    st4->name = "Rohasha";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+
+    /* list -> 3, 2, 1, 4 */
+
+    /* Replace first var by last var */
+    Student_Replace (stl, st3, st4);
+    assert (stl->first == st4);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st1);
+    assert (stl->last->previous == st2);
+    assert (stl->last->previous->previous == st4);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace first var by last var", "OK");
+
+    /*Append new var and now 4 vars available*/
+    st3 = Student_List_Var (stl);
+    st3->no = 3;
+    st3->name = "Geethike";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+
+    /* list -> 4, 2, 1, 3 */
+
+    /* Replace 2nd var by 3rd var */
+    Student_Replace (stl, st2, st1);
+    assert (stl->first == st4);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st3);
+    assert (stl->last->previous == st1);
+    assert (stl->last->previous->previous == st4);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace first var by last var", "OK");
+
+    /*Append new var and now 4 vars available*/
+    st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+
+    /* list -> 4, 1, 3, 2 */
+
+    /* Replace first var by 3rd var */
+    Student_Replace (stl, st4, st3);
+    assert (stl->first == st3);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st2);
+    assert (stl->last->previous == st1);
+    assert (stl->last->previous->previous == st3);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace first var by 3rd var", "OK");
+
+    /*Append new var and now 4 vars available*/
+    st4 = Student_List_Var (stl);
+    st4->no = 4;
+    st4->name = "Rohasha";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+
+    /* list -> 3, 1, 2, 4 */
+
+    /* Replace first var by 2nd var */
+    Student_Replace (stl, st3, st1);
+    assert (stl->first == st1);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st4);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st4);
+    assert (stl->last->previous == st2);
+    assert (stl->last->previous->previous == st1);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace first var by 2nd var", "OK");
+
+
+    /* --------------- */
+    /* Test for 5 vars */
+    /* --------------- */
+
+    EC_Error_Print_Msg ("Test for 4 vars", "Begin");
+
+    st3 = Student_List_Var (stl);
+    st3->no = 3;
+    st3->name = "Perera";
+
+    StudentListVar *st5 = Student_List_Var (stl);
+    st5->no = 5;
+    st5->name = "Malshi";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    /* list -> 1, 2, 4, 3, 5 */
+
+    EC_Error_Print_Msg ("Append new 2 vars. Now 5 vars available", "OK");
+
+    /* Replace second var by first var */
+    Student_Replace (stl, st2, st1);
+    assert (stl->first == st1);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st5);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st5);
+    assert (stl->last->previous == st3);
+    assert (stl->last->previous->previous == st4);
+    assert (stl->last->previous->previous->previous == st1);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace second var by first var", "OK");
+
+    /* append new var. now 5 vars available */
+    st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+
+    /* list -> 1, 4, 3, 5, 2 */
+
+    /*Replace third var by first var */
+    Student_Replace (stl, st3, st1);
+    assert (stl->first == st4);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st5);
+    assert (stl->first->next->next->next == st2);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st2);
+    assert (stl->last->previous == st5);
+    assert (stl->last->previous->previous == st1);
+    assert (stl->last->previous->previous->previous == st4);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace third var by first var", "OK");
+
+    /* append new var. 5 vars available */
+    st3 = Student_List_Var (stl);
+    st3->no = 3;
+    st3->name = "Perera";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 4, 1, 5, 2, 3 */
+
+    /* Replace fourth var by first var */
+    Student_Replace (stl, st2, st4);
+    assert (stl->first == st1);
+    assert (stl->first->next == st5);
+    assert (stl->first->next->next == st4);
+    assert (stl->first->next->next->next == st3);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st3);
+    assert (stl->last->previous == st4);
+    assert (stl->last->previous->previous == st5);
+    assert (stl->last->previous->previous->previous == st1);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace forth var by first var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Perera";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 1, 5, 4, 3, 2 */
+
+    /* Replace fifth var by first var */
+    Student_Replace (stl, st2, st1);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st1);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st1);
+    assert (stl->last->previous == st3);
+    assert (stl->last->previous->previous == st4);
+    assert (stl->last->previous->previous->previous == st5);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace forth var by first var ", "OK");
+
+   /* Append new var. 5 vars available */
+    st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 5, 4, 3, 1, 2 */
+
+    /* Replace 3rd var by 2nd var */
+    Student_Replace (stl, st3, st4);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->next->next->next == st2);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st2);
+    assert (stl->last->previous == st1);
+    assert (stl->last->previous->previous == st4);
+    assert (stl->last->previous->previous->previous == st5);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace 3rd var by 2nd var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st3 = Student_List_Var (stl);
+    st3->no = 3;
+    st3->name = "Perera";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 5, 4, 1, 2, 3 */
+
+    /* Replace 4th var by 2nd var */
+    Student_Replace (stl, st2, st4);
+    assert (stl->first == st5);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st4);
+    assert (stl->first->next->next->next == st3);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st3);
+    assert (stl->last->previous == st4);
+    assert (stl->last->previous->previous == st1);
+    assert (stl->last->previous->previous->previous == st5);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace 3rd var by 2nd var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 5, 1, 4, 3, 2 */
+
+    /* Replace last var by 2nd var */
+    Student_Replace (stl, st2, st1);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st1);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st1);
+    assert (stl->last->previous == st3);
+    assert (stl->last->previous->previous == st4);
+    assert (stl->last->previous->previous->previous == st5);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace last var by 2nd var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 5, 4, 3, 1, 2 */
+
+     /*Replace 4th var by 3rd var */
+    Student_Replace (stl, st1, st3);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st2);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st2);
+    assert (stl->last->previous == st3);
+    assert (stl->last->previous->previous == st4);
+    assert (stl->last->previous->previous->previous == st5);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace last var by 3rd var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st1 = Student_List_Var (stl);
+    st1->no = 1;
+    st1->name = "Malith";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 5, 4, 3, 2, 1 */
+
+     /*Replace last var by 3rd var */
+    Student_Replace (stl, st1, st3);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->next->next->next == st3);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st3);
+    assert (stl->last->previous == st2);
+    assert (stl->last->previous->previous == st4);
+    assert (stl->last->previous->previous->previous == st5);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace last var by 3rd var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st1 = Student_List_Var (stl);
+    st1->no = 1;
+    st1->name = "Malith";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 5, 4, 2, 3, 1 */
+
+     /*Replace last var by 4th var */
+    Student_Replace (stl, st1, st3);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->next->next->next == st3);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st3);
+    assert (stl->last->previous == st2);
+    assert (stl->last->previous->previous == st4);
+    assert (stl->last->previous->previous->previous == st5);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace last var by 4th var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st1 = Student_List_Var (stl);
+    st1->no = 1;
+    st1->name = "Malith";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 5, 4, 2, 3, 1 */
+
+     /*Replace 4th var by last var */
+    Student_Replace (stl, st3, st1);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->next->next->next == st1);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st1);
+    assert (stl->last->previous == st2);
+    assert (stl->last->previous->previous == st4);
+    assert (stl->last->previous->previous->previous == st5);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace 4th var by last var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st3 = Student_List_Var (stl);
+    st3->no = 3;
+    st3->name = "Perera";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 5, 4, 2, 1, 3 */
+
+     /* Replace 3rd var by last var */
+    Student_Replace (stl, st2, st3);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st1);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st1);
+    assert (stl->last->previous == st3);
+    assert (stl->last->previous->previous == st4);
+    assert (stl->last->previous->previous->previous == st5);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace 3rd var by last var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 5, 4, 3, 1, 2 */
+
+     /* Replace 2nd var by last var */
+    Student_Replace (stl, st4, st2);
+    assert (stl->first == st5);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st1);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st1);
+    assert (stl->last->previous == st3);
+    assert (stl->last->previous->previous == st2);
+    assert (stl->last->previous->previous->previous == st5);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace 2nd var by last var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st4 = Student_List_Var (stl);
+    st4->no = 4;
+    st4->name = "Geethike";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 5, 2, 3, 1, 4 */
+
+     /* Replace first var by last var */
+    Student_Replace (stl, st5, st4);
+    assert (stl->first == st4);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st1);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st1);
+    assert (stl->last->previous == st3);
+    assert (stl->last->previous->previous == st2);
+    assert (stl->last->previous->previous->previous == st4);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace first var by last var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st5 = Student_List_Var (stl);
+    st5->no = 5;
+    st5->name = "Malshi";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 4, 2, 3, 1, 5 */
+
+     /* Replace 3rd var by 4th var */
+    Student_Replace (stl, st3, st1);
+    assert (stl->first == st4);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->next->next->next == st5);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st5);
+    assert (stl->last->previous == st1);
+    assert (stl->last->previous->previous == st2);
+    assert (stl->last->previous->previous->previous == st4);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace 3rd var by 4th var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st3 = Student_List_Var (stl);
+    st3->no = 3;
+    st3->name = "Perera";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 4, 2, 1, 5, 3 */
+
+     /* Replace 2nd var by 4th var */
+    Student_Replace (stl, st2, st5);
+    assert (stl->first == st4);
+    assert (stl->first->next == st5);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->next->next->next == st3);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st3);
+    assert (stl->last->previous == st1);
+    assert (stl->last->previous->previous == st5);
+    assert (stl->last->previous->previous->previous == st4);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace 2nd var by 4th var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st2 = Student_List_Var (stl);
+    st2->no = 2;
+    st2->name = "Geethike";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 4, 5, 1, 3, 2 */
+
+     /* Replace first var by 4th var */
+    Student_Replace (stl, st4, st3);
+    assert (stl->first == st3);
+    assert (stl->first->next == st5);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->next->next->next == st2);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st2);
+    assert (stl->last->previous == st1);
+    assert (stl->last->previous->previous == st5);
+    assert (stl->last->previous->previous->previous == st3);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace first var by 4th var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st4 = Student_List_Var (stl);
+    st4->no = 4;
+    st4->name = "Rohasha";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 3, 5, 1, 2, 4 */
+
+     /* Replace 2nd var by 3rd var */
+    Student_Replace (stl, st5, st1);
+    assert (stl->first == st3);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->next->next->next == st4);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st4);
+    assert (stl->last->previous == st2);
+    assert (stl->last->previous->previous == st1);
+    assert (stl->last->previous->previous->previous == st3);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace 2nd var by 3rd var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st5 = Student_List_Var (stl);
+    st5->no = 5;
+    st5->name = "Malshi";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 3, 1, 2, 4, 5 */
+
+     /* Replace first var by 3rd var */
+    Student_Replace (stl, st3, st2);
+    assert (stl->first == st2);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st4);
+    assert (stl->first->next->next->next == st5);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st5);
+    assert (stl->last->previous == st4);
+    assert (stl->last->previous->previous == st1);
+    assert (stl->last->previous->previous->previous == st2);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace first var by 3rd var ", "OK");
+
+    /* Append new var. 5 vars available */
+    st3 = Student_List_Var (stl);
+    st3->no = 3;
+    st3->name = "Perera";
+
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+
+    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+
+    /* list -> 2, 1, 4, 5, 3 */
+
+     /* Replace first var by 2nd var */
+    Student_Replace (stl, st2, st1);
+    assert (stl->first == st1);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st5);
+    assert (stl->first->next->next->next == st3);
+    assert (stl->first->previous == NULL);
+    assert (stl->last == st3);
+    assert (stl->last->previous == st5);
+    assert (stl->last->previous->previous == st4);
+    assert (stl->last->previous->previous->previous == st1);
+    assert (stl->last->next == NULL);
+    for_list (stl)
+    {
+        printf ("%d %s\n", stl->var->no, stl->var->name);
+    }
+    EC_Error_Print_Msg ("Replace first var by 2nd var ", "OK");
+
 
     EC_Error_Print_Msg ("Test_Replace_List: ", "END");
 }

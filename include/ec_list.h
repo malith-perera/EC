@@ -492,17 +492,43 @@ EC_LIST_INSERT_FUNCTION_NAME(TYPE)              \
 }
 
 
+    //if (rep->previous != NULL) printf ("rp %d\n", rep->previous->no);\
 /* List Replace Function */
 #define EC_LIST_REPLACE_FUNCTION(TYPE)          \
 void                                            \
 EC_LIST_REPLACE_FUNCTION_NAME(TYPE)             \
 (                                               \
     EC_LIST_STRUCT(TYPE)        *list,          \
-    EC_LIST_VAR_STRUCT(TYPE)    *rep,           \
-    EC_LIST_VAR_STRUCT(TYPE)    *var            \
+    EC_LIST_VAR_STRUCT(TYPE)    *rep,           /* replaced var */\
+    EC_LIST_VAR_STRUCT(TYPE)    *var            /* replaced by var*/\
 )                                               \
 {                                               \
-    if (rep == var) return;                     \
+    if (EC_WARN)                                \
+    {                                           \
+        if (list->first == NULL)                \
+        {                                       \
+            EC_Warn_Print_Msg ("List_Var_Replace", "list is empty"); \
+            return;                             \
+        }                                       \
+                                                \
+        if (rep == var)                         \
+        {                                       \
+            EC_Warn_Print_Msg ("List_Var_Replace", "var and rep is same"); \
+            return;                             \
+        }                                       \
+                                                \
+        if (var == NULL || rep == NULL)         \
+        {                                       \
+            EC_Warn_Print_Msg ("List_Var_Replace", "higher than list->n"); \
+            return;                             \
+        }                                       \
+                                                \
+        if (rep == var)                         \
+        {                                       \
+            EC_Warn_Print_Msg ("List_Var_Move_Down var pos", "higher than list->n"); \
+            return;                             \
+        }                                       \
+    }                                           \
                                                 \
     if (var->next == rep)                       \
     {                                           \
@@ -536,50 +562,42 @@ EC_LIST_REPLACE_FUNCTION_NAME(TYPE)             \
         goto free_rep;                          \
     }                                           \
                                                 \
-    if (var != list->first)                     \
-    {                                           \
-        var->previous->next = var->next;        \
-    }                                           \
-    else                                        \
+    if (var == list->first)                     \
     {                                           \
         list->first = var->next;                \
-        var->next->previous = NULL;             \
+        list->first->previous = NULL;           \
     }                                           \
-                                                \
-    if (var != list->last)                      \
-    {                                           \
-        var->next->previous = var->previous;    \
-    }                                           \
-    else                                        \
+    else if (var == list->last)                 \
     {                                           \
         list->last = var->previous;             \
-        var->previous->next = NULL;             \
-    }                                           \
-                                                \
-    if (rep != list->first)                     \
-    {                                           \
-        var->previous = rep->previous;          \
-        rep->previous->next = var;              \
+        list->last->next = NULL;                \
     }                                           \
     else                                        \
+    {                                           \
+        var->previous->next = var->next;        \
+        var->next->previous = var->previous;    \
+    }                                           \
+                                                \
+    if (rep == list->first)                     \
     {                                           \
         list->first = var;                      \
-        var->previous = NULL;                   \
-        var->next = rep->next;                  \
+        list->first->previous = NULL;           \
+        list->first->next = rep->next;          \
         rep->next->previous = var;              \
     }                                           \
-                                                \
-    if (rep != list->last)                      \
+    else if (rep == list->last)                 \
     {                                           \
-        var->next = rep->next;                  \
-        rep->next->previous = var;              \
+        list->last = var;                       \
+        list->last->next = NULL;                \
+        list->last->previous = rep->previous;   \
+        rep->previous->next = var;              \
     }                                           \
     else                                        \
     {                                           \
-        list->last = var;                       \
-        var->next = NULL;                       \
-        var->previous = rep->previous;          \
+        rep->next->previous = var;              \
+        var->next = rep->next;                  \
         rep->previous->next = var;              \
+        var->previous = rep->previous;          \
     }                                           \
                                                 \
     free_rep:                                   \
@@ -812,8 +830,6 @@ EC_LIST_VAR_MOVE_DOWN_FUNCTION_NAME(TYPE)                       \
         if (EC_WARN) EC_Warn_Print_Msg ("List_Var_Move_Down arg *var NULL", "OK"); \
     }                                                           \
 }
-
-
 
 
 #define EC_LIST_FUNCTIONS(TYPE)         \
