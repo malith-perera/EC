@@ -37,6 +37,8 @@
 #define EC_LIST_VAR_REPLACE_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _List_Var_Replace,)
 #define EC_LIST_VAR_CHANGE_LIST_FUNCTION_NAME(TYPE) EC_CONCAT(TYPE, _List_Var_Change_List,)
 
+#define EC_LIST_VAR_EXIST_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _List_Var_Exist,)
+
 /* Structure macros */
 // EC_MEMORY_REF defined in ec_memory.h
 #define EC_LIST_STRUCT(TYPE)                        EC_CONCAT(TYPE, List,)
@@ -62,6 +64,15 @@ typedef struct EC_LIST_STRUCT(TYPE) {                   \
 
 
 /* Function prototype macros */
+#define EC_LIST_VAR_EXIST_PROTOTYPE(TYPE)               \
+bool                                                    \
+EC_LIST_VAR_EXIST_FUNCTION_NAME(TYPE)                   \
+(                                                       \
+    EC_LIST_STRUCT(TYPE)        *list,                  \
+    EC_LIST_VAR_STRUCT(TYPE)    *var                    \
+);
+
+
 #define EC_LIST_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)       \
 void                                                    \
 EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                    \
@@ -188,8 +199,12 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
     EC_LIST_VAR_STRUCT(TYPE)    *var                        \
 );
 
+
+
+
 /* Change order carefuly if you need. EC_LIST_VAR_FREE_FUNCTION use this */
 #define EC_LIST_FUNCTION_PROTOTYPES(TYPE)                   \
+    EC_LIST_VAR_EXIST_PROTOTYPE(TYPE)                       \
     EC_LIST_APPEND_FUNCTION_PROTOTYPE(TYPE)                 \
     EC_LIST_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)               \
     EC_LIST_FREE_FUNCTION_PRTOTYPE(TYPE)                    \
@@ -206,6 +221,22 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
 
 
 /* Function macros */
+
+#define EC_LIST_VAR_EXIST_FUNCTION(TYPE)                        \
+bool                                                            \
+EC_LIST_VAR_EXIST_FUNCTION_NAME(TYPE)                           \
+(                                                               \
+    EC_LIST_STRUCT(TYPE)        *list,                          \
+    EC_LIST_VAR_STRUCT(TYPE)    *var                            \
+)                                                               \
+{                                                               \
+    for_list (list)                                             \
+    {                                                           \
+        if (list->var == var) return true;                      \
+    }                                                           \
+                                                                \
+    return false;                                               \
+}
 
 /* Delete a list variable */
 #define EC_LIST_VAR_FREE_FUNCTION(TYPE)                             \
@@ -383,6 +414,10 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
 
 /* List Append Function */
 
+
+
+#if EC_WARN
+
 #define EC_LIST_APPEND_FUNCTION(TYPE)       \
 void                                        \
 EC_LIST_APPEND_FUNCTION_NAME(TYPE)          \
@@ -407,6 +442,35 @@ EC_LIST_APPEND_FUNCTION_NAME(TYPE)          \
     list->n++;                              \
     list->last = var;                       \
 }
+
+#else /* if not EC_WARN defined */
+
+#define EC_LIST_APPEND_FUNCTION(TYPE)       \
+void                                        \
+EC_LIST_APPEND_FUNCTION_NAME(TYPE)          \
+(                                           \
+    EC_LIST_STRUCT(TYPE)        *list,      \
+    EC_LIST_VAR_STRUCT(TYPE)    *var        \
+)                                           \
+{                                           \
+    var->next = NULL;                       \
+                                            \
+    if (list->first != NULL)                /* List not empty */\
+    {                                       \
+        var->previous = list->last;         \
+        list->last->next = var;             \
+    }                                       \
+    else                                    /* empty list */\
+    {                                       \
+        var->previous = NULL;               \
+        list->first = var;                  \
+    }                                       \
+                                            \
+    list->n++;                              \
+    list->last = var;                       \
+}
+
+#endif /* End EC_WARN */
 
 
 /* List Insert Function */
@@ -499,7 +563,7 @@ void                                            \
 EC_LIST_REPLACE_FUNCTION_NAME(TYPE)             \
 (                                               \
     EC_LIST_STRUCT(TYPE)        *list,          \
-    EC_LIST_VAR_STRUCT(TYPE)    *rep,           /* replaced var */\
+    EC_LIST_VAR_STRUCT(TYPE)    *rep,           /* replaced rep */\
     EC_LIST_VAR_STRUCT(TYPE)    *var            /* replaced by var*/\
 )                                               \
 {                                               \
@@ -846,6 +910,8 @@ EC_LIST_VAR_MOVE_DOWN_FUNCTION_NAME(TYPE)                       \
                                         \
     EC_LIST_VAR_MOVE_UP_FUNCTION(TYPE)  \
     EC_LIST_VAR_MOVE_DOWN_FUNCTION(TYPE)\
-    EC_LIST_VAR_DROP_FUNCTION(TYPE)
+    EC_LIST_VAR_DROP_FUNCTION(TYPE)     \
+                                        \
+    EC_LIST_VAR_EXIST_FUNCTION(TYPE)    \
 
 #endif // EC_LIST_H
