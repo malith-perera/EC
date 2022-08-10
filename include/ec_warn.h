@@ -32,7 +32,6 @@ EC_UNLOCK_FUNCTION_NAME(TYPE)                   \
     printf ("list variable %s is not exist in %s\n list", EC_GET_NAME (ec_var_name), EC_GET_NAME (ec_list_name));
 
 
-/*printf("%s", getName(myVar));*/
 /*#define getName(var, str)  sprintf(str, "%s", #var)*/
 /*char str[20];*/
 /*getName(myVar, str);*/
