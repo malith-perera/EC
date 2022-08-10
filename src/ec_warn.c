@@ -4,6 +4,7 @@
 
 #include "ec_error.h"
 
+
 void
 EC_Warn_Print_Msg (char *msg, char *result)
 {
