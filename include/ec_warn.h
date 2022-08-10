@@ -3,7 +3,7 @@
 
 #include "ec.h"
 
-#define EC_GET_NAME(ec_var_name)  #ec_var_name
+#define EC_GET_VAR_NAME(ec_var_name)  #ec_var_name
 
 void
 EC_Warn_Print_Msg (char *test, char *result);
@@ -29,7 +29,7 @@ EC_UNLOCK_FUNCTION_NAME(TYPE)                   \
     EC_Set_Text_Color(stdout, EC_LIGHTRED);     \
     printf ("Warning: ");                       \
     printf ("\033[0m");                         \
-    printf ("list variable %s is not exist in %s\n list", EC_GET_NAME (ec_var_name), EC_GET_NAME (ec_list_name));
+    printf ("list variable %s is not exist in %s\n list", EC_GET_VAR_NAME (ec_var_name), EC_GET_VAR_NAME (ec_list_name));
 
 
 /*#define getName(var, str)  sprintf(str, "%s", #var)*/
