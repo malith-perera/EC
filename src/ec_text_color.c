@@ -15,7 +15,7 @@
 
 #ifdef _WIN32
 
-void setTextColor(FILE *stream, TextColor color)
+void EC_Set_Text_Color(FILE *stream, TextColor color)
 {
     int outfd = fileno(stream);
     HANDLE out = (HANDLE)_get_osfhandle(outfd);
@@ -88,7 +88,7 @@ static int isAnsiColorTerm(void)
     return 0;
 }
 
-void setTextColor(FILE *stream, TextColor color)
+void EC_Set_Text_Color(FILE *stream, TextColor color)
 {
     int outfd = fileno(stream);
     if (isatty(outfd) && isAnsiColorTerm())
@@ -109,10 +109,10 @@ void Reset_Text_Color ()
 /*int main(void)*/
 /*{*/
     /*puts("Color test.");*/
-    /*setTextColor(stdout, EC_YELLOW);*/
+    /*EC_Set_Text_Color(stdout, EC_YELLOW);*/
     /*puts("This is green!\n");*/
     /*printf ("This also may\n");*/
-    /*setTextColor(stdout, EC_LIGHTGRAY);*/
+    /*EC_Set_Text_Color(stdout, EC_LIGHTGRAY);*/
     /*puts("back to normal.");*/
     /*return EXIT_SUCCESS;*/
 /*}*/

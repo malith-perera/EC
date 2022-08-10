@@ -26,7 +26,7 @@ typedef enum TextColor
 
 
 // set output color on the given stream:
-void setTextColor(FILE *stream, TextColor color);
+void EC_Set_Text_Color(FILE *stream, TextColor color);
 
 void Reset_Text_Color ();
 

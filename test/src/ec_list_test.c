@@ -12,27 +12,6 @@ struct Stu {
 
 struct Stu students[5] = {{1, "Malith"}, {2, "Geethike"}, {3, "Perera"}, {4, "Rohasha"}, {5, "Malshi"}};
 
-void
-Print_Student_List (StudentList *stl)
-{
-    /*
-    StudentListVar *current = stl->first;
-
-    while (current != NULL)
-    {
-    printf ("%d ", current->no);
-    current = current->next;
-    }
-    */
-
-    /*foreach_list (stl)*/
-    /*{*/
-        /*printf ("%d ", stl->var->no);*/
-    /*}*/
-
-    /*printf ("\n");*/
-}
-
 
 void
 Test_New_List ()
@@ -42,9 +21,48 @@ Test_New_List ()
     StudentList *stl = Student_List (0);
     EC_Error_Print_Msg ("Create new list", "OK");
 
-    StudentListVar *st1 = Student_List_Var (stl);
-    StudentListVar *st2 = Student_List_Var (stl);
-    StudentListVar *st3 = Student_List_Var (stl);
+    assert (stl->first == NULL);
+    assert (stl->last == NULL);
+    assert (stl->var == NULL);
+
+    EC_Error_Print_Msg ("Test list zero Variables", "OK");
+
+    /* Test for three variables */
+    StudentList *stl2 = Student_List (3);
+    EC_Error_Print_Msg ("Create new list with 3 list vars", "OK");
+
+    int i = 0;
+
+    for_list (stl2)
+    {
+        stl2->var->no = students[i].no;
+        stl2->var->name = students[i].name;
+        i++;
+    }
+
+    EC_Error_Print_Msg ("Assign list variable attributes", "OK");
+
+    assert (stl2->first->no == 1);
+    assert (!strcmp (stl2->first->name, "Malith"));
+
+    assert (stl2->first->next->no == 2);
+    assert (!strcmp (stl2->first->next->name, "Geethike"));
+
+    assert (stl2->first->next->next->no == 3);
+    assert (!strcmp (stl2->first->next->next->name, "Perera"));
+
+    EC_Error_Print_Msg ("List variables exist ok", "OK");
+
+    assert (stl2->first->next->next->next == NULL);
+    assert (stl2->last->next == NULL);
+    EC_Error_Print_Msg ("List last next NULL", "OK");
+
+    /* Test append new list vars */
+    StudentList *stl3 = Student_List (0);
+
+    StudentListVar *st1 = Student_List_Var (stl3);
+    StudentListVar *st2 = Student_List_Var (stl3);
+    StudentListVar *st3 = Student_List_Var (stl3);
     EC_Error_Print_Msg ("Create list variables", "OK");
 
     st1->no = 1;
@@ -56,58 +74,22 @@ Test_New_List ()
 
     EC_Error_Print_Msg ("Assign list variable attributes", "OK");
 
-    assert (stl->first->no == 1);
-    assert (!strcmp (stl->first->name, "Malith"));
+    assert (stl3->first->no == 1);
+    assert (!strcmp (stl3->first->name, "Malith"));
 
-    assert (stl->first->next->no == 2);
-    assert (!strcmp (stl->first->next->name, "Geethike"));
+    assert (stl3->first->next->no == 2);
+    assert (!strcmp (stl3->first->next->name, "Geethike"));
 
-    assert (stl->first->next->next->no == 3);
-    assert (!strcmp (stl->first->next->next->name, "Perera"));
+    assert (stl3->first->next->next->no == 3);
+    assert (!strcmp (stl3->first->next->next->name, "Perera"));
 
-    EC_Error_Print_Msg ("List variables exist ok", "OK");
+    EC_Error_Print_Msg ("List variables exist", "OK");
 
-    assert (stl->first->next->next->next == NULL);
-    assert (stl->last->next == NULL);
+    assert (stl3->first->next->next->next == NULL);
+    assert (stl3->last->next == NULL);
     EC_Error_Print_Msg ("List last next NULL", "OK");
 
     EC_Error_Print_Msg ("Test_New_List: ", "END");
-}
-
-
-void
-Test_New_List2 ()
-{
-    EC_Error_Print_Msg ("Test_New_List2: ", "BEGIN");
-
-    StudentList *stl = Student_List (3);
-    EC_Error_Print_Msg ("Create new list with 3 list vars", "OK");
-
-    stl->first->no = 1;
-    stl->first->name = "Malith";
-    stl->first->next->no = 2;
-    stl->first->next->name = "Geethike";
-    stl->first->next->next->no = 3;
-    stl->first->next->next->name = "Perera";
-
-    EC_Error_Print_Msg ("Assign list variable attributes", "OK");
-
-    assert (stl->first->no == 1);
-    assert (!strcmp (stl->first->name, "Malith"));
-
-    assert (stl->first->next->no == 2);
-    assert (!strcmp (stl->first->next->name, "Geethike"));
-
-    assert (stl->first->next->next->no == 3);
-    assert (!strcmp (stl->first->next->next->name, "Perera"));
-
-    EC_Error_Print_Msg ("List variables exist ok", "OK");
-
-    assert (stl->first->next->next->next == NULL);
-    assert (stl->last->next == NULL);
-    EC_Error_Print_Msg ("List last next NULL", "OK");
-
-    EC_Error_Print_Msg ("Test_New_List2: ", "END");
 }
 
 
@@ -235,6 +217,8 @@ Test_Insert_List ()
     /*EC_Error_Print_Msg ("Test_Insert_List: ", "END");*/
 }
 
+
+/* Test_Replace_List function tested only for max 5 vars */
 
 void
 Test_Replace_List ()
@@ -1497,7 +1481,6 @@ Test_Replace_List ()
     }
     EC_Error_Print_Msg ("Replace first var by 2nd var ", "OK");
 
-
     EC_Error_Print_Msg ("Test_Replace_List: ", "END");
 }
 
@@ -2398,6 +2381,18 @@ Test_List_Var_Delete ()
 
 
 void
+Test_List_Change_Var ()
+{
+}
+
+
+void
+Test_List_Exchange_Var ()
+{
+}
+
+
+void
 Test_List_Var_Drop ()
 {
     EC_Error_Print_Msg ("Test_List_Var_Drop: ", "BEGIN");
@@ -2412,38 +2407,41 @@ Run_List_Test ()
     printf ("Test: ec_list.h\n");
     printf ("===============\n");
 
-    /*Test_New_List ();*/
-    /*printf ("\n");*/
+    Test_New_List ();
+    printf ("\n");
 
-    /*Test_New_List2 ();*/
-    /*printf ("\n");*/
+    Test_List_Var_Move_Up ();
+    printf ("\n");
 
-    /*Test_List_Var_Move_Up ();*/
-    /*printf ("\n");*/
+    Test_List_Var_Move_Down ();
+    printf ("\n");
 
-    /*Test_List_Var_Move_Down ();*/
-    /*printf ("\n");*/
+    Test_List_Var_Delete ();
+    printf ("\n");
 
-    /*Test_List_Var_Delete ();*/
-    /*printf ("\n");*/
+    Test_Append_List ();
+    printf ("\n");
 
-    /*Test_List_Var_Drop ();*/
-    /*printf ("\n");*/
-
-    /*Test_Append_List ();*/
-    /*printf ("\n");*/
-
-    /*Test_Insert_List ();*/
-    /*printf ("\n");*/
+    Test_Insert_List ();
+    printf ("\n");
 
     Test_Replace_List ();
     printf ("\n");
 
-    /*Test_Sort_List ();*/
-    /*printf ("\n");*/
+    Test_List_Var_Drop ();
+    printf ("\n");
 
-    /*Test_List_Copy ();*/
-    /*printf ("\n");*/
+    Test_Sort_List ();
+    printf ("\n");
+
+    Test_List_Copy ();
+    printf ("\n");
+
+    Test_List_Change_Var ();
+    printf ("\n");
+
+    Test_List_Exchange_Var ();
+    printf ("\n");
 
     /*EC_Error_Print_Msg ("Test: ec_list.h", "PASS");*/
     /*printf ("\n");*/
