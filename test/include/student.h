@@ -1,7 +1,7 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
-#include "ec_test.h"
+#include "ec_main_test.h"
 #include "ec.h"
 
 #define STUDENT     \

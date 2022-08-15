@@ -39,6 +39,7 @@
 
 #define EC_LIST_VAR_EXIST_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _List_Var_Exist,)
 
+
 /* Structure macros */
 // EC_MEMORY_REF defined in ec_memory.h
 #define EC_LIST_STRUCT(TYPE)                        EC_CONCAT(TYPE, List,)
@@ -62,6 +63,9 @@ typedef struct EC_LIST_STRUCT(TYPE) {                   \
     EC_MEMORY_REF                                       \
 } EC_LIST_STRUCT(TYPE);
 
+/* Unlisted variable list */
+#define EC_LIST_UNLISTED_VAR_LIST(TYPE) \
+    EC_LIST_VAR_STRUCT(TYPE) *EC_CONCAT(Unlisted_, TYPE, _List);
 
 /* Function prototype macros */
 #define EC_LIST_VAR_EXIST_PROTOTYPE(TYPE)               \
@@ -894,5 +898,6 @@ EC_LIST_VAR_MOVE_DOWN_FUNCTION_NAME(TYPE)                       \
     EC_LIST_VAR_MOVE_DOWN_FUNCTION(TYPE)\
     EC_LIST_VAR_DROP_FUNCTION(TYPE)     \
                                         \
+    EC_LIST_UNLISTED_VAR_LIST(TYPE)
 
 #endif // EC_LIST_H
