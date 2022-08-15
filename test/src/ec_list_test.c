@@ -16,20 +16,20 @@ struct Stu students[5] = {{1, "Malith"}, {2, "Geethike"}, {3, "Perera"}, {4, "Ro
 void
 Test_New_List ()
 {
-    EC_Error_Print_Msg ("Test_New_List: ", "BEGIN");
+    EC_Test_Print_Title ("Test_New_List: ", "BEGIN");
 
     StudentList *stl = Student_List (0);
-    EC_Error_Print_Msg ("Create new list", "OK");
+    EC_Test_Print_Msg ("Create new list", "OK");
 
     assert (stl->first == NULL);
     assert (stl->last == NULL);
     assert (stl->var == NULL);
 
-    EC_Error_Print_Msg ("Test list zero Variables", "OK");
+    EC_Test_Print_Msg ("Test list zero Variables", "OK");
 
     /* Test for three variables */
     StudentList *stl2 = Student_List (3);
-    EC_Error_Print_Msg ("Create new list with 3 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 3 list vars", "OK");
 
     int i = 0;
 
@@ -40,7 +40,7 @@ Test_New_List ()
         i++;
     }
 
-    EC_Error_Print_Msg ("Assign list variable attributes", "OK");
+    EC_Test_Print_Msg ("Assign list variable attributes", "OK");
 
     assert (stl2->first->no == 1);
     assert (!strcmp (stl2->first->name, "Malith"));
@@ -51,11 +51,11 @@ Test_New_List ()
     assert (stl2->first->next->next->no == 3);
     assert (!strcmp (stl2->first->next->next->name, "Perera"));
 
-    EC_Error_Print_Msg ("List variables exist ok", "OK");
+    EC_Test_Print_Msg ("List variables exist ok", "OK");
 
     assert (stl2->first->next->next->next == NULL);
     assert (stl2->last->next == NULL);
-    EC_Error_Print_Msg ("List last next NULL", "OK");
+    EC_Test_Print_Msg ("List last next NULL", "OK");
 
     /* Test append new list vars */
     StudentList *stl3 = Student_List (0);
@@ -63,7 +63,7 @@ Test_New_List ()
     StudentListVar *st1 = Student_List_Var (stl3);
     StudentListVar *st2 = Student_List_Var (stl3);
     StudentListVar *st3 = Student_List_Var (stl3);
-    EC_Error_Print_Msg ("Create list variables", "OK");
+    EC_Test_Print_Msg ("Create list variables", "OK");
 
     st1->no = 1;
     st1->name = "Malith";
@@ -72,7 +72,7 @@ Test_New_List ()
     st3->no = 3;
     st3->name = "Perera";
 
-    EC_Error_Print_Msg ("Assign list variable attributes", "OK");
+    EC_Test_Print_Msg ("Assign list variable attributes", "OK");
 
     assert (stl3->first->no == 1);
     assert (!strcmp (stl3->first->name, "Malith"));
@@ -83,20 +83,20 @@ Test_New_List ()
     assert (stl3->first->next->next->no == 3);
     assert (!strcmp (stl3->first->next->next->name, "Perera"));
 
-    EC_Error_Print_Msg ("List variables exist", "OK");
+    EC_Test_Print_Msg ("List variables exist", "OK");
 
     assert (stl3->first->next->next->next == NULL);
     assert (stl3->last->next == NULL);
-    EC_Error_Print_Msg ("List last next NULL", "OK");
+    EC_Test_Print_Msg ("List last next NULL", "OK");
 
-    EC_Error_Print_Msg ("Test_New_List: ", "END");
+    EC_Test_Print_Title ("Test_New_List: ", "END");
 }
 
 
 void
 Test_Append_List ()
 {
-/*    EC_Error_Print_Msg ("Append_List: ", "BEGIN");*/
+/*    EC_Test_Print_Msg ("Append_List: ", "BEGIN");*/
 
     /*StudentList *stl = Student_List ();*/
 
@@ -118,7 +118,7 @@ Test_Append_List ()
     /*assert (stl->first->previous == NULL);*/
     /*assert (stl->last == st1);*/
 
-    /*EC_Error_Print_Msg ("Append list first variable", "OK");*/
+    /*EC_Test_Print_Msg ("Append list first variable", "OK");*/
 
     /*Append_Student (stl, st2);*/
 
@@ -133,16 +133,16 @@ Test_Append_List ()
     /*assert (st2->next == NULL);*/
     /*assert (stl->last->next == NULL);*/
 
-    /*EC_Error_Print_Msg ("Append list second variable", "OK");*/
+    /*EC_Test_Print_Msg ("Append list second variable", "OK");*/
 
-    /*EC_Error_Print_Msg ("Append_List: ", "END");*/
+    /*EC_Test_Print_Msg ("Append_List: ", "END");*/
 }
 
 
 void
 Test_Insert_List ()
 {
-    EC_Error_Print_Msg ("Test_Insert_List: ", "BEGIN");
+    EC_Test_Print_Msg ("Test_Insert_List: ", "BEGIN");
 
     StudentList *stl = Student_List (0);
 
@@ -167,7 +167,7 @@ Test_Insert_List ()
     /*assert (stl->first->no == 3);*/
     /*assert (!strcmp (stl->first->name, "Perera")); // strcmp return 0 when equal use !*/
 
-    /*EC_Error_Print_Msg ("Insert as fist item", "OK");*/
+    /*EC_Test_Print_Msg ("Insert as fist item", "OK");*/
 
     /*StudentListVar *st4 = Student_List_Var ();*/
     /*st4->no = 4;*/
@@ -176,7 +176,7 @@ Test_Insert_List ()
     /*assert (stl->first->next->no == 4);*/
     /*assert (!strcmp (stl->first->next->name, "Malshi")); // strcmp return 0 when equal use !*/
 
-    /*EC_Error_Print_Msg ("Insert next to fist item", "OK");*/
+    /*EC_Test_Print_Msg ("Insert next to fist item", "OK");*/
 
     /*StudentListVar *st5 = Student_List_Var ();*/
     /*st5->no = 5;*/
@@ -185,7 +185,7 @@ Test_Insert_List ()
     /*assert (stl->last->previous->no == 5);*/
     /*assert (!strcmp (stl->last->previous->name, "Prisenthi")); // strcmp return 0 when equal use !*/
 
-    /*EC_Error_Print_Msg ("Insert before last item", "OK");*/
+    /*EC_Test_Print_Msg ("Insert before last item", "OK");*/
 
     /*StudentListVar *st6 = Student_List_Var ();*/
     /*st6->no = 6;*/
@@ -194,7 +194,7 @@ Test_Insert_List ()
     /*assert (stl->last->no == 6);*/
     /*assert (!strcmp (stl->last->name, "Fernando")); // strcmp return 0 when equal use !*/
 
-    /*EC_Error_Print_Msg ("Insert as last item", "OK");*/
+    /*EC_Test_Print_Msg ("Insert as last item", "OK");*/
 
     /*StudentListVar *st7 = Student_List_Var ();*/
     /*st7->no = 7;*/
@@ -203,7 +203,7 @@ Test_Insert_List ()
     /*assert (st4->next->no == 7);*/
     /*assert (!strcmp (st4->next->name, "Rohasha")); // strcmp return 0 when equal use !*/
 
-    /*EC_Error_Print_Msg ("Insert as after mid item", "OK");*/
+    /*EC_Test_Print_Msg ("Insert as after mid item", "OK");*/
 
     /*StudentListVar *st8 = Student_List_Var ();*/
     /*st8->no = 8;*/
@@ -212,9 +212,9 @@ Test_Insert_List ()
     /*assert (st4->previous->no == 8);*/
     /*assert (!strcmp (st4->previous->name, "Magret")); // strcmp return 0 when equal use !*/
 
-    /*EC_Error_Print_Msg ("Insert as before mid item", "OK");*/
+    /*EC_Test_Print_Msg ("Insert as before mid item", "OK");*/
 
-    /*EC_Error_Print_Msg ("Test_Insert_List: ", "END");*/
+    /*EC_Test_Print_Msg ("Test_Insert_List: ", "END");*/
 }
 
 
@@ -223,20 +223,20 @@ Test_Insert_List ()
 void
 Test_Replace_List ()
 {
-    EC_Error_Print_Msg ("Test_Replace_List: ", "BEGIN");
+    EC_Test_Print_Msg ("Test_Replace_List: ", "BEGIN");
 
     /* Test for 0 vars */
-    EC_Error_Print_Msg ("Test for empty vars", "Begin");
+    EC_Test_Print_Msg ("Test for empty vars", "Begin");
 
     /* if list is empty */
     StudentList *stl = Student_List (0);
 
     StudentListVar *st0 = NULL;
     Student_Replace (stl, st0, st0);
-    EC_Error_Print_Msg ("empty listi warn", "OK");
+    EC_Test_Print_Msg ("empty listi warn", "OK");
 
     /* Test for 1 var */
-    EC_Error_Print_Msg ("Test for 1 var", "Begin");
+    EC_Test_Print_Msg ("Test for 1 var", "Begin");
 
     /* create first list var */
     StudentListVar *st1 = Student_List_Var (stl);
@@ -249,13 +249,13 @@ Test_Replace_List ()
     }
 
     Student_Replace (stl, st1, st1);
-    EC_Error_Print_Msg ("Replace same var warn", "OK");
+    EC_Test_Print_Msg ("Replace same var warn", "OK");
 
     /* --------------- */
     /* Test for 2 vars */
     /* --------------- */
 
-    EC_Error_Print_Msg ("Test for 2 vars", "Begin");
+    EC_Test_Print_Msg ("Test for 2 vars", "Begin");
 
     /* create and add second list var */
     StudentListVar *st2 = Student_List_Var (stl);
@@ -275,7 +275,7 @@ Test_Replace_List ()
     assert (stl->first->next == NULL);
     assert (stl->last == st2);
     assert (stl->last->previous == NULL);
-    EC_Error_Print_Msg ("Replace left adjecent rep by var", "OK");
+    EC_Test_Print_Msg ("Replace left adjecent rep by var", "OK");
 
     for_list (stl)
     {
@@ -299,7 +299,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace right adjecent rep by var", "OK");
+    EC_Test_Print_Msg ("Replace right adjecent rep by var", "OK");
 
     /* --------------- */
     /* Test for 3 vars */
@@ -330,7 +330,7 @@ Test_Replace_List ()
     assert (stl->last->previous == st1);
     assert (stl->last->previous->previous == NULL);
 
-    EC_Error_Print_Msg ("Replace left adjecent var by mid var", "OK");
+    EC_Test_Print_Msg ("Replace left adjecent var by mid var", "OK");
 
     st2 = Student_List_Var (stl);
     st2->no = 2;
@@ -339,7 +339,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Append new var. Now 3 vars available", "OK");
+    EC_Test_Print_Msg ("Append new var. Now 3 vars available", "OK");
 
     /* list -> 1, 3, 2 */
 
@@ -355,7 +355,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace right adjecent var by mid var", "OK");
+    EC_Test_Print_Msg ("Replace right adjecent var by mid var", "OK");
 
     /* Append new var */
     st2 = Student_List_Var (stl);
@@ -365,7 +365,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Append new var. Now 3 vars available", "OK");
+    EC_Test_Print_Msg ("Append new var. Now 3 vars available", "OK");
 
     /* list -> 1, 3, 2 */
 
@@ -382,7 +382,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace first var by last for 3 vars", "OK");
+    EC_Test_Print_Msg ("Replace first var by last for 3 vars", "OK");
 
     /* append new var */
     st1 = Student_List_Var (stl);
@@ -392,7 +392,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Append new var. Now 3 vars available", "OK");
+    EC_Test_Print_Msg ("Append new var. Now 3 vars available", "OK");
 
     /* list -> 2, 3, 1 */
 
@@ -408,7 +408,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace last var by first for 3 vars", "OK");
+    EC_Test_Print_Msg ("Replace last var by first for 3 vars", "OK");
 
     /* append new var */
     st1 = Student_List_Var (stl);
@@ -418,7 +418,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Append new var. Now 3 vars available", "OK");
+    EC_Test_Print_Msg ("Append new var. Now 3 vars available", "OK");
 
     /* list -> 3, 2, 1 */
 
@@ -434,7 +434,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace mid by first var for 3 vars", "OK");
+    EC_Test_Print_Msg ("Replace mid by first var for 3 vars", "OK");
 
     /* append new var */
     st2 = Student_List_Var (stl);
@@ -444,7 +444,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Append new var. Now 3 vars available", "OK");
+    EC_Test_Print_Msg ("Append new var. Now 3 vars available", "OK");
 
     /* list -> 3, 1, 2 */
 
@@ -460,13 +460,13 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace mid by last var for 3 vars", "OK");
+    EC_Test_Print_Msg ("Replace mid by last var for 3 vars", "OK");
 
     /* --------------- */
     /* Test for 4 vars */
     /* --------------- */
 
-    EC_Error_Print_Msg ("Test for 4 vars", "Begin");
+    EC_Test_Print_Msg ("Test for 4 vars", "Begin");
 
     st1 = Student_List_Var (stl);
     st1->no = 1;
@@ -483,7 +483,7 @@ Test_Replace_List ()
 
     /* list -> 3, 2, 1, 4 */
 
-    EC_Error_Print_Msg ("Append new 2 vars. Now 4 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 2 vars. Now 4 vars available", "OK");
 
     /* Replace second var by first var */
     Student_Replace (stl, st2, st3);
@@ -499,7 +499,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace second var by first var", "OK");
+    EC_Test_Print_Msg ("Replace second var by first var", "OK");
 
     /* append new var. now 4 vars available */
     st2 = Student_List_Var (stl);
@@ -511,7 +511,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
 
     /* list -> 3, 1, 4, 2 */
 
@@ -529,7 +529,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace third var by first var", "OK");
+    EC_Test_Print_Msg ("Replace third var by first var", "OK");
 
     /* append new var. 4 vars available */
     st4 = Student_List_Var (stl);
@@ -541,7 +541,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
 
     /* list -> 1, 3, 2, 4 */
 
@@ -559,7 +559,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace forth var by first var ", "OK");
+    EC_Test_Print_Msg ("Replace forth var by first var ", "OK");
 
     /* Append new var. 4 vars available */
     st4 = Student_List_Var (stl);
@@ -571,7 +571,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
 
     /* list -> 3, 2, 1, 4 */
 
@@ -589,7 +589,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace 3rd var by second var", "OK");
+    EC_Test_Print_Msg ("Replace 3rd var by second var", "OK");
 
     /* Append new var and now 4 vars available */
     st1 = Student_List_Var (stl);
@@ -601,7 +601,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
 
     /*list -> 3, 2, 4, 1 */
 
@@ -619,7 +619,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace last var by 2nd var", "OK");
+    EC_Test_Print_Msg ("Replace last var by 2nd var", "OK");
 
     /*Append new var and now 4 vars available*/
     st1 = Student_List_Var (stl);
@@ -631,7 +631,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
 
     /* list -> 3, 4, 2, 1 */
 
@@ -649,7 +649,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace last var by 3rd var", "OK");
+    EC_Test_Print_Msg ("Replace last var by 3rd var", "OK");
 
     /*Append new var and now 4 vars available*/
     st1 = Student_List_Var (stl);
@@ -661,7 +661,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
 
     /* list -> 3, 4, 2, 1 */
 
@@ -679,7 +679,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace 3rd var by last var", "OK");
+    EC_Test_Print_Msg ("Replace 3rd var by last var", "OK");
 
     /*Append new var and now 4 vars available*/
     st2 = Student_List_Var (stl);
@@ -691,7 +691,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
 
     /* list -> 3, 4, 1, 2 */
 
@@ -709,7 +709,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace 2nd var by last var", "OK");
+    EC_Test_Print_Msg ("Replace 2nd var by last var", "OK");
 
     /*Append new var and now 4 vars available*/
     st4 = Student_List_Var (stl);
@@ -721,7 +721,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
 
     /* list -> 3, 2, 1, 4 */
 
@@ -739,7 +739,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace first var by last var", "OK");
+    EC_Test_Print_Msg ("Replace first var by last var", "OK");
 
     /*Append new var and now 4 vars available*/
     st3 = Student_List_Var (stl);
@@ -751,7 +751,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
 
     /* list -> 4, 2, 1, 3 */
 
@@ -769,7 +769,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace first var by last var", "OK");
+    EC_Test_Print_Msg ("Replace first var by last var", "OK");
 
     /*Append new var and now 4 vars available*/
     st2 = Student_List_Var (stl);
@@ -781,7 +781,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
 
     /* list -> 4, 1, 3, 2 */
 
@@ -799,7 +799,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace first var by 3rd var", "OK");
+    EC_Test_Print_Msg ("Replace first var by 3rd var", "OK");
 
     /*Append new var and now 4 vars available*/
     st4 = Student_List_Var (stl);
@@ -811,7 +811,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
 
     /* list -> 3, 1, 2, 4 */
 
@@ -829,14 +829,14 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace first var by 2nd var", "OK");
+    EC_Test_Print_Msg ("Replace first var by 2nd var", "OK");
 
 
     /* --------------- */
     /* Test for 5 vars */
     /* --------------- */
 
-    EC_Error_Print_Msg ("Test for 4 vars", "Begin");
+    EC_Test_Print_Msg ("Test for 4 vars", "Begin");
 
     st3 = Student_List_Var (stl);
     st3->no = 3;
@@ -853,7 +853,7 @@ Test_Replace_List ()
 
     /* list -> 1, 2, 4, 3, 5 */
 
-    EC_Error_Print_Msg ("Append new 2 vars. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 2 vars. Now 5 vars available", "OK");
 
     /* Replace second var by first var */
     Student_Replace (stl, st2, st1);
@@ -871,7 +871,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace second var by first var", "OK");
+    EC_Test_Print_Msg ("Replace second var by first var", "OK");
 
     /* append new var. now 5 vars available */
     st2 = Student_List_Var (stl);
@@ -883,7 +883,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 4 vars available", "OK");
 
     /* list -> 1, 4, 3, 5, 2 */
 
@@ -903,7 +903,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace third var by first var", "OK");
+    EC_Test_Print_Msg ("Replace third var by first var", "OK");
 
     /* append new var. 5 vars available */
     st3 = Student_List_Var (stl);
@@ -915,7 +915,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 4, 1, 5, 2, 3 */
 
@@ -935,7 +935,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace forth var by first var ", "OK");
+    EC_Test_Print_Msg ("Replace forth var by first var ", "OK");
 
     /* Append new var. 5 vars available */
     st2 = Student_List_Var (stl);
@@ -947,7 +947,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 1, 5, 4, 3, 2 */
 
@@ -967,7 +967,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace forth var by first var ", "OK");
+    EC_Test_Print_Msg ("Replace forth var by first var ", "OK");
 
    /* Append new var. 5 vars available */
     st2 = Student_List_Var (stl);
@@ -979,7 +979,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 5, 4, 3, 1, 2 */
 
@@ -999,7 +999,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace 3rd var by 2nd var ", "OK");
+    EC_Test_Print_Msg ("Replace 3rd var by 2nd var ", "OK");
 
     /* Append new var. 5 vars available */
     st3 = Student_List_Var (stl);
@@ -1011,7 +1011,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 5, 4, 1, 2, 3 */
 
@@ -1031,7 +1031,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace 3rd var by 2nd var ", "OK");
+    EC_Test_Print_Msg ("Replace 3rd var by 2nd var ", "OK");
 
     /* Append new var. 5 vars available */
     st2 = Student_List_Var (stl);
@@ -1043,7 +1043,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 5, 1, 4, 3, 2 */
 
@@ -1063,7 +1063,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace last var by 2nd var ", "OK");
+    EC_Test_Print_Msg ("Replace last var by 2nd var ", "OK");
 
     /* Append new var. 5 vars available */
     st2 = Student_List_Var (stl);
@@ -1075,7 +1075,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 5, 4, 3, 1, 2 */
 
@@ -1095,7 +1095,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace last var by 3rd var ", "OK");
+    EC_Test_Print_Msg ("Replace last var by 3rd var ", "OK");
 
     /* Append new var. 5 vars available */
     st1 = Student_List_Var (stl);
@@ -1107,7 +1107,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 5, 4, 3, 2, 1 */
 
@@ -1127,7 +1127,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace last var by 3rd var ", "OK");
+    EC_Test_Print_Msg ("Replace last var by 3rd var ", "OK");
 
     /* Append new var. 5 vars available */
     st1 = Student_List_Var (stl);
@@ -1139,7 +1139,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 5, 4, 2, 3, 1 */
 
@@ -1159,7 +1159,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace last var by 4th var ", "OK");
+    EC_Test_Print_Msg ("Replace last var by 4th var ", "OK");
 
     /* Append new var. 5 vars available */
     st1 = Student_List_Var (stl);
@@ -1171,7 +1171,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 5, 4, 2, 3, 1 */
 
@@ -1191,7 +1191,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace 4th var by last var ", "OK");
+    EC_Test_Print_Msg ("Replace 4th var by last var ", "OK");
 
     /* Append new var. 5 vars available */
     st3 = Student_List_Var (stl);
@@ -1203,7 +1203,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 5, 4, 2, 1, 3 */
 
@@ -1223,7 +1223,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace 3rd var by last var ", "OK");
+    EC_Test_Print_Msg ("Replace 3rd var by last var ", "OK");
 
     /* Append new var. 5 vars available */
     st2 = Student_List_Var (stl);
@@ -1235,7 +1235,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 5, 4, 3, 1, 2 */
 
@@ -1255,7 +1255,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace 2nd var by last var ", "OK");
+    EC_Test_Print_Msg ("Replace 2nd var by last var ", "OK");
 
     /* Append new var. 5 vars available */
     st4 = Student_List_Var (stl);
@@ -1267,7 +1267,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 5, 2, 3, 1, 4 */
 
@@ -1287,7 +1287,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace first var by last var ", "OK");
+    EC_Test_Print_Msg ("Replace first var by last var ", "OK");
 
     /* Append new var. 5 vars available */
     st5 = Student_List_Var (stl);
@@ -1299,7 +1299,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 4, 2, 3, 1, 5 */
 
@@ -1319,7 +1319,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace 3rd var by 4th var ", "OK");
+    EC_Test_Print_Msg ("Replace 3rd var by 4th var ", "OK");
 
     /* Append new var. 5 vars available */
     st3 = Student_List_Var (stl);
@@ -1331,7 +1331,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 4, 2, 1, 5, 3 */
 
@@ -1351,7 +1351,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace 2nd var by 4th var ", "OK");
+    EC_Test_Print_Msg ("Replace 2nd var by 4th var ", "OK");
 
     /* Append new var. 5 vars available */
     st2 = Student_List_Var (stl);
@@ -1363,7 +1363,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 4, 5, 1, 3, 2 */
 
@@ -1383,7 +1383,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace first var by 4th var ", "OK");
+    EC_Test_Print_Msg ("Replace first var by 4th var ", "OK");
 
     /* Append new var. 5 vars available */
     st4 = Student_List_Var (stl);
@@ -1395,7 +1395,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 3, 5, 1, 2, 4 */
 
@@ -1415,7 +1415,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace 2nd var by 3rd var ", "OK");
+    EC_Test_Print_Msg ("Replace 2nd var by 3rd var ", "OK");
 
     /* Append new var. 5 vars available */
     st5 = Student_List_Var (stl);
@@ -1427,7 +1427,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 3, 1, 2, 4, 5 */
 
@@ -1447,7 +1447,7 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace first var by 3rd var ", "OK");
+    EC_Test_Print_Msg ("Replace first var by 3rd var ", "OK");
 
     /* Append new var. 5 vars available */
     st3 = Student_List_Var (stl);
@@ -1459,7 +1459,7 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
 
-    EC_Error_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
+    EC_Test_Print_Msg ("Append new 1 var. Now 5 vars available", "OK");
 
     /* list -> 2, 1, 4, 5, 3 */
 
@@ -1479,16 +1479,16 @@ Test_Replace_List ()
     {
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
-    EC_Error_Print_Msg ("Replace first var by 2nd var ", "OK");
+    EC_Test_Print_Msg ("Replace first var by 2nd var ", "OK");
 
-    EC_Error_Print_Msg ("Test_Replace_List: ", "END");
+    EC_Test_Print_Msg ("Test_Replace_List: ", "END");
 }
 
 
 void
 Test_Sort_List ()
 {
-/*    EC_Error_Print_Msg ("Test_Sort_List: ", "BEGIN");*/
+/*    EC_Test_Print_Msg ("Test_Sort_List: ", "BEGIN");*/
 
     /*StudentList *stl = Student_List ();*/
 
@@ -1535,16 +1535,16 @@ Test_Sort_List ()
         /*i++;*/
     /*}*/
 
-    /*EC_Error_Print_Msg ("List sort with variable attribute", "OK");*/
+    /*EC_Test_Print_Msg ("List sort with variable attribute", "OK");*/
 
-    /*EC_Error_Print_Msg ("Test_Sort_List: ", "END");*/
+    /*EC_Test_Print_Msg ("Test_Sort_List: ", "END");*/
 }
 
 
 void
 Test_List_Copy ()
 {
-/*    EC_Error_Print_Msg ("Test_List_Copy: ", "BEGIN");*/
+/*    EC_Test_Print_Msg ("Test_List_Copy: ", "BEGIN");*/
 
     /*StudentList* stl1 = Student_List ();*/
 
@@ -1566,7 +1566,7 @@ Test_List_Copy ()
     /*assert (stl2->first->next->no == 2);*/
     /*assert (strcmp(stl2->first->next->name, "Geethike") == 0 );*/
 
-    /*EC_Error_Print_Msg ("List Copy Variables", "OK");*/
+    /*EC_Test_Print_Msg ("List Copy Variables", "OK");*/
 
     /*st1->no = 3;*/
     /*st1->name = "Malshi";*/
@@ -1578,9 +1578,9 @@ Test_List_Copy ()
     /*assert (stl1->first->no != 4);*/
     /*assert (strcmp(stl1->first->name ,"Prisenthi") != 0 );*/
 
-    /*EC_Error_Print_Msg ("Copied list do not affect other list", "OK");*/
+    /*EC_Test_Print_Msg ("Copied list do not affect other list", "OK");*/
 
-    /*EC_Error_Print_Msg ("Test_List_Copy: ", "END");*/
+    /*EC_Test_Print_Msg ("Test_List_Copy: ", "END");*/
 }
 
 
@@ -1596,40 +1596,40 @@ Test_List_Copy ()
 void
 Test_List_Var_Move_Up ()
 {
-    EC_Error_Print_Msg ("Test_List_Var_Move_Up: ", "BEGIN");
+    EC_Test_Print_Msg ("Test_List_Var_Move_Up: ", "BEGIN");
 
 
     int i = 0;
 
     /* Test for 0 list vars */
     StudentList *stl0 = Student_List (0);
-    EC_Error_Print_Msg ("Create new list with 0 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 0 list vars", "OK");
 
     stl0->var = stl0->first;
 
     Student_List_Var_Move_Up (stl0, stl0->var, 1);
     assert (stl0->first == NULL);
     assert (stl0->last == NULL);
-    EC_Error_Print_Msg ("List with 0 list vars", "OK");
+    EC_Test_Print_Msg ("List with 0 list vars", "OK");
 
     /* Test for 1 list var */
     StudentList *stl1 = Student_List (0);
-    EC_Error_Print_Msg ("Create new list with 1 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 1 list vars", "OK");
 
     StudentListVar *stl1v = Student_List_Var (stl1);
     stl1v->no = students[0].no;
     stl1v->name = students[0].name;
     stl1->var = stl1->first;
-    EC_Error_Print_Msg ("Assign list 1 variable", "OK");
+    EC_Test_Print_Msg ("Assign list 1 variable", "OK");
 
     Student_List_Var_Move_Up (stl1, stl1->var, 1);
     assert (stl1->first == stl1v);
     assert (stl1->last == stl1v);
-    EC_Error_Print_Msg ("List with 1 list var", "OK");
+    EC_Test_Print_Msg ("List with 1 list var", "OK");
 
     /* Test for 2 list vars */
     StudentList *stl2 = Student_List (2);
-    EC_Error_Print_Msg ("Create new list with 2 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 2 list vars", "OK");
 
     i = 0;
     for_list (stl2)
@@ -1644,7 +1644,7 @@ Test_List_Var_Move_Up ()
         printf ("%d %s\n", stl2->var->no, stl2->var->name);
     }
 
-    EC_Error_Print_Msg ("Assign list 2 variable", "OK");
+    EC_Test_Print_Msg ("Assign list 2 variable", "OK");
 
     /* set current var */
     stl2->var = stl2->first;
@@ -1658,7 +1658,7 @@ Test_List_Var_Move_Up ()
     assert (stl2->first->previous == NULL);
     assert (stl2->last->previous == stl2v1);
     assert (stl2->last->next == NULL);
-    EC_Error_Print_Msg ("List with 2 vars. First var up", "OK");
+    EC_Test_Print_Msg ("List with 2 vars. First var up", "OK");
 
     Student_List_Var_Move_Up (stl2, stl2v2, 1);
     assert (stl2->first == stl2v2);
@@ -1673,13 +1673,13 @@ Test_List_Var_Move_Up ()
         printf ("%d %s\n", stl2->var->no, stl2->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 3 vars move first var up", "OK");
+    EC_Test_Print_Msg ("List with 3 vars move first var up", "OK");
 
-    EC_Error_Print_Msg ("List with 2 vars second var up", "OK");
+    EC_Test_Print_Msg ("List with 2 vars second var up", "OK");
 
     /* Test for 3 list vars */
     StudentList *stl3 = Student_List (3);
-    EC_Error_Print_Msg ("Create new list with 3 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 3 list vars", "OK");
 
     i = 0;
     for_list (stl3)
@@ -1688,7 +1688,7 @@ Test_List_Var_Move_Up ()
         stl3->var->name = students[i].name;
         i++;
     }
-    EC_Error_Print_Msg ("Assign list 3 variable", "OK");
+    EC_Test_Print_Msg ("Assign list 3 variable", "OK");
 
     /* set current var */
     stl3->var = stl3->first;
@@ -1710,7 +1710,7 @@ Test_List_Var_Move_Up ()
         printf ("%d %s\n", stl3->var->no, stl3->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 3 vars move first var up", "OK");
+    EC_Test_Print_Msg ("List with 3 vars move first var up", "OK");
 
     /* move second var up */
     Student_List_Var_Move_Up (stl3, stl3v2, 1);
@@ -1728,7 +1728,7 @@ Test_List_Var_Move_Up ()
         printf ("%d %s\n", stl3->var->no, stl3->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 3 vars move second var up", "OK");
+    EC_Test_Print_Msg ("List with 3 vars move second var up", "OK");
 
     /* move third var up 1 step*/
     Student_List_Var_Move_Up (stl3, stl3v3, 1);
@@ -1744,7 +1744,7 @@ Test_List_Var_Move_Up ()
         printf ("%d %s\n", stl3->var->no, stl3->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 3 vars move third var up", "OK");
+    EC_Test_Print_Msg ("List with 3 vars move third var up", "OK");
 
     /* move third var up 2 steps*/
     Student_List_Var_Move_Up (stl3, stl3v1, 2);
@@ -1761,11 +1761,11 @@ Test_List_Var_Move_Up ()
         printf ("%d %s\n", stl3->var->no, stl3->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 3 vars move third var up", "OK");
+    EC_Test_Print_Msg ("List with 3 vars move third var up", "OK");
 
     /* Test for 5 list vars */
     StudentList *stl5 = Student_List (5);
-    EC_Error_Print_Msg ("Create new list with 5 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 5 list vars", "OK");
 
     i = 0;
     for_list (stl5)
@@ -1788,7 +1788,7 @@ Test_List_Var_Move_Up ()
         printf ("%d %s\n", stl5->var->no, stl5->var->name);
     }
 
-    EC_Error_Print_Msg ("Assign list 5 variable", "OK");
+    EC_Test_Print_Msg ("Assign list 5 variable", "OK");
 
     /* move fifth var up 3 steps*/
     Student_List_Var_Move_Up (stl5, stl5v5, 2);
@@ -1805,7 +1805,7 @@ Test_List_Var_Move_Up ()
         printf ("%d %s\n", stl5->var->no, stl5->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 5 vars move last var up 2 steps", "OK");
+    EC_Test_Print_Msg ("List with 5 vars move last var up 2 steps", "OK");
 
     /* move fifth var up 5 steps*/
     Student_List_Var_Move_Up (stl5, stl5v4, 4);
@@ -1822,7 +1822,7 @@ Test_List_Var_Move_Up ()
         printf ("%d %s\n", stl5->var->no, stl5->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 5 vars move mid var up 4 steps", "OK");
+    EC_Test_Print_Msg ("List with 5 vars move mid var up 4 steps", "OK");
 
    /* move fifth var up 3 steps for mid vars */
     Student_List_Var_Move_Up (stl5, stl5v5, 2);
@@ -1839,16 +1839,16 @@ Test_List_Var_Move_Up ()
         printf ("%d %s\n", stl5->var->no, stl5->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 5 vars move mid var up 2 steps", "OK");
+    EC_Test_Print_Msg ("List with 5 vars move mid var up 2 steps", "OK");
 
-    EC_Error_Print_Msg ("Test_List_Var_Move_Up", "END");
+    EC_Test_Print_Msg ("Test_List_Var_Move_Up", "END");
 }
 
 
 void
 Test_List_Var_Move_Down ()
 {
-    EC_Error_Print_Msg ("Test_List_Var_Move_Down: ", "BEGIN");
+    EC_Test_Print_Msg ("Test_List_Var_Move_Down: ", "BEGIN");
 
     struct Stu {
         int no;
@@ -1861,32 +1861,32 @@ Test_List_Var_Move_Down ()
 
     /* Test for 0 list vars */
     StudentList *stl0 = Student_List (0);
-    EC_Error_Print_Msg ("Create new list with 0 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 0 list vars", "OK");
 
     stl0->var = stl0->first;
 
     Student_List_Var_Move_Down (stl0, stl0->var, 1);
     assert (stl0->first == NULL);
     assert (stl0->last == NULL);
-    EC_Error_Print_Msg ("List with 0 list vars", "OK");
+    EC_Test_Print_Msg ("List with 0 list vars", "OK");
 
     /* Test for 1 list var */
     StudentList *stl1 = Student_List (0);
-    EC_Error_Print_Msg ("Create new list with 1 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 1 list vars", "OK");
 
     StudentListVar *stl1v = Student_List_Var (stl1);
     stl1v->no = students[0].no;
     stl1v->name = students[0].name;
-    EC_Error_Print_Msg ("Assign list 1 variable", "OK");
+    EC_Test_Print_Msg ("Assign list 1 variable", "OK");
 
     Student_List_Var_Move_Down (stl1, stl1v, 1);
     assert (stl1->first == stl1v);
     assert (stl1->last == stl1v);
-    EC_Error_Print_Msg ("List with 1 list var", "OK");
+    EC_Test_Print_Msg ("List with 1 list var", "OK");
 
     /* Test for 2 list vars */
     StudentList *stl2 = Student_List (2);
-    EC_Error_Print_Msg ("Create new list with 2 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 2 list vars", "OK");
 
     i = 0;
     for_list (stl2)
@@ -1901,7 +1901,7 @@ Test_List_Var_Move_Down ()
         printf ("%d %s\n", stl2->var->no, stl2->var->name);
     }
 
-    EC_Error_Print_Msg ("Assign list 2 variable", "OK");
+    EC_Test_Print_Msg ("Assign list 2 variable", "OK");
 
     /* set current var */
     stl2->var = stl2->first;
@@ -1921,7 +1921,7 @@ Test_List_Var_Move_Down ()
         printf ("%d %s\n", stl2->var->no, stl2->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 2 vars. First var down", "OK");
+    EC_Test_Print_Msg ("List with 2 vars. First var down", "OK");
 
     Student_List_Var_Move_Down (stl2, stl2v1, 1);
     assert (stl2->first == stl2v2);
@@ -1936,11 +1936,11 @@ Test_List_Var_Move_Down ()
         printf ("%d %s\n", stl2->var->no, stl2->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 2 vars second var down", "OK");
+    EC_Test_Print_Msg ("List with 2 vars second var down", "OK");
 
     /* Test for 3 list vars */
     StudentList *stl3 = Student_List (3);
-    EC_Error_Print_Msg ("Create new list with 3 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 3 list vars", "OK");
 
     i = 0;
     for_list (stl3)
@@ -1949,7 +1949,7 @@ Test_List_Var_Move_Down ()
         stl3->var->name = students[i].name;
         i++;
     }
-    EC_Error_Print_Msg ("Assign list 3 variable", "OK");
+    EC_Test_Print_Msg ("Assign list 3 variable", "OK");
 
     /* set current var */
     stl3->var = stl3->first;
@@ -1971,7 +1971,7 @@ Test_List_Var_Move_Down ()
         printf ("%d %s\n", stl3->var->no, stl3->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 3 vars move first var down", "OK");
+    EC_Test_Print_Msg ("List with 3 vars move first var down", "OK");
 
     /* move second var down */
     Student_List_Var_Move_Down (stl3, stl3v1, 1);
@@ -1988,7 +1988,7 @@ Test_List_Var_Move_Down ()
         printf ("%d %s\n", stl3->var->no, stl3->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 3 vars move second var down", "OK");
+    EC_Test_Print_Msg ("List with 3 vars move second var down", "OK");
 
     /* move third var down 1 step*/
     Student_List_Var_Move_Down (stl3, stl3v1, 1);
@@ -2004,7 +2004,7 @@ Test_List_Var_Move_Down ()
         printf ("%d %s\n", stl3->var->no, stl3->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 3 vars move third var down", "OK");
+    EC_Test_Print_Msg ("List with 3 vars move third var down", "OK");
 
     /* move first var down 2 steps*/
     Student_List_Var_Move_Down (stl3, stl3v2, 2);
@@ -2021,11 +2021,11 @@ Test_List_Var_Move_Down ()
         printf ("%d %s\n", stl3->var->no, stl3->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 3 vars move third var down", "OK");
+    EC_Test_Print_Msg ("List with 3 vars move third var down", "OK");
 
     /* Test for 5 list vars */
     StudentList *stl5 = Student_List (5);
-    EC_Error_Print_Msg ("Create new list with 5 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 5 list vars", "OK");
 
     i = 0;
     for_list (stl5)
@@ -2048,7 +2048,7 @@ Test_List_Var_Move_Down ()
         printf ("%d %s\n", stl5->var->no, stl5->var->name);
     }
 
-    EC_Error_Print_Msg ("Assign list 5 variable", "OK");
+    EC_Test_Print_Msg ("Assign list 5 variable", "OK");
 
     /* move first var down 3 steps*/
     Student_List_Var_Move_Down (stl5, stl5v1, 3);
@@ -2065,7 +2065,7 @@ Test_List_Var_Move_Down ()
         printf ("%d %s\n", stl5->var->no, stl5->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 5 vars move last var down 3 steps", "OK");
+    EC_Test_Print_Msg ("List with 5 vars move last var down 3 steps", "OK");
 
     /* move first var down 4 steps*/
     Student_List_Var_Move_Down (stl5, stl5v2, 4);
@@ -2082,7 +2082,7 @@ Test_List_Var_Move_Down ()
         printf ("%d %s\n", stl5->var->no, stl5->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 5 vars move mid var down 4 steps", "OK");
+    EC_Test_Print_Msg ("List with 5 vars move mid var down 4 steps", "OK");
 
     /* move second var down 2 steps for mid vars */
     Student_List_Var_Move_Down (stl5, stl5v4, 2);
@@ -2099,45 +2099,45 @@ Test_List_Var_Move_Down ()
         printf ("%d %s\n", stl5->var->no, stl5->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 5 vars move mid var down 2 steps", "OK");
+    EC_Test_Print_Msg ("List with 5 vars move mid var down 2 steps", "OK");
 
-    EC_Error_Print_Msg ("Test_List_Var_Move_Down", "END");
+    EC_Test_Print_Msg ("Test_List_Var_Move_Down", "END");
 }
 
 
 void
 Test_List_Var_Delete ()
 {
-    EC_Error_Print_Msg ("Test_List_Var_Delete: ", "BEGIN");
+    EC_Test_Print_Msg ("Test_List_Var_Delete: ", "BEGIN");
 
    /* Test for 0 list vars */
     StudentList *stl0 = Student_List (0);
-    EC_Error_Print_Msg ("Create new list with 0 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 0 list vars", "OK");
 
     stl0->var = stl0->first;
 
     Student_List_Var_Delete (stl0, stl0->var);
     assert (stl0->first == NULL);
     assert (stl0->last == NULL);
-    EC_Error_Print_Msg ("List with 0 list vars", "OK");
+    EC_Test_Print_Msg ("List with 0 list vars", "OK");
 
     /* Test for 1 list var */
     StudentList *stl1 = Student_List (0);
-    EC_Error_Print_Msg ("Create new list with 1 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 1 list vars", "OK");
 
     StudentListVar *stl1v = Student_List_Var (stl1);
     stl1v->no = students[0].no;
     stl1v->name = students[0].name;
-    EC_Error_Print_Msg ("Assign list 1 variable", "OK");
+    EC_Test_Print_Msg ("Assign list 1 variable", "OK");
 
     Student_List_Var_Delete (stl1, stl1v);
     assert (stl1->first == NULL);
     assert (stl1->last == NULL);
-    EC_Error_Print_Msg ("List with 1 list var", "OK");
+    EC_Test_Print_Msg ("List with 1 list var", "OK");
 
     /* Test for 2 list vars */
     StudentList *stl2 = Student_List (2);
-    EC_Error_Print_Msg ("Create new list with 2 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 2 list vars", "OK");
 
     int i = 0;
     for_list (stl2)
@@ -2152,7 +2152,7 @@ Test_List_Var_Delete ()
         printf ("%d %s\n", stl2->var->no, stl2->var->name);
     }
 
-    EC_Error_Print_Msg ("Assign list 2 variable", "OK");
+    EC_Test_Print_Msg ("Assign list 2 variable", "OK");
 
     /* set current var */
     StudentListVar *stl2v1 = stl2->first;
@@ -2171,7 +2171,7 @@ Test_List_Var_Delete ()
         printf ("%d %s\n", stl2->var->no, stl2->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 2 vars. Delete first var", "OK");
+    EC_Test_Print_Msg ("List with 2 vars. Delete first var", "OK");
 
     Student_List_Var_Delete (stl2, stl2v2);
     assert (stl2->first == NULL);
@@ -2182,12 +2182,12 @@ Test_List_Var_Delete ()
         printf ("%d %s\n", stl2->var->no, stl2->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 2 vars delete second var", "OK");
+    EC_Test_Print_Msg ("List with 2 vars delete second var", "OK");
 
     StudentListVar *stl2v3 = Student_List_Var (stl2);
     StudentListVar *stl2v4 = Student_List_Var (stl2);
 
-    EC_Error_Print_Msg ("List with 2 vars append 2 new vars", "OK");
+    EC_Test_Print_Msg ("List with 2 vars append 2 new vars", "OK");
 
     i = 0;
     for_list (stl2)
@@ -2197,14 +2197,14 @@ Test_List_Var_Delete ()
         i++;
     }
 
-    EC_Error_Print_Msg ("Initialize list with 2 vars", "OK");
+    EC_Test_Print_Msg ("Initialize list with 2 vars", "OK");
 
     for_list (stl2)
     {
         printf ("%d %s\n", stl2->var->no, stl2->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 2 vars. Delete first var", "OK");
+    EC_Test_Print_Msg ("List with 2 vars. Delete first var", "OK");
 
     Student_List_Var_Delete (stl2, stl2v4);
     assert (stl2->first == stl2v3);
@@ -2219,7 +2219,7 @@ Test_List_Var_Delete ()
         printf ("%d %s\n", stl2->var->no, stl2->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 2 vars. Delete second var", "OK");
+    EC_Test_Print_Msg ("List with 2 vars. Delete second var", "OK");
 
     Student_List_Var_Delete (stl2, stl2v3);
     assert (stl2->first == NULL);
@@ -2230,11 +2230,11 @@ Test_List_Var_Delete ()
         printf ("%d %s\n", stl2->var->no, stl2->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 2 vars delete last var", "OK");
+    EC_Test_Print_Msg ("List with 2 vars delete last var", "OK");
 
     /* Test for 3 list vars */
     StudentList *stl3 = Student_List (3);
-    EC_Error_Print_Msg ("Create new list with 3 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 3 list vars", "OK");
 
     i = 0;
     for_list (stl3)
@@ -2243,7 +2243,7 @@ Test_List_Var_Delete ()
         stl3->var->name = students[i].name;
         i++;
     }
-    EC_Error_Print_Msg ("Assign list 3 variable", "OK");
+    EC_Test_Print_Msg ("Assign list 3 variable", "OK");
 
     /* Set current var */
     stl3->var = stl3->first;
@@ -2265,7 +2265,7 @@ Test_List_Var_Delete ()
         printf ("%d %s\n", stl3->var->no, stl3->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 3 vars delete first var", "OK");
+    EC_Test_Print_Msg ("List with 3 vars delete first var", "OK");
 
     /* Delete second (last) var */
     Student_List_Var_Delete (stl3, stl3v3);
@@ -2281,7 +2281,7 @@ Test_List_Var_Delete ()
         printf ("%d %s\n", stl3->var->no, stl3->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 3 vars delete second (last) var", "OK");
+    EC_Test_Print_Msg ("List with 3 vars delete second (last) var", "OK");
 
     /* Delete third final var */
     Student_List_Var_Delete (stl3, stl3v2);
@@ -2293,7 +2293,7 @@ Test_List_Var_Delete ()
         printf ("%d %s\n", stl3->var->no, stl3->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 3 vars delete last var", "OK");
+    EC_Test_Print_Msg ("List with 3 vars delete last var", "OK");
 
      /*Check is it ok with delete middle var with 3 vars */
 
@@ -2301,7 +2301,7 @@ Test_List_Var_Delete ()
     StudentListVar *stl3v5 = Student_List_Var (stl3);
     StudentListVar *stl3v6 = Student_List_Var (stl3);
 
-    EC_Error_Print_Msg ("List with 3 vars append 3 new vars", "OK");
+    EC_Test_Print_Msg ("List with 3 vars append 3 new vars", "OK");
 
     i = 0;
     for_list (stl3)
@@ -2311,7 +2311,7 @@ Test_List_Var_Delete ()
         i++;
     }
 
-    EC_Error_Print_Msg ("Initialize list with 3 vars", "OK");
+    EC_Test_Print_Msg ("Initialize list with 3 vars", "OK");
 
     for_list (stl3)
     {
@@ -2326,11 +2326,11 @@ Test_List_Var_Delete ()
     assert (stl3->last->previous == stl3v4);
     assert (stl3->last->next == NULL);
 
-    EC_Error_Print_Msg ("List with 3 vars delete mid var", "OK");
+    EC_Test_Print_Msg ("List with 3 vars delete mid var", "OK");
 
     /* Test for 5 list vars */
     StudentList *stl5 = Student_List (5);
-    EC_Error_Print_Msg ("Create new list with 5 list vars", "OK");
+    EC_Test_Print_Msg ("Create new list with 5 list vars", "OK");
 
     i = 0;
     for_list (stl5)
@@ -2362,7 +2362,7 @@ Test_List_Var_Delete ()
         printf ("%d %s\n", stl5->var->no, stl5->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 5 vars move mid var down 2 steps", "OK");
+    EC_Test_Print_Msg ("List with 5 vars move mid var down 2 steps", "OK");
 
     Student_List_Var_Delete (stl5, stl5v4);
     assert (stl5->first->next->next == stl5v5);
@@ -2374,9 +2374,9 @@ Test_List_Var_Delete ()
         printf ("%d %s\n", stl5->var->no, stl5->var->name);
     }
 
-    EC_Error_Print_Msg ("List with 5 vars move mid var down 2 steps", "OK");
+    EC_Test_Print_Msg ("List with 5 vars move mid var down 2 steps", "OK");
 
-    EC_Error_Print_Msg ("Test_List_Var_Delete", "END");
+    EC_Test_Print_Msg ("Test_List_Var_Delete", "END");
 }
 
 
@@ -2395,8 +2395,8 @@ Test_List_Exchange_Var ()
 void
 Test_List_Var_Drop ()
 {
-    EC_Error_Print_Msg ("Test_List_Var_Drop: ", "BEGIN");
-    EC_Error_Print_Msg ("Test_List_Var_Drop", "END");
+    EC_Test_Print_Msg ("Test_List_Var_Drop: ", "BEGIN");
+    EC_Test_Print_Msg ("Test_List_Var_Drop", "END");
 }
 
 
@@ -2410,39 +2410,39 @@ Run_List_Test ()
     Test_New_List ();
     printf ("\n");
 
-    Test_List_Var_Move_Up ();
-    printf ("\n");
+/*    Test_List_Var_Move_Up ();*/
+    /*printf ("\n");*/
 
-    Test_List_Var_Move_Down ();
-    printf ("\n");
+    /*Test_List_Var_Move_Down ();*/
+    /*printf ("\n");*/
 
-    Test_List_Var_Delete ();
-    printf ("\n");
+    /*Test_List_Var_Delete ();*/
+    /*printf ("\n");*/
 
-    Test_Append_List ();
-    printf ("\n");
+    /*Test_Append_List ();*/
+    /*printf ("\n");*/
 
-    Test_Insert_List ();
-    printf ("\n");
+    /*Test_Insert_List ();*/
+    /*printf ("\n");*/
 
-    Test_Replace_List ();
-    printf ("\n");
+    /*Test_Replace_List ();*/
+    /*printf ("\n");*/
 
-    Test_List_Var_Drop ();
-    printf ("\n");
+    /*Test_List_Var_Drop ();*/
+    /*printf ("\n");*/
 
-    Test_Sort_List ();
-    printf ("\n");
+    /*Test_Sort_List ();*/
+    /*printf ("\n");*/
 
-    Test_List_Copy ();
-    printf ("\n");
+    /*Test_List_Copy ();*/
+    /*printf ("\n");*/
 
-    Test_List_Change_Var ();
-    printf ("\n");
+    /*Test_List_Change_Var ();*/
+    /*printf ("\n");*/
 
-    Test_List_Exchange_Var ();
-    printf ("\n");
+    /*Test_List_Exchange_Var ();*/
+    /*printf ("\n");*/
 
-    /*EC_Error_Print_Msg ("Test: ec_list.h", "PASS");*/
+    /*EC_Test_Print_Msg ("Test: ec_list.h", "PASS");*/
     /*printf ("\n");*/
 }

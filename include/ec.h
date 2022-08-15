@@ -19,6 +19,7 @@
 #include <stdint.h>
 #include <string.h>
 
+#include "ec_test.h"
 #include "ec_text_color.h"
 #include "ec_type.h"
 #include "ec_string.h"

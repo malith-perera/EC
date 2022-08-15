@@ -219,16 +219,20 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
 
 
 /* Warning macros */
+#ifdef EC_WARN
+
 /* List variable exist warning */
-#if EC_WARN
-#define EC_LIST_VAR_FREE_MACRO(TYPE)                                    \
+#define EC_LIST_VAR_FREE_MACRO(TYPE, list, var)                         \
         if (EC_LIST_VAR_EXIST_FUNCTION_NAME(TYPE) (list, var) == false) \
         {                                                               \
             printf ("List Variable not exist in the list\n");           \
             exit(0);                                                    \
         }
+
 #else
-#define EC_LIST_VAR_FREE_MACRO(TYPE)
+
+#define EC_LIST_VAR_FREE_MACRO(TYPE, list, var)
+
 #endif
 
 
@@ -259,7 +263,7 @@ EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                                \
     EC_LIST_VAR_STRUCT(TYPE)    *var                                \
 )                                                                   \
 {                                                                   \
-    EC_LIST_VAR_FREE_MACRO (TYPE);                                  \
+    EC_LIST_VAR_FREE_MACRO (TYPE, list, var);                       \
                                                                     \
     if (var != NULL)                                                \
     {                                                               \
@@ -288,7 +292,7 @@ EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                                \
                 list->last = NULL;                                  \
             }                                                       \
         }                                                           \
-        if (DEBUG) EC_Print_Error ("ec var free", var);             \
+        EC_WARN_PRINT_ADR_MACRO("ec var free", var);                \
         free (var);                                                 \
     }                                                               \
 }
@@ -377,8 +381,6 @@ EC_LIST_VAR_DELETE_FUNCTION_NAME(TYPE)                      \
     EC_LIST_VAR_STRUCT(TYPE)    *var                        \
 )                                                           \
 {                                                           \
-    EC_LIST_VAR_FREE_MACRO (TYPE);                          \
-                                                            \
     if (var != NULL)                                        \
     {                                                       \
         if (var != list->first)                             /* not the first var */\
@@ -421,8 +423,6 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
     EC_LIST_VAR_STRUCT(TYPE)    *var                        \
 )                                                           \
 {                                                           \
-    EC_LIST_VAR_FREE_MACRO (TYPE);                          \
-                                                            \
                                                             \
 }
 

@@ -10,7 +10,7 @@ EC_Warn_Print_Msg (char *test, char *result);
 
 
 void
-EC_Print_Warn (char *msg, void *adrs);
+EC_Warn_Print_Adr (char *msg, void *adrs);
 
 
 #define EC_UNLOCK_FUNCTION(TYPE)                \
@@ -30,6 +30,22 @@ EC_UNLOCK_FUNCTION_NAME(TYPE)                   \
     printf ("Warning: ");                       \
     printf ("\033[0m");                         \
     printf ("list variable %s is not exist in %s\n list", EC_GET_VAR_NAME (ec_var_name), EC_GET_VAR_NAME (ec_list_name));
+
+
+#ifdef EC_WARN
+
+#define EC_WARN_PRINT_ADR_MACRO(msg, adr)       \
+    EC_Warn_Print_Adr (msg, adr);
+
+#define EC_WARN_PRINT_MSG_MACRO(msg, result)    \
+    EC_Warn_Print_Msg (msg, result);
+
+#else
+
+#define EC_WARN_PRINT_ADR_MACRO(msg, adr)
+#define EC_WARN_PRINT_MSG_MACRO(msg, result)
+
+#endif
 
 
 /*#define getName(var, str)  sprintf(str, "%s", #var)*/
