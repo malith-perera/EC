@@ -18,4 +18,4 @@ EC_QUEUE_FUNCTIONS(Student)
 EC_STACK_FUNCTIONS(Student)
 
 /* Reference */
-EC_VAR_REF_FUNCTIONS(Student)
+/*EC_VAR_REF_FUNCTIONS(Student)*/

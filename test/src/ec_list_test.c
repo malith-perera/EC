@@ -16,20 +16,30 @@ struct Stu students[5] = {{1, "Malith"}, {2, "Geethike"}, {3, "Perera"}, {4, "Ro
 void
 Test_New_List ()
 {
-    EC_Test_Print_Title ("Test_New_List: ", "BEGIN");
+    EC_Test_Print_Title ("Test: New_List", "BEGIN");
+
+    /* Test list with zero list variables */
+    EC_Test_Print_Subtitle ("Test: New list with zero variables", "Begin");
 
     StudentList *stl = Student_List (0);
-    EC_Test_Print_Msg ("Create new list", "OK");
+    EC_Test_Print_Msg ("Call: New_List", "OK");
 
+    assert (stl != NULL);
+    EC_Test_Print_Msg ("Test: stl != NULL", "OK");
     assert (stl->first == NULL);
+    EC_Test_Print_Msg ("Test: stl->first == NULL", "OK");
     assert (stl->last == NULL);
+    EC_Test_Print_Msg ("Test: stl->last == NULL", "OK");
     assert (stl->var == NULL);
+    EC_Test_Print_Msg ("Test: stl->var == NULL", "OK");
 
-    EC_Test_Print_Msg ("Test list zero Variables", "OK");
+    EC_Test_Print_End_Subtitle ("Test: new list with zero variables", "OK");
 
-    /* Test for three variables */
+    /* Test list with three variables*/
+    EC_Test_Print_Subtitle ("Test: New list with three variables", "Begin");
+
     StudentList *stl2 = Student_List (3);
-    EC_Test_Print_Msg ("Create new list with 3 list vars", "OK");
+    EC_Test_Print_Msg ("Call: New_List", "OK");
 
     int i = 0;
 
@@ -57,7 +67,18 @@ Test_New_List ()
     assert (stl2->last->next == NULL);
     EC_Test_Print_Msg ("List last next NULL", "OK");
 
+    EC_Test_Print_End_Subtitle ("Test: New list with three variables", "OK");
+
+    EC_Test_Print_Title ("Test: New_List: ", "END");
+}
+
+
+void
+Test_List_Append_New ()
+{
     /* Test append new list vars */
+    EC_Test_Print_Subtitle ("Test new list with three variables", "Begin");
+
     StudentList *stl3 = Student_List (0);
 
     StudentListVar *st1 = Student_List_Var (stl3);
@@ -89,7 +110,7 @@ Test_New_List ()
     assert (stl3->last->next == NULL);
     EC_Test_Print_Msg ("List last next NULL", "OK");
 
-    EC_Test_Print_Title ("Test_New_List: ", "END");
+    EC_Test_Print_Title ("Test New_List: ", "END");
 }
 
 
