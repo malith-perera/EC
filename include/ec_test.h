@@ -11,6 +11,14 @@ EC_Test_Print_Title (char *msg, char *result);
 
 
 void
+EC_Test_Print_Subtitle (char *msg, char *result);
+
+
+void
+EC_Test_Print_End_Subtitle (char *msg, char *result);
+
+
+void
 EC_Test_Print_Msg (char *test, char *result);
 
 
