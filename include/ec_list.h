@@ -39,6 +39,9 @@
 
 #define EC_LIST_VAR_EXIST_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _List_Var_Exist,)
 
+#define EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _Unlist,)
+#define EC_UNLIST_NAME(TYPE)                        EC_CONCAT(TYPE, _unlisted_list,)
+
 
 /* Structure macros */
 // EC_MEMORY_REF defined in ec_memory.h
@@ -61,11 +64,9 @@ typedef struct EC_LIST_STRUCT(TYPE) {                   \
     EC_LIST_VAR_STRUCT(TYPE) *var_temp;                 /* hold var temporaly in for_list repeatition */\
     int n;                                              /* number of vars in the list */\
     EC_MEMORY_REF                                       \
-} EC_LIST_STRUCT(TYPE);
-
-/* Unlisted variable list */
-#define EC_LIST_UNLISTED_VAR_LIST(TYPE) \
-    EC_LIST_VAR_STRUCT(TYPE) *EC_CONCAT(Unlisted_, TYPE, _List);
+} EC_LIST_STRUCT(TYPE);                                 \
+                                                        \
+EC_LIST_STRUCT(TYPE) *EC_UNLIST_NAME(TYPE);
 
 /* Function prototype macros */
 #define EC_LIST_VAR_EXIST_PROTOTYPE(TYPE)               \
@@ -204,6 +205,15 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
 );
 
 
+#define  EC_LIST_VAR_UNLIST_FUNCTION_PROTOTYPE(TYPE)        \
+void                                                        \
+EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)                      \
+(                                                           \
+    EC_LIST_STRUCT(TYPE)        *list,                      \
+    EC_LIST_VAR_STRUCT(TYPE)    *vars                       \
+);
+
+
 /* Change order carefully only if you need.*/
 #define EC_LIST_FUNCTION_PROTOTYPES(TYPE)                   \
     EC_LIST_VAR_EXIST_PROTOTYPE(TYPE)                       \
@@ -219,8 +229,8 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
     EC_LIST_DROP_FUNCTION_PROTOTYPE(TYPE)                   \
     EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)                   \
     EC_LIST_VAR_MOVE_UP_FUNCTION_PROTOTYPE(TYPE)            \
-    EC_LIST_VAR_MOVE_DOWN_FUNCTION_PROTOTYPE(TYPE)
-
+    EC_LIST_VAR_MOVE_DOWN_FUNCTION_PROTOTYPE(TYPE)          \
+    EC_LIST_VAR_UNLIST_FUNCTION_PROTOTYPE(TYPE)
 
 /* Warning macros */
 #ifdef EC_WARN
@@ -302,7 +312,7 @@ EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                                \
 }
 
 
-/* new for delete list all */
+/* Delete list all */
 #define EC_LIST_FREE_FUNCTION(TYPE)                                 \
 void                                                                \
 EC_LIST_FREE_FUNCTION_NAME(TYPE)                                    \
@@ -347,7 +357,7 @@ EC_LIST_FUNCTION_NAME(TYPE)                                         \
     int ec_n                                                        \
 )                                                                   \
 {                                                                   \
-    EC_VAR_CREATE(EC_LIST_STRUCT(TYPE), list)                       /* TYPE *var is in this macro in ec_var.h*/\
+    EC_VAR_CREATE(EC_LIST_STRUCT(TYPE), list)                       /* This macro in ec_var.h*/\
                                                                     \
     if (EC_MEMORY)                                                  \
     {                                                               \
@@ -368,9 +378,6 @@ EC_LIST_FUNCTION_NAME(TYPE)                                         \
         {                                                           \
             EC_LIST_VAR_FUNCTION_NAME(TYPE)(list);                  \
         }                                                           \
-    }                                                               \
-    else                                                            \
-    {                                                               \
     }                                                               \
                                                                     \
     return list;                                                    \
@@ -768,7 +775,7 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                                            \
 }
 
 
-/* new functions */
+/* Move up functions */
 #define EC_LIST_VAR_MOVE_UP_FUNCTION(TYPE)                      \
 void                                                            \
 EC_LIST_VAR_MOVE_UP_FUNCTION_NAME(TYPE)                         \
@@ -881,6 +888,24 @@ EC_LIST_VAR_MOVE_DOWN_FUNCTION_NAME(TYPE)                       \
 }
 
 
+#define EC_LIST_VAR_UNLIST_FUNCTION(TYPE)                       \
+void                                                            \
+EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)                          \
+(                                                               \
+    EC_LIST_STRUCT(TYPE)        *list,                          \
+    EC_LIST_VAR_STRUCT(TYPE)    *var                            \
+)                                                               \
+{                                                               \
+    if (EC_UNLIST_NAME(TYPE) == NULL)                           \
+    {                                                           \
+        EC_UNLIST_NAME(TYPE) = EC_LIST_FUNCTION_NAME(TYPE)(0);  \
+    }                                                           \
+                                                                \
+    EC_LIST_DROP_FUNCTION_NAME(TYPE) (list, var);               \
+    EC_LIST_APPEND_FUNCTION_NAME(TYPE) (EC_UNLIST_NAME(TYPE), var); \
+}
+
+
 #define EC_LIST_FUNCTIONS(TYPE)         \
     EC_LIST_VAR_EXIST_FUNCTION(TYPE)    \
     EC_LIST_VAR_FREE_FUNCTION(TYPE)     \
@@ -897,7 +922,6 @@ EC_LIST_VAR_MOVE_DOWN_FUNCTION_NAME(TYPE)                       \
     EC_LIST_VAR_MOVE_UP_FUNCTION(TYPE)  \
     EC_LIST_VAR_MOVE_DOWN_FUNCTION(TYPE)\
     EC_LIST_VAR_DROP_FUNCTION(TYPE)     \
-                                        \
-    EC_LIST_UNLISTED_VAR_LIST(TYPE)
+    EC_LIST_VAR_UNLIST_FUNCTION(TYPE)
 
 #endif // EC_LIST_H
