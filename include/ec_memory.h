@@ -41,7 +41,7 @@ ECMemory *ec_memory;
 
 #define EC_MEMORY_CREATE(TYPE, ec_var_type, var)                        \
     ECMemory *ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));    \
-    if (DEBUG) EC_Print_Error ("ec memory create", ec_memory_new);      \
+    if (DEBUG) EC_Print_Error ("Create: ec memory ", ec_memory_new);      \
                                                                         \
     if (ec_memory_new == NULL)                                          \
     {                                                                   \

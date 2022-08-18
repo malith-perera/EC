@@ -116,9 +116,9 @@ EC_VAR_FREE_ALL_FUNCTION_NAME(TYPE)             \
     ECMemory *mem = (ECMemory *) ec_mem;        \
     if (mem != NULL)                            \
     {                                           \
-        if (mem->ec_var != NULL)                   \
+        if (mem->ec_var != NULL)                \
         {                                       \
-            free (mem->ec_var);                    \
+            free (mem->ec_var);                 \
         }                                       \
         EC_Memory_Var_Free (mem);               \
     }                                           \
@@ -140,7 +140,7 @@ EC_UNLOCK_FUNCTION_NAME(TYPE)                   \
 /* Create memory for any variable type ex: var, arry, list, list var */
 #define EC_VAR_CREATE(TYPE, var)                            \
     TYPE *var = (TYPE *) malloc (sizeof(TYPE));             \
-    if (DEBUG) EC_Print_Error ("ec var create", var);       \
+    if (DEBUG) EC_Print_Error ("Create: ec var ", var);     \
                                                             \
     if (var == NULL)                                        \
     {                                                       \
