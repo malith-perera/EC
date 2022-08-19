@@ -50,26 +50,29 @@ Test_New_List ()
         i++;
     }
 
-    EC_Test_Print_Msg ("Assign list variable attributes", "OK");
+    EC_Test_Print_Msg ("Assign: list stl2", "OK");
 
     assert (stl2->first->no == 1);
     assert (!strcmp (stl2->first->name, "Malith"));
+    EC_Test_Print_Msg ("Test: stl2->first exist", "OK");
 
     assert (stl2->first->next->no == 2);
     assert (!strcmp (stl2->first->next->name, "Geethike"));
+    EC_Test_Print_Msg ("Test: stl2->first->next exist", "OK");
 
     assert (stl2->first->next->next->no == 3);
     assert (!strcmp (stl2->first->next->next->name, "Perera"));
-
-    EC_Test_Print_Msg ("List variables exist ok", "OK");
+    EC_Test_Print_Msg ("Test: stl2->first->next->next exist", "OK");
 
     assert (stl2->first->next->next->next == NULL);
+    EC_Test_Print_Msg ("Test: stl2->first->next->next->next == NULL", "OK");
+
     assert (stl2->last->next == NULL);
     EC_Test_Print_Msg ("List last next NULL", "OK");
 
     EC_Test_Print_End_Subtitle ("Test: New list with three variables", "OK");
 
-    EC_Test_Print_Title ("Test: New_List: ", "END");
+    EC_Test_Print_Title ("Test: New_List", "END");
 }
 
 

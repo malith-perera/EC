@@ -37,7 +37,7 @@ EC_Memory_Var_Free (ECMemory *ec_mem)
             }
         }
 
-        if (DEBUG) EC_Print_Error ("ec memory var free", ec_mem);
+        if (DEBUG) EC_Test_Print_Adr ("ec memory var free", ec_mem);
 
         free (ec_mem);
     }

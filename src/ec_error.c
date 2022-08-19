@@ -8,14 +8,14 @@
 void
 EC_Error_Print_Msg (char *msg, char *result)
 {
-    printf ("%-40s %s\n", msg, result);
+    printf ("%-50s %s\n", msg, result);
 }
 
 
 void
 EC_Print_Error (char *msg, void *adrs)
 {
-    printf ("%-40s %p\n", msg, adrs);
+    printf ("%-50s %p\n", msg, adrs);
 }
 
 // EC_Error_Mem_Alloc (__FILE__, __LINE__);

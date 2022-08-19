@@ -22,6 +22,7 @@
 #include "ec_text_color.h"
 #include "ec_type.h"
 #include "ec_string.h"
+
 #include "ec_test.h"
 #include "ec_error.h"
 #include "ec_warn.h"

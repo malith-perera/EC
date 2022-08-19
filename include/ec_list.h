@@ -306,7 +306,7 @@ EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)                                \
                 list->last = NULL;                                  \
             }                                                       \
         }                                                           \
-        EC_WARN_PRINT_ADR_MACRO("ec var free", var);                \
+        EC_WARN_PRINT_ADR_MACRO ("ec var free", var);               \
         free (var);                                                 \
     }                                                               \
 }
