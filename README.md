@@ -13,7 +13,7 @@ define student_vars  \
    char name[20];    \
    int  grade;       \
    int  age;
-</i>></code></pre>  
+</i></code></pre>  
 
 Next use EC_LIST macro as below. Here Student is new list type and strudent_vars has defined above.  
 
