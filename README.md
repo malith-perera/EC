@@ -8,12 +8,12 @@ Think you need to create a list of students in a classroom. Also think student h
 
 First what you have to do is define these properties in a macro as below.  
 
-<pre><code><i>
+<code><pre><i>
 define student_vars  \
    char name[20];    \
    int  grade;       \
    int  age;
-</i></code></pre>
+</i></pre></code>
 
 Next use EC_LIST macro as below. Here Student is new list type and strudent_vars has defined above.  
 
@@ -27,10 +27,10 @@ You can create a student list with 20 students as below.
 
 You can create one by one student as below.  
 
-<pre><code><i>
+<code><pre><i>
 StudentListVar *student1 = Student_List_Var();
 StudentListVar *student2 = Student_List_Var();
-</i></code></pre><br>
+</i></pre></code><br>
 
 You can append student1 into the student_list as below.  
 
@@ -54,11 +54,11 @@ You can delete student2 in the student_list as below.
 
 You can access each student in the student_list with foreach_list as below.
 
-<pre><code><i>
+<code><pre><i>
 foreach_list (student_list) {
   printf("Name %s\n", student_list->var->name);
 }
-</i></code></pre>
+</i></pre></code>
 &nbsp; &nbsp; Hope you will enjoy with EC coding. Not even these EC can do many things for you. EC is purposely written so that it's much more customizable to optimize your code to gain it's maximum performance. Some times it may not necessary but possibilities may arise if you wish.  
 
 For binary downloads, manuals, documentations, tutorials please visit:  
