@@ -40,7 +40,7 @@ You can insert student2 as the fifth student in the student_list as below.
 
 <code><i>Student_Insert (student_list, student2, 5);</i></code><br>
 
-You can move student1 5 steps as below.  
+You can move student1 5 steps in the list as below.  
 
 <code><i>Student_Move (student_list, student1, 5);</i></code><br>
 
@@ -48,7 +48,7 @@ You can replace students1 with student2 in the student_list as below.
 
 <code><i>Student_Replace (student_list, student1, student2);<br>
 
-You can delete student2 in the student_list as below.
+You can delete student2 in the student_list as below.  
 
 <code><i>Student_Delete (student_list, student2);</i></code><br>
 
@@ -60,7 +60,7 @@ foreach_list (student_list) {
 }
 </i></code></pre>  
 
-&nbsp; &nbsp; Not only these EC does many things for you. It is purposely written so that it's much more customizable to optimize your code to gain it's maximum performance. Some times it may not necessary but possibilities may arise if you wish. Hope you will enjoy with EC coding.  
+&nbsp; &nbsp; Not only these EC does many things for you. It's purposely written so that it's much more customizable to optimize your code to gain it's maximum performance. Some times it may not necessary but possibilities may arise if you wish. Hope you will enjoy with EC coding.  
 
 For binary downloads, manuals, documentations, tutorials please visit:  
 
