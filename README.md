@@ -7,12 +7,13 @@ Example:
 Think you need to create a list of students in a classroom. Also think student has properties like name, grade and age.  
 
 First what you have to do is define these properties in a macro as below.  
-<code><pre><i>
+
+<pre><code><i>
 define student_vars  \
    char name[20];    \
    int  grade;       \
    int  age;
-</i></pre></code>  
+</i>></code></pre  
 
 Next use EC_LIST macro as below. Here Student is new list type and strudent_vars has defined above.  
 
@@ -25,10 +26,11 @@ You can create a student list with 20 students as below.
 <code><i>StudentList *student_list = Student_List(20);</i></code><br>
 
 You can create one by one student as below.  
-<code><pre><i>
+
+<pre><code><i>
 StudentListVar *student1 = Student_List_Var();
 StudentListVar *student2 = Student_List_Var();
-</i></pre></code>  
+</i></code></pre>  
 
 You can append student1 into the student_list as below.  
 
@@ -51,11 +53,12 @@ You can delete student2 in the student_list as below.
 <code><i>Student_Delete (student_list, student2);</i></code><br>
 
 You can access each student in the student_list with foreach_list as below.  
-<code><pre><i>
+
+<pre><code><i>
 foreach_list (student_list) {
   printf("Name %s\n", student_list->var->name);
 }
-</i></pre></code>  
+</i></code></pre>  
 
 &nbsp; &nbsp; Hope you will enjoy with EC coding. Not even these EC can do many things for you. EC is purposely written so that it's much more customizable to optimize your code to gain it's maximum performance. Some times it may not necessary but possibilities may arise if you wish.  
 
