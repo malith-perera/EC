@@ -7,6 +7,29 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+void
+EC_Simplize(char word[])
+{
+    for(int i = 0; i < strlen(word); i++)
+    {
+        if (word[i] >= 'A'  && word[i] <= 'Z')
+            word[i] = word[i] + 32;
+    }
+}
+
+
+void
+EC_Capitalize(char word[])
+{
+    for(int i = 0; i < strlen(word); i++)
+    {
+        if (word[i] >= 'a'  && word[i] <= 'z')
+            word[i] = word[i] - 32;
+    }
+}
+
+
 #if 0
 CharListPtr
 Char_List (char string[])
@@ -160,6 +183,7 @@ print_char (CharListPtr currentPtr, int char_pos)
     printf ("%c\n", currentPtr->charactor);
   }
 }
+
 struct strlist
 {
   char *line;
@@ -290,6 +314,7 @@ void SplitStringsInPlace
 
       *pSplitStarts = NULL;
     }
+
 int main()
 {
   char a[] = "one";

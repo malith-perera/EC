@@ -9,6 +9,13 @@
 #define EC_CONCAT4(a, b, c, d) a ## b ## c  ## d
 #endif
 
+// Change all capital letters in to simple in an array
+void
+EC_Simplize(char word[]);
+
+void
+EC_Capitalize(char word[]);
+
 struct _StrList
 {
   char *line;

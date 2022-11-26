@@ -10,8 +10,18 @@
 #ifndef EC_H
 #define EC_H
 
+#ifndef DEBUG
 #define DEBUG 1
+#endif
+
+#ifndef EC_WARN
 #define EC_WARN 1
+#endif
+
+
+#ifndef EC_MEMORY
+#define EC_MEMORY 1
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
