@@ -7,7 +7,6 @@ Example:
 Think you need to create a list of students in a classroom. Also think student has properties like name, grade and age.  
 
 First what you have to do is define these properties in a macro as below.  
-  
 <code><pre><i>
 define student_vars  \
    char name[20];    \
@@ -26,7 +25,6 @@ You can create a student list with 20 students as below.
 <code><i>StudentList *student_list = Student_List(20);</i></code><br>
 
 You can create one by one student as below.  
-
 <code><pre><i>
 StudentListVar *student1 = Student_List_Var();
 StudentListVar *student2 = Student_List_Var();
@@ -52,8 +50,7 @@ You can delete student2 in the student_list as below.
 
 <code><i>Student_Delete (student_list, student2);</i></code><br>
 
-You can access each student in the student_list with foreach_list as below.
-  
+You can access each student in the student_list with foreach_list as below.  
 <code><pre><i>
 foreach_list (student_list) {
   printf("Name %s\n", student_list->var->name);
