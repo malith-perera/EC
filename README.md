@@ -1,6 +1,6 @@
 # Extended C 
 
-Extended C is a C library and a tool kit to write C programs easily with extended variables, functions, memory management and C objects in mind.
+Extended C is a C library and a tool kit to write C programs easily with extended variables, functions, automated memory and C objects in mind.
 
 Example:
 
@@ -19,18 +19,18 @@ Next use EC_LIST macro as below. Here Student is new list type and strudent_vars
 
 <code><i>EC_LIST(Student, student_vars)</i></code><br>
 
-After that you will get many list functions freely without writing them. Let's examine some of list function among them.<br>
+After that you will get many list functions freely without writing them. Let's examine them.<br>
 
-Now You can create a student list with 20 students as below.  
+You can create a student list with 20 students as below.  
 
 <code><i>StudentList *student_list = Student_List(20);</i></code><br>
 
 You can create one by one student as below.  
 
-<code><i>
-StudentListVar *student1 = Student_List_Var();  
+<pre><code><i>
+StudentListVar *student1 = Student_List_Var();
 StudentListVar *student2 = Student_List_Var();
-</i></code><br>
+</i></code></pre><br>
 
 You can append student1 into the student_list as below.  
 
@@ -40,9 +40,9 @@ You can insert student2 as the fifth student in the student_list as below.
 
 <code><i>Student_Insert (student_list, student2, 5);</i></code><br>
 
-You can move student1 5 steps forward as below.  
+You can move student1 5 steps as below.  
 
-<code><i>Student_Move_Forward (student_list, student1, 5);</i></code><br>
+<code><i>Student_Move (student_list, student1, 5);</i></code><br>
 
 You can replace students1 with student2 in the student_list as below.  
 
