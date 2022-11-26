@@ -1,12 +1,12 @@
 # Extended C 
 
-Extended C is a C library and a tool kit to write C programs easily with extended variables, functions, automated memory and C objects in mind.
+Extended C is a C library and a tool kit to write C programs easily with extended variables, functions, automated memory management and C objects in mind.
 
 Example:
 
 Think you need to create a list of students in a classroom. Also think student has properties like name, grade and age.  
 
-First what you have to do is define these properties in a macro as below.  
+First what you have to do is define these property variables in a macro as below.  
 
 <pre><code><i>
 define student_vars  \
@@ -15,11 +15,11 @@ define student_vars  \
    int  age;
 </i></code></pre>  
 
-Next use EC_LIST macro as below. Here Student is new list type and strudent_vars has defined above.  
+Next use EC_LIST macro in EC as below. Here 'Student' is new list type and 'student_vars' has defined above.  
 
 <code><i>EC_LIST(Student, student_vars)</i></code><br>
 
-After that you will get many list functions freely without writing them. Let's examine them.<br>
+After that you will get many list functions freely available without writing them. Let's examine some of the functions created by EC for you.<br>
 
 You can create a student list with 20 students as below.  
 
@@ -60,12 +60,12 @@ foreach_list (student_list) {
 }
 </i></code></pre>  
 
-&nbsp; &nbsp; Hope you will enjoy with EC coding. Not even these EC can do many things for you. EC is purposely written so that it's much more customizable to optimize your code to gain it's maximum performance. Some times it may not necessary but possibilities may arise if you wish.  
+&nbsp; &nbsp; Not only these EC does many things for you. It is purposely written so that it's much more customizable to optimize your code to gain it's maximum performance. Some times it may not necessary but possibilities may arise if you wish. Hope you will enjoy with EC coding.  
 
 For binary downloads, manuals, documentations, tutorials please visit:  
 
 <http://www.extendedc.org>  
 
-![Logo, Extended C logo ](docs/images/ec96.png)  
+![Logo, Extended C logo ](ec.png)  
 
 *(not working yet)*
