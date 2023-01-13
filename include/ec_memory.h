@@ -13,7 +13,7 @@ typedef enum {
 
 
 /* EC_Memory to track memory */
-struct ECMemory {
+typedef struct ECMemory {
     ECType              type;
     void                *ec_var;
     ECMemoryLock        lock;
@@ -22,16 +22,15 @@ struct ECMemory {
     void                (*Free_Func) (void *);
     struct ECMemory     *previous;
     struct ECMemory     *next;
-};
+} ECMemory;
 
-typedef struct ECMemory ECMemory;
 
 /* Define lock and mem_ref */
 #ifdef EC_MEMORY
 #define EC_MEMORY_REF       \
     ECMemory *ec_mem;
 #else
-#define EC_MEMORY_REF
+#define EC_MEMORY_REF 0
 #endif //EC_MEMORY
 
 

@@ -1,9 +1,9 @@
+#include "ec.h"
+#define EC_VAR_DEBUG 1
+
 #ifndef EC_VAR_H
 #define EC_VAR_H
 
-#define EC_VAR_DEBUG 1
-
-#include "ec.h"
 
 /* Function name macros */
 
@@ -162,6 +162,7 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                            \
     }                                                       \
     return var;                                             \
 }
+
 
 /*printf ("create var %p\n", var_copy);                              \*/
 /*printf ("create mem %p\n", var_copy->ec_mem);                      \*/

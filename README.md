@@ -1,6 +1,6 @@
 # Extended C 
 
-Extended C is a C library and a tool kit to write C programs easily with extended variables, functions, automated memory management and C objects in mind.
+Extended C is a C library and a tool kit to write C programs easily with extended variables, functions, automated memory and C objects in mind.
 
 Example:
 
@@ -40,7 +40,7 @@ You can insert student2 as the fifth student in the student_list as below.
 
 <code><i>Student_Insert (student_list, student2, 5);</i></code><br>
 
-You can move student1 5 steps in the list as below.  
+You can move student1 as the fifth student in the student_list as below.  
 
 <code><i>Student_Move (student_list, student1, 5);</i></code><br>
 

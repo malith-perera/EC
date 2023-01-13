@@ -78,25 +78,30 @@ main (int argc, char *argv[])
 
     if (no == 6 || no == 0)
     {
-        Run_Var_Ref_Test ();
+        Run_ECS_Test ();
     }
 
     if (no == 7 || no == 0)
     {
-        Run_Ref_Array_Test ();
+        Run_Var_Ref_Test ();
     }
 
     if (no == 8 || no == 0)
     {
-        Run_Ref_List_Test ();
+        Run_Ref_Array_Test ();
     }
 
     if (no == 9 || no == 0)
     {
-        Run_Ref_Queue_Test ();
+        Run_Ref_List_Test ();
     }
 
     if (no == 10 || no == 0)
+    {
+        Run_Ref_Queue_Test ();
+    }
+
+    if (no == 11 || no == 0)
     {
         Run_Ref_Stack_Test ();
     }

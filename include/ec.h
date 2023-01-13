@@ -43,6 +43,7 @@
 #include "ec_list.h"
 #include "ec_queue.h"
 #include "ec_stack.h"
+#include "ec_ecs.h"
 
 #include "ec_var_ref.h"
 #include "ec_array_ref.h"

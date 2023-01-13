@@ -1,7 +1,8 @@
+#include "ec.h"
+
 #ifndef EC_LIST_H
 #define EC_LIST_H
 
-#include "ec.h"
 
 /* Anyone can use foreach in ec_type.h interchangebly with this. */
 //#define foreach_list(list)  \
@@ -67,6 +68,7 @@ typedef struct EC_LIST_STRUCT(TYPE) {                   \
 } EC_LIST_STRUCT(TYPE);                                 \
                                                         \
 EC_LIST_STRUCT(TYPE) *EC_UNLIST_NAME(TYPE);
+
 
 /* Function prototype macros */
 #define EC_LIST_VAR_EXIST_PROTOTYPE(TYPE)               \
