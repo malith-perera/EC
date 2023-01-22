@@ -5,15 +5,15 @@
 
 
 /* Anyone can use foreach in ec_type.h interchangebly with this. */
-//#define foreach_list(list)  \
-    //for (list->var = list->first; list->var != NULL; list->var = list->var_temp)
+/* #define foreach_list(list)  \ */
+/*     for (list->var = list->first; list->var != NULL; list->var = list->var_next) */
 
-//list->var_temp = list->var->next
+//list->var_next = list->var->next
 //
 #define for_list(list)                                                                              \
-    for (list->var = list->first, list->var_temp = list->var != NULL ? list->var->next : NULL;      \
+    for (list->var = list->first, list->var_next = list->var != NULL ? list->var->next : NULL;      \
         list->var != NULL;                                                                          \
-        list->var = list->var_temp, list->var_temp = list->var != NULL ? list->var->next : NULL)
+        list->var = list->var_next, list->var_next = list->var != NULL ? list->var->next : NULL)
 
 
 /* Function name macros */
@@ -62,7 +62,7 @@ typedef struct EC_LIST_STRUCT(TYPE) {                   \
     EC_LIST_VAR_STRUCT(TYPE) *first;                    /* first var in the list */\
     EC_LIST_VAR_STRUCT(TYPE) *last;                     /* last var in the list */\
     EC_LIST_VAR_STRUCT(TYPE) *var;                      /* current (holding) var in the list */\
-    EC_LIST_VAR_STRUCT(TYPE) *var_temp;                 /* hold var temporaly in for_list repeatition */\
+    EC_LIST_VAR_STRUCT(TYPE) *var_next;                 /* hold var temporaly in for_list repeatition */\
     int n;                                              /* number of vars in the list */\
     EC_MEMORY_REF                                       \
 } EC_LIST_STRUCT(TYPE);                                 \
@@ -371,7 +371,7 @@ EC_LIST_FUNCTION_NAME(TYPE)                                         \
     list->first = NULL;                                             \
     list->last = NULL;                                              \
     list->var = NULL;                                               \
-    list->var_temp = NULL;                                          \
+    list->var_next = NULL;                                          \
     list->n = 0;                                                    \
                                                                     \
     if (ec_n != 0)                                                  \

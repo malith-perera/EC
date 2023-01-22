@@ -66,7 +66,7 @@ EC_Memory_Free_All
 
 /* Clean all ec_memory at the end of the program */
 void
-EC_Clean ()
+EC_Memory_Clean ()
 {
     ECMemory *current;
     ECMemory *temp;
@@ -104,6 +104,7 @@ EC_Memory_Push (ECMemory *ec_memory_new)
 
 
 /* Free all memory if lock == EC_UNLOCK in ec_memory var */
+
 void
 EC_Memory_Free_Unlocked ()
 {
@@ -171,3 +172,6 @@ EC_Memory_Free_Unlock_One ()
         }
     }
 }
+
+
+

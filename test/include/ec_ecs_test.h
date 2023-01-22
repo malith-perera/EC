@@ -6,9 +6,12 @@
 #include "ec.h"
 #include "student.h"
 
+
 Entity *players;
 Entity *enemies;
 Entity *bullets; 
+Entity *empty;
+
 
 typedef struct Velocity {
     int x;
@@ -21,6 +24,7 @@ typedef struct Position {
     int y;
 } Position;
 
+
 Velocity *velocity;
 Position *position;
 
@@ -28,10 +32,13 @@ Position *position;
 void
 Run_ECS_Test ();
 
+
 void
 Test_ECS_Create_New_Entites();
 
+
 void
 Test_ECS_Create_Components ();
+
 
 #endif //EC_ECS_TEST_H

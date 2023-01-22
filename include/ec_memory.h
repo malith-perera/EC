@@ -58,7 +58,7 @@ ECMemory *ec_memory;
 
 /* Clean all remaining ec_memory at the end of the program */
 void
-EC_Clean ();
+EC_Memory_Clean ();
 
 
 void
@@ -93,6 +93,9 @@ EC_Memory_Free_Unlock_One ();
     EC_VAR->ec_mem->previous = EC_VAR->ec_mem->next;    \
     free(EC_VAR->ec_mem);                               \
     free(EC_VAR);
+
+
+#define EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Free_Func,)
 
 
 #endif // EC_MEMORY_H

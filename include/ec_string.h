@@ -1,6 +1,10 @@
 #ifndef EC_STRING
 #define EC_STRING
 
+#ifndef EC_CONCAT2
+#define EC_CONCAT2(x, y) x ## y
+#endif
+
 #ifndef EC_CONCAT
 #define EC_CONCAT(x, y, z) x ## y ## z
 #endif
