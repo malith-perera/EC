@@ -7,15 +7,14 @@ int ec_entity_total;
 
 typedef struct EntityId {
     int i;                      /* Entity begining id */
-    int n;                      /* Number of entities at a time */
+    int n;                      /* Number of entities in use */
     struct EntityId *next;      /* Next EntityId */
 } EntityId;
 
 
 typedef struct Entity{
-    EntityId *ids;              /* List of entity ids */
-    int n;                      /* Number of entities exist */
-    int max;                    /* Maximum number of entities for a entity type */
+    EntityId *id;               /* List of entity id */
+    int max;                    /* Maximum number of entities for an entity type */
     bool active;                /* Whether entity active */
     struct Entity *next;        /* Next entity */
 } Entity;
@@ -27,13 +26,13 @@ typedef struct Entity{
 
 
 #define for_entity(entity, entity_ids)                              \
-    for (EntityId *entity_ids = entity->ids;                        \
+    for (EntityId *entity_ids = entity->id;                         \
             entity_ids != NULL; entity_ids = entity_ids->next)
 
 
 #define foreach_entity(entity, entity_id)                                   \
-    int entity_id = entity->ids->i;                                         \
-    for (EntityId *entity_ids = entity->ids;                                \
+    int entity_id = entity->id->i;                                          \
+    for (EntityId *entity_ids = entity->id;                                 \
         entity_ids != NULL;                                                 \
         entity_ids = (entity_id++ < (entity_ids->i + entity_ids->n)) ?      \
         entity_ids : (entity_ids->next != NULL ? entity_ids->next : NULL))

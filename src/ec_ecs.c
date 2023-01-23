@@ -3,7 +3,6 @@
 
 static Entity *ec_entity_list;
 
-static int ec_entity_i;
 
 /*--------*/
 /* Entity */
@@ -14,16 +13,14 @@ ECS_Init ()
 {
     ec_entity_list = (Entity *) malloc (sizeof (Entity)); 
     ec_entity_list->max = 0;
-    ec_entity_list->n = 0;
-    ec_entity_list->active = false;
+    ec_entity_list->active = true;
     ec_entity_list->next = NULL;
 
-    ec_entity_list->ids = (EntityId *) malloc (sizeof (EntityId));
-    ec_entity_list->ids->i = 0;
-    ec_entity_list->ids->n = 0;
-    ec_entity_list->ids->next = NULL;
+    ec_entity_list->id = (EntityId *) malloc (sizeof (EntityId));
+    ec_entity_list->id->i = 0;
+    ec_entity_list->id->n = 0;
+    ec_entity_list->id->next = NULL;
 
-    ec_entity_i = 0;
     ec_entity_total = 0;
 }
 
@@ -31,49 +28,39 @@ ECS_Init ()
 Entity *
 Init_Entity (Entity *entity, int n, int max)
 {
-    if (entity == NULL)
+    if (entity != NULL) // Existing entity
     {
-        if (entity->ids->next == NULL)
-        {
-            EntityId *entity_id = (EntityId *) malloc (sizeof (EntityId));
-            entity_id->i = ec_entity_list->ids->i;
-            entity_id->n = n;
-            entity_id->next = NULL;
-            
-            ec_entity_list->ids->i = max;
-            ec_entity_list->ids->n += max; // total number of entities
 
-            entity = (Entity *) malloc (sizeof (Entity)); 
+    }
+    else // New entity
+    {
+        EntityId *entity_id = (EntityId *) malloc (sizeof (EntityId));
+        entity_id->i = ec_entity_list->id->i;
+        entity_id->n = n;
+        entity_id->next = NULL;
 
-            entity->ids = entity_id;
-            entity->max = max;
-            entity->n = n;
-            entity->active = true;
-            entity->next = NULL;
-        }
-        else
-        {
-            // Check for best match ids
-        }
+        entity = (Entity *) malloc (sizeof (Entity)); 
+        entity->id = entity_id;
+        entity->max = max;
+        entity->active = true;
+        entity->next = NULL;
+    }
+
+    // add entity to ec_entity_list
+    entity->next = ec_entity_list->next;
+    ec_entity_list->next = entity;
+
+    if (ec_entity_list->id->next != NULL)
+    {
     }
     else
     {
-        // An existing entity
     }
-
+    
+    ec_entity_list->id->i += max;
+    ec_entity_list->id->n += n; // total number of entities in use
+    ec_entity_list->max += max; // total number of entities
     ec_entity_total += max; // Update the total entities
-
-    // Adding to ec_entity_list
-    if (ec_entity_list->next == NULL) // No entity found other than the first
-    {
-        ec_entity_list->next = entity;
-    }
-    else 
-    {
-        // **** need a redesign
-        entity->next = ec_entity_list->next;
-        ec_entity_list->next = entity;
-    }
 
     return entity;
 }
@@ -116,8 +103,8 @@ Entity_Reset_All ()
     {
         foreach_entity(current_entity, entity_id)
         {
-            current_entity->ids->i = 0;
-            current_entity->ids->n = 0;
+            current_entity->id->i = 0;
+            current_entity->id->n = 0;
         }
         current_entity->max = 0;
         current_entity->active = false;
@@ -132,8 +119,8 @@ Entity_Drop (Entity *entity)
 {
     foreach_entity(entity, entity_id)
     {
-        entity->ids->i = 0;
-        entity->ids->n = 0;
+        entity->id->i = 0;
+        entity->id->n = 0;
         active_entity[entity_id] = false;
     }
 
@@ -144,7 +131,7 @@ Entity_Drop (Entity *entity)
 void
 Entity_Repack ()
 {
-    /* Mark inactive ids */
+    /* Mark inactive id */
     Entity *current_entity = ec_entity_list;
 
     while (current_entity != NULL)
@@ -181,7 +168,7 @@ EC_Entity_Clean()
 
     while (current_entity != NULL)
     {
-        current_entity_id = current_entity->ids;
+        current_entity_id = current_entity->id;
         
         while (current_entity_id != NULL)
         {

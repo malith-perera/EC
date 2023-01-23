@@ -16,15 +16,14 @@ Test_ECS_Init ()
     Entity *entity_list = EC_Get_Entity_List ();
 
     assert (entity_list->max == 0);
-    assert (entity_list->n == 0);
-    assert (entity_list->active == false);
+    assert (entity_list->active == true);
     assert (entity_list->next == NULL);
     EC_Test_Print_Msg ("entity_list members initialization", "OK");
 
-    assert (entity_list->ids->i == 0);
-    assert (entity_list->ids->n == 0);
-    assert (entity_list->ids->next == NULL);
-    EC_Test_Print_Msg ("entity_list->ids members initialization", "OK");
+    assert (entity_list->id->i == 0);
+    assert (entity_list->id->n == 0);
+    assert (entity_list->id->next == NULL);
+    EC_Test_Print_Msg ("entity_list->id members initialization", "OK");
 
     assert (ec_entity_total == 0);
     EC_Test_Print_Msg ("ec_entity_total", "OK");
@@ -32,6 +31,95 @@ Test_ECS_Init ()
     EC_Test_Print_Title ("Test: ECS_Init", "END");
 }
 
+
+void
+Test_ECS_Create_New_Entites()
+{
+    /* Test create new entities */
+    EC_Test_Print_Subtitle ("Test: Create_New_Entity", "BEGIN");
+
+    Entity *entity_list = EC_Get_Entity_List ();
+
+    // Init players 
+    players = Init_Entity (players, 2, 5);
+
+    assert (players->id->i == 0);
+    assert (players->id->n == 2);
+    EC_Test_Print_Msg ("player->id", "OK");
+
+    assert (players->max == 5);
+    assert (players->active == true);
+    assert (players->next == NULL);
+    EC_Test_Print_Msg ("players", "OK");
+
+    assert (entity_list->id->i == 5);
+    assert (entity_list->id->n == 2);
+    assert (entity_list->id->next == NULL);
+    EC_Test_Print_Msg ("ec_entity_list->id", "OK");
+
+    assert (entity_list->max == 5);
+    assert (entity_list->active == true);
+    assert (entity_list->next != NULL);
+    assert (entity_list->next->next == NULL);
+    EC_Test_Print_Msg ("ec_entity_list", "OK");
+
+    assert (entity_list->next == players);
+    EC_Test_Print_Msg ("player add as the second entity", "OK");
+
+    // Init enemies
+    enemies = Init_Entity (enemies, 5, 10);
+
+    assert (enemies->id->i == 5);
+    assert (enemies->id->n == 5);
+    EC_Test_Print_Msg ("enemies->id", "OK");
+
+    assert (enemies->max == 10);
+    assert (enemies->active == true);
+    assert (enemies->next == players);
+    EC_Test_Print_Msg ("enemies", "OK");
+
+    assert (entity_list->id->i == 15);
+    assert (entity_list->id->n == 7);
+    assert (entity_list->id->next == NULL);
+    EC_Test_Print_Msg ("ec_entity_list->id", "OK");
+
+    assert (entity_list->max == 15);
+    assert (entity_list->active == true);
+    assert (entity_list->next != NULL);
+    assert (entity_list->next->next->next == NULL);
+    EC_Test_Print_Msg ("ec_entity_list", "OK");
+
+    assert (entity_list->next == enemies);
+    EC_Test_Print_Msg ("enemies add as the second entity", "OK");
+
+    // Init bullets
+    bullets = Init_Entity (bullets, 5, 10);
+
+    assert (bullets->id->i == 15);
+    assert (bullets->id->n == 5);
+    EC_Test_Print_Msg ("bullets->id", "OK");
+
+    assert (bullets->max == 10);
+    assert (bullets->active == true);
+    assert (bullets->next == enemies);
+    EC_Test_Print_Msg ("enemies", "OK");
+
+    assert (entity_list->id->i == 25);
+    assert (entity_list->id->n == 12);
+    assert (entity_list->id->next == NULL);
+    EC_Test_Print_Msg ("ec_entity_list->id", "OK");
+
+    assert (entity_list->max == 25);
+    assert (entity_list->active == true);
+    assert (entity_list->next != NULL);
+    assert (entity_list->next->next->next->next == NULL);
+    EC_Test_Print_Msg ("ec_entity_list", "OK");
+
+    assert (entity_list->next == bullets);
+    EC_Test_Print_Msg ("bullets add as the third entity", "OK");
+
+    EC_Test_Print_Title ("Test: Create_New_Entity: ", "END");
+}
 
 void 
 Entity_Change_Id (int i, int j)
@@ -54,55 +142,7 @@ Free_Components ()
 }
 
 
-void
-Test_ECS_Create_New_Entites()
-{
-    /* Test create new entities */
-    EC_Test_Print_Subtitle ("Test: Create_New_Entity", "BEGIN");
 
-    Entity *entity_list = EC_Get_Entity_List ();
-
-    // Create entities
-
-    players = Init_Entity (players, 2, 5);
-
-    assert (players->ids->i == 0);
-    assert (players->ids->n == 2);
-    EC_Test_Print_Msg ("player ids", "OK");
-
-    assert (entity_list->ids->i == 5);
-    assert (entity_list->ids->n == 5);
-    assert (entity_list->ids->next == NULL);
-    EC_Test_Print_Msg ("ec_entity_list->ids", "OK");
-
-    assert (entity_list->max == 5);
-    assert (entity_list->n == 2);
-    /* assert (entity_list->active == true); */
-    /* assert (entity_list->next == NULL); */
-    EC_Test_Print_Msg ("ec_entity_list", "OK");
-
-    /* enemies = Init_Entity (enemies, 5, 10); */
-    /* bullets = Init_Entity (bullets, 5, 10); */
-
-
-
-
-
-    /* EC_Test_Print_Msg ("Asign arguments to players", "OK"); */
-
-    /* assert (enemies->ids->i == 1); */
-    /* assert (enemies->ids->n == 5); */
-    /* EC_Test_Print_Msg ("Asign arguments to enemies", "OK"); */
-
-    /* assert (bullets->ids->i == 6); */
-    /* assert (bullets->ids->n == 5); */
-    /* EC_Test_Print_Msg ("Asign arguments to bullets", "OK"); */
-
-
-
-
-    EC_Test_Print_Title ("Test: Create_New_Entity: ", "END");
-}
 
 
 void
@@ -155,7 +195,7 @@ Test_ECS_Foreach ()
 {
     EC_Test_Print_Title ("Test: Entity foreach loops", "BEGIN");
 
-    int player_id_i = players->ids->i;
+    int player_id_i = players->id->i;
     foreach_entity(players, player_id)
     {
         assert (player_id_i++ == player_id);
@@ -163,7 +203,7 @@ Test_ECS_Foreach ()
 
     EC_Test_Print_Msg ("Player foreach loop", "OK");
 
-    int enemy_id_i = enemies->ids->i;
+    int enemy_id_i = enemies->id->i;
     foreach_entity(enemies, enemy_id)
     {
         assert (enemy_id_i++ == enemy_id);
@@ -171,7 +211,7 @@ Test_ECS_Foreach ()
 
     EC_Test_Print_Msg ("Enemy foreach loop", "OK");
 
-    int bullet_id_i = bullets->ids->i;
+    int bullet_id_i = bullets->id->i;
     foreach_entity(bullets, bullet_id)
     {
         assert (bullet_id_i++ == bullet_id);
