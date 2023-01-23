@@ -3,7 +3,6 @@
 
 #include "ec.h"
 
-int ec_entity_total;
 
 typedef struct EntityId {
     int i;                      /* Entity begining id */
@@ -14,10 +13,13 @@ typedef struct EntityId {
 
 typedef struct Entity{
     EntityId *id;               /* List of entity id */
-    int max;                    /* Maximum number of entities for an entity type */
+    int max;                    /* Maximum number of entities */
     bool active;                /* Whether entity active */
     struct Entity *next;        /* Next entity */
 } Entity;
+
+
+Entity *ec_entity_list;
 
 
 #define for_entity_ids(entity_ids, entity_id)                       \
@@ -50,7 +52,7 @@ typedef struct Entity{
         ptr = EC_CONCAT2(TYPE, _new_ptr);
 
 
-#define New_Component(TYPE) (TYPE *) malloc (sizeof (TYPE) * ec_entity_total)
+#define New_Component(TYPE) (TYPE *) malloc (sizeof (TYPE) * ec_entity_list->max)
 #define Entity_Change(component, i, j) component[i] = component[j]
 
 

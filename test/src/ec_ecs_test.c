@@ -25,7 +25,6 @@ Test_ECS_Init ()
     assert (entity_list->id->next == NULL);
     EC_Test_Print_Msg ("entity_list->id members initialization", "OK");
 
-    assert (ec_entity_total == 0);
     EC_Test_Print_Msg ("ec_entity_total", "OK");
 
     EC_Test_Print_Title ("Test: ECS_Init", "END");
@@ -232,7 +231,7 @@ Test_ECS_Create_Components ()
     position = New_Component (Position);
     velocity = New_Component (Velocity);
 
-    for (int i = 0; i < ec_entity_total; i++)
+    for (int i = 0; i < ec_entity_list->max; i++)
     {
     }
 
@@ -246,7 +245,7 @@ Test_ECS_Create_Components ()
 void
 Test_ECS_Resize_Component ()
 {
-    Realloc(Position, position, ec_entity_total)
+    Realloc(Position, position, ec_entity_list->max)
 }
 
 

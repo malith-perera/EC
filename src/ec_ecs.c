@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "ec_ecs.h"
 
-static Entity *ec_entity_list;
 
 
 /*--------*/
@@ -20,8 +19,6 @@ ECS_Init ()
     ec_entity_list->id->i = 0;
     ec_entity_list->id->n = 0;
     ec_entity_list->id->next = NULL;
-
-    ec_entity_total = 0;
 }
 
 
@@ -46,22 +43,21 @@ Init_Entity (Entity *entity, int n, int max)
         entity->next = NULL;
     }
 
-    // add entity to ec_entity_list
-    entity->next = ec_entity_list->next;
-    ec_entity_list->next = entity;
-
     if (ec_entity_list->id->next != NULL)
     {
     }
     else
     {
+        ec_entity_list->id->i += max;
+        ec_entity_list->id->n += n; // total number of entities in use
     }
-    
-    ec_entity_list->id->i += max;
-    ec_entity_list->id->n += n; // total number of entities in use
-    ec_entity_list->max += max; // total number of entities
-    ec_entity_total += max; // Update the total entities
 
+    ec_entity_list->max += max; // total number of entities
+
+    // add entity to ec_entity_list
+    entity->next = ec_entity_list->next;
+    ec_entity_list->next = entity;
+    
     return entity;
 }
 
@@ -80,7 +76,7 @@ Entity_Reset_Max (Entity *entity, int max)
             entity_max += current_entity->max;
         }
 
-        if (entity_max <= ec_entity_total)
+        if (entity_max <= ec_entity_list->max)
         {
             entity->max = max;
         }
@@ -205,7 +201,7 @@ EC_Components(void (*Entity_Change_Id_Func)(int, int))
     if (active_entity == NULL)
         active_entity = New_Component (ActiveEntity);
 
-    for (int i = 0; i < ec_entity_total; i++)
+    for (int i = 0; i < ec_entity_list->max; i++)
     {
         active_entity[i] = false;
     }

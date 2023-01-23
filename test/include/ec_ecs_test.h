@@ -10,7 +10,6 @@
 Entity *players;
 Entity *enemies;
 Entity *bullets; 
-Entity *empty;
 
 
 typedef struct Velocity {
