@@ -3,23 +3,27 @@
 
 #include "ec.h"
 
+int ec_entity_total;
+
+typedef struct Component Component;
 
 typedef struct EntityId {
     int i;                      /* Entity begining id */
     int n;                      /* Number of entities in use */
+    int max;
     struct EntityId *next;      /* Next EntityId */
+    Component *component;
 } EntityId;
 
 
 typedef struct Entity{
-    EntityId *id;               /* List of entity id */
-    int max;                    /* Maximum number of entities */
-    bool active;                /* Whether entity active */
+    EntityId *id;               /* List of entity ids */
     struct Entity *next;        /* Next entity */
 } Entity;
 
 
 Entity *ec_entity_list;
+Entity *ec_entity_droped_list;
 
 
 #define for_entity_ids(entity_ids, entity_id)                       \
@@ -52,7 +56,17 @@ Entity *ec_entity_list;
         ptr = EC_CONCAT2(TYPE, _new_ptr);
 
 
-#define New_Component(TYPE) (TYPE *) malloc (sizeof (TYPE) * ec_entity_list->max)
+#define Component_New(comp, size) \
+    comp = (Component *) malloc (sizeof (Component)); \
+    comp->n = size;
+
+
+#define Component_Add(component, TYPE, var) component->var = (TYPE *) malloc (sizeof (TYPE) * component->n)
+
+
+#define Component_Get(component, var) var = component->var
+
+
 #define Entity_Change(component, i, j) component[i] = component[j]
 
 

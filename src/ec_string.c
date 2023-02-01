@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 
 void
@@ -16,6 +17,7 @@ EC_Simplize(char word[])
         if (word[i] >= 'A'  && word[i] <= 'Z')
             word[i] = word[i] + 32;
     }
+
 }
 
 
@@ -27,6 +29,18 @@ EC_Capitalize(char word[])
         if (word[i] >= 'a'  && word[i] <= 'z')
             word[i] = word[i] - 32;
     }
+}
+
+
+char* toLower(char* s) {
+  for(char *p=s; *p; p++) *p=tolower(*p);
+  return s;
+}
+
+
+char* toUpper(char* s) {
+  for(char *p=s; *p; p++) *p=toupper(*p);
+  return s;
 }
 
 

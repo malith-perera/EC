@@ -6,10 +6,12 @@
 #include "ec.h"
 #include "student.h"
 
+Entity *entity_list;
 
 Entity *players;
 Entity *enemies;
 Entity *bullets; 
+Entity *boxes;
 
 
 typedef struct Velocity {
@@ -24,8 +26,26 @@ typedef struct Position {
 } Position;
 
 
-Velocity *velocity;
-Position *position;
+typedef struct Size {
+    int x;
+    int y;
+} Size;
+
+
+typedef struct Component {
+    int         n;
+    Velocity    *velocity;
+    Position    *position;
+    Size        *size;
+} Component;
+
+
+Component *component;
+
+
+Velocity    *velocity;
+Position    *position;
+Size        *size;
 
 
 void

@@ -1,3 +1,4 @@
 build/
 *.vim
 test/build
+*.swp

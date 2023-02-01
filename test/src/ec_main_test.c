@@ -22,18 +22,20 @@ main (int argc, char *argv[])
     {
         printf ("Select Test\n");
         printf ("-----------\n");
-        printf ("Test: All          0\n");
-        printf ("Test: Var          1\n");
-        printf ("Test: Array        2\n");
-        printf ("Test: List         3\n");
-        printf ("Test: Queue        4\n");
-        printf ("Test: Stack        5\n");
-        printf ("Test: Ref Var      6\n");
-        printf ("Test: Ref Array    7\n");
-        printf ("Test: Ref List     8\n");
-        printf ("Test: Ref Queue    9\n");
-        printf ("Test: Ref Stack    10\n");
-        printf ("Test: Exit         -1\n");
+        printf ("Test: All           0\n");
+        printf ("Test: Var           1\n");
+        printf ("Test: Array         2\n");
+        printf ("Test: List          3\n");
+        printf ("Test: Queue         4\n");
+        printf ("Test: Stack         5\n");
+        printf ("Test: Ref Var       6\n");
+        printf ("Test: Ref Array     7\n");
+        printf ("Test: Ref List      8\n");
+        printf ("Test: Ref Queue     9\n");
+        printf ("Test: Ref Stack     10\n");
+        printf ("Test: ECS           11\n");
+        printf ("Test: Lines Of Code 12\n");
+        printf ("Test: Exit          -1\n");
         printf ("\n");
 
         printf ("Test : ");
@@ -78,32 +80,37 @@ main (int argc, char *argv[])
 
     if (no == 6 || no == 0)
     {
-        Run_ECS_Test ();
+        Run_Var_Ref_Test ();
     }
 
     if (no == 7 || no == 0)
     {
-        Run_Var_Ref_Test ();
+        Run_Ref_Array_Test ();
     }
 
     if (no == 8 || no == 0)
     {
-        Run_Ref_Array_Test ();
+        Run_Ref_List_Test ();
     }
 
     if (no == 9 || no == 0)
     {
-        Run_Ref_List_Test ();
+        Run_Ref_Queue_Test ();
     }
 
     if (no == 10 || no == 0)
     {
-        Run_Ref_Queue_Test ();
+        Run_Ref_Stack_Test ();
     }
 
     if (no == 11 || no == 0)
     {
-        Run_Ref_Stack_Test ();
+        Run_ECS_Test ();
+    }
+
+    if (no == 12 || no == 0)
+    {
+        Run_Loc_Test ();
     }
 
     EC_Error_Print_Msg ("EC_Clean", "BEGIN");

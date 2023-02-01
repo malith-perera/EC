@@ -10,6 +10,7 @@
 #include "ec_queue_test.h"
 #include "ec_stack_test.h"
 #include "ec_ecs_test.h"
+#include "ec_loc_test.h"
 
 #include "ec_var_ref_test.h"
 #include "ec_array_ref_test.h"
