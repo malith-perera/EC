@@ -65,7 +65,7 @@ foreach_list (student_list) {
 }
 </i></code></pre>  
 
-&nbsp; &nbsp; Not only these EC does many things for you. It's purposely written so that it's much more customizable to optimize your code to gain it's maximum performance. Some times it may not necessary but possibilities may arise if you wish. Hope you will enjoy with EC coding.  
+&nbsp; &nbsp; Not only these EC does many things for you. It's purposely written so that it's much more customizable to optimize your code to gain it's maximum performance. And it's always open you to make more changes and improvements on it. Hope you will find this useful and enjoy with EC coding.  
 
 For binary downloads, manuals, documentations, tutorials please visit:  
 
