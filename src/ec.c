@@ -13,5 +13,5 @@ void
 EC_Clean()
 {
     EC_Memory_Clean();
-    EC_Entity_Clean();
+    // EC_Entity_Clean();
 }

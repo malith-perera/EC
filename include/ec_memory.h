@@ -1,8 +1,9 @@
+#include "ec.h"
+
+
 #ifndef EC_MEMORY_H
 #define EC_MEMORY_H
 
-
-#include "ec.h"
 
 /* ECMemoryLock types */
 typedef enum {
@@ -13,8 +14,8 @@ typedef enum {
 
 
 /* EC_Memory to track memory */
-typedef struct ECMemory {
-    ECType              type;
+typedef struct ECMemory {                                           
+    ECType              type;                                   
     void                *ec_var;
     ECMemoryLock        lock;
     void                (*Free_All) (void *);
@@ -35,7 +36,7 @@ typedef struct ECMemory {
 
 
 /* List of all allocated ec_memory */
-ECMemory *ec_memory;
+static ECMemory *ec_memory;
 
 
 #define EC_MEMORY_CREATE(TYPE, ec_var_type, var)                        \

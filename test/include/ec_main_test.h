@@ -1,3 +1,5 @@
+#include <assert.h>
+
 #ifndef EC_MAIN_TEST_H
 #define EC_MAIN_TEST_H
 

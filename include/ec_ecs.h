@@ -1,110 +1,82 @@
-#ifndef EC_ECS_H
-#define EC_ECS_H
-
 #include "ec.h"
 
-int ec_entity_total;
 
-typedef struct Component Component;
+#ifndef ECS_H
+#define ECS_H
 
-typedef struct EntityId {
-    int i;                      /* Entity begining id */
-    int n;                      /* Number of entities in use */
-    int max;
-    struct EntityId *next;      /* Next EntityId */
-    Component *component;
-} EntityId;
+#define CONCAT(a, b, c) a ## b ## c
+
+typedef enum {ENTITY_NEW, ENTITY_UNCHANGED, ENTITY_MORE, ENTITY_LESS, ENTITY_DROP, ENTITY_DELETE} EntityRequestType;
 
 
-typedef struct Entity{
-    EntityId *id;               /* List of entity ids */
-    struct Entity *next;        /* Next entity */
+typedef struct Ids {
+    int i;
+    int n;
+    int m;
+    struct Ids *next;
+} Ids;
+
+
+typedef struct Entity {
+    int i;                      // first index or entity request type
+    int n;                      // number of entities in play
+    int m;                      // maximum number of entities
+    struct Entity *next;
 } Entity;
 
 
-Entity *ec_entity_list;
-Entity *ec_entity_droped_list;
+static Entity *entity_list;
+static Entity *entity_list_last;
 
 
-#define for_entity_ids(entity_ids, entity_id)                       \
-    for (int entity_id = entity_ids->i;                             \
-        entity_id < entity_ids->i + entity_ids->n; entity_id++)
+typedef struct EntityRequest {
+    int                     n;
+    int                     m;
+    Entity                  *entity;            // use to identify which entity request
+    EntityRequestType       type;               // request type 
+    struct EntityRequest    *next;
+} EntityRequest;
 
 
-#define for_entity(entity, entity_ids)                              \
-    for (EntityId *entity_ids = entity->id;                         \
-            entity_ids != NULL; entity_ids = entity_ids->next)
+static EntityRequest *entity_request_list;
+static EntityRequest *entity_request_list_last;
 
-
-#define foreach_entity(entity, entity_id)                                   \
-    int entity_id = entity->id->i;                                          \
-    for (EntityId *entity_ids = entity->id;                                 \
-        entity_ids != NULL;                                                 \
-        entity_ids = (entity_id++ < (entity_ids->i + entity_ids->n)) ?      \
-        entity_ids : (entity_ids->next != NULL ? entity_ids->next : NULL))
-
-
-#define Realloc(TYPE, ptr, size)                                    \
-    TYPE * EC_CONCAT2(TYPE, _old_ptr);                              \
-    TYPE * EC_CONCAT2(TYPE, _new_ptr);                              \
-    memcpy (EC_CONCAT2(TYPE, _old_ptr), ptr, size);                 \
-    EC_CONCAT2(TYPE, _new_ptr) = realloc(ptr, sizeof(TYPE) * size); \
-                                                                    \
-    if (EC_CONCAT2(TYPE, _new_ptr) == NULL)                         \
-        ptr = EC_CONCAT2(TYPE, _old_ptr);                           \
-    else                                                            \
-        ptr = EC_CONCAT2(TYPE, _new_ptr);
-
-
-#define Component_New(comp, size) \
-    comp = (Component *) malloc (sizeof (Component)); \
-    comp->n = size;
-
-
-#define Component_Add(component, TYPE, var) component->var = (TYPE *) malloc (sizeof (TYPE) * component->n)
-
-
-#define Component_Get(component, var) var = component->var
-
-
-#define Entity_Change(component, i, j) component[i] = component[j]
-
-
-void
-ECS_Init ();
+static int entity_i;
 
 
 Entity *
-Init_Entity (Entity *entity, int n, int max);
+Entity_Request (Entity *entity, int n, int m);
 
 
 void
-EC_Entity_Clean();
+Entity_Free ();
 
 
-Entity *
-EC_Get_Entity_List ();
-
-
-typedef bool ActiveEntity;
-
-
-void (*EC_Entity_Change_Id_Func)(int, int);
-
+/*------------*/
+/* Components */
+/*------------*/
 
 void
-EC_Components(void (*Entity_Change_Id_Func)(int, int));
+Component_Create ();
 
 
-void
-EC_Entity_Change_Id (int i, int j);
+#define New_Component(TYPE, VAR, var)               \
+    typedef struct TYPE {                           \
+        VAR                                         \
+    } TYPE;                                         \
+                                                    \
+    static TYPE *var;                               \
+                                                    \
+    typedef struct CONCAT(TYPE, Component,) {       \
+        TYPE *var;                                  \
+        struct CONCAT(TYPE, Component,) *next;      \
+    } CONCAT(TYPE, Component,);
 
 
-/*-----------*/
-/* Component */
-/*-----------*/
+#define get_val(entity_component) (*(entity_component++))
 
-ActiveEntity *active_entity; 
+// below functions only use for testing purpose
+EntityRequest *
+Get_Request_List ();
 
-
-#endif // EC_ECS_H
+#endif

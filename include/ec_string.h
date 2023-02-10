@@ -9,9 +9,18 @@
 #define EC_CONCAT(x, y, z) x ## y ## z
 #endif
 
+#ifndef EC_CONCAT3
+#define EC_CONCAT3(x, y, z) x ## y ## z
+#endif
+
 #ifndef EC_CONCAT4
 #define EC_CONCAT4(a, b, c, d) a ## b ## c  ## d
 #endif
+
+#ifndef EC_CONCAT5
+#define EC_CONCAT5(a, b, c, d, e) a ## b ## c  ## d ## e
+#endif
+
 
 // Change all capital letters in to simple in an array
 void

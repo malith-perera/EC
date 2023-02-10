@@ -1,240 +1,150 @@
-#include <stdio.h>
 #include "ec_ecs.h"
 
 
-/*--------*/
-/* Entity */
-/*--------*/
+static int entity_i;
 
-void
-ECS_Init ()
+
+int
+Entity_Get ()
 {
-    ec_entity_list = (Entity *) malloc (sizeof (Entity)); 
-    ec_entity_list->next = NULL;
-
-    ec_entity_list->id = (EntityId *) malloc (sizeof (EntityId));
-    ec_entity_list->id->i = 0;
-    ec_entity_list->id->n = 0;
-    ec_entity_list->id->max = 0;
-    ec_entity_list->id->next = NULL;
-}
-
-
-EntityId *
-Entity_Get_Id (Entity *entity, int n, int max)
-{
-    EntityId *entity_id;
-
-    int required =  max - entity->id->max;
-
-    if (required > 0) // required more space than exist
-    {
-        if (ec_entity_list->id->next != NULL) // more than one entity id exist in ec_entity_list
-        {
-            /* EntityId *current_id = ec_entity_list->id; */
-            /* EntityId *previous_id = ec_entity_list->id; */
-
-            /* EntityId *match_id = NULL; */
-
-            /* while (current_id != NULL) */
-            /* { */
-            /*     if (current_id->max == required) */
-            /*     { */
-            /*         previous_id->next = current_id->next; */
-            /*         return current_id; */
-            /*     } */
-            /*     else if (current_id->max >= required) */
-            /*     { */
-            /*         match_id = current_id; */
-            /*     } */
-
-            /*     previous_id = current_id; */
-            /*     current_id = current_id->next; */
-            /* } */
-
-            /* if (match_id != NULL) */
-            /* { */
-                
-            /* } */
-            /* else */
-            /* { */
-            /* } */
-        }
-        else // only one entity id exist in ec_entity_list
-        {
-            entity_id = (EntityId *) malloc (sizeof (EntityId));
-            entity_id->i = ec_entity_list->id->i;
-            entity_id->n = n;
-            entity_id->max = max;
-            entity_id->next = NULL;
-
-            ec_entity_list->id->i += max;
-        }
-    } 
-    else if (required < 0) // required less space than exist
-    {
-    }
-    else
-    {
-    }
-
-    return entity_id;
+    return entity_i;
 }
 
 
 Entity *
-Init_Entity (Entity *entity, int n, int max)
+Entity_Request (Entity *entity, int n, int m)
 {
-    EntityId *entity_id;
+    EntityRequest *entity_request = (EntityRequest *) malloc (sizeof (EntityRequest));
 
-    if (entity != NULL) // Entity exist already
+    entity_request->next = NULL;
+    
+    if (entity == NULL)
     {
-        entity_id = Entity_Get_Id (entity, n, max);
-    }
-    else // New entity
-    {
-        EntityId *entity_id = (EntityId *) malloc (sizeof (EntityId));
-        entity_id->i = ec_entity_list->id->i;
-        entity_id->n = n;
-        entity_id->max = max;
-        entity_id->next = NULL;
-
-        entity = (Entity *) malloc (sizeof (Entity)); 
-        entity->id = entity_id;
+        entity = (Entity *) malloc (sizeof (Entity));
+        entity->n = n;
+        entity->m = m;
         entity->next = NULL;
-    }
 
-    if (ec_entity_list->id->next != NULL)
-    {
+        entity_request->entity = entity;
+        entity_request->type = ENTITY_NEW;
     }
     else
     {
-        ec_entity_list->id->i += max;
-        ec_entity_list->id->n += n; // total number of entities in use
+        entity_request->n = n;
+        entity_request->m = m;
+        entity_request->entity = entity;
+
+        if (m == 0)
+        {
+            entity_request->type = ENTITY_DROP; // drop but do not delete
+        }
+        if (m < 0)
+        {
+            entity_request->type = ENTITY_DELETE; // delete entity
+        }
+        else
+        {
+            Entity *current_entity = entity;
+            int max = 0;
+
+            while (current_entity != NULL)
+            {
+                max += current_entity->m;
+                current_entity = current_entity->next;
+            }
+
+            if (entity->m == max)
+            {
+                entity_request->type = ENTITY_UNCHANGED; // same amount of entities requested
+            }
+            else if (entity->m > max)
+            {
+                entity_request->type = ENTITY_LESS; // less than existing entities
+            }
+            else
+            {
+                entity_request->type = ENTITY_MORE; // more than existing entities
+            }
+        }
     }
 
-    ec_entity_total += max; // total number of entities
+    // add new request to entity_request_list
+    if (entity_request_list != NULL)
+    {
+        entity_request_list_last->next = entity_request;
+        entity_request_list_last = entity_request;
+    }
+    else
+    {
+        entity_request_list = entity_request;
+        entity_request_list_last = entity_request;
+    }
 
-    // add entity to ec_entity_list
-    entity->next = ec_entity_list->next;
-    ec_entity_list->next = entity;
-    
     return entity;
 }
 
 
 void
-Entity_Reset_Components (Component *component)
+Entity_List_Free ()
 {
-}
+    Entity *temp_entity, *current_entity;
 
-
-void
-Entity_Drop (Entity *entity)
-{
-    Entity *current_entity = ec_entity_list;
+    current_entity = entity_list;
 
     while (current_entity != NULL)
     {
-        if (current_entity == entity)
+        temp_entity = current_entity;
+        if (temp_entity)
         {
-            if (ec_entity_droped_list == NULL)
-            {
-                ec_entity_droped_list = current_entity;
-            }
-            else
-            {
-               //**here  
-            }
+            free (temp_entity);
+            temp_entity = NULL;
         }
-        else
-        {
-        }
-
         current_entity = current_entity->next;
+        free (temp_entity);
     }
 }
 
 
 void
-EC_Entity_Clean()
+Entity_Request_List_Free ()
 {
-    /* Entity *current_entity = ec_entity_list; */ 
-    /* Entity *temp_entity; */ 
+    EntityRequest *temp_request, *current_request;
 
-    /* EntityId *current_entity_id; */
-    /* EntityId *temp_entity_id; */
+    current_request = entity_request_list;
 
-    /* while (current_entity != NULL) */
-    /* { */
-    /*     current_entity_id = current_entity->id; */
-        
-    /*     while (current_entity_id != NULL) */
-    /*     { */
-    /*         temp_entity_id = current_entity_id; */
-    /*         current_entity_id = current_entity_id->next; */
-
-    /*         free (temp_entity_id); */
-    /*     } */
-
-    /*     temp_entity = current_entity; */
-    /*     current_entity = current_entity->next; */
-    /*     free (temp_entity); */
-    /* } */
-
-    /* free (active_entity); */
+    while (current_request != NULL)
+    {
+        temp_request = current_request;
+        if (temp_request->entity)
+        {
+            free (temp_request->entity);
+            temp_request->entity = NULL;
+        }
+        current_request = current_request->next;
+        free (temp_request);
+        temp_request = NULL;
+    }
 }
 
 
 void
-EC_Entity_Change_Id (int i, int j)
+Entity_Free ()
 {
-    /* Entity_Change(active_entity, i, j); */
-}
-
-
-/*-----------*/
-/* Component */
-/*-----------*/
-
-
-void
-EC_Components(void (*Entity_Change_Id_Func)(int, int))
-{
-    /* if (active_entity == NULL) */
-    /*     active_entity = New_Component (ActiveEntity); */
-
-    /* for (int i = 0; i < ec_entity_total; i++) */
-    /* { */
-    /*     active_entity[i] = false; */
-    /* } */
-
-    /* Entity *current_entity = ec_entity_list; */
-
-    /* while (current_entity != NULL) */
-    /* { */
-    /*     foreach_entity(current_entity, entity_id) */
-    /*     { */
-    /*         active_entity[entity_id] = true; */
-    /*     } */
-
-    /*     current_entity = current_entity->next; */
-    /* } */
-
-    /* if (EC_Entity_Change_Id_Func != NULL) */
-    /*     EC_Entity_Change_Id_Func = Entity_Change_Id_Func; */
+    Entity_List_Free ();
+    Entity_Request_List_Free ();
 }
 
 
 void
-EC_Free_Components ()
+Component_Create ()
 {
-    /* free(active_entity); */
 }
 
 
-Entity *
-EC_Get_Entity_List ()
+// below functions only use for testing purpose
+EntityRequest *
+Get_Request_List ()
 {
-    return ec_entity_list;
+    return entity_request_list;
 }
+

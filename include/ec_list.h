@@ -40,8 +40,8 @@
 
 #define EC_LIST_VAR_EXIST_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _List_Var_Exist,)
 
-#define EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _Unlist,)
-#define EC_UNLIST_NAME(TYPE)                        EC_CONCAT(TYPE, _unlisted_list,)
+//#define EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _Unlist,)
+//#define EC_UNLIST_NAME(TYPE)                        EC_CONCAT(TYPE, _unlisted_list,)
 
 
 /* Structure macros */
@@ -207,6 +207,7 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
 );
 
 
+/*
 #define  EC_LIST_VAR_UNLIST_FUNCTION_PROTOTYPE(TYPE)        \
 void                                                        \
 EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)                      \
@@ -214,6 +215,7 @@ EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)                      \
     EC_LIST_STRUCT(TYPE)        *list,                      \
     EC_LIST_VAR_STRUCT(TYPE)    *vars                       \
 );
+*/
 
 
 /* Change order carefully only if you need.*/
@@ -231,8 +233,9 @@ EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)                      \
     EC_LIST_DROP_FUNCTION_PROTOTYPE(TYPE)                   \
     EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)                   \
     EC_LIST_VAR_MOVE_UP_FUNCTION_PROTOTYPE(TYPE)            \
-    EC_LIST_VAR_MOVE_DOWN_FUNCTION_PROTOTYPE(TYPE)          \
-    EC_LIST_VAR_UNLIST_FUNCTION_PROTOTYPE(TYPE)
+    EC_LIST_VAR_MOVE_DOWN_FUNCTION_PROTOTYPE(TYPE)          
+
+    /*EC_LIST_VAR_UNLIST_FUNCTION_PROTOTYPE(TYPE) */
 
 /* Warning macros */
 #ifdef EC_WARN
@@ -890,6 +893,7 @@ EC_LIST_VAR_MOVE_DOWN_FUNCTION_NAME(TYPE)                       \
 }
 
 
+/*
 #define EC_LIST_VAR_UNLIST_FUNCTION(TYPE)                       \
 void                                                            \
 EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)                          \
@@ -907,6 +911,7 @@ EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)                          \
     EC_LIST_APPEND_FUNCTION_NAME(TYPE) (EC_UNLIST_NAME(TYPE), var); \
 }
 
+*/
 
 #define EC_LIST_FUNCTIONS(TYPE)         \
     EC_LIST_VAR_EXIST_FUNCTION(TYPE)    \
@@ -923,7 +928,7 @@ EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)                          \
                                         \
     EC_LIST_VAR_MOVE_UP_FUNCTION(TYPE)  \
     EC_LIST_VAR_MOVE_DOWN_FUNCTION(TYPE)\
-    EC_LIST_VAR_DROP_FUNCTION(TYPE)     \
-    EC_LIST_VAR_UNLIST_FUNCTION(TYPE)
+    EC_LIST_VAR_DROP_FUNCTION(TYPE)     
+    /*EC_LIST_VAR_UNLIST_FUNCTION(TYPE)*/
 
 #endif // EC_LIST_H
