@@ -1,27 +1,27 @@
-#ifndef EC_ECS_TEST2_H
-#define EC_ECS_TEST2_H
-
-
 #include "ec_main_test.h"
-#include "ec.h"
 
 
-static Entity *player;
-static Entity *enemy;
-static Entity *bullet; 
-static Entity *empty;
-static Entity *box;
+#ifndef EC_ECS_TEST_H
+#define EC_ECS_TEST_H
 
 
-#define VELOCITY        \
-    int x;              \
+#define VELOCITY    \
+    int x;          \
     int y;
 
-New_Component(Velocity, VELOCITY, velocity)
+EC_Component(Velocity, VELOCITY)
+
+
+#define POSITION    \
+    int x;          \
+    int y;
+
+EC_Component(Position, POSITION)
 
 
 void
 Run_ECS_Test ();
 
 
-#endif
+#endif // EC_ECS_TEST_H
+       

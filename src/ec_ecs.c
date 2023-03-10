@@ -12,75 +12,152 @@ Entity_Get ()
 
 
 Entity *
-Entity_Request (Entity *entity, int n, int m)
+Entity_Request2 (Entity *type, int n, int m)
 {
-    EntityRequest *entity_request = (EntityRequest *) malloc (sizeof (EntityRequest));
-
+    Entity *entity_request = (Entity *) malloc (sizeof (Entity)) ;
+    entity_request->n = n;
+    entity_request->m = m;
+    entity_request->component = NULL;
     entity_request->next = NULL;
-    
-    if (entity == NULL)
-    {
-        entity = (Entity *) malloc (sizeof (Entity));
-        entity->n = n;
-        entity->m = m;
-        entity->next = NULL;
 
-        entity_request->entity = entity;
-        entity_request->type = ENTITY_NEW;
+    if (request_list == NULL)
+    {
+        request_list = entity_request;
     }
     else
     {
+        Entity *request_temp = request_list; 
+        request_list = entity_request;
+        request_list->next = request_temp;
+    }
+
+    return entity_request;
+}
+
+
+void
+Entity_Reset(Entity *entity, int n, int m)
+{
+    Entity *entity_request = NULL;
+    
+    // check whether entity requsted again before complete the request 
+    #ifdef EC_WARN
+        bool request_exist = false;
+
+        for (int mode_i = 0; mode_i < N_ENTITY_REQUEST_MODE; mode_i++)
+        {
+            Entity *requested_entities = entity_request_array[mode_i];
+
+            while (requested_entities != NULL)
+            {
+
+                entity_request = requested_entities;
+                EC_Warn_Print_Msg("Warning : ", "Request same entity twice before request complete. Final entity request used.");
+                request_exist = true;
+                goto exit_loop;
+
+            requested_entities = requested_entities->next;
+            }
+        }
+
+        entity_request = (Entity *) malloc (sizeof (Entity)) ;
+        entity_request->next = NULL;
+
+        exit_loop:
         entity_request->n = n;
         entity_request->m = m;
-        entity_request->entity = entity;
+    #else
+        entity_request = (Entity *) malloc (sizeof (Entity)) ;
+        entity_request->n = n;
+        entity_request->m = m;
+        entity_request->next = NULL;
+    #endif
 
+    EntityRequestMode mode;
+
+    if (entity == NULL)
+    {
+        mode = ENTITY_NEW;
+    }
+    else
+    {
         if (m == 0)
         {
-            entity_request->type = ENTITY_DROP; // drop but do not delete
+             mode = ENTITY_DROP; // drop but do not delete
         }
-        if (m < 0)
+        else if (m < 0)
         {
-            entity_request->type = ENTITY_DELETE; // delete entity
+             mode = ENTITY_DELETE; // delete entity
         }
         else
         {
             Entity *current_entity = entity;
-            int max = 0;
+            int entity_total = 0;
 
             while (current_entity != NULL)
             {
-                max += current_entity->m;
-                current_entity = current_entity->next;
+                entity_total += current_entity->m;
             }
 
-            if (entity->m == max)
+            if (m > entity_total)
             {
-                entity_request->type = ENTITY_UNCHANGED; // same amount of entities requested
-            }
-            else if (entity->m > max)
-            {
-                entity_request->type = ENTITY_LESS; // less than existing entities
+                mode = ENTITY_INCRESE; // less than existing entities
             }
             else
             {
-                entity_request->type = ENTITY_MORE; // more than existing entities
+                mode = ENTITY_DECRESE; // more than existing entities
             }
         }
     }
 
-    // add new request to entity_request_list
-    if (entity_request_list != NULL)
-    {
-        entity_request_list_last->next = entity_request;
-        entity_request_list_last = entity_request;
-    }
-    else
-    {
-        entity_request_list = entity_request;
-        entity_request_list_last = entity_request;
-    }
+    #ifdef EC_WARN
+        if (request_exist == false)
+        {
+            if (entity_request_array[mode] == NULL)
+            {
+                entity_request_array[mode] = entity_request;
+            }
+            else
+            {
+                Entity *request_temp = entity_request_array[mode]; 
+                entity_request_array[mode] = entity_request;
+                entity_request->next = request_temp;
+            }
+        }
+    #else
+        if (entity_request_array[mode] == NULL)
+        {
+            entity_request_array[mode] = entity_request;
+        }
+        else
+        {
+            Entity *request_temp = entity_request_array[mode]; 
+            entity_request_array[mode] = entity_request;
+            entity_request->next = request_temp;
+        }
+    #endif
+}
 
-    return entity;
+
+void
+Entity_Request_Array_Free ()
+{
+    Entity *current_request, *temp_request;
+
+    for (int mode = 0; mode < N_ENTITY_REQUEST_MODE; mode++)
+    {
+        current_request = entity_request_array[mode];
+
+        while (current_request != NULL)
+        {
+            temp_request = current_request;
+            free (temp_request);
+            temp_request = NULL;
+            current_request = current_request->next;
+        }
+
+        entity_request_array[mode] = NULL;
+    }
 }
 
 
@@ -94,57 +171,50 @@ Entity_List_Free ()
     while (current_entity != NULL)
     {
         temp_entity = current_entity;
-        if (temp_entity)
-        {
-            free (temp_entity);
-            temp_entity = NULL;
-        }
         current_entity = current_entity->next;
         free (temp_entity);
+        temp_entity = NULL;
     }
 }
 
 
 void
-Entity_Request_List_Free ()
+ECS_Free ()
 {
-    EntityRequest *temp_request, *current_request;
-
-    current_request = entity_request_list;
-
-    while (current_request != NULL)
-    {
-        temp_request = current_request;
-        if (temp_request->entity)
-        {
-            free (temp_request->entity);
-            temp_request->entity = NULL;
-        }
-        current_request = current_request->next;
-        free (temp_request);
-        temp_request = NULL;
-    }
-}
-
-
-void
-Entity_Free ()
-{
+    Entity_Request_Array_Free ();
     Entity_List_Free ();
-    Entity_Request_List_Free ();
 }
 
 
 void
-Component_Create ()
+Component_Reset ()
 {
+    //EntityRequest *current_request = entity_request_list;
+
+    //while (current_request != NULL)
+    //{
+    //    Entity *current_entity = entity_list;
+
+    //    while (current_entity != NULL)
+    //    {
+    //        current_entity = current_entity->next;
+    //    }
+
+    //    current_request = current_request->next;
+    //}
 }
 
 
 // below functions only use for testing purpose
-EntityRequest *
-Get_Request_List ()
+Entity **
+Get_Request_Array ()
 {
-    return entity_request_list;
+    return entity_request_array;
 }
 
+
+Entity *
+Get_Request_List()
+{
+    return request_list;
+}
