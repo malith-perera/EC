@@ -11,32 +11,47 @@
  * Syntax
  * ------
  
- LIB_OBJECT_NOUN    -> constant / macro
- Lib_Object_Verb()  -> function / function like macro
- LibType            -> new type
- lib_noun           -> variable
- libNoun            -> pointer / array / list / queues / stacks
-
+ THIS_IS_A_CONSTANT_OR_MACRO                -> constant / macro
+ This_Is_A_Function_Or_Function_Like_Macro  -> function / function like macro
+ NewType                                    -> new type
+ this_is_a_variable                         -> variable
+ thisIsAPointer                             -> pointer / array / list / queues / stacks
+ 
  vi: set expandtab tabstop=4 shiftwidth=4
 
  Also used more spaces than usual to minimize headaches. :)
 */
 
-
 #ifndef EC_H
 #define EC_H
 
-#ifndef DEBUG
-#define DEBUG 1
+
+/* below EC_DEBUG and EC_WARN should EC_MEMORY should input at compile time */
+
+
+#ifndef EC_DEV      // on developement stage
+
+#define EC_DEV 1
+#define EC_DEBUG 1
+#define EC_WARN 1
+#define EC_MEMORY 1
+
+#else
+
+#ifndef EC_DEBUG
+#define EC_DEBUG 0
 #endif
 
 #ifndef EC_WARN
-#define EC_WARN 1
+#define EC_WARN 0
 #endif
 
 #ifndef EC_MEMORY
-#define EC_MEMORY 1
+#define EC_MEMORY 0
 #endif
+
+#endif
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -46,6 +61,7 @@
 
 #include "ec_text_color.h"
 #include "ec_type.h"
+#include "ec_macro.h"
 #include "ec_string.h"
 
 #include "ec_test.h"
@@ -59,13 +75,14 @@
 #include "ec_queue.h"
 #include "ec_stack.h"
 
+#include "ec_ecs.h"
+
 #include "ec_var_ref.h"
 #include "ec_array_ref.h"
 #include "ec_list_ref.h"
 #include "ec_queue_ref.h"
 #include "ec_stack_ref.h"
 
-#include "ec_ecs.h"
 #include "ec_loc.h"
 
 //#include "ec_syntax.h"
