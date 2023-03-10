@@ -1,8 +1,8 @@
+#include "ec_main_test.h"
+
 #ifndef STUDENT_H
 #define STUDENT_H
 
-#include "ec_main_test.h"
-#include "ec.h"
 
 #define STUDENT     \
     int     no;     \
@@ -23,7 +23,6 @@ EC_ARRAY_MAX_FUNCTION_PROTOTYPE(Student, no)
 EC_ARRAY_MIN_FUNCTION_PROTOTYPE(Student, no)
 
 EC_LIST(Student, STUDENT)
-EC_LIST_FUNCTION_PROTOTYPES(Student)
 EC_LIST_SORT_FUNCTION_PROTOTYPE(Student, no)
 
 EC_QUEUE(Student, STUDENT)
