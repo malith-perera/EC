@@ -8,27 +8,27 @@
 
 
 /* Function name macros */
-#define EC_LIST_REF_FREE_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _List_Free,) // memory Free
-#define EC_LIST_REF_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Free,)
-#define EC_LIST_REF_NEW_LIST_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List,)
-#define EC_LIST_REF_NEW_VAR_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _List_Var,)
-#define EC_LIST_REF_COPY_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _List_Copy,)
+#define EC_LIST_REF_FREE_FUNCTION_NAME(TYPE)            EC_CONCAT2(TYPE, _List_Free) // memory Free
+#define EC_LIST_REF_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT2(TYPE, _List_Var_Free)
+#define EC_LIST_REF_NEW_LIST_FUNCTION_NAME(TYPE)        EC_CONCAT2(TYPE, _List)
+#define EC_LIST_REF_NEW_VAR_FUNCTION_NAME(TYPE)         EC_CONCAT2(TYPE, _List_Var)
+#define EC_LIST_REF_COPY_FUNCTION_NAME(TYPE)            EC_CONCAT2(TYPE, _List_Copy)
 
-#define EC_LIST_REF_APPEND_FUNCTION_NAME(TYPE)          EC_CONCAT(Append_, TYPE,)
-#define EC_LIST_REF_INSERT_FUNCTION_NAME(TYPE)          EC_CONCAT(Insert_, TYPE,)
-#define EC_LIST_REF_FOREACH(TYPE)                       EC_CONCAT(Foreach_, TYPE,)
-#define EC_LIST_REF_REPLACE_FUNCTION_NAME(TYPE)         EC_CONCAT(Replace_, TYPE,)
-#define EC_LIST_REF_DROP_FUNCTION_NAME(TYPE)            EC_CONCAT(Drop_, TYPE,)
-#define EC_LIST_REF_FREE_VAR_FUNCTION_NAME(TYPE)        EC_CONCAT(Free_, TYPE, _List_Var)
-#define EC_LIST_REF_FREE_LIST_FUNCTION_NAME(TYPE)       EC_CONCAT(Free_, TYPE, _List)
+#define EC_LIST_REF_APPEND_FUNCTION_NAME(TYPE)          EC_CONCAT2(Append_, TYPE)
+#define EC_LIST_REF_INSERT_FUNCTION_NAME(TYPE)          EC_CONCAT2(Insert_, TYPE)
+#define EC_LIST_REF_FOREACH(TYPE)                       EC_CONCAT2(Foreach_, TYPE)
+#define EC_LIST_REF_REPLACE_FUNCTION_NAME(TYPE)         EC_CONCAT2(Replace_, TYPE)
+#define EC_LIST_REF_DROP_FUNCTION_NAME(TYPE)            EC_CONCAT2(Drop_, TYPE)
+#define EC_LIST_REF_FREE_VAR_FUNCTION_NAME(TYPE)        EC_CONCAT3(Free_, TYPE, _List_Var)
+#define EC_LIST_REF_FREE_LIST_FUNCTION_NAME(TYPE)       EC_CONCAT3(Free_, TYPE, _List)
 #define EC_LIST_REF_SORT_FUNCTION_NAME(TYPE, SW)        EC_CONCAT4(Sort_, TYPE, _List_With_, SW)
 
 
 /* Structure macros */
 // EC_MEMORY_REF defined in ec_memory.h
-#define EC_LIST_REF_STRUCT(TYPE)                        EC_CONCAT(TYPE, ListRef,)
-#define EC_LIST_REF_VAR_STRUCT(TYPE)                    EC_CONCAT(TYPE, ListVar,)
-#define EC_LIST_REF_VAR_REF_STRUCT(TYPE)                EC_CONCAT(TYPE, ListVarRef,)
+#define EC_LIST_REF_STRUCT(TYPE)                        EC_CONCAT2(TYPE, ListRef)
+#define EC_LIST_REF_VAR_STRUCT(TYPE)                    EC_CONCAT2(TYPE, ListVar)
+#define EC_LIST_REF_VAR_REF_STRUCT(TYPE)                EC_CONCAT2(TYPE, ListVarRef)
 
 
 #define EC_LIST_REF(TYPE, VAR)                              \

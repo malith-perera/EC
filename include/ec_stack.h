@@ -10,21 +10,21 @@
 
 
 /* Function name macros */
-#define EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Stack_Var_Free,)
-#define EC_STACK_FREE_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Stack_Free,)
-#define EC_STACK_NEW_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Stack,)
-#define EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Stack_Var,)
-#define EC_STACK_COPY_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Stack_Copy,)
+#define EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Stack_Var_Free)
+#define EC_STACK_FREE_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Stack_Free)
+#define EC_STACK_NEW_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Stack)
+#define EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Stack_Var)
+#define EC_STACK_COPY_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Stack_Copy)
 
-#define EC_STACK_PUSH_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Push,)
-#define EC_STACK_POP_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Pop,)
+#define EC_STACK_PUSH_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Push)
+#define EC_STACK_POP_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Pop)
 #define EC_STACK_SORT_FUNCTION_NAME(TYPE, SW)           EC_CONCAT4(Sort_, TYPE, _Stack_With_, SW)
 
 /* Structure macros */
 // defined in ec_memory.h
 
-#define EC_STACK_STRUCT(TYPE)                   EC_CONCAT(TYPE, Stack,)
-#define EC_STACK_VAR_STRUCT(TYPE)               EC_CONCAT(TYPE, StackVar,)
+#define EC_STACK_STRUCT(TYPE)                   EC_CONCAT(TYPE, Stack)
+#define EC_STACK_VAR_STRUCT(TYPE)               EC_CONCAT(TYPE, StackVar)
 
 
 #define EC_STACK(TYPE, VAR)                         /* VAR should define and pass by user as a macro */\

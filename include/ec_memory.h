@@ -96,7 +96,4 @@ EC_Memory_Free_Unlock_One ();
     free(EC_VAR);
 
 
-#define EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Free_Func,)
-
-
 #endif // EC_MEMORY_H

@@ -3,7 +3,7 @@
 #ifndef EC_ECS_H
 #define EC_ECS_H
 
-//#define EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Free_Func,)
+//#define EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Free_Func)
 
 /*--------*/
 /* Entity */
@@ -83,49 +83,49 @@ Component_Reset ();
         VAR                                                     \
     } TYPE;                                                     \
                                                                 \
-    typedef struct EC_CONCAT2(TYPE, List) {                     \
+    typedef struct EC_CONCAT(TYPE, List) {                     \
         TYPE *array;                                            \
-        struct EC_CONCAT2(TYPE, List) *next;                    \
-    } EC_CONCAT2(TYPE, List);                                   \
+        struct EC_CONCAT(TYPE, List) *next;                    \
+    } EC_CONCAT(TYPE, List);                                   \
                                                                 \
-    extern EC_CONCAT2(TYPE, List) *EC_CONCAT2(TYPE, _list);     \
+    extern EC_CONCAT(TYPE, List) *EC_CONCAT(TYPE, _list);     \
                                                                 \
     void                                                        \
-    EC_CONCAT2(TYPE, _List_Append)();
+    EC_CONCAT(TYPE, _List_Append)();
 
 
 #define Component_List_Append(TYPE, var)                                                                                \
-    int EC_CONCAT2(n_, var);                                                                                            \
+    int EC_CONCAT(n_, var);                                                                                            \
                                                                                                                         \
-    EC_CONCAT2(TYPE, List) *EC_CONCAT2(var, _list);                                                                     \
+    EC_CONCAT(TYPE, List) *EC_CONCAT(var, _list);                                                                     \
                                                                                                                         \
     void                                                                                                                \
-    EC_CONCAT2(TYPE, _List_Append)()                                                                                    \
+    EC_CONCAT(TYPE, _List_Append)()                                                                                    \
     {                                                                                                                   \
-        EC_CONCAT2(TYPE, List) *new_list_var = (EC_CONCAT2(TYPE, List) *) malloc (sizeof (EC_CONCAT2(TYPE, List)));     \
+        EC_CONCAT(TYPE, List) *new_list_var = (EC_CONCAT(TYPE, List) *) malloc (sizeof (EC_CONCAT(TYPE, List)));     \
         new_list_var->array = NULL;                                                                                     \
-        if (EC_CONCAT2(var, _list) != NULL)                                                                             \
+        if (EC_CONCAT(var, _list) != NULL)                                                                             \
         {                                                                                                               \
-            EC_CONCAT2(TYPE, List) *temp = EC_CONCAT2(var, _list);                                                      \
-            EC_CONCAT2(var, _list) = new_list_var;                                                                     \
-            EC_CONCAT2(var, _list)->next = temp;                                                                        \
+            EC_CONCAT(TYPE, List) *temp = EC_CONCAT(var, _list);                                                      \
+            EC_CONCAT(var, _list) = new_list_var;                                                                     \
+            EC_CONCAT(var, _list)->next = temp;                                                                        \
         }                                                                                                               \
         else                                                                                                            \
         {                                                                                                               \
-            EC_CONCAT2(var, _list) =  new_list_var;                                                                     \
+            EC_CONCAT(var, _list) =  new_list_var;                                                                     \
             new_list_var->next = NULL;                                                                                  \
         }                                                                                                               \
     }
 
 
 #define Component_Functions(TYPE, var)                          \
-    EC_CONCAT2(TYPE, List) *EC_CONCAT2(TYPE, _list) = NULL;     \
+    EC_CONCAT(TYPE, List) *EC_CONCAT(TYPE, _list) = NULL;     \
                                                                 \
     Component_List_Append(TYPE, var)
 
 
 #define Add_Component(entity, ComponentType, component)         \
-    static ComponentType *EC_CONCAT(entity, _, component)
+    static ComponentType *EC_CONCAT3(entity, _, component)
     
 
 #define get_val(entity_component) (*(entity_component++))
@@ -148,7 +148,7 @@ Component_Reset ();
 	})
 
 
-//#define foreach_entity_inner(n, ...) EC_CONCAT2(ARG_SET, n)(__VA_ARGS__)
+//#define foreach_entity_inner(n, ...) EC_CONCAT(ARG_SET, n)(__VA_ARGS__)
 //
 //#define foreach_entity(entity, ...)                             \
 //    foreach_entity_inner(EC_COUNT_ARGS(__VA_ARGS__), __VA_ARGS__);

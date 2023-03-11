@@ -12,27 +12,27 @@
 #define NELEMS(x) (sizeof(x) / sizeof((x)[0]))
 
 /*
-#define EC_ARRAY_FIND_FUNCTION_NAME(T, F) EC_CONCAT(Find_, T, F)
-#define EC_ARRAY_RESIZE_FUNCTION_NAME(TYPE) EC_CONCAT(Resize_, T,)
+#define EC_ARRAY_FIND_FUNCTION_NAME(T, F) EC_CONCAT3(Find_, T, F)
+#define EC_ARRAY_RESIZE_FUNCTION_NAME(TYPE) EC_CONCAT2(Resize_, T)
 */
 
 /* Function name macros */
-#define EC_ARRAY_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Array_Free,) // memory Free
-#define EC_ARRAY_FREE_VAR_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _Array_Free_Func,)
-#define EC_ARRAY_UNLOCK_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Array_Unlock,)
-#define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Array,)
-#define EC_ARRAY_COPY_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Array_Copy,)
-#define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Array, _Reverse)
-#define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)       EC_CONCAT(TYPE, _Array_Sort_With_, SW)
-#define EC_ARRAY_INT_FUNCTION_NAME(TYPE, SW)        EC_CONCAT(TYPE, _Array_Int_, SW)
-#define EC_ARRAY_STR_FUNCTION_NAME(TYPE, SW)        EC_CONCAT(TYPE, _Array_Str_, SW)
-#define EC_ARRAY_MAX_FUNCTION_NAME(TYPE, SW)        EC_CONCAT(TYPE, _Array_Max_, SW)
-#define EC_ARRAY_MIN_FUNCTION_NAME(TYPE, SW)        EC_CONCAT(TYPE, _Array_Min_, SW)
+#define EC_ARRAY_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT2(TYPE, _Array_Free) // memory Free
+#define EC_ARRAY_FREE_VAR_FUNCTION_NAME(TYPE)       EC_CONCAT2(TYPE, _Array_Free_Func)
+#define EC_ARRAY_UNLOCK_FUNCTION_NAME(TYPE)         EC_CONCAT2(TYPE, _Array_Unlock)
+#define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)            EC_CONCAT2(TYPE, _Array)
+#define EC_ARRAY_COPY_FUNCTION_NAME(TYPE)           EC_CONCAT2(TYPE, _Array_Copy)
+#define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)        EC_CONCAT3(TYPE, _Array, _Reverse)
+#define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)       EC_CONCAT3(TYPE, _Array_Sort_With_, SW)
+#define EC_ARRAY_INT_FUNCTION_NAME(TYPE, SW)        EC_CONCAT3(TYPE, _Array_Int_, SW)
+#define EC_ARRAY_STR_FUNCTION_NAME(TYPE, SW)        EC_CONCAT3(TYPE, _Array_Str_, SW)
+#define EC_ARRAY_MAX_FUNCTION_NAME(TYPE, SW)        EC_CONCAT3(TYPE, _Array_Max_, SW)
+#define EC_ARRAY_MIN_FUNCTION_NAME(TYPE, SW)        EC_CONCAT3(TYPE, _Array_Min_, SW)
 
 
 /* Structure macros */
 // defined in ec_memory.h
-#define EC_ARRAY_STRUCT(TYPE)           EC_CONCAT(TYPE, Array,)
+#define EC_ARRAY_STRUCT(TYPE)           EC_CONCAT2(TYPE, Array)
 
 #define EC_ARRAY(TYPE)                                  \
 typedef struct EC_ARRAY_STRUCT(TYPE) {                  \

@@ -10,12 +10,12 @@
 
 
 // CONCAT
-#ifndef EC_CONCAT2
-#define EC_CONCAT2(x, y) x ## y
+#ifndef EC_CONCAT
+#define EC_CONCAT(x, y) x ## y
 #endif
 
-#ifndef EC_CONCAT
-#define EC_CONCAT(x, y, z) x ## y ## z
+#ifndef EC_CONCAT2
+#define EC_CONCAT2(x, y) x ## y
 #endif
 
 #ifndef EC_CONCAT3

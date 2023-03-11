@@ -17,37 +17,37 @@
 
 
 /* Function name macros */
-#define EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Free_Func,)
-#define EC_LIST_FREE_FUNCTION_NAME(TYPE)            EC_CONCAT2(TYPE, _List_Free)
-#define EC_LIST_FUNCTION_NAME(TYPE)                 EC_CONCAT2(TYPE, _List)
-#define EC_LIST_VAR_FUNCTION_NAME(TYPE)             EC_CONCAT2(TYPE, _List_Var)
-#define EC_LIST_COPY_FUNCTION_NAME(TYPE)            EC_CONCAT2(TYPE, _List_Copy)
+#define EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Free_Func) // *** when change errors
+#define EC_LIST_FREE_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _List_Free)
+#define EC_LIST_FUNCTION_NAME(TYPE)                 EC_CONCAT(TYPE, _List)
+#define EC_LIST_VAR_FUNCTION_NAME(TYPE)             EC_CONCAT(TYPE, _List_Var)
+#define EC_LIST_COPY_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _List_Copy)
 
-#define EC_LIST_APPEND_FUNCTION_NAME(TYPE)          EC_CONCAT2(Append_, TYPE)
-#define EC_LIST_INSERT_FUNCTION_NAME(TYPE)          EC_CONCAT2(TYPE, _Insert)
-#define EC_LIST_REPLACE_FUNCTION_NAME(TYPE)         EC_CONCAT2(TYPE, _Replace)
-#define EC_LIST_DROP_FUNCTION_NAME(TYPE)            EC_CONCAT2(Drop_, TYPE)
+#define EC_LIST_APPEND_FUNCTION_NAME(TYPE)          EC_CONCAT(Append_, TYPE)
+#define EC_LIST_INSERT_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Insert)
+#define EC_LIST_REPLACE_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Replace)
+#define EC_LIST_DROP_FUNCTION_NAME(TYPE)            EC_CONCAT(Drop_, TYPE)
 #define EC_LIST_SORT_FUNCTION_NAME(TYPE, SW)        EC_CONCAT4(Sort_, TYPE, _List_With_, SW)
 
-#define EC_LIST_VAR_MOVE_UP_FUNCTION_NAME(TYPE)     EC_CONCAT2(TYPE, _List_Var_Move_Up)
-#define EC_LIST_VAR_MOVE_DOWN_FUNCTION_NAME(TYPE)   EC_CONCAT2(TYPE, _List_Var_Move_Down)
-#define EC_LIST_VAR_DELETE_FUNCTION_NAME(TYPE)      EC_CONCAT2(TYPE, _List_Var_Delete)
-#define EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)        EC_CONCAT2(TYPE, _List_Var_Drop)
+#define EC_LIST_VAR_MOVE_UP_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _List_Var_Move_Up)
+#define EC_LIST_VAR_MOVE_DOWN_FUNCTION_NAME(TYPE)   EC_CONCAT(TYPE, _List_Var_Move_Down)
+#define EC_LIST_VAR_DELETE_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _List_Var_Delete)
+#define EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Drop)
 
-#define EC_LIST_VAR_EXCHANGE_FUNCTION_NAME(TYPE)    EC_CONCAT2(TYPE, _List_Var_Exchange)
-#define EC_LIST_VAR_REPLACE_FUNCTION_NAME(TYPE)     EC_CONCAT2(TYPE, _List_Var_Replace)
-#define EC_LIST_VAR_CHANGE_LIST_FUNCTION_NAME(TYPE) EC_CONCAT2(TYPE, _List_Var_Change_List)
+#define EC_LIST_VAR_EXCHANGE_FUNCTION_NAME(TYPE)    EC_CONCAT(TYPE, _List_Var_Exchange)
+#define EC_LIST_VAR_REPLACE_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _List_Var_Replace)
+#define EC_LIST_VAR_CHANGE_LIST_FUNCTION_NAME(TYPE) EC_CONCAT(TYPE, _List_Var_Change_List)
 
-#define EC_LIST_VAR_EXIST_FUNCTION_NAME(TYPE)       EC_CONCAT2(TYPE, _List_Var_Exist)
+#define EC_LIST_VAR_EXIST_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _List_Var_Exist)
 
-//#define EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)      EC_CONCAT2(TYPE, _Unlist)
-//#define EC_UNLIST_NAME(TYPE)                        EC_CONCAT2(TYPE, _unlisted_list)
+//#define EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _Unlist)
+//#define EC_UNLIST_NAME(TYPE)                        EC_CONCAT(TYPE, _unlisted_list)
 
 
 /* Structure macros */
 // EC_MEMORY_REF defined in ec_memory.h
-#define EC_LIST_STRUCT(TYPE)                        EC_CONCAT2(TYPE, List)
-#define EC_LIST_VAR_STRUCT(TYPE)                    EC_CONCAT2(TYPE, ListVar)
+#define EC_LIST_STRUCT(TYPE)                        EC_CONCAT(TYPE, List)
+#define EC_LIST_VAR_STRUCT(TYPE)                    EC_CONCAT(TYPE, ListVar)
 
 
 #define EC_LIST(TYPE, VAR)                              /* VAR should define and pass by user as a macro */\

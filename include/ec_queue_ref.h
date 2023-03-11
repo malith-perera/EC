@@ -7,27 +7,27 @@
   for (queue->var = queue->first;  queue->var != NULL; queue->var = queue->var->next)
 
 
-#define EC_QUEUE_REF_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Queue_Free,) // memory Free
-#define EC_QUEUE_REF_VAR_FREE_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _Queue_Var_Free,)
-#define EC_QUEUE_REF_NEW_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Queue,)
-#define EC_QUEUE_REF_NEW_VAR_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Queue_Var,)
-#define EC_QUEUE_REF_COPY_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Queue_Copy,)
+#define EC_QUEUE_REF_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Queue_Free) // memory Free
+#define EC_QUEUE_REF_VAR_FREE_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _Queue_Var_Free)
+#define EC_QUEUE_REF_NEW_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Queue)
+#define EC_QUEUE_REF_NEW_VAR_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Queue_Var)
+#define EC_QUEUE_REF_COPY_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Queue_Copy)
 
-#define EC_QUEUE_REF_FOREACH(TYPE)                      EC_CONCAT(Foreach_, TYPE,)
-#define EC_QUEUE_REF_DROP_FUNCTION_NAME(TYPE)           EC_CONCAT(Drop_, TYPE,)
-#define EC_QUEUE_REF_FREE_VAR_FUNCTION_NAME(TYPE)       EC_CONCAT(Free_, TYPE,_Queue_Var)
-#define EC_QUEUE_REF_FREE_QUEUE_FUNCTION_NAME(TYPE)     EC_CONCAT(Free_, TYPE, _Queue)
-#define EC_QUEUE_REF_ENQUEUE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Enqueue,)
-#define EC_QUEUE_REF_DEQUEUE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Dequeue,)
-#define EC_QUEUE_REF_FRONT_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Front,)
+#define EC_QUEUE_REF_FOREACH(TYPE)                      EC_CONCAT(Foreach_, TYPE)
+#define EC_QUEUE_REF_DROP_FUNCTION_NAME(TYPE)           EC_CONCAT(Drop_, TYPE)
+#define EC_QUEUE_REF_FREE_VAR_FUNCTION_NAME(TYPE)       EC_CONCAT3(Free_, TYPE, _Queue_Var)
+#define EC_QUEUE_REF_FREE_QUEUE_FUNCTION_NAME(TYPE)     EC_CONCAT3(Free_, TYPE, _Queue)
+#define EC_QUEUE_REF_ENQUEUE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Enqueue)
+#define EC_QUEUE_REF_DEQUEUE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Dequeue)
+#define EC_QUEUE_REF_FRONT_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Front)
 
 
 /* Structure macros */
 // defined in ec_memory.h
-#define EC_QUEUE_REF_STRUCT(TYPE)                       EC_CONCAT(TYPE, Queue,)
-#define EC_QUEUE_REF_VAR_STRUCT(TYPE)                   EC_CONCAT(TYPE, QueueVar,)
-#define EC_QUEUE_REF_VAR_REF_STRUCT(TYPE)               EC_CONCAT(TYPE, QueueVarRef,)
-#define EC_QUEUE_REF_REF_STRUCT(TYPE)                   EC_CONCAT(TYPE, QueueRef,)
+#define EC_QUEUE_REF_STRUCT(TYPE)                       EC_CONCAT(TYPE, Queue)
+#define EC_QUEUE_REF_VAR_STRUCT(TYPE)                   EC_CONCAT(TYPE, QueueVar)
+#define EC_QUEUE_REF_VAR_REF_STRUCT(TYPE)               EC_CONCAT(TYPE, QueueVarRef)
+#define EC_QUEUE_REF_REF_STRUCT(TYPE)                   EC_CONCAT(TYPE, QueueRef)
 
 
 #define EC_QUEUE_REF(TYPE, VAR)                         \

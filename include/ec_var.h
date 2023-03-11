@@ -9,17 +9,17 @@
 
 /* EC_VAR_FREE_ALL_FUNCTION deletes only it's variable.
  * EC_VAR_FREE_FUNCTION deletes total variable and memory */
-#define EC_VAR_FREE_ALL_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Var_Free_All,)
-#define EC_VAR_FREE_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Var_Free,)
-#define EC_VAR_NEW_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Var,)
-#define EC_VAR_COPY_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Var_Copy,)
-#define EC_VAR_COPY2_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Var_Copy2,)
-#define EC_UNLOCK_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Var_Unlock,)
+#define EC_VAR_FREE_ALL_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Var_Free_All)
+#define EC_VAR_FREE_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Var_Free)
+#define EC_VAR_NEW_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Var)
+#define EC_VAR_COPY_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Var_Copy)
+#define EC_VAR_COPY2_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Var_Copy2)
+#define EC_UNLOCK_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Var_Unlock)
 
 /* Structure macros */
 // EC_MEMORY_REF defined in ec_memory.h
 
-#define EC_VAR_STRUCT(TYPE)                 EC_CONCAT(TYPE, Var,)
+#define EC_VAR_STRUCT(TYPE)                 EC_CONCAT(TYPE, Var)
 
 #ifndef EC_VAR
 #define EC_VAR(TYPE, VAR)                       /* VAR should define and pass by user as a macro */\

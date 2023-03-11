@@ -4,16 +4,16 @@
 #include "ec.h"
 
 /* Function name macros */
-#define EC_VAR_REF_FREE_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Free_Var_Ref,)
-#define EC_VAR_REF_NEW_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Var_Ref,)
-#define EC_VAR_REF_COPY_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Var_Ref_Copy,)
+#define EC_VAR_REF_FREE_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Free_Var_Ref)
+#define EC_VAR_REF_NEW_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Var_Ref)
+#define EC_VAR_REF_COPY_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Var_Ref_Copy)
 
-#define EC_VAR_REF_UNLOCK_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _Unlock_Ref,)
+#define EC_VAR_REF_UNLOCK_FUNCTION_NAME(TYPE)       EC_CONCAT(TYPE, _Unlock_Ref)
 
 /* Structure macros */
 // EC_MEMORY_REF defined in ec_memory.h
 
-#define EC_VAR_REF_STRUCT(TYPE)                     EC_CONCAT(TYPE, RefVar,)
+#define EC_VAR_REF_STRUCT(TYPE)                     EC_CONCAT(TYPE, RefVar)
 
 #ifndef EC_VAR_REF
 #define EC_VAR_REF(TYPE)                            \

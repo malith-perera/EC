@@ -9,25 +9,25 @@
 
 /* Function name macros */
 
-#define EC_STACK_REF_FREE_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Stack_Free,) // memory Free
-#define EC_STACK_REF_FREE_VAR_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Stack_Var_Free,)
-#define EC_STACK_REF_NEW_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Stack,)
-#define EC_STACK_REF_NEW_VAR_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Stack_Var,)
-#define EC_STACK_REF_COPY_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Stack_Copy,)
+#define EC_STACK_REF_FREE_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Stack_Free) // memory Free
+#define EC_STACK_REF_FREE_VAR_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Stack_Var_Free)
+#define EC_STACK_REF_NEW_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Stack)
+#define EC_STACK_REF_NEW_VAR_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Stack_Var)
+#define EC_STACK_REF_COPY_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Stack_Copy)
 
-#define EC_STACK_REF_FOREACH(TYPE)                          EC_CONCAT(TYPE, _Foreach,)
-#define EC_STACK_REF_PUSH_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Push,)
-#define EC_STACK_REF_POP_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Pop,)
-#define EC_STACK_REF_FREE_STACK_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Free, _Stack)
+#define EC_STACK_REF_FOREACH(TYPE)                          EC_CONCAT(TYPE, _Foreach)
+#define EC_STACK_REF_PUSH_FUNCTION_NAME(TYPE)               EC_CONCAT(TYPE, _Push)
+#define EC_STACK_REF_POP_FUNCTION_NAME(TYPE)                EC_CONCAT(TYPE, _Pop)
+#define EC_STACK_REF_FREE_STACK_FUNCTION_NAME(TYPE)         EC_CONCAT3(TYPE, _Free, _Stack)
 #define EC_STACK_REF_SORT_FUNCTION_NAME(TYPE, SW)           EC_CONCAT4(Sort_, TYPE, _Stack_With_, SW)
 
 /* Structure macros */
 // defined in ec_memory.h
 
-#define EC_STACK_REF_STRUCT(TYPE)                   EC_CONCAT(TYPE, Stack,)
-#define EC_STACK_REF_VAR_STRUCT(TYPE)               EC_CONCAT(TYPE, StackVar,)
-#define EC_STACK_REF_VAR_REF_STRUCT(TYPE)           EC_CONCAT(TYPE, StackVarRef,)
-#define EC_STACK_REF_REF_STRUCT(TYPE)               EC_CONCAT(TYPE, StackRef,)
+#define EC_STACK_REF_STRUCT(TYPE)                   EC_CONCAT(TYPE, Stack)
+#define EC_STACK_REF_VAR_STRUCT(TYPE)               EC_CONCAT(TYPE, StackVar)
+#define EC_STACK_REF_VAR_REF_STRUCT(TYPE)           EC_CONCAT(TYPE, StackVarRef)
+#define EC_STACK_REF_REF_STRUCT(TYPE)               EC_CONCAT(TYPE, StackRef)
 
 
 #define EC_STACK_REF(TYPE, VAR)                         \
