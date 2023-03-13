@@ -77,12 +77,6 @@
 
 #include "ec_ecs.h"
 
-#include "ec_var_ref.h"
-#include "ec_array_ref.h"
-#include "ec_list_ref.h"
-#include "ec_queue_ref.h"
-#include "ec_stack_ref.h"
-
 #include "ec_loc.h"
 
 //#include "ec_syntax.h"
