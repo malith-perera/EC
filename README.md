@@ -4,7 +4,7 @@
  * It allows you to create varibles, arrays, lists, queues, stacks and their relevent functions more quickly.
  * EC helps you to think programs with objects in mind.
  * It also supports data oriented desing using inbuilt entity component system.
- * Further more EC manages memory and minimize memory errors and leaks if you are interested in.
+ * Further more EC can manages memory and minimize memory errors and leaks if you are interested in.
 
 
 Example:
@@ -14,27 +14,34 @@ Think you need to create a list of students in a classroom. Also think student h
 First what you have to do is define these property variables in a macro as below.  
 
 <pre><code><i>
-define student_vars  \
-   char name[20];    \
-   int  grade;       \
-   int  age;
+define STUDENT      \
+   int  index;      \
+   int  grade;
 </i></code></pre>  
 
 Next use EC_LIST macro in EC as below. Here 'Student' is new list type and 'student_vars' has defined above.  
 
-<code><i>EC_LIST(Student, student_vars)</i></code><br>
+<code><i>EC_LIST(Student, STUDENT)</i></code><br>
 
 After that you will get many list functions freely available without writing them. Let's examine some of the functions created by EC for you.<br>
 
 You can create a student list with 20 students as below.  
 
-<code><i>StudentList *student_list = Student_List(20);</i></code><br>
+<code><i>StudentList *student_list = Student_List();</i></code><br>
 
 You can create one by one student as below.  
 
 <pre><code><i>
-StudentListVar *student1 = Student_List_Var();
-StudentListVar *student2 = Student_List_Var();
+StudentListVar *student1 = Student_List_Var(student_list);
+StudentListVar *student2 = Student_List_Var(student_list);
+</i></code></pre>  
+
+<pre><code><i>
+student1->index = 1;  
+student1->grade = 6;  
+  
+student2->index = 2;  
+student2->grade = 6;  
 </i></code></pre>  
 
 You can append student1 into the student_list as below.  
