@@ -156,8 +156,8 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                            \
     EC_VAR_CREATE(EC_VAR_STRUCT(TYPE), var)                 /* TYPE *var is defined in this macro */\
     if (EC_MEMORY)                                          \
     {                                                       \
-        EC_MEMORY_CREATE(TYPE, EC_VAR_TYPE, var)                 /* ec_memory_new is defined in this macro in ec_memory.h */\
-        ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE);     \
+        EC_MEMORY_CREATE(TYPE, EC_VAR_TYPE, var)            /* ec_memory_new is defined in this macro in ec_memory.h */\
+        ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE); \
         var->ec_mem = ec_memory_new;                        \
     }                                                       \
     return var;                                             \
