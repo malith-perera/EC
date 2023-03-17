@@ -2,6 +2,12 @@
 #define EC_FILE_H
 
 
+#define EC_Line(...) \
+    printf ("%s:%d In function '%s':%s\n", __FILE__, __LINE__, __func__, ARG1(__VA_ARGS__));
+
+
+
+
 typedef struct _ECLine {
 	char *text;
 	struct ECLine * nextPtr;

@@ -63,6 +63,7 @@
 #include "ec_type.h"
 #include "ec_macro.h"
 #include "ec_string.h"
+#include "ec_file.h"
 
 #include "ec_test.h"
 #include "ec_error.h"
