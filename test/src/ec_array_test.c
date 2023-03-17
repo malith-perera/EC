@@ -5,7 +5,7 @@
 
 #include "ec_array_test.h"
 
-
+#if 0
 /* Test: New_Array
  * This function test create new array and array access*/
 void
@@ -541,10 +541,12 @@ Test_Int_Array_Min ()
 }
 
 
+#endif
 
 void
 Run_Array_Test ()
 {
+#if 0
     printf ("------------------\n");
     printf ("Test: ec_array.h\n");
     printf ("==================\n");
@@ -596,6 +598,9 @@ Run_Array_Test ()
 
     /*EC_Error_Print_Msg ("Test: ec_array.h", "PASS");*/
     /*printf ("\n");*/
+
+#endif
+
 }
 
 

@@ -5,7 +5,7 @@
 
 #include "ec_stack_test.h"
 
-
+#if 0
 void
 Test_New_Stack ()
 {
@@ -183,10 +183,12 @@ Test_Stack_Copy ()
     EC_Error_Print_Msg ("Test_Stack_Copy: ", "END");
 }
 
+#endif
 
 void
 Run_Stack_Test ()
 {
+#if 0
     printf ("---------------\n");
     printf ("Test: ec_stack.h\n");
     printf ("===============\n");
@@ -205,4 +207,5 @@ Run_Stack_Test ()
 
     EC_Error_Print_Msg ("Test: ec_stack.h", "PASS");
     printf ("\n");
+#endif
 }

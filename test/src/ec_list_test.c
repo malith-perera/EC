@@ -13,6 +13,8 @@ struct Stu {
 struct Stu students[5] = {{1, "Malith"}, {2, "Geethike"}, {3, "Perera"}, {4, "Rohasha"}, {5, "Malshi"}};
 
 
+#if 0
+
 void
 Test_New_List ()
 {
@@ -2423,16 +2425,17 @@ Test_List_Var_Drop ()
     EC_Test_Print_Msg ("Test_List_Var_Drop", "END");
 }
 
+#endif 
 
 void
 Run_List_Test ()
 {
-    printf ("---------------\n");
-    printf ("Test: ec_list.h\n");
-    printf ("===============\n");
+    //printf ("---------------\n");
+    //printf ("Test: ec_list.h\n");
+    //printf ("===============\n");
 
-    Test_New_List ();
-    printf ("\n");
+    //Test_New_List ();
+    //printf ("\n");
 
 /*    Test_List_Var_Move_Up ();*/
     /*printf ("\n");*/

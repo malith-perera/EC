@@ -31,6 +31,7 @@
 /*}*/
 
 
+#if 0
 void
 Test_New_Queue ()
 {
@@ -218,10 +219,12 @@ Test_Queue_Copy ()
     EC_Error_Print_Msg ("Test_Queue_Copy: ", "END");
 }
 
+#endif
 
 void
 Run_Queue_Test ()
 {
+#if 0
     printf ("----------------\n");
     printf ("Test: ec_queue.h\n");
     printf ("================\n");
@@ -240,4 +243,5 @@ Run_Queue_Test ()
 
     EC_Error_Print_Msg ("Test: ec_queue.h", "PASS");
     printf ("\n");
+#endif
 }

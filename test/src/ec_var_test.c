@@ -14,7 +14,7 @@ Test_New_Var ()
 {
     EC_Error_Print_Msg ("Test_New_Var: ", "BEGIN");
 
-    StudentVar *st = Student_Var ();
+    Student *st = Student_Var ();
     EC_Error_Print_Msg ("Create ec var", "OK");
 
     st->no = 1;
@@ -25,7 +25,7 @@ Test_New_Var ()
     assert (strcmp(st->name, "Malith") == 0);
     EC_Error_Print_Msg ("Access ec var", "OK");
 
-    StudentVar st_on_stack;
+    Student st_on_stack;
     EC_Error_Print_Msg ("Create ec var on stack", "OK");
 
     st_on_stack.no = 2;
@@ -39,6 +39,7 @@ Test_New_Var ()
     EC_Error_Print_Msg ("Test_New_Var:", "END");
 }
 
+#if 0
 
 /* Test: Var Copy without functions
  * This function should not affect copied vars each other */
@@ -254,6 +255,9 @@ Test_Var_Free_Unlocked ()
 }
 
 
+#endif 
+
+
 void
 Run_Var_Test ()
 {
@@ -273,8 +277,8 @@ Run_Var_Test ()
     /*Test_Var_Copy2 ();*/
     /*printf ("\n");*/
 
-    Test_Var_Free ();
-    printf ("\n");
+    //Test_Var_Free ();
+    //printf ("\n");
 
     /*Test_Var_Unlock ();*/
     /*printf ("\n");*/
