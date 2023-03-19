@@ -30,13 +30,7 @@
 
 
 #ifndef EC_DEV      // on developement stage
-
-#define EC_DEV 1
-#define EC_DEBUG 1
-#define EC_WARN 1
-#define EC_MEMORY 1
-
-#else
+#define EC_DEV 0
 
 #ifndef EC_DEBUG
 #define EC_DEBUG 0
@@ -50,7 +44,15 @@
 #define EC_MEMORY 0
 #endif
 
-#endif
+#else
+
+#undef EC_DEV
+#define EC_DEV 1
+#define EC_DEBUG 1
+#define EC_WARN 1
+#define EC_MEMORY 1
+
+#endif // EC_DEV
 
 
 #include <stdio.h>

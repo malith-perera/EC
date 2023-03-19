@@ -23,18 +23,20 @@ Test_New_Var ()
 
     assert (st->no == 1);
     assert (strcmp(st->name, "Malith") == 0);
-    EC_Error_Print_Msg ("Access ec var", "OK");
+    EC_Error_Print_Msg ("Access local ec var", "OK");
 
-    Student st_on_stack;
-    EC_Error_Print_Msg ("Create ec var on stack", "OK");
+    Student st_local;
+    EC_Error_Print_Msg ("Create local ec var", "OK");
 
-    st_on_stack.no = 2;
-    st_on_stack.name = "Geethike";
-    EC_Error_Print_Msg ("Assign ec var on stack", "OK");
+    st_local.no = 2;
+    st_local.name = "Geethike";
+    EC_Error_Print_Msg ("Assign local ec var", "OK");
 
-    assert (st_on_stack.no == 2);
-    assert (strcmp(st_on_stack.name, "Geethike") == 0);
-    EC_Error_Print_Msg ("Access ec var on stack", "OK");
+    assert (st_local.no == 2);
+    assert (strcmp(st_local.name, "Geethike") == 0);
+    EC_Error_Print_Msg ("Access local ec var", "OK");
+
+    EC_Free(st);
 
     EC_Error_Print_Msg ("Test_New_Var:", "END");
 }

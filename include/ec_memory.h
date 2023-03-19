@@ -15,6 +15,9 @@ typedef enum {
 
 /* EC_Memory to track memory */
 typedef struct ECMemory {                                           
+    char                file[256];
+    int                 line;
+    char                func[256];
     ECType              type;                                   
     void                *ec_var;
     ECMemoryLock        lock;
@@ -31,7 +34,7 @@ typedef struct ECMemory {
 #define EC_MEMORY_REF       \
     ECMemory *ec_mem;
 #else
-#define EC_MEMORY_REF 0
+#define EC_MEMORY_REF
 #endif //EC_MEMORY
 
 

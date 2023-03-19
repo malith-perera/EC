@@ -122,9 +122,7 @@
 #### Comman Line:  
 > .c and .h open with vim  
 
-
-#### Refine code:  
-> In progress  
+> Redefining global variable warning
 
 
 #### Test all:  

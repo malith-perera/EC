@@ -4,17 +4,34 @@
 #ifndef EC_VAR_H
 #define EC_VAR_H
 
+#ifdef EC_MEMORY
+#define EC_Free(Var)                        \
+    Var->ec_mem->line = __LINE__;           \
+    Var->ec_mem->file = __FILE__;           \
+    Var->ec_mem->func = __func__;           \
+    Var->ec_mem->lock = EC_UNLOCK;          \
+    free(Var)
+#else
+#define EC_Free(Var)                        \
+    free(Var)
+#endif
 
 /* Function name macros */
 #define EC_VAR_NEW_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Var)
 #define EC_VAR_FREE_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Var_Free)
 
+#define EC_VAR_TYPE   EC_CONCAT(TYPE, Var);
 
-#define EC_VAR(TYPE, VAR)                           \
-    typedef struct TYPE {                           \
-        VAR                                         \
-        EC_MEMORY_REF                               \
-    } TYPE;
+#define EC_VAR(TYPE, VAR)                       \
+    typedef struct TYPE {                       \
+        VAR                                     \
+        ECMemory *ec_mem;                       \
+    } TYPE;                                     \
+                                                \
+    typedef struct EC_VAR_TYPE {                \
+        TYPE *var;                              \
+        ECMemory *mem;                          \
+    } EC_VAR_TYPE;
 
 
 /* Function Prototypes */
@@ -44,6 +61,8 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)                         \
     EC_Memory_Var_Free (v->ec_mem);                     \
     free (v);                                           \
     v = NULL;                                           \
+    if (EC_DEV) printf("yes");                          \
+    else printf("no");                                  \
 }
 
 
