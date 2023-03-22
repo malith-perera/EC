@@ -67,6 +67,7 @@
 #include "ec_string.h"
 #include "ec_file.h"
 
+#include "ec_debug.h"
 #include "ec_test.h"
 #include "ec_error.h"
 #include "ec_warn.h"
