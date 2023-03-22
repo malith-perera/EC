@@ -4,23 +4,15 @@
 #ifndef EC_VAR_H
 #define EC_VAR_H
 
-#ifdef EC_MEMORY
-#define EC_Free(Var)                        \
-    Var->ec_mem->line = __LINE__;           \
-    Var->ec_mem->file = __FILE__;           \
-    Var->ec_mem->func = __func__;           \
-    Var->ec_mem->lock = EC_UNLOCK;          \
-    free(Var)
-#else
-#define EC_Free(Var)                        \
-    free(Var)
-#endif
-
 /* Function name macros */
 #define EC_VAR_NEW_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Var)
 #define EC_VAR_FREE_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Var_Free)
 
-#define EC_VAR_TYPE   EC_CONCAT(TYPE, Var);
+/*------------*/
+/* Structures */
+/*------------*/
+
+#ifdef EC_MEMORY
 
 #define EC_VAR(TYPE, VAR)                       \
     typedef struct TYPE {                       \
@@ -28,10 +20,43 @@
         ECMemory *ec_mem;                       \
     } TYPE;                                     \
                                                 \
-    typedef struct EC_VAR_TYPE {                \
-        TYPE *var;                              \
-        ECMemory *mem;                          \
-    } EC_VAR_TYPE;
+    typedef struct TYPE EC_CONCAT(TYPE, Var);
+
+
+#else // EC_MEMORY not defined
+
+#define EC_VAR(TYPE, VAR)                       \
+    typedef struct TYPE {                       \
+        VAR                                     \
+    } TYPE;
+
+#endif // EC_MEMORY
+
+
+/*---------*/
+/* EC Free */
+/*---------*/
+
+#ifdef EC_MEMORY
+
+#define EC_Free(var)                            \
+    var->ec_mem->lock = EC_UNLOCK;              \
+    free(var)
+
+#define EC_Free_Mem(var)                        \
+    var->ec_mem->lock = EC_UNLOCK;              \
+    free(var)
+
+#else // EC_MEMORY not defined  
+
+#define EC_Free(var)                            \
+    free(var)
+
+#define EC_Free_Mem(var)                        \
+    free(var)
+
+#endif  // EC_MEMORY 
+
 
 
 /* Function Prototypes */
@@ -41,6 +66,7 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)                 \
 (                                               \
     void *var                                   \
 );
+
 
 #define EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)     \
 TYPE *                                          \
@@ -57,12 +83,10 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)                         \
 )                                                       \
 {                                                       \
     TYPE *v = (TYPE *) var;                             \
-    if (DEBUG) EC_Test_Print_Adr ("ec var free", v);    \
+    EC_DEBUG_PRINT_ADR("ec var free", v);               \
     EC_Memory_Var_Free (v->ec_mem);                     \
     free (v);                                           \
     v = NULL;                                           \
-    if (EC_DEV) printf("yes");                          \
-    else printf("no");                                  \
 }
 
 
@@ -70,30 +94,21 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)                         \
 #define EC_VAR_CREATE(TYPE, var)                            \
     TYPE *var = (TYPE *) malloc (sizeof(TYPE));             \
                                                             \
-    if (DEBUG) EC_Test_Print_Adr ("Create: ec var ", var);  \
+    EC_DEBUG_PRINT_ADR("Create: ec var", var);              /* only when EC_DEBUG */\
                                                             \
-    if (var == NULL)                                        \
-    {                                                       \
-        EC_Error_Mem_Alloc (__FILE__, __LINE__);            \
-                                                            \
-        return NULL;                                        \
-    }
+    EC_ERROR_MEM_ALLOC(var, __FILE__, __LINE__)             /* when memory allocation failed */
 
 
-#define EC_VAR_NEW_FUNCTION(TYPE)                           \
-TYPE *                                                      \
-EC_VAR_NEW_FUNCTION_NAME(TYPE)()                            \
-{                                                           \
-    EC_VAR_CREATE(TYPE, var)                                /* TYPE *var is defined in this macro */\
-                                                            \
-    if (EC_MEMORY)                                          \
-    {                                                       \
-        EC_MEMORY_CREATE(TYPE, EC_VAR_TYPE, var)            /* ec_memory_new is defined in this macro in ec_memory.h */\
-        ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE); \
-        var->ec_mem = ec_memory_new;                        \
-    }                                                       \
-                                                            \
-    return var;                                             \
+
+#define EC_VAR_NEW_FUNCTION(TYPE)                                       \
+TYPE *                                                                  \
+EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                        \
+{                                                                       \
+    EC_VAR_CREATE(TYPE, var)                                            /* var is created variable */\
+                                                                        \
+    EC_MEMORY_CREATE(TYPE, EC_TYPE_VAR, var)                            \
+                                                                        \
+    return var;                                                         \
 }
 
 
@@ -109,6 +124,24 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                            \
 
 
 #endif // EC_VAR_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
