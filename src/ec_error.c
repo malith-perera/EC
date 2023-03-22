@@ -20,7 +20,6 @@ EC_Print_Error (char *msg, void *adrs)
 
 // EC_Error_Mem_Alloc (__FILE__, __LINE__);
 // EC_ERROR_MEM_ALLOC() relative macro is available
-
 void
 EC_Error_Mem_Alloc (char* file, int line)
 {
