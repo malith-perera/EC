@@ -98,7 +98,9 @@ EC_Memory_Clean ()
     {
         current->Free_Func(current->var);
 
+        temp = current;
         current = current->next;
+        free(temp);
     }
 
     ec_memory = NULL;
