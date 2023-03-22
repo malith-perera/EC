@@ -44,19 +44,15 @@ static ECMemory *ec_memory_world;
 
 #ifdef EC_MEMORY
 
-#define EC_MEMORY_CREATE(TYPE, ec_type, var)                            \
-        ECMemory *ec_memory_new = EC_Memory_Create (ec_type);           \
-                                                                        \
-        ec_memory_new->var = var;                                       \
-                                                                        \
-        if (ec_type == EC_TYPE_VAR)                                     \
-            ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE); \
-                                                                        \
-        var->ec_mem = ec_memory_new;
+#define EC_MEMORY_CREATE(ec_memory_new, ec_type, ec_var)            /* ec_type -> ECType ... ec_var -> assigning ec_variable to ec_memory_new */\
+        ECMemory *ec_memory_new = EC_Memory_Create (ec_type);       \
+        EC_ERROR_MEM_ALLOC(ec_memory_new, __FILE__, __LINE__)       /* when memory allocation failed */\
+        ec_memory_new->var = ec_var;                                \
+        ec_var->ec_mem = ec_memory_new;
 
 #else
 
-#define EC_MEMORY_CREATE(TYPE, ec_type, var)
+#define EC_MEMORY_CREATE(ec_memory_new, ec_var)
 
 #endif // EC_MEMORY
 
