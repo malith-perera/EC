@@ -5,9 +5,9 @@
  * Related with ec_type_name[] in ec_type.c
  * If you change anything here change it too */
 typedef enum {
-    EC_VAR_TYPE,
-    EC_ARRAY_TYPE,
-    EC_LIST_TYPE,
+    EC_TYPE_VAR,
+    EC_TYPE_ARRAY,
+    EC_TYPE_LIST,
     EC_LIST_VAR_TYPE,
     EC_QUEUE_TYPE,
     EC_QUEUE_VAR_TYPE,
