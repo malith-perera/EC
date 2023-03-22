@@ -15,11 +15,11 @@ typedef enum {
 
 /* EC_Memory to track memory */
 typedef struct ECMemory {                                           
-    char                file[256];
+    char                *file;
     int                 line;
-    char                func[256];
+    char                *func;
     ECType              type;                                   
-    void                *ec_var;
+    void                *var;
     ECMemoryLock        lock;
     void                (*Free_All) (void *);
     void                (*Free_Var_Func) (void *, void *);
@@ -40,24 +40,29 @@ typedef struct ECMemory {
 
 /* List of all allocated ec_memory */
 static ECMemory *ec_memory;
+static ECMemory *ec_memory_world;
+
+#ifdef EC_MEMORY
+
+#define EC_MEMORY_CREATE(TYPE, ec_type, var)                            \
+        ECMemory *ec_memory_new = EC_Memory_Create (ec_type);           \
+                                                                        \
+        ec_memory_new->var = var;                                       \
+                                                                        \
+        if (ec_type == EC_TYPE_VAR)                                     \
+            ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE); \
+                                                                        \
+        var->ec_mem = ec_memory_new;
+
+#else
+
+#define EC_MEMORY_CREATE(TYPE, ec_type, var)
+
+#endif // EC_MEMORY
 
 
-#define EC_MEMORY_CREATE(TYPE, ec_var_type, var)                        \
-    ECMemory *ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));    \
-    if (DEBUG) EC_Test_Print_Adr ("Create: ec memory ", ec_memory_new); \
-                                                                        \
-    if (ec_memory_new == NULL)                                          \
-    {                                                                   \
-        EC_Error_Mem_Alloc (__FILE__, __LINE__);                        \
-        return NULL;                                                    \
-    }                                                                   \
-                                                                        \
-    ec_memory_new->type = ec_var_type;                                  \
-    ec_memory_new->ec_var = var;                                        /* var is from EC_VAR_CREATE */\
-    ec_memory_new->lock = EC_LOCK;                                      \
-    ec_memory_new->next = NULL;                                         \
-                                                                        \
-    EC_Memory_Push (ec_memory_new);
+ECMemory *
+EC_Memory_Create(ECType ec_type);
 
 
 /* Clean all remaining ec_memory at the end of the program */

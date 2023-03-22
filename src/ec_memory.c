@@ -7,6 +7,27 @@
 
 ECMemory *free_one = NULL;
 
+ECMemory *
+EC_Memory_Create(ECType ec_type)                                   
+{
+    ECMemory *ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));
+
+    EC_DEBUG_PRINT_ADR("Create: ec memory ", ec_memory_new);
+
+    if (ec_memory_new == NULL)
+    {
+        EC_Error_Mem_Alloc (__FILE__, __LINE__);
+        return NULL;
+    }
+
+    ec_memory_new->type = ec_type;
+    ec_memory_new->lock = EC_LOCK;
+    ec_memory_new->next = NULL;
+
+    EC_Memory_Push (ec_memory_new);
+}
+
+
 /* Free an ec_memory variable */
 void
 EC_Memory_Var_Free (ECMemory *ec_mem)
@@ -56,9 +77,9 @@ EC_Memory_Free_All
 {
     if (ec_mem != NULL)
     {
-        if (ec_mem->ec_var != NULL)
+        if (ec_mem->var != NULL)
         {
-            ec_mem->Free_Func(ec_mem->ec_var);
+            ec_mem->Free_Func(ec_mem->var);
         }
     }
 }
@@ -75,9 +96,9 @@ EC_Memory_Clean ()
 
     while (current != NULL)
     {
-        current->Free_Func(current->ec_var);
+        current->Free_Func(current->var);
 
-        current = ec_memory;
+        current = current->next;
     }
 
     ec_memory = NULL;
@@ -103,6 +124,7 @@ EC_Memory_Push (ECMemory *ec_memory_new)
 }
 
 
+
 /* Free all memory if lock == EC_UNLOCK in ec_memory var */
 
 void
@@ -117,9 +139,9 @@ EC_Memory_Free_Unlocked ()
     {
         if (current->lock == EC_UNLOCK)
         {
-            if (current->ec_var != NULL)
+            if (current->var != NULL)
             {
-                current->Free_Func (current->ec_var);
+                current->Free_Func (current->var);
             }
 
             temp = current;
@@ -157,9 +179,9 @@ EC_Memory_Free_Unlock_One ()
     {
         if (current->lock == EC_UNLOCK)
         {
-            if (current->ec_var != NULL)
+            if (current->var != NULL)
             {
-                current->Free_Func (current->ec_var);
+                current->Free_Func (current->var);
             }
 
             temp = current;
@@ -172,6 +194,3 @@ EC_Memory_Free_Unlock_One ()
         }
     }
 }
-
-
-
