@@ -83,7 +83,6 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)                \
 {                                              \
     TYPE *v = (TYPE *) var;                    \
     EC_DEBUG_PRINT_ADR("ec var free", v);      \
-    EC_Memory_Var_Free (v->ec_mem);            \
     free (v);                                  \
     v = NULL;                                  \
 }

@@ -40,7 +40,6 @@ typedef struct ECMemory {
 
 /* List of all allocated ec_memory */
 static ECMemory *ec_memory;
-static ECMemory *ec_memory_world;
 
 #ifdef EC_MEMORY
 
