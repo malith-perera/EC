@@ -4,9 +4,9 @@
 #include "ec.h"
 
 /* Can not replace with foreach in ec_type.h */
-#define foreach_array(array)                                                                            \
-    array->i = 0;                                                                                       \
-    for (array->var = array->index; array->i < array->length; array->var = array->index + ++array->i)
+#define foreach_array(arr)                                                                            \
+    arr->i = 0;                                                                                       \
+    for (arr->var = arr->array; arr->i < arr->length; arr->var = arr->array + ++arr->i)
 
 
 #define NELEMS(x) (sizeof(x) / sizeof((x)[0]))
@@ -21,7 +21,7 @@
 #define EC_ARRAY_FREE_VAR_FUNCTION_NAME(TYPE)       EC_CONCAT2(TYPE, _Array_Free_Func)
 #define EC_ARRAY_UNLOCK_FUNCTION_NAME(TYPE)         EC_CONCAT2(TYPE, _Array_Unlock)
 #define EC_ARRAY_NEW_FUNCTION_NAME(TYPE)            EC_CONCAT2(TYPE, _Array)
-#define EC_ARRAY_COPY_FUNCTION_NAME(TYPE)           EC_CONCAT2(TYPE, _Array_Copy)
+#define EC_ARRAY_COPY_FUNCTION_NAME(TYPE)           EC_CONCAT2(TYPE, _Array_Clone)
 #define EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)        EC_CONCAT3(TYPE, _Array, _Reverse)
 #define EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)       EC_CONCAT3(TYPE, _Array_Sort_With_, SW)
 #define EC_ARRAY_INT_FUNCTION_NAME(TYPE, SW)        EC_CONCAT3(TYPE, _Array_Int_, SW)
@@ -36,7 +36,7 @@
 
 #define EC_ARRAY(TYPE)                                  \
 typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
-    TYPE            *index;                             \
+    TYPE            *array;                             \
     int             length;                             \
     int             i;                                  \
     TYPE            *var;                               \
@@ -209,8 +209,8 @@ EC_ARRAY_FREE_VAR_FUNCTION_NAME(TYPE)                               \
 )                                                                   \
 {                                                                   \
     EC_ARRAY_STRUCT(TYPE) *v = (EC_ARRAY_STRUCT(TYPE) *) var;       \
-    free (v->index);                                                \
-    v->index = NULL;                                                \
+    free (v->array);                                                \
+    v->array = NULL;                                                \
     free (v);                                                       \
     v = NULL;                                                       \
 }
@@ -224,9 +224,8 @@ EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                                   \
 )                                                                   \
 {                                                                   \
     EC_ARRAY_STRUCT(TYPE) *a = (EC_ARRAY_STRUCT(TYPE) *) array;     \
-    EC_Memory_Var_Free (a->ec_mem);                                 \
-    free (a->index);                                                \
-    a->index = NULL;                                                \
+    free (a->array);                                                \
+    a->array = NULL;                                                \
     free (a);                                                       \
 }
 
@@ -254,7 +253,7 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                        \
                                                                         \
     if (EC_MEMORY)                                                      \
     {                                                                   \
-        EC_MEMORY_CREATE(TYPE, EC_ARRAY_TYPE, var)                      \
+        EC_MEMORY_CREATE(ec_memory_new, EC_TYPE_ARRAY, var)             \
         ec_memory_new->Free_Func = EC_ARRAY_FREE_FUNCTION_NAME(TYPE);   \
         var->ec_mem = ec_memory_new;                                    \
         var->ec_mem->lock = EC_LOCK;                                    \
@@ -269,15 +268,15 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                        \
     }                                                                   \
                                                                         \
     var->length = length;                                               \
-    var->index = array;                                                 \
+    var->array = array;                                                 \
                                                                         \
     return var;                                                         \
 }
 
 
-/* Array_Copy
- * This function return exact copy of ec array.
- * But there is no inter connection between original and the copy */
+/* Array_Clone
+ * This function return exact clone of ec array.
+ * But there is no inter connection between original and the clone */
 #define EC_ARRAY_COPY_FUNCTION(TYPE)                                                        \
 EC_ARRAY_STRUCT(TYPE) *                                                                     \
 EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                                                           \
@@ -285,13 +284,13 @@ EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                                               
     EC_ARRAY_STRUCT(TYPE) *array                                                            \
 )                                                                                           \
 {                                                                                           \
-    EC_ARRAY_STRUCT(TYPE) *array_copy = EC_ARRAY_NEW_FUNCTION_NAME(TYPE) (array->length);   \
+    EC_ARRAY_STRUCT(TYPE) *array_clone = EC_ARRAY_NEW_FUNCTION_NAME(TYPE) (array->length);   \
                                                                                             \
-    memcpy (array_copy->index, array->index, sizeof(TYPE) * array->length);                 \
+    memcpy (array_clone->array, array->array, sizeof(TYPE) * array->length);                 \
                                                                                             \
-    array_copy->length = array->length;                                                     \
+    array_clone->length = array->length;                                                     \
                                                                                             \
-    return array_copy;                                                                      \
+    return array_clone;                                                                      \
 }
 
 
@@ -306,9 +305,9 @@ EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                                \
                                                                     \
     for (int i = 0; i < (array->length) / 2; i++)                   \
     {                                                               \
-        temp = array->index[i];                                     \
-        array->index[i] = array->index[array->length - (1 + i)];    \
-        array->index[array->length - 1 - i] = temp;                 \
+        temp = array->array[i];                                     \
+        array->array[i] = array->array[array->length - (1 + i)];    \
+        array->array[array->length - 1 - i] = temp;                 \
     }                                                               \
 }
 
@@ -339,18 +338,18 @@ EC_ARRAY_SORT_FUNCTION_NAME(TYPE, SW)                               \
                                                                     \
     for (i; i < array->length - 1; i++)                             \
     {                                                               \
-        min_ref = &array->index[i];                                 \
+        min_ref = &array->array[i];                                 \
                                                                     \
         for (j = i + 1; j < array->length; j++)                     \
         {                                                           \
-            if (array->index[j].SW < min_ref->SW)                   \
+            if (array->array[j].SW < min_ref->SW)                   \
             {                                                       \
-                min_ref = &array->index[j];                         \
+                min_ref = &array->array[j];                         \
             }                                                       \
         }                                                           \
                                                                     \
-        temp = array->index[i];                                     \
-        array->index[i] = *min_ref;                                 \
+        temp = array->array[i];                                     \
+        array->array[i] = *min_ref;                                 \
         *min_ref = temp;                                            \
     }                                                               \
 }
@@ -413,11 +412,11 @@ EC_ARRAY_SORTED_INT_FUNCTION_NAME(TYPE, SW)                         \
     uei = array->length - 1;                                        \
     mi = (lei + uei) / 2;                                           \
                                                                     \
-    if (search_value < array->index[lei].SW)                        /* Search value is lower than minimum value */ \
+    if (search_value < array->array[lei].SW)                        /* Search value is lower than minimum value */ \
     {                                                               \
         return -1;                                                  \
     }                                                               \
-    else if (search_value > array->index[uei].SW)                   /* Search value is grater than maximum value */ \
+    else if (search_value > array->array[uei].SW)                   /* Search value is grater than maximum value */ \
     {                                                               \
         return -1;                                                  \
     }                                                               \
@@ -426,22 +425,22 @@ EC_ARRAY_SORTED_INT_FUNCTION_NAME(TYPE, SW)                         \
     {                                                               \
         printf ("lei %d uei %d mi %d\n", lei, uei, mi);             \
                                                                     \
-        if (search_value == array->index[mi].SW)                    \
+        if (search_value == array->array[mi].SW)                    \
         {                                                           \
             printf ("mi %d\n", mi);                                 \
             return mi;                                              \
         }                                                           \
-        else if (search_value == array->index[lei].SW)              \
+        else if (search_value == array->array[lei].SW)              \
         {                                                           \
             printf ("lei %d\n", lei);                               \
             return lei;                                             \
         }                                                           \
-        else if (search_value == array->index[uei].SW)              \
+        else if (search_value == array->array[uei].SW)              \
         {                                                           \
             printf ("uei %d\n", uei);                               \
             return uei;                                             \
         }                                                           \
-        else if (search_value > array->index[mi].SW)                \
+        else if (search_value > array->array[mi].SW)                \
         {                                                           \
             printf ("v > mi\n");                                    \
             lei = mi + 1;                                           \
@@ -458,7 +457,7 @@ EC_ARRAY_SORTED_INT_FUNCTION_NAME(TYPE, SW)                         \
                                                                     \
         if (lei == uei)                                             \
         {                                                           \
-            if (search_value == array->index[lei].SW)               \
+            if (search_value == array->array[lei].SW)               \
             {                                                       \
                 printf ("lei = uei %d\n", lei);                     \
                 return lei;                                         \
@@ -483,13 +482,13 @@ EC_ARRAY_MAX_FUNCTION_NAME(TYPE, SW)                \
     EC_ARRAY_STRUCT(TYPE)   *array                  \
 )                                                   \
 {                                                   \
-    TYPE *max = &array->index[0];                   \
+    TYPE *max = &array->array[0];                   \
                                                     \
     for (int i = 1; i < array->length; i++)         \
     {                                               \
-        if (array->index[i].SW > max->SW)           \
+        if (array->array[i].SW > max->SW)           \
         {                                           \
-            max = &array->index[i];                 \
+            max = &array->array[i];                 \
         }                                           \
     }                                               \
                                                     \
@@ -506,13 +505,13 @@ EC_ARRAY_MIN_FUNCTION_NAME(TYPE, SW)                \
     EC_ARRAY_STRUCT(TYPE) *array                    \
 )                                                   \
 {                                                   \
-    TYPE *min = &array->index[0];                   \
+    TYPE *min = &array->array[0];                   \
                                                     \
     for (int i = 1; i < array->length; i++)         \
     {                                               \
-        if (array->index[i].SW < min->SW)           \
+        if (array->array[i].SW < min->SW)           \
         {                                           \
-            min = &array->index[i];                 \
+            min = &array->array[i];                 \
         }                                           \
     }                                               \
                                                     \

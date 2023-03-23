@@ -36,13 +36,13 @@ Int_Array_Reverse
 int*
 Int_Array_Search
 (
-    int  *array,
+    int *array,
     int  array_count,
     int  search_value, // search search_value
     int  search_times  // how much times search
 )
 {
-    int indexarray[search_times]; // ***** use list here
+    int array_index[search_times]; // ***** use list here
 
     int counter = 0;
 
@@ -50,12 +50,12 @@ Int_Array_Search
     {
         if (array[i] == search_value)
         {
-            indexarray[counter] = i;
+            array_index[counter] = i;
             counter++;
 
             if (search_times == counter)
             {
-                //return indexarray;
+                //return array_index;
             }
         }
     }

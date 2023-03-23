@@ -5,7 +5,6 @@
 
 #include "ec_array_test.h"
 
-#if 0
 /* Test: New_Array
  * This function test create new array and array access*/
 void
@@ -16,18 +15,18 @@ Test_New_Array ()
     StudentArray *sta = Student_Array (2);
     EC_Error_Print_Msg ("Create new array", "OK");
 
-    sta->index[0].no    = 1;
-    sta->index[0].name  = "Malith";
+    sta->array[0].no    = 1;
+    sta->array[0].name  = "Malith";
 
-    sta->index[1].no    = 2;
-    sta->index[1].name  = "Geethike";
+    sta->array[1].no    = 2;
+    sta->array[1].name  = "Geethike";
 
     EC_Error_Print_Msg ("Assign array variables", "OK");
 
-    assert (sta->index[0].no == 1);
-    assert (strcmp(sta->index[0].name, "Malith") == 0);
-    assert (sta->index[1].no == 2);
-    assert (strcmp(sta->index[1].name, "Geethike") == 0);
+    assert (sta->array[0].no == 1);
+    assert (strcmp(sta->array[0].name, "Malith") == 0);
+    assert (sta->array[1].no == 2);
+    assert (strcmp(sta->array[1].name, "Geethike") == 0);
 
     EC_Error_Print_Msg ("Access arry variables", "OK");
 
@@ -38,30 +37,30 @@ Test_New_Array ()
 }
 
 
-/* Test: Array_Copy
+/* Test: Array_Clone
  * This function test copied array have the same variables and
- * Change of copy or original array does not affect each other */
+ * Change of clone or original array does not affect each other */
 void
-Test_Array_Copy ()
+Test_Array_Clone ()
 {
-    EC_Error_Print_Msg ("Test_Copy_Array: ", "BEGIN");
+    EC_Error_Print_Msg ("Test_Clone_Array: ", "BEGIN");
 
     StudentArray* sta1 = Student_Array (2);
     EC_Error_Print_Msg ("Create new ec array", "OK");
 
-    sta1->index[0].no = 1;
-    sta1->index[0].name = "Malith";
+    sta1->array[0].no = 1;
+    sta1->array[0].name = "Malith";
 
-    sta1->index[1].no = 2;
-    sta1->index[1].name = "Geethike";
+    sta1->array[1].no = 2;
+    sta1->array[1].name = "Geethike";
 
-    StudentArray* sta2 = Student_Array_Copy (sta1);
+    StudentArray* sta2 = Student_Array_Clone (sta1);
 
-    assert (sta2->index[0].no == 1);
-    assert (strcmp(sta2->index[0].name, "Malith") == 0);
+    assert (sta2->array[0].no == 1);
+    assert (strcmp(sta2->array[0].name, "Malith") == 0);
 
-    assert (sta2->index[1].no == 2);
-    assert (strcmp(sta2->index[1].name, "Geethike") == 0);
+    assert (sta2->array[1].no == 2);
+    assert (strcmp(sta2->array[1].name, "Geethike") == 0);
 
     EC_Error_Print_Msg ("Array variable copied: ", "OK");
 
@@ -69,19 +68,19 @@ Test_Array_Copy ()
 
     EC_Error_Print_Msg ("Array length copied: ", "OK");
 
-    sta1->index[0].no = 3;
-    sta1->index[0].name = "Malshi";
-    assert (sta2->index[0].no != 3);
-    assert (strcmp(sta2->index[0].name, "Geethike") != 0);
+    sta1->array[0].no = 3;
+    sta1->array[0].name = "Malshi";
+    assert (sta2->array[0].no != 3);
+    assert (strcmp(sta2->array[0].name, "Geethike") != 0);
 
-    sta2->index[1].no = 4;
-    sta2->index[1].name = "Presenthi";
-    assert (sta1->index[1].no != 4);
-    assert (strcmp(sta1->index[1].name, "Presenthi") != 0);
+    sta2->array[1].no = 4;
+    sta2->array[1].name = "Presenthi";
+    assert (sta1->array[1].no != 4);
+    assert (strcmp(sta1->array[1].name, "Presenthi") != 0);
 
-    EC_Error_Print_Msg ("Changing one array variable do not affect other array: ", "OK");
+    EC_Error_Print_Msg ("Changing one array variable do not affect other: ", "OK");
 
-    EC_Error_Print_Msg ("Test_Copy_Array: ", "END");
+    EC_Error_Print_Msg ("Test_Clone_Array: ", "END");
 }
 
 
@@ -95,131 +94,20 @@ Test_Array_Free ()
     StudentArray* sta = Student_Array (2);
     EC_Error_Print_Msg ("Create new ec array", "OK");
 
-    sta->index[0].no = 1;
-    sta->index[0].name = "Malith";
+    sta->array[0].no = 1;
+    sta->array[0].name = "Malith";
 
-    sta->index[1].no = 2;
-    sta->index[1].name = "Geethike";
+    sta->array[1].no = 2;
+    sta->array[1].name = "Geethike";
 
-    assert (sta->index[1].no == 2);
-    assert (strcmp(sta->index[1].name, "Geethike") == 0);
+    assert (sta->array[1].no == 2);
+    assert (strcmp(sta->array[1].name, "Geethike") == 0);
     EC_Error_Print_Msg ("Create assign array", "OK");
 
     Student_Array_Free (sta);
     EC_Error_Print_Msg ("Array_Free function", "OK");
 
     EC_Error_Print_Msg ("Test_Array_Free: ", "END");
-}
-
-
-/* Test: Array_Free
- * This function test Array_Free function */
-void
-Test_Array_Free_One ()
-{
-}
-
-
-/* Test: Array_Unlock
- * This function test Array_Unlock function
- * Unlock just unlock ec_memory var and release to free when needed*/
-void
-Test_Array_Unlock ()
-{
-    EC_Error_Print_Msg ("Test_Array_Unlock: ", "BEGIN");
-
-    StudentArray* sta = Student_Array (2);
-    EC_Error_Print_Msg ("Create new ec array", "OK");
-
-    sta->index[0].no = 1;
-    sta->index[0].name = "Malith";
-
-    sta->index[1].no = 2;
-    sta->index[1].name = "Geethike";
-
-    EC_Error_Print_Msg ("Create assign array", "OK");
-
-    Student_Array_Unlock (sta);
-
-    EC_Error_Print_Msg ("Array_Unlock function", "OK");
-
-    assert (sta->ec_mem->lock == EC_UNLOCK);
-    EC_Error_Print_Msg ("lock unlocked", "OK");
-
-    EC_Error_Print_Msg ("Test_Array_Unlock: ", "END");
-}
-
-
-void
-Test_Array_Sort ()
-{
-    EC_Error_Print_Msg ("Test_Array_Sort: ", "BEGIN");
-
-    StudentArray *sta = Student_Array (4);
-    sta->index[0].no = 1;
-    sta->index[0].name = "Malith";
-    sta->index[1].no = 2;
-    sta->index[1].name = "Geethike";
-    sta->index[2].no = 3;
-    sta->index[2].name = "Perera";
-    sta->index[3].no = 4;
-    sta->index[3].name = "Malshi";
-
-    Student_Array_Sort_With_no (sta);
-
-
-    foreach_array (sta)
-    {
-        assert (sta->var->no == sta->i + 1); // sta->i is an array internal variable to loop array
-    }
-
-    EC_Error_Print_Msg ("Sort when no sort needed ", "OK");
-
-    // minimum is last
-    sta->index[0].no = 4;
-    sta->index[0].name = "Malith";
-    sta->index[1].no = 2;
-    sta->index[1].name = "Geethike";
-    sta->index[2].no = 3;
-    sta->index[2].name = "Perera";
-    sta->index[3].no = 1;
-    sta->index[3].name = "Malshi";
-
-    Student_Array_Sort_With_no (sta);
-
-    char *names1[] = {"Malshi", "Geethike", "Perera", "Malith"};
-
-    foreach_array(sta)
-    {
-        assert (sta->var->no == sta->i + 1);
-        assert (!strcmp (sta->var->name, names1[sta->i])); // strcmp return 0 when equal. assert fail when 0. so use !
-    }
-
-    EC_Error_Print_Msg ("Sort when minimum is last element", "OK");
-
-    // maximum is first
-    sta->index[0].no = 4;
-    sta->index[0].name = "Malith";
-    sta->index[1].no = 2;
-    sta->index[1].name = "Geethike";
-    sta->index[2].no = 3;
-    sta->index[2].name = "Perera";
-    sta->index[3].no = 1;
-    sta->index[3].name = "Malshi";
-
-    Student_Array_Sort_With_no (sta);
-
-    char *names2[] = {"Malshi", "Geethike", "Perera", "Malith"};
-
-    foreach_array(sta)
-    {
-        assert (sta->var->no == sta->i + 1);
-        assert (!strcmp (sta->var->name, names2[sta->i])); // strcmp return 0 when equal. assert fail when 0. so use !
-    }
-
-    EC_Error_Print_Msg ("Sort when maximum is first element ", "OK");
-
-    EC_Error_Print_Msg ("Test_Array_Sort: ", "END");
 }
 
 
@@ -231,14 +119,14 @@ Test_Array_Reverse ()
     char* names[] = {"Malith", "Geethike", "Perera", "Malshi"};
 
     StudentArray *sta = Student_Array (4);
-    sta->index[0].no = 1;
-    sta->index[0].name = names[0];
-    sta->index[1].no = 2;
-    sta->index[1].name = names[1];
-    sta->index[2].no = 3;
-    sta->index[2].name = names[2];
-    sta->index[3].no = 4;
-    sta->index[3].name = names[3];
+    sta->array[0].no = 1;
+    sta->array[0].name = names[0];
+    sta->array[1].no = 2;
+    sta->array[1].name = names[1];
+    sta->array[2].no = 3;
+    sta->array[2].name = names[2];
+    sta->array[3].no = 4;
+    sta->array[3].name = names[3];
 
     EC_Error_Print_Msg ("Array created and assigned", "OK");
 
@@ -258,29 +146,102 @@ Test_Array_Reverse ()
 
 
 void
+Test_Array_Sort ()
+{
+    EC_Error_Print_Msg ("Test_Array_Sort: ", "BEGIN");
+
+    StudentArray *sta = Student_Array (4);
+    sta->array[0].no = 1;
+    sta->array[0].name = "Malith";
+    sta->array[1].no = 2;
+    sta->array[1].name = "Geethike";
+    sta->array[2].no = 3;
+    sta->array[2].name = "Perera";
+    sta->array[3].no = 4;
+    sta->array[3].name = "Malshi";
+
+    Student_Array_Sort_With_no (sta);
+
+
+    foreach_array (sta)
+    {
+        assert (sta->var->no == sta->i + 1); // sta->i is an array internal variable to loop array
+    }
+
+    EC_Error_Print_Msg ("Sort when no sort needed ", "OK");
+
+    // minimum is last
+    sta->array[0].no = 4;
+    sta->array[0].name = "Malith";
+    sta->array[1].no = 2;
+    sta->array[1].name = "Geethike";
+    sta->array[2].no = 3;
+    sta->array[2].name = "Perera";
+    sta->array[3].no = 1;
+    sta->array[3].name = "Malshi";
+
+    Student_Array_Sort_With_no (sta);
+
+    char *names1[] = {"Malshi", "Geethike", "Perera", "Malith"};
+
+    foreach_array(sta)
+    {
+        assert (sta->var->no == sta->i + 1);
+        assert (!strcmp (sta->var->name, names1[sta->i])); // strcmp return 0 when equal. assert fail when 0. so use !
+    }
+
+    EC_Error_Print_Msg ("Sort when minimum is last element", "OK");
+
+    // maximum is first
+    sta->array[0].no = 4;
+    sta->array[0].name = "Malith";
+    sta->array[1].no = 2;
+    sta->array[1].name = "Geethike";
+    sta->array[2].no = 3;
+    sta->array[2].name = "Perera";
+    sta->array[3].no = 1;
+    sta->array[3].name = "Malshi";
+
+    Student_Array_Sort_With_no (sta);
+
+    char *names2[] = {"Malshi", "Geethike", "Perera", "Malith"};
+
+    foreach_array(sta)
+    {
+        assert (sta->var->no == sta->i + 1);
+        assert (!strcmp (sta->var->name, names2[sta->i])); // strcmp return 0 when equal. assert fail when 0. so use !
+    }
+
+    EC_Error_Print_Msg ("Sort when maximum is first element ", "OK");
+
+    EC_Error_Print_Msg ("Test_Array_Sort: ", "END");
+}
+
+
+void
 Test_Array_Int ()
 {
     EC_Error_Print_Msg ("Test_Array_Search_Var: ", "BEGIN");
 
     StudentArray* sta = Student_Array (4);
-    sta->index[0].no = 1;
-    sta->index[0].name = "Malith";
-    sta->index[1].no = 2;
-    sta->index[1].name = "Geethike";
-    sta->index[2].no = 3;
-    sta->index[2].name = "Perera";
-    sta->index[3].no = 4;
-    sta->index[3].name = "Malshi";
+    sta->array[0].no = 1;
+    sta->array[0].name = "Malith";
+    sta->array[1].no = 2;
+    sta->array[1].name = "Geethike";
+    sta->array[2].no = 3;
+    sta->array[2].name = "Perera";
+    sta->array[3].no = 4;
+    sta->array[3].name = "Malshi";
 
     EC_Error_Print_Msg ("Array created and assigned", "OK");
 
-    int index = Student_Array_Int_no (sta, 3);
+    int array = Student_Array_Int_no (sta, 3);
 
     EC_Error_Print_Msg ("Array_Search function call", "OK");
 
-    assert (index == 2);
+    assert (array == 2);
 
-    assert (sta->index[index].no == 3);
+    assert (sta->array[array].no == 3);
 
     EC_Error_Print_Msg ("Array_Int", "OK");
 
@@ -294,24 +255,24 @@ Test_Array_Str ()
     EC_Error_Print_Msg ("Test_Array: ", "BEGIN");
 
     StudentArray* sta = Student_Array (4);
-    sta->index[0].no = 1;
-    sta->index[0].name = "Malith";
-    sta->index[1].no = 2;
-    sta->index[1].name = "Geethike";
-    sta->index[2].no = 3;
-    sta->index[2].name = "Perera";
-    sta->index[3].no = 4;
-    sta->index[3].name = "Malshi";
+    sta->array[0].no = 1;
+    sta->array[0].name = "Malith";
+    sta->array[1].no = 2;
+    sta->array[1].name = "Geethike";
+    sta->array[2].no = 3;
+    sta->array[2].name = "Perera";
+    sta->array[3].no = 4;
+    sta->array[3].name = "Malshi";
 
     EC_Error_Print_Msg ("Array created and assigned", "OK");
 
-    int index = Student_Array_Str_name (sta, "Perera");
+    int array = Student_Array_Str_name (sta, "Perera");
 
     EC_Error_Print_Msg ("Array_Search function call", "OK");
 
-    assert (index == 2);
+    assert (array == 2);
 
-    assert (sta->index[index].no == 3);
+    assert (sta->array[array].no == 3);
 
     EC_Error_Print_Msg ("Array_Str", "OK");
 
@@ -327,14 +288,14 @@ Test_Array_Max ()
     Student* st_max;
 
     StudentArray* sta = Student_Array (4);
-    sta->index[0].no = 4;
-    sta->index[0].name = "Malith";
-    sta->index[1].no = 3;
-    sta->index[1].name = "Geethike";
-    sta->index[2].no = 2;
-    sta->index[2].name = "Perera";
-    sta->index[3].no = 1;
-    sta->index[3].name = "Malshi";
+    sta->array[0].no = 4;
+    sta->array[0].name = "Malith";
+    sta->array[1].no = 3;
+    sta->array[1].name = "Geethike";
+    sta->array[2].no = 2;
+    sta->array[2].name = "Perera";
+    sta->array[3].no = 1;
+    sta->array[3].name = "Malshi";
 
     // max found in array first
     st_max = Student_Array_Max_no (sta);
@@ -343,8 +304,8 @@ Test_Array_Max ()
     EC_Error_Print_Msg ("Max found in array first", "OK");
 
     // max found in array last
-    sta->index[0].no = 1;
-    sta->index[3].no = 4;
+    sta->array[0].no = 1;
+    sta->array[3].no = 4;
 
     st_max = Student_Array_Max_no (sta);
     assert (st_max->no == 4);
@@ -352,8 +313,8 @@ Test_Array_Max ()
     EC_Error_Print_Msg ("Max found in array last", "OK");
 
     // max found in array mid
-    sta->index[0].no = 3;
-    sta->index[1].no = 4;
+    sta->array[0].no = 3;
+    sta->array[1].no = 4;
 
     st_max = Student_Array_Max_no (sta);
     assert (st_max->no == 4);
@@ -371,14 +332,14 @@ Test_Array_Min ()
     Student* st_min;
 
     StudentArray *sta = Student_Array (4);
-    sta->index[0].no = 1;
-    sta->index[0].name = "Malith";
-    sta->index[1].no = 2;
-    sta->index[1].name = "Geethike";
-    sta->index[2].no = 3;
-    sta->index[2].name = "Perera";
-    sta->index[3].no = 4;
-    sta->index[3].name = "Malshi";
+    sta->array[0].no = 1;
+    sta->array[0].name = "Malith";
+    sta->array[1].no = 2;
+    sta->array[1].name = "Geethike";
+    sta->array[2].no = 3;
+    sta->array[2].name = "Perera";
+    sta->array[3].no = 4;
+    sta->array[3].name = "Malshi";
 
     // min found in array first
     st_min = Student_Array_Min_no (sta);
@@ -387,8 +348,8 @@ Test_Array_Min ()
     EC_Error_Print_Msg ("Min found in array first", "OK");
 
     // min found in array last
-    sta->index[0].no = 4;
-    sta->index[3].no = 1;
+    sta->array[0].no = 4;
+    sta->array[3].no = 1;
 
     st_min = Student_Array_Min_no (sta);
     assert (st_min->no == 1);
@@ -396,8 +357,8 @@ Test_Array_Min ()
     EC_Error_Print_Msg ("Min found in array last", "OK");
 
     // min found in array mid
-    sta->index[0].no = 2;
-    sta->index[1].no = 1;
+    sta->array[0].no = 2;
+    sta->array[1].no = 1;
 
     st_min = Student_Array_Min_no (sta);
     assert (st_min->no == 1);
@@ -541,12 +502,58 @@ Test_Int_Array_Min ()
 }
 
 
+#if 0
+
+/* Test: Array_Free
+ * This function test Array_Free function */
+void
+Test_Array_Free_One ()
+{
+}
+
+
+/* Test: Array_Unlock
+ * This function test Array_Unlock function
+ * Unlock just unlock ec_memory var and release to free when needed*/
+void
+Test_Array_Unlock ()
+{
+    EC_Error_Print_Msg ("Test_Array_Unlock: ", "BEGIN");
+
+    StudentArray* sta = Student_Array (2);
+    EC_Error_Print_Msg ("Create new ec array", "OK");
+
+    sta->array[0].no = 1;
+    sta->array[0].name = "Malith";
+
+    sta->array[1].no = 2;
+    sta->array[1].name = "Geethike";
+
+    EC_Error_Print_Msg ("Create assign array", "OK");
+
+    Student_Array_Unlock (sta);
+
+    EC_Error_Print_Msg ("Array_Unlock function", "OK");
+
+    assert (sta->ec_mem->lock == EC_UNLOCK);
+    EC_Error_Print_Msg ("lock unlocked", "OK");
+
+    EC_Error_Print_Msg ("Test_Array_Unlock: ", "END");
+}
+
+
+
+
+
+
+
+
+
 #endif
 
 void
 Run_Array_Test ()
 {
-#if 0
     printf ("------------------\n");
     printf ("Test: ec_array.h\n");
     printf ("==================\n");
@@ -554,14 +561,8 @@ Run_Array_Test ()
     Test_New_Array ();
     printf ("\n");
 
-    Test_Array_Copy ();
+    Test_Array_Clone ();
     printf ("\n");
-
-    Test_Array_Free ();
-    printf ("\n");
-
-    /*Test_Array_Unlock ();*/
-    /*printf ("\n");*/
 
     Test_Array_Reverse ();
     printf ("\n");
@@ -599,8 +600,16 @@ Run_Array_Test ()
     /*EC_Error_Print_Msg ("Test: ec_array.h", "PASS");*/
     /*printf ("\n");*/
 
-#endif
+#if 0
+    Test_Array_Free ();
+    printf ("\n");
 
+    /*Test_Array_Unlock ();*/
+    /*printf ("\n");*/
+
+
+
+#endif
 }
 
 
@@ -623,7 +632,7 @@ Run_Array_Test ()
 
   /*int n = Search (a, 1000000,  atoi(argv[1]));*/
 
-  /*printf ("index %d ", n);*/
+  /*printf ("array %d ", n);*/
 
 
 /*
