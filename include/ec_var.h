@@ -7,6 +7,8 @@
 /* Function name macros */
 #define EC_VAR_NEW_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Var)
 #define EC_VAR_FREE_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Var_Free)
+#define EC_VAR_CLONE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Var_Clone)
+#define EC_VAR_COPY_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Var_Copy)
 
 /*------------*/
 /* Structures */
@@ -72,6 +74,22 @@ TYPE *                                          \
 EC_VAR_NEW_FUNCTION_NAME(TYPE)();
 
 
+#define EC_VAR_CLONE_FUNCTION_PROTOTYPE(TYPE)   \
+TYPE *                                          \
+EC_VAR_CLONE_FUNCTION_NAME(TYPE)                \
+(                                               \
+    TYPE *var                                   \
+);
+
+
+#define EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)    \
+void                                            \
+EC_VAR_COPY_FUNCTION_NAME(TYPE)                 \
+(                                               \
+    TYPE *var_copy,                             \
+    TYPE *var                                   \
+);
+
 /* Macro created functions */
 
 #define EC_VAR_FREE_FUNCTION(TYPE)             \
@@ -112,15 +130,48 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                        \
 }
 
 
+/*printf ("create var %p\n", var_copy);                              \*/
+/*printf ("create mem %p\n", var_clone->ec_mem);                      \*/
+// Clone variable var to var_clone
+#define EC_VAR_CLONE_FUNCTION(TYPE)                         \
+TYPE *                                                      \
+EC_VAR_CLONE_FUNCTION_NAME(TYPE)                            \
+(                                                           \
+    TYPE *var                                               \
+)                                                           \
+{                                                           \
+    TYPE *var_clone = EC_VAR_NEW_FUNCTION_NAME(TYPE)();     \
+    memcpy (var_clone, var, sizeof(TYPE));                  \
+    return var_clone;                                       \
+}
+
+
+#define EC_VAR_COPY_FUNCTION(TYPE)                          \
+void                                                        \
+EC_VAR_COPY_FUNCTION_NAME(TYPE)                             \
+(                                                           \
+    TYPE *var_copy,                                         \
+    TYPE *var                                               \
+)                                                           \
+{                                                           \
+    *var_copy = *var;                                       \
+}
+
+
 /* All function prototypes */
-#define EC_VAR_FUNCTION_PROTOTYPES(TYPE)   \
-    EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)
+#define EC_VAR_FUNCTION_PROTOTYPES(TYPE)    \
+    EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)    \
+    EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)     \
+    EC_VAR_CLONE_FUNCTION_PROTOTYPE(TYPE)   \
+    EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)
 
 
 /* All functions */
-#define EC_VAR_FUNCTIONS(TYPE)              \
-    EC_VAR_FREE_FUNCTION(TYPE)              \
-    EC_VAR_NEW_FUNCTION(TYPE)
+#define EC_VAR_FUNCTIONS(TYPE)         \
+    EC_VAR_FREE_FUNCTION(TYPE)         \
+    EC_VAR_NEW_FUNCTION(TYPE)          \
+    EC_VAR_CLONE_FUNCTION(TYPE)        \
+    EC_VAR_COPY_FUNCTION(TYPE)
 
 
 #endif // EC_VAR_H
@@ -156,8 +207,6 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                        \
 #define EC_VAR_FREE_ALL_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _Var_Free_All)
 #define EC_VAR_FREE_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Var_Free)
 #define EC_VAR_NEW_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Var)
-#define EC_VAR_COPY_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Var_Copy)
-#define EC_VAR_COPY2_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Var_Copy2)
 #define EC_UNLOCK_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Var_Unlock)
 
 /* Structure macros */
@@ -206,21 +255,8 @@ TYPE *                                          \
 EC_VAR_NEW_FUNCTION_NAME(TYPE)();
 
 
-#define EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)    \
-TYPE *                                          \
-EC_VAR_COPY_FUNCTION_NAME(TYPE)                 \
-(                                               \
-    TYPE *var                                   \
-);
 
 
-#define EC_VAR_COPY2_FUNCTION_PROTOTYPE(TYPE)   \
-void                                            \
-EC_VAR_COPY2_FUNCTION_NAME(TYPE)                \
-(                                               \
-    TYPE *var_copy,                             \
-    TYPE *var                                   \
-);
 
 
 #define EC_VAR_FUNCTION_PROTOTYPES(TYPE)        \
@@ -228,8 +264,6 @@ EC_VAR_COPY2_FUNCTION_NAME(TYPE)                \
     EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)        \
     EC_UNLOCK_FUNCTION_PROTOTYPE(TYPE)          \
     EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)         \
-    EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)        \
-    EC_VAR_COPY2_FUNCTION_PROTOTYPE(TYPE)
 
 
 /* Function macros */
@@ -308,32 +342,6 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)()                            \
 }
 
 
-/*printf ("create var %p\n", var_copy);                              \*/
-/*printf ("create mem %p\n", var_copy->ec_mem);                      \*/
-// Copy variable var to var_copy
-#define EC_VAR_COPY_FUNCTION(TYPE)                          \
-TYPE *                                                      \
-EC_VAR_COPY_FUNCTION_NAME(TYPE)                             \
-(                                                           \
-    TYPE *var                                               \
-)                                                           \
-{                                                           \
-    TYPE *var_copy = EC_VAR_NEW_FUNCTION_NAME(TYPE)();      \
-    memcpy (var_copy, var, sizeof(TYPE));                   \
-    return var_copy;                                        \
-}
-
-
-#define EC_VAR_COPY2_FUNCTION(TYPE)                         \
-void                                                        \
-EC_VAR_COPY2_FUNCTION_NAME(TYPE)                            \
-(                                                           \
-    TYPE *var_copy,                                         \
-    TYPE *var                                               \
-)                                                           \
-{                                                           \
-    *var_copy = *var;                                       \
-}
 
 
 #define EC_VAR_FUNCTIONS(TYPE)      \
@@ -341,8 +349,6 @@ EC_VAR_COPY2_FUNCTION_NAME(TYPE)                            \
     EC_VAR_FREE_FUNCTION(TYPE)      \
     EC_UNLOCK_FUNCTION(TYPE)        \
     EC_VAR_NEW_FUNCTION(TYPE)       \
-    EC_VAR_COPY_FUNCTION(TYPE)      \
-    EC_VAR_COPY2_FUNCTION(TYPE)
 
 
 #endif

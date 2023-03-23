@@ -51,7 +51,7 @@ Test_Local_Var ()
 }
 
 
-/* Test: Var Copy without functions
+/* Test: Var copy without functions
  * This function should not affect copied vars each other */
 void
 Test_Var_Copy_Default ()
@@ -68,13 +68,10 @@ Test_Var_Copy_Default ()
 
     *st2 = *st1;
 
-    /*
     assert (st2->no == 1);
     assert (strcmp(st2->name, "Malith") == 0);
     EC_Error_Print_Msg ("Var copied: ", "OK");
-    */
 
-    /*
     st1->no = 2;
     st2->name = "Geethike";
 
@@ -83,29 +80,28 @@ Test_Var_Copy_Default ()
 
     EC_Error_Print_Msg ("Changing one var should not affect other", "OK");
 
-    StudentVar st_on_stack;
-    st_on_stack.no = 3;
-    st_on_stack.name = "Perera";
+    StudentVar st_local;
+    st_local.no = 3;
+    st_local.name = "Perera";
 
-    EC_Error_Print_Msg ("Create and assign ec var on stack", "OK");
+    EC_Error_Print_Msg ("Create and assign local var", "OK");
 
-    *st2 = st_on_stack;
+    *st2 = st_local;
     assert (st2->no == 3);
     assert (strcmp(st2->name, "Perera") == 0);
 
-    EC_Error_Print_Msg ("Copy var on stack: ", "OK");
+    EC_Error_Print_Msg ("Copy local var: ", "OK");
 
-    st_on_stack = *st1;
-    assert (st_on_stack.no == 2);
-    assert (strcmp(st_on_stack.name, "Malith") == 0);
-*/
-    EC_Error_Print_Msg ("Copy var to stack: ", "OK");
+    st_local = *st1;
+    assert (st_local.no == 2);
+    assert (strcmp(st_local.name, "Malith") == 0);
+
+    EC_Error_Print_Msg ("Copy var to local variable: ", "OK");
 
     EC_Error_Print_Msg ("Test_Var_Copy_Default: ", "END");
 }
 
 
-#if 0
 /* Test: Var_Copy
  * This function should not affect copied vars each other */
 void
@@ -114,55 +110,12 @@ Test_Var_Copy ()
     EC_Error_Print_Msg ("Test_Var_Copy: ", "BEGIN");
 
     StudentVar *st1 = Student_Var ();
-    EC_Error_Print_Msg ("Create new ec var", "OK");
-
-    st1->no = 1;
-    st1->name = "Malith";
-
-    StudentVar *st2 = Student_Var_Copy (st1);
-    assert (st2->no == 1);
-    assert (strcmp(st2->name, "Malith") == 0);
-    EC_Error_Print_Msg ("Var copied: ", "OK");
-
-    st2->no = 2;
-    st2->name = "Geethike";
-    assert (st2->no == 2);
-    assert (strcmp(st1->name, "Geethike") != 0);
-    EC_Error_Print_Msg ("Changing one var should not affect other", "OK");
-
-    StudentVar st_on_stack;
-    st_on_stack.no = 3;
-    st_on_stack.name = "Perera";
-    EC_Error_Print_Msg ("create and assign ec var on stack", "OK");
-
-    st2 = Student_Var_Copy (&st_on_stack);
-    assert (st2->no == 3);
-    assert (strcmp(st2->name, "Perera") == 0);
-    EC_Error_Print_Msg ("Copy var on stack: ", "OK");
-
-    st_on_stack = *Student_Var_Copy (st1);
-    assert (st_on_stack.no == 1);
-    assert (strcmp(st_on_stack.name, "Malith") == 0);
-    EC_Error_Print_Msg ("Copy var to stack: ", "OK");
-
-    EC_Error_Print_Msg ("Test_Var_Copy: ", "END");
-}
-
-
-/* Test: Var_Copy2
- * This function should not affect copied vars each other */
-void
-Test_Var_Copy2 ()
-{
-    EC_Error_Print_Msg ("Test_Var_Copy2: ", "BEGIN");
-
-    StudentVar *st1 = Student_Var ();
     st1->no = 1;
     st1->name = "Malith";
     EC_Error_Print_Msg ("Create and assign new ec var", "OK");
 
     StudentVar *st2 = Student_Var ();
-    Student_Var_Copy2 (st2, st1);
+    Student_Var_Copy (st2, st1);
     EC_Error_Print_Msg ("Var copied: ", "OK");
 
     assert (st2->no == 1);
@@ -176,26 +129,69 @@ Test_Var_Copy2 ()
     assert (strcmp(st1->name, "Geethike") != 0);
     EC_Error_Print_Msg ("Changing one var should not affect other", "OK");
 
-    StudentVar st_on_stack;
-    st_on_stack.no = 3;
-    st_on_stack.name = "Perera";
-    EC_Error_Print_Msg ("Create and assign ec var on stack", "OK");
+    StudentVar st_local;
+    st_local.no = 3;
+    st_local.name = "Perera";
+    EC_Error_Print_Msg ("Create and assign local var", "OK");
 
-    /********************* Ec_Clean gives an error *********************/
-    Student_Var_Copy2 (st2, &st_on_stack);
+    Student_Var_Copy (st2, &st_local);
     assert (st2->no == 3);
     assert (strcmp(st2->name, "Perera") == 0);
-    EC_Error_Print_Msg ("Copy var on stack: ", "FAIL ************");
+    EC_Error_Print_Msg ("Copy local var: ", "OK");
 
-    Student_Var_Copy2 (&st_on_stack, st1);
-    assert (st_on_stack.no == 2);
-    assert (strcmp(st_on_stack.name, "Malith") == 0);
-    EC_Error_Print_Msg ("Copy var to stack: ", "FAIL ************");
+    Student_Var_Copy (&st_local, st1);
+    assert (st_local.no == 2);
+    assert (strcmp(st_local.name, "Malith") == 0);
+    EC_Error_Print_Msg ("Copy var to local variable: ", "OK");
 
-    EC_Error_Print_Msg ("Test_Var_Copy2: ", "END");
+    EC_Error_Print_Msg ("Test_Var_Copy: ", "END");
 }
 
 
+/* Test: Var_Clone
+ * This function should not affect copied vars each other */
+void
+Test_Var_Clone ()
+{
+    EC_Error_Print_Msg ("Test_Var_Clone: ", "BEGIN");
+
+    StudentVar *st1 = Student_Var ();
+    EC_Error_Print_Msg ("Create new ec var", "OK");
+
+    st1->no = 1;
+    st1->name = "Malith";
+
+    StudentVar *st2 = Student_Var_Clone (st1);
+    assert (st2->no == 1);
+    assert (strcmp(st2->name, "Malith") == 0);
+    EC_Error_Print_Msg ("Var cloned: ", "OK");
+
+    st2->no = 2;
+    st2->name = "Geethike";
+    assert (st2->no == 2);
+    assert (strcmp(st1->name, "Geethike") != 0);
+    EC_Error_Print_Msg ("Changing one var should not affect other", "OK");
+
+    StudentVar st_local;
+    st_local.no = 3;
+    st_local.name = "Perera";
+    EC_Error_Print_Msg ("create and assign local var", "OK");
+
+    st2 = Student_Var_Clone (&st_local);
+    assert (st2->no == 3);
+    assert (strcmp(st2->name, "Perera") == 0);
+    EC_Error_Print_Msg ("Clone local var: ", "OK");
+
+    st_local = *Student_Var_Clone (st1);
+    assert (st_local.no == 1);
+    assert (strcmp(st_local.name, "Malith") == 0);
+    EC_Error_Print_Msg ("Clone var to local variable: ", "OK");
+
+    EC_Error_Print_Msg ("Test_Var_Clone: ", "END");
+}
+
+
+#if 0
 /* Test: Var_Free
  * This function free ec var and ec_memory var together */
 void
@@ -289,11 +285,11 @@ Run_Var_Test ()
     Test_Var_Copy_Default ();
     printf ("\n");
 
-    /*Test_Var_Copy ();*/
-    /*printf ("\n");*/
+    Test_Var_Copy ();
+    printf ("\n");
 
-    /*Test_Var_Copy2 ();*/
-    /*printf ("\n");*/
+    Test_Var_Clone ();
+    printf ("\n");
 
     //Test_Var_Free ();
     //printf ("\n");
