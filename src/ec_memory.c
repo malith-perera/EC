@@ -96,7 +96,8 @@ EC_Memory_Clean ()
 
     while (current != NULL)
     {
-        current->Free_Func(current->var);
+        if (current->var != NULL)
+            current->Free_Func(current->var);
 
         temp = current;
         current = current->next;
