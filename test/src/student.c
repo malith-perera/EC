@@ -16,3 +16,20 @@ EC_LIST_FUNCTIONS(Student)
 //EC_QUEUE_FUNCTIONS(Student)
 //
 //EC_STACK_FUNCTIONS(Student)
+
+
+bool
+Student_Compare (Student *a, Student *b)
+{
+    if (a->no != b->no)
+    {
+        return false;
+    }
+
+    if (strcmp(a->name, b->name) != 0)
+    {
+        return false;
+    }
+
+    return true;
+}
