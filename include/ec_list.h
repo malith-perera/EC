@@ -1,5 +1,11 @@
 #include "ec.h"
 
+#define for_list(lst, ec_var)                                                                       \
+    for (ec_var = lst->list != NULL ? lst->list->var: NULL, lst->current = lst->list;               \
+         lst->current != NULL;                                                                      \
+         lst->current = lst->current != NULL ? lst->current->next: NULL, ec_var = lst->current != NULL ? lst->current->var: NULL)
+
+
 #ifndef EC_LIST_H
 #define EC_LIST_H
 
@@ -48,6 +54,7 @@ typedef struct EC_LIST_STRUCT(TYPE) {                   \
     EC_LIST_VAR_STRUCT(TYPE) *last;                     /* last var in the list */\
     EC_LIST_VAR_STRUCT(TYPE) *var;                      /* current (holding) var in the list */\
     EC_LIST_VAR_STRUCT(TYPE) *var_next;                 /* hold var temporaly in for_list repeatition */\
+    EC_LIST_VAR_STRUCT(TYPE) *current;                  /* hold var temporaly in for_list repeatition */\
     EC_MEMORY_REF                                       \
 } EC_LIST_STRUCT(TYPE);                                 \
 
@@ -141,7 +148,7 @@ EC_LIST_APPEND_FUNCTION_NAME(TYPE)                                              
     else                                                                                                /* empty list */\
     {                                                                                                   \
         list_var->previous = NULL;                                                                      \
-        lst->list = list_var;                                                                          \
+        lst->list = list_var;                                                                           \
     }                                                                                                   \
                                                                                                         \
     lst->last = list_var;                                                                               \

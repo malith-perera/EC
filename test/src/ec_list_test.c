@@ -8,6 +8,7 @@
 Student students[5] = {{1, "Malith"}, {2, "Geethike"}, {3, "Perera"}, {4, "Rohasha"}, {5, "Malshi"}};
 
 
+static StudentList *stl;
 
 void
 Test_New_List ()
@@ -18,7 +19,7 @@ Test_New_List ()
     EC_Test_Print_Subtitle ("Test: New list with zero variables", "Begin");
 
     StudentList *stl = Student_List ();
-    EC_Test_Print_Msg ("Call: New_List", "OK");
+    EC_Test_Print_Msg ("Create: New list", "OK");
 
     assert (stl != NULL);
     EC_Test_Print_Msg ("Test: stl != NULL", "OK");
@@ -29,46 +30,74 @@ Test_New_List ()
     assert (stl->var == NULL);
     EC_Test_Print_Msg ("Test: stl->var == NULL", "OK");
 
-    EC_Test_Print_End_Subtitle ("Test: new list with zero variables", "OK");
+    EC_Test_Print_Title ("Test: New_List", "END");
+}
 
-    // Test list with three variables
-    EC_Test_Print_Subtitle ("Test: New list with three variables", "Begin");
+
+void
+Test_List_Append()
+{
+    EC_Test_Print_Title ("Test: Student_Append", "BEGIN");
+
+    stl = Student_List ();
+    EC_Test_Print_Msg ("Create: New list", "OK");
 
     Student *st1 = Student_Var();
-    *st1 = students[0];
     Student *st2 = Student_Var();
-    *st2 = students[1];
     Student *st3 = Student_Var();
+    EC_Test_Print_Msg ("Create: Create Student st1, st2, st3", "OK");
+
+    *st1 = students[0];
+    *st2 = students[1];
     *st3 = students[2];
+    EC_Test_Print_Msg ("Initialize: Assign values to Student st1, st2, st3", "OK");
 
     Student_Append (stl, st1);
-    EC_Test_Print_Msg ("Append: st1 to stl", "OK");
     Student_Append (stl, st2);
-    EC_Test_Print_Msg ("Append: st2 to stl", "OK");
     Student_Append (stl, st3);
-    EC_Test_Print_Msg ("Append: st3 to stl", "OK");
+    EC_Test_Print_Msg ("Append: st1, st2 and st3 to stl", "OK");
 
     assert (stl->list->var->no == 1);
     assert (!strcmp (stl->list->var->name, "Malith"));
-    EC_Test_Print_Msg ("Test: st1 in stl", "OK");
+    EC_Test_Print_Msg ("Test: st1 in stl as list first", "OK");
 
     assert (stl->list->next->var->no == 2);
     assert (!strcmp (stl->list->next->var->name, "Geethike"));
-    EC_Test_Print_Msg ("Test: st2 in stl", "OK");
+    EC_Test_Print_Msg ("Test: st2 in stl as list second", "OK");
 
     assert (stl->list->next->next->var->no == 3);
     assert (!strcmp (stl->list->next->next->var->name, "Perera"));
-    EC_Test_Print_Msg ("Test: st3 in stl", "OK");
+    EC_Test_Print_Msg ("Test: st3 in stl as list third", "OK");
 
     assert (stl->list->next->next->next == NULL);
-    EC_Test_Print_Msg ("Test: last ->next should be NULL", "OK");
+    EC_Test_Print_Msg ("Test: last StudentVar next should be NULL", "OK");
 
     assert (stl->last->next == NULL);
-    EC_Test_Print_Msg ("Text: stl->last->next should be NULL", "OK");
+    EC_Test_Print_Msg ("Test: stl->last->next should be NULL", "OK");
 
-    EC_Test_Print_End_Subtitle ("Test: New list with three variables", "OK");
+    EC_Test_Print_Title ("Test: Student_Append", "END");
+}
 
-    EC_Test_Print_Title ("Test: New_List", "END");
+
+void
+Test_For_List()
+{
+    EC_Test_Print_Title ("Test: for_list", "BEGIN");
+
+    int i = 0;
+    char msg[32];
+
+    Student *st;
+    for_list(stl, st)
+    {
+        strcpy(msg, "");
+        assert (Student_Compare(st, &students[i])); // Student_Compare() defined in students.c
+        sprintf(msg, "Test: stl list var %d", i);
+        EC_Test_Print_Msg (msg, "OK");
+        i++;
+    }
+
+    EC_Test_Print_Title ("Test: for_list", "END");
 }
 
 
@@ -112,52 +141,6 @@ Test_List_Append_New ()
     EC_Test_Print_Msg ("List last next NULL", "OK");
 
     EC_Test_Print_Title ("Test New_List: ", "END");
-}
-
-
-void
-Test_Append_List ()
-{
-/*    EC_Test_Print_Msg ("Append_List: ", "BEGIN");*/
-
-    /*StudentList *stl = Student_List ();*/
-
-    /*StudentListVar *st1 = Student_List_Var ();*/
-    /*st1->no = 1;*/
-    /*st1->name = "Malith";*/
-
-    /*StudentListVar *st2 = Student_List_Var ();*/
-    /*st2->no = 2;*/
-    /*st2->name = "Geethike";*/
-
-    /*Append_Student (stl, st1);*/
-
-    /*assert (stl->list->no == 1);*/
-    /*assert (!strcmp (stl->list->name, "Malith")); // strcmp return 0 when equal so ! used*/
-    /*assert (stl->list->next == NULL);*/
-    /*assert (stl->list->previous == NULL);*/
-    /*assert (stl->list->next == NULL);*/
-    /*assert (stl->list->previous == NULL);*/
-    /*assert (stl->last == st1);*/
-
-    /*EC_Test_Print_Msg ("Append list first variable", "OK");*/
-
-    /*Append_Student (stl, st2);*/
-
-    /*assert (stl->list->no == 1);*/
-    /*assert (!strcmp (stl->list->name, "Malith")); // strcmp return 0 when equal so ! used*/
-    /*assert (stl->list->previous == NULL);*/
-    /*assert (stl->list->next == st2);*/
-    /*assert (stl->list->next->no = 2);*/
-    /*assert (!strcmp (stl->list->next->name, "Geethike")); // strcmp return 0 when equal so ! used*/
-    /*assert (stl->list->next->previous == st1);*/
-    /*assert (stl->last == st2);*/
-    /*assert (st2->next == NULL);*/
-    /*assert (stl->last->next == NULL);*/
-
-    /*EC_Test_Print_Msg ("Append list second variable", "OK");*/
-
-    /*EC_Test_Print_Msg ("Append_List: ", "END");*/
 }
 
 
@@ -1625,17 +1608,17 @@ Test_List_Var_Move_Up ()
 
     /* Test for 0 list vars */
     StudentList *stl0 = Student_List (0);
-    EC_Test_Print_Msg ("Create new list with 0 list vars", "OK");
+    EC_Test_Print_Msg ("Create: new list with 0 list vars", "OK");
 
     stl0->var = stl0->list;
 
     Student_List_Var_Move_Up (stl0, stl0->var, 1);
     assert (stl0->list == NULL);
     assert (stl0->last == NULL);
-    EC_Test_Print_Msg ("List with 0 list vars", "OK");
+    EC_Test_Print_Msg ("Test: Empty list", "OK");
 
     /* Test for 1 list var */
-    StudentList *stl1 = Student_List (0);
+    StudentList *stl1 = Student_List ();
     EC_Test_Print_Msg ("Create new list with 1 list vars", "OK");
 
     StudentListVar *stl1v = Student_List_Var (stl1);
@@ -2433,16 +2416,19 @@ Run_List_Test ()
     Test_New_List ();
     printf ("\n");
 
-/*    Test_List_Var_Move_Up ();*/
-    /*printf ("\n");*/
+    Test_List_Append();
+    printf ("\n");
+
+    Test_For_List();
+    printf ("\n");
+
+    //Test_List_Var_Move_Up ();
+    //printf ("\n");
 
     /*Test_List_Var_Move_Down ();*/
     /*printf ("\n");*/
 
     /*Test_List_Var_Delete ();*/
-    /*printf ("\n");*/
-
-    /*Test_Append_List ();*/
     /*printf ("\n");*/
 
     /*Test_Insert_List ();*/
