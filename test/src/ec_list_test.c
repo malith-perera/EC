@@ -5,12 +5,7 @@
 
 #include "ec_list_test.h"
 
-struct Stu {
-    int no;
-    char* name;
-};
-
-struct Stu students[5] = {{1, "Malith"}, {2, "Geethike"}, {3, "Perera"}, {4, "Rohasha"}, {5, "Malshi"}};
+Student students[5] = {{1, "Malith"}, {2, "Geethike"}, {3, "Perera"}, {4, "Rohasha"}, {5, "Malshi"}};
 
 
 
@@ -25,7 +20,6 @@ Test_New_List ()
     StudentList *stl = Student_List ();
     EC_Test_Print_Msg ("Call: New_List", "OK");
 
-    /*
     assert (stl != NULL);
     EC_Test_Print_Msg ("Test: stl != NULL", "OK");
     assert (stl->list == NULL);
@@ -40,43 +34,41 @@ Test_New_List ()
     // Test list with three variables
     EC_Test_Print_Subtitle ("Test: New list with three variables", "Begin");
 
-    StudentList *stl2 = Student_List (3);
-    EC_Test_Print_Msg ("Call: New_List", "OK");
+    Student *st1 = Student_Var();
+    *st1 = students[0];
+    Student *st2 = Student_Var();
+    *st2 = students[1];
+    Student *st3 = Student_Var();
+    *st3 = students[2];
 
-    int i = 0;
+    Student_Append (stl, st1);
+    EC_Test_Print_Msg ("Append: st1 to stl", "OK");
+    Student_Append (stl, st2);
+    EC_Test_Print_Msg ("Append: st2 to stl", "OK");
+    Student_Append (stl, st3);
+    EC_Test_Print_Msg ("Append: st3 to stl", "OK");
 
-    for_list (stl2)
-    {
-        stl2->var->no = students[i].no;
-        stl2->var->name = students[i].name;
-        i++;
-    }
+    assert (stl->list->var->no == 1);
+    assert (!strcmp (stl->list->var->name, "Malith"));
+    EC_Test_Print_Msg ("Test: st1 in stl", "OK");
 
-    EC_Test_Print_Msg ("Assign: list stl2", "OK");
+    assert (stl->list->next->var->no == 2);
+    assert (!strcmp (stl->list->next->var->name, "Geethike"));
+    EC_Test_Print_Msg ("Test: st2 in stl", "OK");
 
-    assert (stl2->list->no == 1);
-    assert (!strcmp (stl2->list->name, "Malith"));
-    EC_Test_Print_Msg ("Test: stl2->list exist", "OK");
+    assert (stl->list->next->next->var->no == 3);
+    assert (!strcmp (stl->list->next->next->var->name, "Perera"));
+    EC_Test_Print_Msg ("Test: st3 in stl", "OK");
 
-    assert (stl2->list->next->no == 2);
-    assert (!strcmp (stl2->list->next->name, "Geethike"));
-    EC_Test_Print_Msg ("Test: stl2->list->next exist", "OK");
+    assert (stl->list->next->next->next == NULL);
+    EC_Test_Print_Msg ("Test: last ->next should be NULL", "OK");
 
-    assert (stl2->list->next->next->no == 3);
-    assert (!strcmp (stl2->list->next->next->name, "Perera"));
-    EC_Test_Print_Msg ("Test: stl2->list->next->next exist", "OK");
-
-    assert (stl2->list->next->next->next == NULL);
-    EC_Test_Print_Msg ("Test: stl2->list->next->next->next == NULL", "OK");
-
-    assert (stl2->last->next == NULL);
-    EC_Test_Print_Msg ("List last next NULL", "OK");
+    assert (stl->last->next == NULL);
+    EC_Test_Print_Msg ("Text: stl->last->next should be NULL", "OK");
 
     EC_Test_Print_End_Subtitle ("Test: New list with three variables", "OK");
 
     EC_Test_Print_Title ("Test: New_List", "END");
-
-    */
 }
 
 
