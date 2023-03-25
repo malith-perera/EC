@@ -34,4 +34,7 @@ EC_LIST_FUNCTION_PROTOTYPES(Student)
 //EC_STACK_FUNCTION_PROTOTYPES(Student)
 
 
+bool
+Student_Compare (Student *a, Student *b);
+
 #endif // STUDENT_H
