@@ -60,7 +60,7 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)                 \
 
 #define EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)     \
 TYPE *                                          \
-EC_VAR_NEW_FUNCTION_NAME(TYPE)();
+EC_VAR_NEW_FUNCTION_NAME(TYPE)(void);
 
 
 #define EC_VAR_CLONE_FUNCTION_PROTOTYPE(TYPE)   \
@@ -105,7 +105,7 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)                \
 
 #define EC_VAR_NEW_FUNCTION(TYPE)                                       \
 TYPE *                                                                  \
-EC_VAR_NEW_FUNCTION_NAME(TYPE)()                                        \
+EC_VAR_NEW_FUNCTION_NAME(TYPE)(void)                                    \
 {                                                                       \
     EC_VAR_CREATE(TYPE, var)                                            /* var is created variable */\
                                                                         \
