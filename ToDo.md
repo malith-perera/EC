@@ -21,9 +21,6 @@
 > Test_Type_Array_Copy (array a, array b)  : **Done**  
 > > Test copied correctly and do not affect one array variable change on other array variable  
 
-> Type_Array_Ref()  : **Done**  
-> > Reference list to it's variables  
-
 > Type_Array_To_list(array)  
 > >  Convert array into a list and return a list type pointer  
 
@@ -45,9 +42,6 @@
 
 > Test_Type_List_Copy (list a)  : **Done**  
 > > Test copied correctly and do not affect one list variable change on other list variable  
-
-> Type_List_Ref()  : **Done**  
-> > Reference list to it's variables  
 
 > Type_List_To_Array (list)  
 > > Convert list into array and return a array type pointer  
@@ -71,9 +65,6 @@
 > Test_Type_Queue_Copy (queue a)  : **Done**  
 > > Test copied correctly and do not affect one queue variable change on other queue variable  
 
-> Type_Queue_Ref()  : **Done**  
-> > Reference list to it's variables  
-
 > Type_Queue_To_Array (queue)  
 > > Convert queue into array and return a array type pointer  
 
@@ -91,9 +82,6 @@
 
 > Test_Type_Stack_Copy (stack a)  : **Done**  
 > > Test copied correctly and do not affect one stack variable change on other stack variable  
-
-> Type_Stack_Ref()  : **Done**  
-> > Reference list to it's variables  
 
 > Type_Stack_To_Array (stack)  
 > > Convert stack into array and return a array type pointer  
