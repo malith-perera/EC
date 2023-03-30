@@ -5,7 +5,7 @@
 
 #include "ec_list_test.h"
 
-Student students[6] = {{1, "Malith"}, {2, "Geethike"}, {3, "Perera"}, {4, "Rohasha"}, {5, "Malshi"}, {6, "Prisenthi"}};
+Student students[7] = {{1, "Malith"}, {2, "Geethike"}, {3, "Perera"}, {4, "Rohasha"}, {5, "Malshi"}, {6, "Prisenthi"}, {7, "Magret"}};
 
 
 void
@@ -107,7 +107,7 @@ Test_For_List()
     {
         strcpy(msg, "");
         assert (Student_Compare(stl->var, &students[i])); // Student_Compare() defined in students.c
-        sprintf(msg, "Test: stl list var %d", i);
+        sprintf(msg, "Test: Appended st%d in stl", i);
         EC_Test_Print_Msg (msg, "OK");
         i++;
     }
@@ -119,7 +119,9 @@ Test_For_List()
 void
 Test_Insert_Before_List ()
 {
-    EC_Test_Print_Msg ("Test_Insert_List: ", "BEGIN");
+    int i = 0;
+
+    EC_Test_Print_Title ("Test: Test_Insert_List", "BEGIN");
 
     StudentList *stl = Student_List ();
     EC_Test_Print_Msg ("Create: New list", "OK");
@@ -130,6 +132,7 @@ Test_Insert_Before_List ()
     Student *st3 = Student_Var();
     Student *st4 = Student_Var();
     Student *st5 = Student_Var();
+    Student *st6 = Student_Var();
     EC_Test_Print_Msg ("Create: Create Student st0 ...  st5", "OK");
 
     *st0 = students[0];
@@ -138,61 +141,99 @@ Test_Insert_Before_List ()
     *st3 = students[3];
     *st4 = students[4];
     *st5 = students[5];
+    *st6 = students[6];
     EC_Test_Print_Msg ("Initialize: Assign values to Student st0 ... st5", "OK");
 
-    //Student_Insert_Before (stl, st1, st0);
+    // Insert_Before a non existing variable in an empty list
+    EC_Test_Print_Subtitle ("Insert_Before empty list", "Started");
 
-    /*assert (stl->list->no == 3);*/
-    /*assert (!strcmp (stl->list->name, "Perera")); // strcmp return 0 when equal use !*/
+    Student_Insert_Before (stl, st2, st1); // st1 should not inserted because st2 is not in stl list
 
-    /*EC_Test_Print_Msg ("Insert as fist item", "OK");*/
+    if (stl->list == NULL)
+        EC_Test_Print_Msg ("Call: Insert_Before none existing variable in an empty list", "OK");
+    else
+        EC_Test_Print_Msg ("Call: Insert_Before none existing variable in an empty list", "Failed");
 
-    /*StudentListVar *st4 = Student_List_Var ();*/
-    /*st4->no = 4;*/
-    /*st4->name = "Malshi";*/
-    /*Insert_Student (stl, st4, st3, 1);*/
-    /*assert (stl->list->next->no == 4);*/
-    /*assert (!strcmp (stl->list->next->name, "Malshi")); // strcmp return 0 when equal use !*/
+    EC_Test_Print_End_Subtitle ("Insert_Before empty list", "Finish");
 
-    /*EC_Test_Print_Msg ("Insert next to fist item", "OK");*/
+    // Insert_Before NULL mean insert as the first variable
+    EC_Test_Print_Subtitle ("Insert_Before Where ref arg NULL", "Started");
 
-    /*StudentListVar *st5 = Student_List_Var ();*/
-    /*st5->no = 5;*/
-    /*st5->name = "Prisenthi";*/
-    /*Insert_Student (stl, st5, st2, -1);*/
-    /*assert (stl->last->previous->no == 5);*/
-    /*assert (!strcmp (stl->last->previous->name, "Prisenthi")); // strcmp return 0 when equal use !*/
+    Student_Insert_Before (stl, NULL, st4);
+    EC_Test_Print_Msg ("Call: Student_Insert_Before where ref arg NULL", "OK");
+    assert (Student_Compare (stl->list->var, &students[4])); // Student_Compare() defined in students.c
+    EC_Test_Print_Msg ("Test: Insert st4 into stl", "OK");
 
-    /*EC_Test_Print_Msg ("Insert before last item", "OK");*/
+    Student_Insert_Before (stl, NULL, st2);
+    EC_Test_Print_Msg ("Call: Student_Insert_Before where ref arg NULL", "OK");
+    assert (Student_Compare (stl->list->var, &students[2])); // Student_Compare() defined in students.c
+    assert (Student_Compare (stl->list->next->var, &students[4])); // Student_Compare() defined in students.c
+    EC_Test_Print_Msg ("Test: Insert st2 into stl", "OK");
 
-    /*StudentListVar *st6 = Student_List_Var ();*/
-    /*st6->no = 6;*/
-    /*st6->name = "Fernando";*/
-    /*Insert_Student (stl, st6, st2, 1);*/
-    /*assert (stl->last->no == 6);*/
-    /*assert (!strcmp (stl->last->name, "Fernando")); // strcmp return 0 when equal use !*/
+    EC_Test_Print_End_Subtitle ("Insert_Before where ref arg NULL", "Finish");
 
-    /*EC_Test_Print_Msg ("Insert as last item", "OK");*/
+    // Insert_Before a variable in a list
+    EC_Test_Print_Subtitle ("Insert_Before a variable in stl", "Started");
 
-    /*StudentListVar *st7 = Student_List_Var ();*/
-    /*st7->no = 7;*/
-    /*st7->name = "Rohasha";*/
-    /*Insert_Student (stl, st7, st4, 1);*/
-    /*assert (st4->next->no == 7);*/
-    /*assert (!strcmp (st4->next->name, "Rohasha")); // strcmp return 0 when equal use !*/
+    Student_Insert_Before (stl, st4, st3);
+    EC_Test_Print_Msg ("Call: Student_Insert_Before out of for_list", "OK");
 
-    /*EC_Test_Print_Msg ("Insert as after mid item", "OK");*/
+    i = 2;
+    for_list(stl)
+    {
+        assert (Student_Compare (stl->var, &students[i])); // Student_Compare() defined in students.c
+        i++;
+    }
 
-    /*StudentListVar *st8 = Student_List_Var ();*/
-    /*st8->no = 8;*/
-    /*st8->name = "Magret";*/
-    /*Insert_Student (stl, st8, st4, -1);*/
-    /*assert (st4->previous->no == 8);*/
-    /*assert (!strcmp (st4->previous->name, "Magret")); // strcmp return 0 when equal use !*/
+    EC_Test_Print_Msg ("Test: st3 inserted before st4", "OK");
 
-    /*EC_Test_Print_Msg ("Insert as before mid item", "OK");*/
+    EC_Test_Print_End_Subtitle ("Insert_Before a variable in stl", "Finish");
 
-    /*EC_Test_Print_Msg ("Test_Insert_List: ", "END");*/
+    // Insert_Before in for_list
+    EC_Test_Print_Subtitle ("Insert_Before in a for_list", "Started");
+
+    for_list(stl)
+    {
+        if (stl->var == st2)
+        {
+            Student_Insert_Before (stl, st2, st1);
+            EC_Test_Print_Msg ("Call: Insert_Before in for_list", "OK");
+            break;
+        }
+    }
+
+    i = 1;
+    for_list(stl)
+    {
+        assert (Student_Compare (stl->var, &students[i])); // Student_Compare() defined in students.c
+        i++;
+    }
+
+    EC_Test_Print_Msg ("Test: st1 inserted before st2 in for_list ", "OK");
+
+    EC_Test_Print_End_Subtitle ("Insert_Before in a for_list", "Finish");
+
+    // Insert_Before at end of the list
+    EC_Test_Print_Subtitle ("Insert_Before last variable", "Start");
+
+    Student_Append (stl, st6);
+    EC_Test_Print_Msg ("Append: st6 as list last variable", "OK");
+
+    Student_Insert_Before (stl, stl->last->var, st5);
+    EC_Test_Print_Msg ("Insert: st5 before st6", "OK");
+
+    i = 1;
+    for_list(stl)
+    {
+        assert (Student_Compare (stl->var, &students[i])); // Student_Compare() defined in students.c
+        i++;
+    }
+
+    EC_Test_Print_Msg ("Test: st5 inserted before list last variable", "OK");
+
+    EC_Test_Print_End_Subtitle ("Insert_Before last variable", "Finish");
+
+    EC_Test_Print_Title ("Test_Insert_List: ", "END");
 }
 
 

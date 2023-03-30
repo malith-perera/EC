@@ -6,9 +6,9 @@
 //         lst->current = lst->current != NULL ? lst->current->next: NULL, ec_var = lst->current != NULL ? lst->current->var: NULL)
 
 
-#define for_list(lst)                                                                                           \
-    for (lst->list_var = lst->list, lst->var = lst->list_var != NULL ? lst->list_var->var: NULL;                            \
-         lst->list_var != NULL;                                                                                                      \
+#define for_list(lst)                                                                                                                       \
+    for (lst->list_var = lst->list, lst->var = lst->list_var != NULL ? lst->list_var->var: NULL;                                            \
+         lst->list_var != NULL;                                                                                                             \
          lst->list_var = lst->list_var != NULL ? lst->list_var->next: NULL, lst->var = lst->list_var != NULL ? lst->list_var->var: NULL)
 
 
@@ -23,8 +23,9 @@
 #define EC_LIST_COPY_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _List_Copy)
 
 #define EC_LIST_APPEND_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Append)
+#define EC_LIST_INSERT_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Insert)
 #define EC_LIST_INSERT_BEFORE_FUNCTION_NAME(TYPE)   EC_CONCAT(TYPE, _Insert_Before)
-#define EC_LIST_INSERT_AFTER_FUNCTION_NAME(TYPE)    EC_CONCAT(TYPE, _Insert)
+#define EC_LIST_INSERT_AFTER_FUNCTION_NAME(TYPE)    EC_CONCAT(TYPE, _Insert_After)
 #define EC_LIST_REPLACE_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Replace)
 #define EC_LIST_DROP_FUNCTION_NAME(TYPE)            EC_CONCAT(Drop_, TYPE)
 #define EC_LIST_SORT_FUNCTION_NAME(TYPE, SW)        EC_CONCAT4(Sort_, TYPE, _List_With_, SW)
@@ -83,11 +84,30 @@ EC_LIST_FUNCTION_NAME(TYPE)                             \
 (void);
 
 
+#define EC_LIST_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)        \
+EC_LIST_VAR_STRUCT (TYPE) *                             \
+EC_LIST_VAR_FUNCTION_NAME(TYPE)                         \
+(                                                       \
+    EC_LIST_STRUCT(TYPE)    *list,                      \
+    TYPE                    *var                        \
+);
+
+
 #define EC_LIST_APPEND_FUNCTION_PROTOTYPE(TYPE)         \
 void                                                    \
 EC_LIST_APPEND_FUNCTION_NAME(TYPE)                      \
 (                                                       \
     EC_LIST_STRUCT(TYPE)        *list,                  \
+    TYPE                        *var                    \
+);
+
+
+#define EC_LIST_INSERT_FUNCTION_PROTOTYPE(TYPE)         \
+void                                                    \
+EC_LIST_INSERT_FUNCTION_NAME(TYPE)                      \
+(                                                       \
+    EC_LIST_STRUCT(TYPE)        *list,                  \
+    int                         *i,                     \
     TYPE                        *var                    \
 );
 
@@ -98,8 +118,8 @@ void                                                    \
 EC_LIST_INSERT_BEFORE_FUNCTION_NAME(TYPE)               \
 (                                                       \
     EC_LIST_STRUCT(TYPE)        *list,                  \
-    EC_LIST_VAR_STRUCT(TYPE)    *ref,                   \
-    EC_LIST_VAR_STRUCT(TYPE)    *var                    \
+    TYPE                        *ref,                   \
+    TYPE                        *var                    \
 );
 
 
@@ -117,7 +137,9 @@ EC_LIST_INSERT_AFTER_FUNCTION_NAME(TYPE)                \
 #define EC_LIST_FUNCTION_PROTOTYPES(TYPE)               \
     EC_LIST_FREE_FUNCTION_PROTOTYPE(TYPE)               \
     EC_LIST_NEW_FUNCTION_PROTOTYPE(TYPE)                \
+    EC_LIST_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)            \
     EC_LIST_APPEND_FUNCTION_PROTOTYPE(TYPE)             \
+    EC_LIST_INSERT_FUNCTION_PROTOTYPE(TYPE)             \
     EC_LIST_INSERT_BEFORE_FUNCTION_PROTOTYPE(TYPE)      \
     EC_LIST_INSERT_AFTER_FUNCTION_PRTOTYPE(TYPE)
 
@@ -157,6 +179,21 @@ EC_LIST_FUNCTION_NAME(TYPE)                                             \
 }
 
 
+/* New List Variable Function */
+#define EC_LIST_NEW_VAR_FUNCTION(TYPE)                              \
+EC_LIST_VAR_STRUCT (TYPE) *                                         \
+EC_LIST_VAR_FUNCTION_NAME(TYPE)                                     \
+(                                                                   \
+    EC_LIST_STRUCT(TYPE)    *lst,                                   \
+    TYPE                    *var                                    \
+)                                                                   \
+{                                                                   \
+    EC_LIST_APPEND_FUNCTION_NAME(TYPE) (lst, var);                  /* TYPE *var is in this macro in ec_var.h */\
+                                                                    \
+    return lst->list_var;                                           \
+}
+
+
 /* List Append Function */
 #define EC_LIST_APPEND_FUNCTION(TYPE)                                                                   \
 void                                                                                                    \
@@ -166,7 +203,7 @@ EC_LIST_APPEND_FUNCTION_NAME(TYPE)                                              
     TYPE                        *var                                                                    \
 )                                                                                                       \
 {                                                                                                       \
-    EC_LIST_VAR_STRUCT(TYPE) *list_var = (EC_LIST_VAR_STRUCT(TYPE) *) malloc (sizeof (EC_LIST_VAR_STRUCT(TYPE)));   \
+    EC_VAR_CREATE(EC_LIST_VAR_STRUCT(TYPE), list_var);                                                  \
     list_var->var = var;                                                                                \
                                                                                                         \
     list_var->next = NULL;                                                                              \
@@ -186,44 +223,111 @@ EC_LIST_APPEND_FUNCTION_NAME(TYPE)                                              
 }
 
 
-/* List Insert Before Function */
-#define EC_LIST_INSERT_BEFORE_FUNCTION(TYPE)            \
+/* List Insert Function */
+#define EC_LIST_INSERT_FUNCTION(TYPE)                   \
 void                                                    \
-EC_LIST_INSERT_BEFORE_FUNCTION_NAME(TYPE)               \
+EC_LIST_INSERT_FUNCTION_NAME(TYPE)                      \
 (                                                       \
     EC_LIST_STRUCT(TYPE)        *lst,                   \
-    EC_LIST_VAR_STRUCT(TYPE)    *ref,                   \
-    EC_LIST_VAR_STRUCT(TYPE)    *var                    \
+    int                         *index,                 \
+    TYPE                        *var                    \
 )                                                       \
 {                                                       \
-    if (lst->list == NULL && ref == NULL)               /* Empty list */\
+    EC_LIST_VAR_STRUCT(TYPE) *previous;                 \
+    int i = 0;                                          \
+    for_list(lst)                                       \
     {                                                   \
-        var->previous = NULL;                           \
-        var->next = NULL;                               \
-        lst->list = var;                                \
-        lst->last = var;                                \
+        previous = lst->list_var;                       \
+        if (*index == i)                                \
+        {                                               \
+                                                        \
+        }                                               \
+                                                        \
     }                                                   \
-    else if (ref == lst->list)                          /* ref is the first list var */\
-    {                                                   \
-        var->previous = NULL;                           \
-        var->next = ref;                                \
-        ref->previous = var;                            \
-        lst->list = var;                                \
-    }                                                   \
-    else if (ref == lst->last)                          /* ref var is the last list var */\
-    {                                                   \
-        var->previous = ref->previous;                  \
-        var->next = ref;                                \
-        ref->previous->next = var;                      \
-        ref->previous = var;                            \
-    }                                                   \
-    else                                                \
-    {                                                   \
-        var->previous = ref->previous;                  \
-        var->next = ref;                                \
-        ref->previous->next = var;                      \
-        ref->previous = var;                            \
-    }                                                   \
+}
+
+
+/************ what happend when lst == NULL */
+
+/* List Insert Before Function */
+#define EC_LIST_INSERT_BEFORE_FUNCTION(TYPE)                        \
+void                                                                \
+EC_LIST_INSERT_BEFORE_FUNCTION_NAME(TYPE)                           \
+(                                                                   \
+    EC_LIST_STRUCT(TYPE)        *lst,                               \
+    TYPE                        *ref,                               \
+    TYPE                        *var                                \
+)                                                                   \
+{                                                                   \
+    if (ref == NULL)                                                \
+    {                                                               \
+        EC_VAR_CREATE(EC_LIST_VAR_STRUCT(TYPE), lst_var_new)        /* This macro in ec_var.h*/\
+        lst_var_new->var = var;                                     \
+                                                                    \
+        if (lst->list != NULL)                                      \
+        {                                                           \
+            lst_var_new->previous = NULL;                           \
+            lst_var_new->next = lst->list;                          \
+            lst->list->previous = lst_var_new;                      \
+            lst->list = lst_var_new;                                \
+        }                                                           \
+        else                                                        \
+        {                                                           \
+            lst_var_new->previous = NULL;                           \
+            lst_var_new->next = NULL;                               \
+            lst->list = lst_var_new;                                \
+            lst->last = lst_var_new;                                \
+        }                                                           \
+                                                                    \
+        return;                                                     \
+    }                                                               \
+                                                                    \
+    INSERT_NOW:                                                     \
+                                                                    \
+    if (lst->var == ref)                                            \
+    {                                                               \
+        EC_VAR_CREATE(EC_LIST_VAR_STRUCT(TYPE), lst_var_new)        /* This macro in ec_var.h*/\
+        lst_var_new->var = var;                                     \
+                                                                    \
+        if (lst->list == NULL && lst->list_var == NULL)             /* Empty list */\
+        {                                                           \
+            lst_var_new->previous = NULL;                           \
+            lst_var_new->next = NULL;                               \
+            lst->list = lst_var_new;                                \
+            lst->last = lst_var_new;                                \
+        }                                                           \
+        else if (lst->list_var == lst->list)                        /* ref is the first list var */\
+        {                                                           \
+            lst_var_new->previous = NULL;                           \
+            lst_var_new->next = lst->list_var;                      \
+            lst->list_var->previous = lst_var_new;                  \
+            lst->list = lst_var_new;                                \
+        }                                                           \
+        else if (lst->list_var == lst->last)                        /* ref var is the last list var */\
+        {                                                           \
+            lst_var_new->previous = lst->list_var->previous;        \
+            lst_var_new->next = lst->list_var;                      \
+            lst->list_var->previous->next = lst_var_new;            \
+            lst->list_var->previous = lst_var_new;                  \
+        }                                                           \
+        else                                                        \
+        {                                                           \
+            lst_var_new->previous = lst->list_var->previous;        \
+            lst_var_new->next = lst->list_var;                      \
+            lst->list_var->previous->next = lst_var_new;            \
+            lst->list_var->previous = lst_var_new;                  \
+        }                                                           \
+    }                                                               \
+    else                                                            \
+    {                                                               \
+        for_list(lst)                                               \
+        {                                                           \
+            if(lst->var == ref)                                     \
+            {                                                       \
+                goto INSERT_NOW;                                    \
+            }                                                       \
+        }                                                           \
+    }                                                               \
 }
 
 
@@ -281,7 +385,9 @@ EC_LIST_INSERT_AFTER_FUNCTION_NAME(TYPE)                \
 #define EC_LIST_FUNCTIONS(TYPE)             \
     EC_LIST_FREE_FUNCTION(TYPE)             \
     EC_LIST_NEW_FUNCTION(TYPE)              \
+    EC_LIST_NEW_VAR_FUNCTION(TYPE)          \
     EC_LIST_APPEND_FUNCTION(TYPE)           \
+    EC_LIST_INSERT_FUNCTION(TYPE)           \
     EC_LIST_INSERT_BEFORE_FUNCTION(TYPE)    \
     EC_LIST_INSERT_AFTER_FUNCTION(TYPE)
 

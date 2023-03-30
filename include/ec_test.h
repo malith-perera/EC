@@ -23,6 +23,9 @@ EC_Test_Print_Msg (char *test, char *result);
 
 
 void
+EC_Test_Print_Msg_Error (char *msg, char *result);
+
+void
 EC_Test_Print_Adr (char *msg, void *adrs);
 
 
