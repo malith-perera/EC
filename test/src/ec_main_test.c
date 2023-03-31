@@ -16,10 +16,7 @@ main (int argc, char *argv[])
 {
     int no;
 
-    printf ("\n");
-    printf ("------------\n");
-    printf ("Test: EClib\n");
-    printf ("============\n");
+    EC_Test_Print_Header ("Test: EClib");
     printf ("\n");
 
     if (argc >= 2)
@@ -93,7 +90,7 @@ main (int argc, char *argv[])
 
     EC_Error_Print_Msg ("EC_Clean", "BEGIN");
     EC_Clean ();
-    EC_Test_Print_Msg ("EC_Clean", "OK");
+    EC_Test_Print_Msg ("EC_Clean", "OK", __LINE__);
     EC_Error_Print_Msg ("EC_Clean", "END");
 
     printf ("\n");

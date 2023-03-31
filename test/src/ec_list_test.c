@@ -7,98 +7,109 @@
 
 Student students[7] = {{1, "Malith"}, {2, "Geethike"}, {3, "Perera"}, {4, "Rohasha"}, {5, "Malshi"}, {6, "Prisenthi"}, {7, "Magret"}};
 
+Student *st0;
+Student *st1;
+Student *st2;
+Student *st3;
+Student *st4;
+Student *st5;
+Student *st6;
+
+
+void
+Test_List_Helpers ()
+{
+    EC_Test_Print_Title (__func__);
+
+    EC_Test_Print_Subtitle ("Test: New list with zero variables");
+
+    st0 = Student_Var();
+    st1 = Student_Var();
+    st2 = Student_Var();
+    st3 = Student_Var();
+    st4 = Student_Var();
+    st5 = Student_Var();
+    st6 = Student_Var();
+    EC_TEST_PRINT_MSG ("Create: Create Student st0 ... st6", "OK")
+
+    *st0 = students[0];
+    *st1 = students[1];
+    *st2 = students[2];
+    *st3 = students[3];
+    *st4 = students[4];
+    *st5 = students[5];
+    *st6 = students[6];
+    EC_Test_Print_Msg ("Initialize: Assign values to Student st0 ... st6", "OK", __LINE__);
+}
+
 
 void
 Test_New_List ()
 {
-    EC_Test_Print_Title ("Test: New_List", "BEGIN");
+    EC_Test_Print_Title (__func__);
 
     /* Test list with zero list variables */
-    EC_Test_Print_Subtitle ("Test: New list with zero variables", "Begin");
+    EC_Test_Print_Subtitle ("Test: New list with zero variables");
 
     StudentList *stl = Student_List ();
-    EC_Test_Print_Msg ("Create: New list", "OK");
+    EC_Test_Print_Msg ("Create: New list", "OK", __LINE__);
 
     assert (stl != NULL);
-    EC_Test_Print_Msg ("Test: stl != NULL", "OK");
-    assert (stl->list == NULL);
-    EC_Test_Print_Msg ("Test: stl->list == NULL", "OK");
+    EC_Test_Print_Msg ("Test: stl != NULL", "OK", __LINE__);
+    assert (stl->first == NULL);
+    EC_Test_Print_Msg ("Test: stl->first == NULL", "OK", __LINE__);
     assert (stl->last == NULL);
-    EC_Test_Print_Msg ("Test: stl->last == NULL", "OK");
+    EC_Test_Print_Msg ("Test: stl->last == NULL", "OK", __LINE__);
     assert (stl->var == NULL);
-    EC_Test_Print_Msg ("Test: stl->var == NULL", "OK");
-
-    EC_Test_Print_Title ("Test: New_List", "END");
+    EC_Test_Print_Msg ("Test: stl->var == NULL", "OK", __LINE__);
 }
 
 
 void
 Test_List_Append()
 {
-    EC_Test_Print_Title ("Test: Student_Append", "BEGIN");
+    EC_Test_Print_Title (__func__);
 
     StudentList *stl = Student_List ();
-    EC_Test_Print_Msg ("Create: New list", "OK");
-
-    Student *st0 = Student_Var();
-    Student *st1 = Student_Var();
-    Student *st2 = Student_Var();
-    EC_Test_Print_Msg ("Create: Create Student st0, st1, st2", "OK");
-
-    *st0 = students[0];
-    *st1 = students[1];
-    *st2 = students[2];
-    EC_Test_Print_Msg ("Initialize: Assign values to Student st0, st1, st2", "OK");
+    EC_Test_Print_Msg ("Create: New list", "OK", __LINE__);
 
     Student_Append (stl, st0);
     Student_Append (stl, st1);
     Student_Append (stl, st2);
-    EC_Test_Print_Msg ("Append: st0, st1 and st3 to stl", "OK");
+    EC_Test_Print_Msg ("Append: st0, st1 and st3 to stl", "OK", __LINE__);
 
-    assert (stl->list->var->no == students[0].no);
-    assert (!strcmp (stl->list->var->name, "Malith"));
-    EC_Test_Print_Msg ("Test: st0 in stl as list first", "OK");
+    assert (stl->first->var->no == students[0].no);
+    assert (!strcmp (stl->first->var->name, "Malith"));
+    EC_Test_Print_Msg ("Test: st0 in stl as list first", "OK", __LINE__);
 
-    assert (stl->list->next->var->no == students[1].no);
-    assert (!strcmp (stl->list->next->var->name, "Geethike"));
-    EC_Test_Print_Msg ("Test: st1 in stl as list second", "OK");
+    assert (stl->first->next->var->no == students[1].no);
+    assert (!strcmp (stl->first->next->var->name, "Geethike"));
+    EC_Test_Print_Msg ("Test: st1 in stl as list second", "OK", __LINE__);
 
-    assert (stl->list->next->next->var->no == students[2].no);
-    assert (!strcmp (stl->list->next->next->var->name, "Perera"));
-    EC_Test_Print_Msg ("Test: st2 in stl as list third", "OK");
+    assert (stl->first->next->next->var->no == students[2].no);
+    assert (!strcmp (stl->first->next->next->var->name, "Perera"));
+    EC_Test_Print_Msg ("Test: st2 in stl as list third", "OK", __LINE__);
 
-    assert (stl->list->next->next->next == NULL);
-    EC_Test_Print_Msg ("Test: last StudentVar next should be NULL", "OK");
+    assert (stl->first->next->next->next == NULL);
+    EC_Test_Print_Msg ("Test: last StudentVar next should be NULL", "OK", __LINE__);
 
     assert (stl->last->next == NULL);
-    EC_Test_Print_Msg ("Test: stl->last->next should be NULL", "OK");
-
-    EC_Test_Print_Title ("Test: Student_Append", "END");
+    EC_Test_Print_Msg ("Test: stl->last->next should be NULL", "OK", __LINE__);
 }
 
 
 void
 Test_For_List()
 {
-    EC_Test_Print_Title ("Test: for_list", "BEGIN");
+    EC_Test_Print_Title (__func__);
 
     StudentList *stl = Student_List ();
-    EC_Test_Print_Msg ("Create: New list", "OK");
-
-    Student *st0 = Student_Var();
-    Student *st1 = Student_Var();
-    Student *st2 = Student_Var();
-    EC_Test_Print_Msg ("Create: Create Student st1, st2, st3", "OK");
-
-    *st0 = students[0];
-    *st1 = students[1];
-    *st2 = students[2];
-    EC_Test_Print_Msg ("Initialize: Assign values to Student st1, st2, st3", "OK");
+    EC_Test_Print_Msg ("Create: New list", "OK", __LINE__);
 
     Student_Append (stl, st0);
     Student_Append (stl, st1);
     Student_Append (stl, st2);
-    EC_Test_Print_Msg ("Append: st1, st2 and st3 to stl", "OK");
+    EC_Test_Print_Msg ("Append: st1, st2 and st3 to stl", "OK", __LINE__);
 
     int i = 0;
     char msg[32];
@@ -108,75 +119,53 @@ Test_For_List()
         strcpy(msg, "");
         assert (Student_Compare(stl->var, &students[i])); // Student_Compare() defined in students.c
         sprintf(msg, "Test: Appended st%d in stl", i);
-        EC_Test_Print_Msg (msg, "OK");
+        EC_Test_Print_Msg (msg, "OK", __LINE__);
         i++;
     }
-
-    EC_Test_Print_Title ("Test: for_list", "END");
 }
 
 
 void
 Test_Insert_Before_List ()
 {
+    EC_Test_Print_Title (__func__);
+
     int i = 0;
 
-    EC_Test_Print_Title ("Test: Test_Insert_List", "BEGIN");
-
     StudentList *stl = Student_List ();
-    EC_Test_Print_Msg ("Create: New list", "OK");
-
-    Student *st0 = Student_Var();
-    Student *st1 = Student_Var();
-    Student *st2 = Student_Var();
-    Student *st3 = Student_Var();
-    Student *st4 = Student_Var();
-    Student *st5 = Student_Var();
-    Student *st6 = Student_Var();
-    EC_Test_Print_Msg ("Create: Create Student st0 ...  st5", "OK");
-
-    *st0 = students[0];
-    *st1 = students[1];
-    *st2 = students[2];
-    *st3 = students[3];
-    *st4 = students[4];
-    *st5 = students[5];
-    *st6 = students[6];
-    EC_Test_Print_Msg ("Initialize: Assign values to Student st0 ... st5", "OK");
+    EC_Test_Print_Msg ("Create: New list", "OK", __LINE__);
 
     // Insert_Before a non existing variable in an empty list
-    EC_Test_Print_Subtitle ("Insert_Before empty list", "Started");
+    EC_Test_Print_Subtitle ("Insert_Before empty list");
 
     Student_Insert_Before (stl, st2, st1); // st1 should not inserted because st2 is not in stl list
 
-    if (stl->list == NULL)
-        EC_Test_Print_Msg ("Call: Insert_Before none existing variable in an empty list", "OK");
+    if (stl->first == NULL)
+        EC_Test_Print_Msg ("Call: Insert_Before none existing variable in an empty list", "OK", __LINE__);
     else
-        EC_Test_Print_Msg ("Call: Insert_Before none existing variable in an empty list", "Failed");
+        EC_Test_Print_Msg ("Call: Insert_Before none existing variable in an empty list", "Failed", __LINE__);
 
-    EC_Test_Print_End_Subtitle ("Insert_Before empty list", "Finish");
 
     // Insert_Before NULL mean insert as the first variable
-    EC_Test_Print_Subtitle ("Insert_Before Where ref arg NULL", "Started");
+    EC_Test_Print_Subtitle ("Insert_Before Where ref arg NULL");
 
     Student_Insert_Before (stl, NULL, st4);
-    EC_Test_Print_Msg ("Call: Student_Insert_Before where ref arg NULL", "OK");
-    assert (Student_Compare (stl->list->var, &students[4])); // Student_Compare() defined in students.c
-    EC_Test_Print_Msg ("Test: Insert st4 into stl", "OK");
+    EC_Test_Print_Msg ("Call: Student_Insert_Before where ref arg NULL", "OK", __LINE__);
+    assert (Student_Compare (stl->first->var, &students[4])); // Student_Compare() defined in students.c
+    EC_Test_Print_Msg ("Test: Insert st4 into stl", "OK", __LINE__);
 
     Student_Insert_Before (stl, NULL, st2);
-    EC_Test_Print_Msg ("Call: Student_Insert_Before where ref arg NULL", "OK");
-    assert (Student_Compare (stl->list->var, &students[2])); // Student_Compare() defined in students.c
-    assert (Student_Compare (stl->list->next->var, &students[4])); // Student_Compare() defined in students.c
-    EC_Test_Print_Msg ("Test: Insert st2 into stl", "OK");
+    EC_Test_Print_Msg ("Call: Student_Insert_Before where ref arg NULL", "OK", __LINE__);
+    assert (Student_Compare (stl->first->var, &students[2])); // Student_Compare() defined in students.c
+    assert (Student_Compare (stl->first->next->var, &students[4])); // Student_Compare() defined in students.c
+    EC_Test_Print_Msg ("Test: Insert st2 into stl", "OK", __LINE__);
 
-    EC_Test_Print_End_Subtitle ("Insert_Before where ref arg NULL", "Finish");
 
     // Insert_Before a variable in a list
-    EC_Test_Print_Subtitle ("Insert_Before a variable in stl", "Started");
+    EC_Test_Print_Subtitle ("Insert_Before a variable in stl");
 
     Student_Insert_Before (stl, st4, st3);
-    EC_Test_Print_Msg ("Call: Student_Insert_Before out of for_list", "OK");
+    EC_Test_Print_Msg ("Call: Student_Insert_Before out of for_list", "OK", __LINE__);
 
     i = 2;
     for_list(stl)
@@ -185,19 +174,18 @@ Test_Insert_Before_List ()
         i++;
     }
 
-    EC_Test_Print_Msg ("Test: st3 inserted before st4", "OK");
+    EC_Test_Print_Msg ("Test: st3 inserted before st4", "OK", __LINE__);
 
-    EC_Test_Print_End_Subtitle ("Insert_Before a variable in stl", "Finish");
 
     // Insert_Before in for_list
-    EC_Test_Print_Subtitle ("Insert_Before in a for_list", "Started");
+    EC_Test_Print_Subtitle ("Insert_Before in a for_list");
 
     for_list(stl)
     {
         if (stl->var == st2)
         {
             Student_Insert_Before (stl, st2, st1);
-            EC_Test_Print_Msg ("Call: Insert_Before in for_list", "OK");
+            EC_Test_Print_Msg ("Call: Insert_Before in for_list", "OK", __LINE__);
             break;
         }
     }
@@ -209,18 +197,17 @@ Test_Insert_Before_List ()
         i++;
     }
 
-    EC_Test_Print_Msg ("Test: st1 inserted before st2 in for_list ", "OK");
+    EC_Test_Print_Msg ("Test: st1 inserted before st2 in for_list ", "OK", __LINE__);
 
-    EC_Test_Print_End_Subtitle ("Insert_Before in a for_list", "Finish");
 
     // Insert_Before at end of the list
-    EC_Test_Print_Subtitle ("Insert_Before last variable", "Start");
+    EC_Test_Print_Subtitle ("Insert_Before last variable");
 
     Student_Append (stl, st6);
-    EC_Test_Print_Msg ("Append: st6 as list last variable", "OK");
+    EC_Test_Print_Msg ("Append: st6 as list last variable", "OK", __LINE__);
 
     Student_Insert_Before (stl, stl->last->var, st5);
-    EC_Test_Print_Msg ("Insert: st5 before st6", "OK");
+    EC_Test_Print_Msg ("Insert: st5 before st6", "OK", __LINE__);
 
     i = 1;
     for_list(stl)
@@ -229,27 +216,43 @@ Test_Insert_Before_List ()
         i++;
     }
 
-    EC_Test_Print_Msg ("Test: st5 inserted before list last variable", "OK");
+    EC_Test_Print_Msg ("Test: st5 inserted before list last variable", "OK", __LINE__);
+}
 
-    EC_Test_Print_End_Subtitle ("Insert_Before last variable", "Finish");
 
-    EC_Test_Print_Title ("Test_Insert_List: ", "END");
+void
+Test_Insert_After_List ()
+{
+    EC_Test_Print_Title (__func__);
+
+    int i = 0;
+
+    StudentList *stl = Student_List ();
+    EC_Test_Print_Msg ("Create: New list", "OK", __LINE__);
+
+    Student_Insert_After (stl, NULL, st4);
+    EC_Test_Print_Msg ("Call: Student_Insert_After arg ref = NULL in empty list", "OK", __LINE__);
+
+    assert (Student_Compare (stl->first->var, &students[4])); // Student_Compare() defined in students.c
+    EC_Test_Print_Msg ("Test: Insert st4 into stl while arg ref = NULL in empty list", "OK", __LINE__);
+
+    //Student_Insert_After (stl, NULL, st3);
+    EC_Test_Print_Msg ("Call: Student_Insert_After arg ref = NULL and a none empty list", "OK", __LINE__);
+
+    //assert (Student_Compare (stl->first->var, &students[3])); // Student_Compare() defined in students.c
+    EC_Test_Print_Msg ("Test: Insert st4 into stl while arg ref = NULL none empty list", "OK", __LINE__);
 }
 
 
 #if 0
-
-
 /* Test_Replace_List function tested only for max 5 vars */
-
-
 void
 Test_Replace_List ()
 {
-    EC_Test_Print_Msg ("Test_Replace_List: ", "BEGIN");
+    EC_Test_Print_Msg ("Test_Replace_List: ", __LINE__);
 
     /* Test for 0 vars */
-    EC_Test_Print_Msg ("Test for empty vars", "Begin");
+    EC_Test_Print_Msg ("Test for empty vars");
 
     /* if list is empty */
     StudentList *stl = Student_List (0);
@@ -259,7 +262,7 @@ Test_Replace_List ()
     EC_Test_Print_Msg ("empty listi warn", "OK");
 
     /* Test for 1 var */
-    EC_Test_Print_Msg ("Test for 1 var", "Begin");
+    EC_Test_Print_Msg ("Test for 1 var");
 
     /* create first list var */
     StudentListVar *st1 = Student_List_Var (stl);
@@ -278,7 +281,7 @@ Test_Replace_List ()
     /* Test for 2 vars */
     /* --------------- */
 
-    EC_Test_Print_Msg ("Test for 2 vars", "Begin");
+    EC_Test_Print_Msg ("Test for 2 vars");
 
     /* create and add second list var */
     StudentListVar *st2 = Student_List_Var (stl);
@@ -294,8 +297,8 @@ Test_Replace_List ()
 
     /* Replace left adjecent rep */
     Student_Replace (stl, st1, st2);
-    assert (stl->list == st2);
-    assert (stl->list->next == NULL);
+    assert (stl->first == st2);
+    assert (stl->first->next == NULL);
     assert (stl->last == st2);
     assert (stl->last->previous == NULL);
     EC_Test_Print_Msg ("Replace left adjecent rep by var", "OK");
@@ -314,8 +317,8 @@ Test_Replace_List ()
 
     /* Replace right adjecent rep */
     Student_Replace (stl, st1, st2);
-    assert (stl->list == st2);
-    assert (stl->list->next == NULL);
+    assert (stl->first == st2);
+    assert (stl->first->next == NULL);
     assert (stl->last == st2);
     assert (stl->last->previous == NULL);
     for_list (stl)
@@ -346,9 +349,9 @@ Test_Replace_List ()
 
     /* Replace left adjecent var by mid var */
     Student_Replace (stl, st2, st1);
-    assert (stl->list == st1);
-    assert (stl->list->next == st3);
-    assert (stl->list->next->next == NULL);
+    assert (stl->first == st1);
+    assert (stl->first->next == st3);
+    assert (stl->first->next->next == NULL);
     assert (stl->last == st3);
     assert (stl->last->previous == st1);
     assert (stl->last->previous->previous == NULL);
@@ -368,9 +371,9 @@ Test_Replace_List ()
 
     /* Replace right adjecent var by mid var */
     Student_Replace (stl, st2, st3);
-    assert (stl->list == st1);
-    assert (stl->list->next == st3);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st1);
+    assert (stl->first->next == st3);
+    assert (stl->first->previous == NULL);
     assert (stl->last->previous == st1);
     assert (stl->last == st3);
     assert (stl->last->next == NULL);
@@ -394,9 +397,9 @@ Test_Replace_List ()
 
     /* Replace first var by last for 3 vars available */
     Student_Replace (stl, st1, st2);
-    assert (stl->list == st2);
-    assert (stl->list->next == st3);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st2);
+    assert (stl->first->next == st3);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st3);
     assert (stl->last->previous == st2);
     assert (stl->last->next == NULL);
@@ -421,9 +424,9 @@ Test_Replace_List ()
 
     /* Replace last var by first for 3 vars available */
     Student_Replace (stl, st1, st2);
-    assert (stl->list == st3);
-    assert (stl->list->next == st2);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st3);
+    assert (stl->first->next == st2);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st2);
     assert (stl->last->previous == st3);
     assert (stl->last->next == NULL);
@@ -447,9 +450,9 @@ Test_Replace_List ()
 
     /* Replace mid by first for 3 vars available */
     Student_Replace (stl, st2, st3);
-    assert (stl->list == st3);
-    assert (stl->list->next == st1);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st3);
+    assert (stl->first->next == st1);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st1);
     assert (stl->last->previous == st3);
     assert (stl->last->next == NULL);
@@ -473,9 +476,9 @@ Test_Replace_List ()
 
     /* Replace mid by last for 3 vars available */
     Student_Replace (stl, st1, st2);
-    assert (stl->list == st3);
-    assert (stl->list->next == st2);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st3);
+    assert (stl->first->next == st2);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st2);
     assert (stl->last->previous == st3);
     assert (stl->last->next == NULL);
@@ -489,7 +492,7 @@ Test_Replace_List ()
     /* Test for 4 vars */
     /* --------------- */
 
-    EC_Test_Print_Msg ("Test for 4 vars", "Begin");
+    EC_Test_Print_Msg ("Test for 4 vars");
 
     st1 = Student_List_Var (stl);
     st1->no = 1;
@@ -510,10 +513,10 @@ Test_Replace_List ()
 
     /* Replace second var by first var */
     Student_Replace (stl, st2, st3);
-    assert (stl->list == st3);
-    assert (stl->list->next == st1);
-    assert (stl->list->next->next == st4);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st3);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st4);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st4);
     assert (stl->last->previous == st1);
     assert (stl->last->previous->previous == st3);
@@ -540,10 +543,10 @@ Test_Replace_List ()
 
     /* Replace third var by first var */
     Student_Replace (stl, st4, st3);
-    assert (stl->list == st1);
-    assert (stl->list->next == st3);
-    assert (stl->list->next->next == st2);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st1);
+    assert (stl->first->next == st3);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st2);
     assert (stl->last->previous == st3);
     assert (stl->last->previous->previous == st1);
@@ -570,10 +573,10 @@ Test_Replace_List ()
 
     /* Replace fourth var by first var */
     Student_Replace (stl, st4, st1);
-    assert (stl->list == st3);
-    assert (stl->list->next == st2);
-    assert (stl->list->next->next == st1);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st3);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st1);
     assert (stl->last->previous == st2);
     assert (stl->last->previous->previous == st3);
@@ -600,10 +603,10 @@ Test_Replace_List ()
 
     /* Replace 3rd var by second var */
     Student_Replace (stl, st1, st2);
-    assert (stl->list == st3);
-    assert (stl->list->next == st2);
-    assert (stl->list->next->next == st4);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st3);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st4);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st4);
     assert (stl->last->previous == st2);
     assert (stl->last->previous->previous == st3);
@@ -630,10 +633,10 @@ Test_Replace_List ()
 
     /* Replace last var by 2nd var */
     Student_Replace (stl, st1, st2);
-    assert (stl->list == st3);
-    assert (stl->list->next == st4);
-    assert (stl->list->next->next == st2);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st3);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st2);
     assert (stl->last->previous == st4);
     assert (stl->last->previous->previous == st3);
@@ -660,10 +663,10 @@ Test_Replace_List ()
 
     /* Replace last var by 3rd var */
     Student_Replace (stl, st1, st2);
-    assert (stl->list == st3);
-    assert (stl->list->next == st4);
-    assert (stl->list->next->next == st2);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st3);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st2);
     assert (stl->last->previous == st4);
     assert (stl->last->previous->previous == st3);
@@ -690,10 +693,10 @@ Test_Replace_List ()
 
     /* Replace 3rd var by last var */
     Student_Replace (stl, st2, st1);
-    assert (stl->list == st3);
-    assert (stl->list->next == st4);
-    assert (stl->list->next->next == st1);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st3);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st1);
     assert (stl->last->previous == st4);
     assert (stl->last->previous->previous == st3);
@@ -720,10 +723,10 @@ Test_Replace_List ()
 
     /* Replace 2nd var by last var */
     Student_Replace (stl, st4, st2);
-    assert (stl->list == st3);
-    assert (stl->list->next == st2);
-    assert (stl->list->next->next == st1);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st3);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st1);
     assert (stl->last->previous == st2);
     assert (stl->last->previous->previous == st3);
@@ -750,10 +753,10 @@ Test_Replace_List ()
 
     /* Replace first var by last var */
     Student_Replace (stl, st3, st4);
-    assert (stl->list == st4);
-    assert (stl->list->next == st2);
-    assert (stl->list->next->next == st1);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st4);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st1);
     assert (stl->last->previous == st2);
     assert (stl->last->previous->previous == st4);
@@ -780,10 +783,10 @@ Test_Replace_List ()
 
     /* Replace 2nd var by 3rd var */
     Student_Replace (stl, st2, st1);
-    assert (stl->list == st4);
-    assert (stl->list->next == st1);
-    assert (stl->list->next->next == st3);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st4);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st3);
     assert (stl->last->previous == st1);
     assert (stl->last->previous->previous == st4);
@@ -810,10 +813,10 @@ Test_Replace_List ()
 
     /* Replace first var by 3rd var */
     Student_Replace (stl, st4, st3);
-    assert (stl->list == st3);
-    assert (stl->list->next == st1);
-    assert (stl->list->next->next == st2);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st3);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st2);
     assert (stl->last->previous == st1);
     assert (stl->last->previous->previous == st3);
@@ -840,10 +843,10 @@ Test_Replace_List ()
 
     /* Replace first var by 2nd var */
     Student_Replace (stl, st3, st1);
-    assert (stl->list == st1);
-    assert (stl->list->next == st2);
-    assert (stl->list->next->next == st4);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st1);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st4);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st4);
     assert (stl->last->previous == st2);
     assert (stl->last->previous->previous == st1);
@@ -859,7 +862,7 @@ Test_Replace_List ()
     /* Test for 5 vars */
     /* --------------- */
 
-    EC_Test_Print_Msg ("Test for 4 vars", "Begin");
+    EC_Test_Print_Msg ("Test for 4 vars");
 
     st3 = Student_List_Var (stl);
     st3->no = 3;
@@ -880,11 +883,11 @@ Test_Replace_List ()
 
     /* Replace second var by first var */
     Student_Replace (stl, st2, st1);
-    assert (stl->list == st1);
-    assert (stl->list->next == st4);
-    assert (stl->list->next->next == st3);
-    assert (stl->list->next->next->next == st5);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st1);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st5);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st5);
     assert (stl->last->previous == st3);
     assert (stl->last->previous->previous == st4);
@@ -912,11 +915,11 @@ Test_Replace_List ()
 
     /*Replace third var by first var */
     Student_Replace (stl, st3, st1);
-    assert (stl->list == st4);
-    assert (stl->list->next == st1);
-    assert (stl->list->next->next == st5);
-    assert (stl->list->next->next->next == st2);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st4);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st5);
+    assert (stl->first->next->next->next == st2);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st2);
     assert (stl->last->previous == st5);
     assert (stl->last->previous->previous == st1);
@@ -944,11 +947,11 @@ Test_Replace_List ()
 
     /* Replace fourth var by first var */
     Student_Replace (stl, st2, st4);
-    assert (stl->list == st1);
-    assert (stl->list->next == st5);
-    assert (stl->list->next->next == st4);
-    assert (stl->list->next->next->next == st3);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st1);
+    assert (stl->first->next == st5);
+    assert (stl->first->next->next == st4);
+    assert (stl->first->next->next->next == st3);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st3);
     assert (stl->last->previous == st4);
     assert (stl->last->previous->previous == st5);
@@ -976,11 +979,11 @@ Test_Replace_List ()
 
     /* Replace fifth var by first var */
     Student_Replace (stl, st2, st1);
-    assert (stl->list == st5);
-    assert (stl->list->next == st4);
-    assert (stl->list->next->next == st3);
-    assert (stl->list->next->next->next == st1);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st1);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st1);
     assert (stl->last->previous == st3);
     assert (stl->last->previous->previous == st4);
@@ -1008,11 +1011,11 @@ Test_Replace_List ()
 
     /* Replace 3rd var by 2nd var */
     Student_Replace (stl, st3, st4);
-    assert (stl->list == st5);
-    assert (stl->list->next == st4);
-    assert (stl->list->next->next == st1);
-    assert (stl->list->next->next->next == st2);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->next->next->next == st2);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st2);
     assert (stl->last->previous == st1);
     assert (stl->last->previous->previous == st4);
@@ -1040,11 +1043,11 @@ Test_Replace_List ()
 
     /* Replace 4th var by 2nd var */
     Student_Replace (stl, st2, st4);
-    assert (stl->list == st5);
-    assert (stl->list->next == st1);
-    assert (stl->list->next->next == st4);
-    assert (stl->list->next->next->next == st3);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st5);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st4);
+    assert (stl->first->next->next->next == st3);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st3);
     assert (stl->last->previous == st4);
     assert (stl->last->previous->previous == st1);
@@ -1072,11 +1075,11 @@ Test_Replace_List ()
 
     /* Replace last var by 2nd var */
     Student_Replace (stl, st2, st1);
-    assert (stl->list == st5);
-    assert (stl->list->next == st4);
-    assert (stl->list->next->next == st3);
-    assert (stl->list->next->next->next == st1);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st1);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st1);
     assert (stl->last->previous == st3);
     assert (stl->last->previous->previous == st4);
@@ -1104,11 +1107,11 @@ Test_Replace_List ()
 
      /*Replace 4th var by 3rd var */
     Student_Replace (stl, st1, st3);
-    assert (stl->list == st5);
-    assert (stl->list->next == st4);
-    assert (stl->list->next->next == st3);
-    assert (stl->list->next->next->next == st2);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st2);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st2);
     assert (stl->last->previous == st3);
     assert (stl->last->previous->previous == st4);
@@ -1136,11 +1139,11 @@ Test_Replace_List ()
 
      /*Replace last var by 3rd var */
     Student_Replace (stl, st1, st3);
-    assert (stl->list == st5);
-    assert (stl->list->next == st4);
-    assert (stl->list->next->next == st2);
-    assert (stl->list->next->next->next == st3);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->next->next->next == st3);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st3);
     assert (stl->last->previous == st2);
     assert (stl->last->previous->previous == st4);
@@ -1168,11 +1171,11 @@ Test_Replace_List ()
 
      /*Replace last var by 4th var */
     Student_Replace (stl, st1, st3);
-    assert (stl->list == st5);
-    assert (stl->list->next == st4);
-    assert (stl->list->next->next == st2);
-    assert (stl->list->next->next->next == st3);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->next->next->next == st3);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st3);
     assert (stl->last->previous == st2);
     assert (stl->last->previous->previous == st4);
@@ -1200,11 +1203,11 @@ Test_Replace_List ()
 
      /*Replace 4th var by last var */
     Student_Replace (stl, st3, st1);
-    assert (stl->list == st5);
-    assert (stl->list->next == st4);
-    assert (stl->list->next->next == st2);
-    assert (stl->list->next->next->next == st1);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->next->next->next == st1);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st1);
     assert (stl->last->previous == st2);
     assert (stl->last->previous->previous == st4);
@@ -1232,11 +1235,11 @@ Test_Replace_List ()
 
      /* Replace 3rd var by last var */
     Student_Replace (stl, st2, st3);
-    assert (stl->list == st5);
-    assert (stl->list->next == st4);
-    assert (stl->list->next->next == st3);
-    assert (stl->list->next->next->next == st1);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st5);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st1);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st1);
     assert (stl->last->previous == st3);
     assert (stl->last->previous->previous == st4);
@@ -1264,11 +1267,11 @@ Test_Replace_List ()
 
      /* Replace 2nd var by last var */
     Student_Replace (stl, st4, st2);
-    assert (stl->list == st5);
-    assert (stl->list->next == st2);
-    assert (stl->list->next->next == st3);
-    assert (stl->list->next->next->next == st1);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st5);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st1);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st1);
     assert (stl->last->previous == st3);
     assert (stl->last->previous->previous == st2);
@@ -1296,11 +1299,11 @@ Test_Replace_List ()
 
      /* Replace first var by last var */
     Student_Replace (stl, st5, st4);
-    assert (stl->list == st4);
-    assert (stl->list->next == st2);
-    assert (stl->list->next->next == st3);
-    assert (stl->list->next->next->next == st1);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st4);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st3);
+    assert (stl->first->next->next->next == st1);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st1);
     assert (stl->last->previous == st3);
     assert (stl->last->previous->previous == st2);
@@ -1328,11 +1331,11 @@ Test_Replace_List ()
 
      /* Replace 3rd var by 4th var */
     Student_Replace (stl, st3, st1);
-    assert (stl->list == st4);
-    assert (stl->list->next == st2);
-    assert (stl->list->next->next == st1);
-    assert (stl->list->next->next->next == st5);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st4);
+    assert (stl->first->next == st2);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->next->next->next == st5);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st5);
     assert (stl->last->previous == st1);
     assert (stl->last->previous->previous == st2);
@@ -1360,11 +1363,11 @@ Test_Replace_List ()
 
      /* Replace 2nd var by 4th var */
     Student_Replace (stl, st2, st5);
-    assert (stl->list == st4);
-    assert (stl->list->next == st5);
-    assert (stl->list->next->next == st1);
-    assert (stl->list->next->next->next == st3);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st4);
+    assert (stl->first->next == st5);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->next->next->next == st3);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st3);
     assert (stl->last->previous == st1);
     assert (stl->last->previous->previous == st5);
@@ -1392,11 +1395,11 @@ Test_Replace_List ()
 
      /* Replace first var by 4th var */
     Student_Replace (stl, st4, st3);
-    assert (stl->list == st3);
-    assert (stl->list->next == st5);
-    assert (stl->list->next->next == st1);
-    assert (stl->list->next->next->next == st2);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st3);
+    assert (stl->first->next == st5);
+    assert (stl->first->next->next == st1);
+    assert (stl->first->next->next->next == st2);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st2);
     assert (stl->last->previous == st1);
     assert (stl->last->previous->previous == st5);
@@ -1424,11 +1427,11 @@ Test_Replace_List ()
 
      /* Replace 2nd var by 3rd var */
     Student_Replace (stl, st5, st1);
-    assert (stl->list == st3);
-    assert (stl->list->next == st1);
-    assert (stl->list->next->next == st2);
-    assert (stl->list->next->next->next == st4);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st3);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st2);
+    assert (stl->first->next->next->next == st4);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st4);
     assert (stl->last->previous == st2);
     assert (stl->last->previous->previous == st1);
@@ -1456,11 +1459,11 @@ Test_Replace_List ()
 
      /* Replace first var by 3rd var */
     Student_Replace (stl, st3, st2);
-    assert (stl->list == st2);
-    assert (stl->list->next == st1);
-    assert (stl->list->next->next == st4);
-    assert (stl->list->next->next->next == st5);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st2);
+    assert (stl->first->next == st1);
+    assert (stl->first->next->next == st4);
+    assert (stl->first->next->next->next == st5);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st5);
     assert (stl->last->previous == st4);
     assert (stl->last->previous->previous == st1);
@@ -1488,11 +1491,11 @@ Test_Replace_List ()
 
      /* Replace first var by 2nd var */
     Student_Replace (stl, st2, st1);
-    assert (stl->list == st1);
-    assert (stl->list->next == st4);
-    assert (stl->list->next->next == st5);
-    assert (stl->list->next->next->next == st3);
-    assert (stl->list->previous == NULL);
+    assert (stl->first == st1);
+    assert (stl->first->next == st4);
+    assert (stl->first->next->next == st5);
+    assert (stl->first->next->next->next == st3);
+    assert (stl->first->previous == NULL);
     assert (stl->last == st3);
     assert (stl->last->previous == st5);
     assert (stl->last->previous->previous == st4);
@@ -1503,15 +1506,13 @@ Test_Replace_List ()
         printf ("%d %s\n", stl->var->no, stl->var->name);
     }
     EC_Test_Print_Msg ("Replace first var by 2nd var ", "OK");
-
-    EC_Test_Print_Msg ("Test_Replace_List: ", "END");
 }
 
 
 void
 Test_Sort_List ()
 {
-/*    EC_Test_Print_Msg ("Test_Sort_List: ", "BEGIN");*/
+/*    EC_Test_Print_Msg ("Test_Sort_List: ");*/
 
     /*StudentList *stl = Student_List ();*/
 
@@ -1559,15 +1560,13 @@ Test_Sort_List ()
     /*}*/
 
     /*EC_Test_Print_Msg ("List sort with variable attribute", "OK");*/
-
-    /*EC_Test_Print_Msg ("Test_Sort_List: ", "END");*/
 }
 
 
 void
 Test_List_Copy ()
 {
-/*    EC_Test_Print_Msg ("Test_List_Copy: ", "BEGIN");*/
+/*    EC_Test_Print_Msg ("Test_List_Copy: ");*/
 
     /*StudentList* stl1 = Student_List ();*/
 
@@ -1583,27 +1582,25 @@ Test_List_Copy ()
 
     /*StudentList* stl2 = Student_List_Copy (stl1);*/
 
-    /*assert (stl2->list->no == 1);*/
-    /*assert (strcmp(stl2->list->name ,"Malith") == 0 );*/
+    /*assert (stl2->first->no == 1);*/
+    /*assert (strcmp(stl2->first->name ,"Malith") == 0 );*/
 
-    /*assert (stl2->list->next->no == 2);*/
-    /*assert (strcmp(stl2->list->next->name, "Geethike") == 0 );*/
+    /*assert (stl2->first->next->no == 2);*/
+    /*assert (strcmp(stl2->first->next->name, "Geethike") == 0 );*/
 
     /*EC_Test_Print_Msg ("List Copy Variables", "OK");*/
 
     /*st1->no = 3;*/
     /*st1->name = "Malshi";*/
-    /*assert (stl2->list->no != 3);*/
-    /*assert (strcmp(stl2->list->name ,"Malshi") != 0 );*/
+    /*assert (stl2->first->no != 3);*/
+    /*assert (strcmp(stl2->first->name ,"Malshi") != 0 );*/
 
     /*st2->no = 4;*/
     /*st2->name = "Prisenthi";*/
-    /*assert (stl1->list->no != 4);*/
-    /*assert (strcmp(stl1->list->name ,"Prisenthi") != 0 );*/
+    /*assert (stl1->first->no != 4);*/
+    /*assert (strcmp(stl1->first->name ,"Prisenthi") != 0 );*/
 
     /*EC_Test_Print_Msg ("Copied list do not affect other list", "OK");*/
-
-    /*EC_Test_Print_Msg ("Test_List_Copy: ", "END");*/
 }
 
 
@@ -1619,7 +1616,7 @@ Test_List_Copy ()
 void
 Test_List_Var_Move_Up ()
 {
-    EC_Test_Print_Msg ("Test_List_Var_Move_Up: ", "BEGIN");
+    EC_Test_Print_Msg ("Test_List_Var_Move_Up: ");
 
 
     int i = 0;
@@ -1628,10 +1625,10 @@ Test_List_Var_Move_Up ()
     StudentList *stl0 = Student_List (0);
     EC_Test_Print_Msg ("Create: new list with 0 list vars", "OK");
 
-    stl0->var = stl0->list;
+    stl0->var = stl0->first;
 
     Student_List_Var_Move_Up (stl0, stl0->var, 1);
-    assert (stl0->list == NULL);
+    assert (stl0->first == NULL);
     assert (stl0->last == NULL);
     EC_Test_Print_Msg ("Test: Empty list", "OK");
 
@@ -1642,11 +1639,11 @@ Test_List_Var_Move_Up ()
     StudentListVar *stl1v = Student_List_Var (stl1);
     stl1v->no = students[0].no;
     stl1v->name = students[0].name;
-    stl1->var = stl1->list;
+    stl1->var = stl1->first;
     EC_Test_Print_Msg ("Assign list 1 variable", "OK");
 
     Student_List_Var_Move_Up (stl1, stl1->var, 1);
-    assert (stl1->list == stl1v);
+    assert (stl1->first == stl1v);
     assert (stl1->last == stl1v);
     EC_Test_Print_Msg ("List with 1 list var", "OK");
 
@@ -1670,24 +1667,24 @@ Test_List_Var_Move_Up ()
     EC_Test_Print_Msg ("Assign list 2 variable", "OK");
 
     /* set current var */
-    stl2->var = stl2->list;
-    StudentListVar *stl2v1 = stl2->list;
-    StudentListVar *stl2v2 = stl2->list->next;
+    stl2->var = stl2->first;
+    StudentListVar *stl2v1 = stl2->first;
+    StudentListVar *stl2v2 = stl2->first->next;
 
     Student_List_Var_Move_Up (stl2, stl2v1, 1);
-    assert (stl2->list == stl2v1);
+    assert (stl2->first == stl2v1);
     assert (stl2->last == stl2v2);
-    assert (stl2->list->next == stl2v2);
-    assert (stl2->list->previous == NULL);
+    assert (stl2->first->next == stl2v2);
+    assert (stl2->first->previous == NULL);
     assert (stl2->last->previous == stl2v1);
     assert (stl2->last->next == NULL);
     EC_Test_Print_Msg ("List with 2 vars. First var up", "OK");
 
     Student_List_Var_Move_Up (stl2, stl2v2, 1);
-    assert (stl2->list == stl2v2);
+    assert (stl2->first == stl2v2);
     assert (stl2->last == stl2v1);
-    assert (stl2->list->next == stl2v1);
-    assert (stl2->list->previous == NULL);
+    assert (stl2->first->next == stl2v1);
+    assert (stl2->first->previous == NULL);
     assert (stl2->last->previous == stl2v2);
     assert (stl2->last->next == NULL);
 
@@ -1714,17 +1711,17 @@ Test_List_Var_Move_Up ()
     EC_Test_Print_Msg ("Assign list 3 variable", "OK");
 
     /* set current var */
-    stl3->var = stl3->list;
-    StudentListVar *stl3v1 = stl3->list;
-    StudentListVar *stl3v2 = stl3->list->next;
-    StudentListVar *stl3v3 = stl3->list->next->next;
+    stl3->var = stl3->first;
+    StudentListVar *stl3v1 = stl3->first;
+    StudentListVar *stl3v2 = stl3->first->next;
+    StudentListVar *stl3v3 = stl3->first->next->next;
 
     /* move first var */
     Student_List_Var_Move_Up (stl3, stl3v1, 1);
-    assert (stl3->list == stl3v1);
+    assert (stl3->first == stl3v1);
     assert (stl3->last == stl3v3);
-    assert (stl3->list->next == stl3v2);
-    assert (stl3->list->previous == NULL);
+    assert (stl3->first->next == stl3v2);
+    assert (stl3->first->previous == NULL);
     assert (stl3->last->previous == stl3v2);
     assert (stl3->last->next == NULL);
 
@@ -1737,12 +1734,12 @@ Test_List_Var_Move_Up ()
 
     /* move second var up */
     Student_List_Var_Move_Up (stl3, stl3v2, 1);
-    assert (stl3->list == stl3v2);
+    assert (stl3->first == stl3v2);
     assert (stl3->last == stl3v3);
-    assert (stl3->list->next == stl3v1);
-    assert (stl3->list->next->previous == stl3v2);
-    assert (stl3->list->next->next == stl3v3);
-    assert (stl3->list->previous == NULL);
+    assert (stl3->first->next == stl3v1);
+    assert (stl3->first->next->previous == stl3v2);
+    assert (stl3->first->next->next == stl3v3);
+    assert (stl3->first->previous == NULL);
     assert (stl3->last->previous == stl3v1);
     assert (stl3->last->next == NULL);
 
@@ -1755,9 +1752,9 @@ Test_List_Var_Move_Up ()
 
     /* move third var up 1 step*/
     Student_List_Var_Move_Up (stl3, stl3v3, 1);
-    assert (stl3->list == stl3v2);
-    assert (stl3->list->next == stl3v3);
-    assert (stl3->list->previous == NULL);
+    assert (stl3->first == stl3v2);
+    assert (stl3->first->next == stl3v3);
+    assert (stl3->first->previous == NULL);
     assert (stl3->last == stl3v1);
     assert (stl3->last->previous == stl3v3);
     assert (stl3->last->next == NULL);
@@ -1771,10 +1768,10 @@ Test_List_Var_Move_Up ()
 
     /* move third var up 2 steps*/
     Student_List_Var_Move_Up (stl3, stl3v1, 2);
-    assert (stl3->list == stl3v1);
+    assert (stl3->first == stl3v1);
     assert (stl3->last == stl3v3);
-    assert (stl3->list->next == stl3v2);
-    assert (stl3->list->previous == NULL);
+    assert (stl3->first->next == stl3v2);
+    assert (stl3->first->previous == NULL);
     assert (stl3->last->previous == stl3v2);
     assert (stl3->last->previous->previous == stl3v1);
     assert (stl3->last->next == NULL);
@@ -1799,12 +1796,12 @@ Test_List_Var_Move_Up ()
     }
 
     /* set current var */
-    stl5->var = stl5->list;
-    StudentListVar *stl5v1 = stl5->list;
-    StudentListVar *stl5v2 = stl5->list->next;
-    StudentListVar *stl5v3 = stl5->list->next->next;
-    StudentListVar *stl5v4 = stl5->list->next->next->next;
-    StudentListVar *stl5v5 = stl5->list->next->next->next->next;
+    stl5->var = stl5->first;
+    StudentListVar *stl5v1 = stl5->first;
+    StudentListVar *stl5v2 = stl5->first->next;
+    StudentListVar *stl5v3 = stl5->first->next->next;
+    StudentListVar *stl5v4 = stl5->first->next->next->next;
+    StudentListVar *stl5v5 = stl5->first->next->next->next->next;
 
     for_list (stl5)
     {
@@ -1815,10 +1812,10 @@ Test_List_Var_Move_Up ()
 
     /* move fifth var up 3 steps*/
     Student_List_Var_Move_Up (stl5, stl5v5, 2);
-    assert (stl5->list == stl5v1);
+    assert (stl5->first == stl5v1);
     assert (stl5->last == stl5v4);
-    assert (stl5->list->next->next == stl5v5);
-    assert (stl5->list->previous == NULL);
+    assert (stl5->first->next->next == stl5v5);
+    assert (stl5->first->previous == NULL);
     assert (stl5->last->previous == stl5v3);
     assert (stl5->last->previous->previous == stl5v5);
     assert (stl5->last->next == NULL);
@@ -1832,10 +1829,10 @@ Test_List_Var_Move_Up ()
 
     /* move fifth var up 5 steps*/
     Student_List_Var_Move_Up (stl5, stl5v4, 4);
-    assert (stl5->list == stl5v4);
+    assert (stl5->first == stl5v4);
     assert (stl5->last == stl5v3);
-    assert (stl5->list->next == stl5v1);
-    assert (stl5->list->previous == NULL);
+    assert (stl5->first->next == stl5v1);
+    assert (stl5->first->previous == NULL);
     assert (stl5->last->previous == stl5v5);
     assert (stl5->last->previous->previous == stl5v2);
     assert (stl5->last->next == NULL);
@@ -1849,10 +1846,10 @@ Test_List_Var_Move_Up ()
 
    /* move fifth var up 3 steps for mid vars */
     Student_List_Var_Move_Up (stl5, stl5v5, 2);
-    assert (stl5->list == stl5v4);
+    assert (stl5->first == stl5v4);
     assert (stl5->last == stl5v3);
-    assert (stl5->list->next == stl5v5);
-    assert (stl5->list->previous == NULL);
+    assert (stl5->first->next == stl5v5);
+    assert (stl5->first->previous == NULL);
     assert (stl5->last->previous == stl5v2);
     assert (stl5->last->previous->previous == stl5v1);
     assert (stl5->last->next == NULL);
@@ -1863,15 +1860,13 @@ Test_List_Var_Move_Up ()
     }
 
     EC_Test_Print_Msg ("List with 5 vars move mid var up 2 steps", "OK");
-
-    EC_Test_Print_Msg ("Test_List_Var_Move_Up", "END");
 }
 
 
 void
 Test_List_Var_Move_Down ()
 {
-    EC_Test_Print_Msg ("Test_List_Var_Move_Down: ", "BEGIN");
+    EC_Test_Print_Msg ("Test_List_Var_Move_Down: ");
 
     struct Stu {
         int no;
@@ -1886,10 +1881,10 @@ Test_List_Var_Move_Down ()
     StudentList *stl0 = Student_List (0);
     EC_Test_Print_Msg ("Create new list with 0 list vars", "OK");
 
-    stl0->var = stl0->list;
+    stl0->var = stl0->first;
 
     Student_List_Var_Move_Down (stl0, stl0->var, 1);
-    assert (stl0->list == NULL);
+    assert (stl0->first == NULL);
     assert (stl0->last == NULL);
     EC_Test_Print_Msg ("List with 0 list vars", "OK");
 
@@ -1903,7 +1898,7 @@ Test_List_Var_Move_Down ()
     EC_Test_Print_Msg ("Assign list 1 variable", "OK");
 
     Student_List_Var_Move_Down (stl1, stl1v, 1);
-    assert (stl1->list == stl1v);
+    assert (stl1->first == stl1v);
     assert (stl1->last == stl1v);
     EC_Test_Print_Msg ("List with 1 list var", "OK");
 
@@ -1927,15 +1922,15 @@ Test_List_Var_Move_Down ()
     EC_Test_Print_Msg ("Assign list 2 variable", "OK");
 
     /* set current var */
-    stl2->var = stl2->list;
-    StudentListVar *stl2v1 = stl2->list;
-    StudentListVar *stl2v2 = stl2->list->next;
+    stl2->var = stl2->first;
+    StudentListVar *stl2v1 = stl2->first;
+    StudentListVar *stl2v2 = stl2->first->next;
 
     Student_List_Var_Move_Down (stl2, stl2v1, 1);
-    assert (stl2->list == stl2v2);
+    assert (stl2->first == stl2v2);
     assert (stl2->last == stl2v1);
-    assert (stl2->list->next == stl2v1);
-    assert (stl2->list->previous == NULL);
+    assert (stl2->first->next == stl2v1);
+    assert (stl2->first->previous == NULL);
     assert (stl2->last->previous == stl2v2);
     assert (stl2->last->next == NULL);
 
@@ -1947,10 +1942,10 @@ Test_List_Var_Move_Down ()
     EC_Test_Print_Msg ("List with 2 vars. First var down", "OK");
 
     Student_List_Var_Move_Down (stl2, stl2v1, 1);
-    assert (stl2->list == stl2v2);
+    assert (stl2->first == stl2v2);
     assert (stl2->last == stl2v1);
-    assert (stl2->list->next == stl2v1);
-    assert (stl2->list->previous == NULL);
+    assert (stl2->first->next == stl2v1);
+    assert (stl2->first->previous == NULL);
     assert (stl2->last->previous == stl2v2);
     assert (stl2->last->next == NULL);
 
@@ -1975,16 +1970,16 @@ Test_List_Var_Move_Down ()
     EC_Test_Print_Msg ("Assign list 3 variable", "OK");
 
     /* set current var */
-    stl3->var = stl3->list;
-    StudentListVar *stl3v1 = stl3->list;
-    StudentListVar *stl3v2 = stl3->list->next;
-    StudentListVar *stl3v3 = stl3->list->next->next;
+    stl3->var = stl3->first;
+    StudentListVar *stl3v1 = stl3->first;
+    StudentListVar *stl3v2 = stl3->first->next;
+    StudentListVar *stl3v3 = stl3->first->next->next;
 
     /* move first var */
     Student_List_Var_Move_Down (stl3, stl3v1, 1);
-    assert (stl3->list == stl3v2);
-    assert (stl3->list->next == stl3v1);
-    assert (stl3->list->previous == NULL);
+    assert (stl3->first == stl3v2);
+    assert (stl3->first->next == stl3v1);
+    assert (stl3->first->previous == NULL);
     assert (stl3->last == stl3v3);
     assert (stl3->last->previous == stl3v1);
     assert (stl3->last->next == NULL);
@@ -1998,10 +1993,10 @@ Test_List_Var_Move_Down ()
 
     /* move second var down */
     Student_List_Var_Move_Down (stl3, stl3v1, 1);
-    assert (stl3->list == stl3v2);
-    assert (stl3->list->next == stl3v3);
-    assert (stl3->list->next->next == stl3v1);
-    assert (stl3->list->previous == NULL);
+    assert (stl3->first == stl3v2);
+    assert (stl3->first->next == stl3v3);
+    assert (stl3->first->next->next == stl3v1);
+    assert (stl3->first->previous == NULL);
     assert (stl3->last == stl3v1);
     assert (stl3->last->previous == stl3v3);
     assert (stl3->last->next == NULL);
@@ -2015,10 +2010,10 @@ Test_List_Var_Move_Down ()
 
     /* move third var down 1 step*/
     Student_List_Var_Move_Down (stl3, stl3v1, 1);
-    assert (stl3->list == stl3v2);
+    assert (stl3->first == stl3v2);
     assert (stl3->last == stl3v1);
-    assert (stl3->list->next == stl3v3);
-    assert (stl3->list->previous == NULL);
+    assert (stl3->first->next == stl3v3);
+    assert (stl3->first->previous == NULL);
     assert (stl3->last->previous == stl3v3);
     assert (stl3->last->next == NULL);
 
@@ -2031,9 +2026,9 @@ Test_List_Var_Move_Down ()
 
     /* move first var down 2 steps*/
     Student_List_Var_Move_Down (stl3, stl3v2, 2);
-    assert (stl3->list == stl3v3);
-    assert (stl3->list->next == stl3v1);
-    assert (stl3->list->previous == NULL);
+    assert (stl3->first == stl3v3);
+    assert (stl3->first->next == stl3v1);
+    assert (stl3->first->previous == NULL);
     assert (stl3->last == stl3v2);
     assert (stl3->last->previous == stl3v1);
     assert (stl3->last->previous->previous == stl3v3);
@@ -2059,12 +2054,12 @@ Test_List_Var_Move_Down ()
     }
 
     /* set current var */
-    stl5->var = stl5->list;
-    StudentListVar *stl5v1 = stl5->list;
-    StudentListVar *stl5v2 = stl5->list->next;
-    StudentListVar *stl5v3 = stl5->list->next->next;
-    StudentListVar *stl5v4 = stl5->list->next->next->next;
-    StudentListVar *stl5v5 = stl5->list->next->next->next->next;
+    stl5->var = stl5->first;
+    StudentListVar *stl5v1 = stl5->first;
+    StudentListVar *stl5v2 = stl5->first->next;
+    StudentListVar *stl5v3 = stl5->first->next->next;
+    StudentListVar *stl5v4 = stl5->first->next->next->next;
+    StudentListVar *stl5v5 = stl5->first->next->next->next->next;
 
     for_list (stl5)
     {
@@ -2075,10 +2070,10 @@ Test_List_Var_Move_Down ()
 
     /* move first var down 3 steps*/
     Student_List_Var_Move_Down (stl5, stl5v1, 3);
-    assert (stl5->list == stl5v2);
+    assert (stl5->first == stl5v2);
     assert (stl5->last == stl5v5);
-    assert (stl5->list->next->next == stl5v4);
-    assert (stl5->list->previous == NULL);
+    assert (stl5->first->next->next == stl5v4);
+    assert (stl5->first->previous == NULL);
     assert (stl5->last->previous == stl5v1);
     assert (stl5->last->previous->previous == stl5v4);
     assert (stl5->last->next == NULL);
@@ -2092,10 +2087,10 @@ Test_List_Var_Move_Down ()
 
     /* move first var down 4 steps*/
     Student_List_Var_Move_Down (stl5, stl5v2, 4);
-    assert (stl5->list == stl5v3);
+    assert (stl5->first == stl5v3);
     assert (stl5->last == stl5v2);
-    assert (stl5->list->next == stl5v4);
-    assert (stl5->list->previous == NULL);
+    assert (stl5->first->next == stl5v4);
+    assert (stl5->first->previous == NULL);
     assert (stl5->last->previous == stl5v5);
     assert (stl5->last->previous->previous == stl5v1);
     assert (stl5->last->next == NULL);
@@ -2109,10 +2104,10 @@ Test_List_Var_Move_Down ()
 
     /* move second var down 2 steps for mid vars */
     Student_List_Var_Move_Down (stl5, stl5v4, 2);
-    assert (stl5->list == stl5v3);
+    assert (stl5->first == stl5v3);
     assert (stl5->last == stl5v2);
-    assert (stl5->list->next == stl5v1);
-    assert (stl5->list->previous == NULL);
+    assert (stl5->first->next == stl5v1);
+    assert (stl5->first->previous == NULL);
     assert (stl5->last->previous == stl5v4);
     assert (stl5->last->previous->previous == stl5v5);
     assert (stl5->last->next == NULL);
@@ -2123,24 +2118,22 @@ Test_List_Var_Move_Down ()
     }
 
     EC_Test_Print_Msg ("List with 5 vars move mid var down 2 steps", "OK");
-
-    EC_Test_Print_Msg ("Test_List_Var_Move_Down", "END");
 }
 
 
 void
 Test_List_Var_Delete ()
 {
-    EC_Test_Print_Msg ("Test_List_Var_Delete: ", "BEGIN");
+    EC_Test_Print_Msg ("Test_List_Var_Delete: ");
 
    /* Test for 0 list vars */
     StudentList *stl0 = Student_List (0);
     EC_Test_Print_Msg ("Create new list with 0 list vars", "OK");
 
-    stl0->var = stl0->list;
+    stl0->var = stl0->first;
 
     Student_List_Var_Delete (stl0, stl0->var);
-    assert (stl0->list == NULL);
+    assert (stl0->first == NULL);
     assert (stl0->last == NULL);
     EC_Test_Print_Msg ("List with 0 list vars", "OK");
 
@@ -2154,7 +2147,7 @@ Test_List_Var_Delete ()
     EC_Test_Print_Msg ("Assign list 1 variable", "OK");
 
     Student_List_Var_Delete (stl1, stl1v);
-    assert (stl1->list == NULL);
+    assert (stl1->first == NULL);
     assert (stl1->last == NULL);
     EC_Test_Print_Msg ("List with 1 list var", "OK");
 
@@ -2178,14 +2171,14 @@ Test_List_Var_Delete ()
     EC_Test_Print_Msg ("Assign list 2 variable", "OK");
 
     /* set current var */
-    StudentListVar *stl2v1 = stl2->list;
-    StudentListVar *stl2v2 = stl2->list->next;
+    StudentListVar *stl2v1 = stl2->first;
+    StudentListVar *stl2v2 = stl2->first->next;
 
     Student_List_Var_Delete (stl2, stl2v1);
-    assert (stl2->list == stl2v2);
+    assert (stl2->first == stl2v2);
     assert (stl2->last == stl2v2);
-    assert (stl2->list->next == NULL);
-    assert (stl2->list->previous == NULL);
+    assert (stl2->first->next == NULL);
+    assert (stl2->first->previous == NULL);
     assert (stl2->last->previous == NULL);
     assert (stl2->last->next == NULL);
 
@@ -2197,7 +2190,7 @@ Test_List_Var_Delete ()
     EC_Test_Print_Msg ("List with 2 vars. Delete first var", "OK");
 
     Student_List_Var_Delete (stl2, stl2v2);
-    assert (stl2->list == NULL);
+    assert (stl2->first == NULL);
     assert (stl2->last == NULL);
 
     for_list (stl2)
@@ -2230,10 +2223,10 @@ Test_List_Var_Delete ()
     EC_Test_Print_Msg ("List with 2 vars. Delete first var", "OK");
 
     Student_List_Var_Delete (stl2, stl2v4);
-    assert (stl2->list == stl2v3);
+    assert (stl2->first == stl2v3);
     assert (stl2->last == stl2v3);
-    assert (stl2->list->next == NULL);
-    assert (stl2->list->previous == NULL);
+    assert (stl2->first->next == NULL);
+    assert (stl2->first->previous == NULL);
     assert (stl2->last->previous == NULL);
     assert (stl2->last->next == NULL);
 
@@ -2245,7 +2238,7 @@ Test_List_Var_Delete ()
     EC_Test_Print_Msg ("List with 2 vars. Delete second var", "OK");
 
     Student_List_Var_Delete (stl2, stl2v3);
-    assert (stl2->list == NULL);
+    assert (stl2->first == NULL);
     assert (stl2->last == NULL);
 
     for_list (stl2)
@@ -2269,16 +2262,16 @@ Test_List_Var_Delete ()
     EC_Test_Print_Msg ("Assign list 3 variable", "OK");
 
     /* Set current var */
-    stl3->var = stl3->list;
-    StudentListVar *stl3v1 = stl3->list;
-    StudentListVar *stl3v2 = stl3->list->next;
-    StudentListVar *stl3v3 = stl3->list->next->next;
+    stl3->var = stl3->first;
+    StudentListVar *stl3v1 = stl3->first;
+    StudentListVar *stl3v2 = stl3->first->next;
+    StudentListVar *stl3v3 = stl3->first->next->next;
 
     /* Delete first var */
     Student_List_Var_Delete (stl3, stl3v1);
-    assert (stl3->list == stl3v2);
-    assert (stl3->list->next == stl3v3);
-    assert (stl3->list->previous == NULL);
+    assert (stl3->first == stl3v2);
+    assert (stl3->first->next == stl3v3);
+    assert (stl3->first->previous == NULL);
     assert (stl3->last == stl3v3);
     assert (stl3->last->previous == stl3v2);
     assert (stl3->last->next == NULL);
@@ -2292,9 +2285,9 @@ Test_List_Var_Delete ()
 
     /* Delete second (last) var */
     Student_List_Var_Delete (stl3, stl3v3);
-    assert (stl3->list == stl3v2);
-    assert (stl3->list->next == NULL);
-    assert (stl3->list->previous == NULL);
+    assert (stl3->first == stl3v2);
+    assert (stl3->first->next == NULL);
+    assert (stl3->first->previous == NULL);
     assert (stl3->last == stl3v2);
     assert (stl3->last->previous == NULL);
     assert (stl3->last->next == NULL);
@@ -2308,7 +2301,7 @@ Test_List_Var_Delete ()
 
     /* Delete third final var */
     Student_List_Var_Delete (stl3, stl3v2);
-    assert (stl3->list == NULL);
+    assert (stl3->first == NULL);
     assert (stl3->last == NULL);
 
     for_list (stl3)
@@ -2342,9 +2335,9 @@ Test_List_Var_Delete ()
     }
 
     Student_List_Var_Delete (stl3, stl3v5);
-    assert (stl3->list == stl3v4);
-    assert (stl3->list->next == stl3v6);
-    assert (stl3->list->previous == NULL);
+    assert (stl3->first == stl3v4);
+    assert (stl3->first->next == stl3v6);
+    assert (stl3->first->previous == NULL);
     assert (stl3->last == stl3v6);
     assert (stl3->last->previous == stl3v4);
     assert (stl3->last->next == NULL);
@@ -2369,15 +2362,15 @@ Test_List_Var_Delete ()
     }
 
     /* set current var */
-    stl5->var = stl5->list;
-    StudentListVar *stl5v1 = stl5->list;
-    StudentListVar *stl5v2 = stl5->list->next;
-    StudentListVar *stl5v3 = stl5->list->next->next;
-    StudentListVar *stl5v4 = stl5->list->next->next->next;
-    StudentListVar *stl5v5 = stl5->list->next->next->next->next;
+    stl5->var = stl5->first;
+    StudentListVar *stl5v1 = stl5->first;
+    StudentListVar *stl5v2 = stl5->first->next;
+    StudentListVar *stl5v3 = stl5->first->next->next;
+    StudentListVar *stl5v4 = stl5->first->next->next->next;
+    StudentListVar *stl5v5 = stl5->first->next->next->next->next;
 
     Student_List_Var_Delete (stl5, stl5v3);
-    assert (stl5->list->next->next == stl5v4);
+    assert (stl5->first->next->next == stl5v4);
     assert (stl5->last->previous->previous == stl5v2);
 
     for_list (stl5)
@@ -2388,7 +2381,7 @@ Test_List_Var_Delete ()
     EC_Test_Print_Msg ("List with 5 vars move mid var down 2 steps", "OK");
 
     Student_List_Var_Delete (stl5, stl5v4);
-    assert (stl5->list->next->next == stl5v5);
+    assert (stl5->first->next->next == stl5v5);
     assert (stl5->last == stl5v5);
     assert (stl5->last->previous == stl5v2);
 
@@ -2398,8 +2391,6 @@ Test_List_Var_Delete ()
     }
 
     EC_Test_Print_Msg ("List with 5 vars move mid var down 2 steps", "OK");
-
-    EC_Test_Print_Msg ("Test_List_Var_Delete", "END");
 }
 
 
@@ -2418,8 +2409,7 @@ Test_List_Exchange_Var ()
 void
 Test_List_Var_Drop ()
 {
-    EC_Test_Print_Msg ("Test_List_Var_Drop: ", "BEGIN");
-    EC_Test_Print_Msg ("Test_List_Var_Drop", "END");
+    EC_Test_Print_Msg ("Test_List_Var_Drop: ");
 }
 
 #endif 
@@ -2427,9 +2417,11 @@ Test_List_Var_Drop ()
 void
 Run_List_Test ()
 {
-    printf ("---------------\n");
-    printf ("Test: ec_list.h\n");
-    printf ("===============\n");
+    EC_Test_Print_Header ("Test: ec_list.h");
+    printf ("\n");
+
+    Test_List_Helpers ();
+    printf ("\n");
 
     Test_New_List ();
     printf ("\n");
@@ -2441,6 +2433,9 @@ Run_List_Test ()
     printf ("\n");
 
     Test_Insert_Before_List ();
+    printf ("\n");
+
+    Test_Insert_After_List ();
     printf ("\n");
 
     //Test_List_Var_Move_Up ();

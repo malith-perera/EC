@@ -13,6 +13,6 @@ Run_Loc_Test ()
     printf ("===============\n");
 
 
-    EC_Test_Print_Msg ("Test: ec_loc.h", "PASS");
+    EC_Test_Print_Msg ("Test: ec_loc.h", "PASS", __LINE__);
     printf ("\n");
 }

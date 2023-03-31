@@ -21,7 +21,7 @@ Entity *empty;
 void
 Test_Entity_Request ()
 {
-    EC_Test_Print_Title ("Test: Entity_Request", "BEGIN");
+    EC_Test_Print_Title ("Test: Entity_Request");
 
     player = Entity_Request (Player, 2, 5);
 //    enemy = Entity_Request (Enemy, 2, 10);
@@ -34,30 +34,30 @@ Test_Entity_Request ()
 
 //    assert (current_request->n == 0);
 //    assert (current_request->m == 20);
-//    EC_Test_Print_Msg ("Test: bullet", "OK");
+//    EC_Test_Print_Msg ("Test: bullet", "OK", __LINE__);
 //
 //    current_request = current_request->next;
 //    assert (current_request->n == 2);
 //    assert (current_request->m == 10);
-//    EC_Test_Print_Msg ("Test: enemy", "OK");
+//    EC_Test_Print_Msg ("Test: enemy", "OK", __LINE__);
 
     //current_request = current_request->next;
     assert (current_request->n == 2);
     assert (current_request->m == 5);
-    EC_Test_Print_Msg ("Test: player", "OK");
+    EC_Test_Print_Msg ("Test: player", "OK", __LINE__);
 
     current_request = current_request->next;
     assert (current_request == NULL);
-    EC_Test_Print_Msg ("Test: request_array end", "OK");
+    EC_Test_Print_Msg ("Test: request_array end", "OK", __LINE__);
 
-    EC_Test_Print_Title ("Test: Entity_Request", "END");
+    EC_Test_Print_Title ("Test: Entity_Request");
 }
 
 
 void
 Test_Entity_Request_Warn ()
 {
-    EC_Test_Print_Title ("Test: Entity_Request", "BEGIN");
+    EC_Test_Print_Title ("Test: Entity_Request");
 
     Entity_Request (Player, 5, 10);
 
@@ -72,9 +72,9 @@ Test_Entity_Request_Warn ()
 
     assert (current_request->n == 5);
     assert (current_request->m == 10);
-    EC_Test_Print_Msg ("Test: Entity_Request warning", "OK");
+    EC_Test_Print_Msg ("Test: Entity_Request warning", "OK", __LINE__);
 
-    EC_Test_Print_Title ("Test: Entity_Request", "END");
+    EC_Test_Print_Title ("Test: Entity_Request");
 }
 
 
@@ -83,34 +83,34 @@ Test_New_Component ()
 {
     // New_Component function calls in ec_ecs_test.h
     
-    EC_Test_Print_Title ("Test: New_Component", "BEGIN");
+    EC_Test_Print_Title ("Test: New_Component");
 
     assert (position_list == NULL);
-    EC_Test_Print_Msg ("Test: position_list exist", "OK");
+    EC_Test_Print_Msg ("Test: position_list exist", "OK", __LINE__);
 
     assert (velocity_list == NULL);
-    EC_Test_Print_Msg ("Test: velocity_list exist", "OK");
+    EC_Test_Print_Msg ("Test: velocity_list exist", "OK", __LINE__);
 
-    EC_Test_Print_Title ("Test: New_Component", "END");
+    EC_Test_Print_Title ("Test: New_Component");
 }
 
 
 void
 Test_Add_Component()
 {
-    EC_Test_Print_Title ("Test: Add_Component", "BEGIN");
+    EC_Test_Print_Title ("Test: Add_Component");
 
     Add_Component(player, Position, position);
     
     assert (player_position == NULL);
-    EC_Test_Print_Msg ("Test: player_position exist", "OK");
+    EC_Test_Print_Msg ("Test: player_position exist", "OK", __LINE__);
 
     Add_Component(player, Velocity, velocity);
 
     assert (player_velocity == NULL);
-    EC_Test_Print_Msg ("Test: player_velocity exist", "OK");
+    EC_Test_Print_Msg ("Test: player_velocity exist", "OK", __LINE__);
 
-    EC_Test_Print_Title ("Test: Add_Component", "END");
+    EC_Test_Print_Title ("Test: Add_Component");
 }
 
 
