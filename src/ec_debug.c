@@ -4,5 +4,5 @@
 void
 EC_Debug_Print_Adr (char *msg, void *adr)
 {
-    printf ("%-50s %p\n", msg, adr);
+    printf ("%-*s %p\n", EC_MSG_WIDTH, msg, adr);
 }

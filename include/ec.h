@@ -25,6 +25,9 @@
 #ifndef EC_H
 #define EC_H
 
+#ifndef EC_MSG_WIDTH
+#define EC_MSG_WIDTH 80
+#endif
 
 /* below EC_DEBUG and EC_WARN should EC_MEMORY should input at compile time */
 
@@ -67,8 +70,8 @@
 #include "ec_string.h"
 #include "ec_file.h"
 
-#include "ec_debug.h"
 #include "ec_test.h"
+#include "ec_debug.h"
 #include "ec_error.h"
 #include "ec_warn.h"
 #include "ec_memory.h"

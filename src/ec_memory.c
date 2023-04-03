@@ -12,7 +12,7 @@ EC_Memory_Create(ECType ec_type)
 {
     ECMemory *ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));
 
-    EC_DEBUG_PRINT_ADR("Create: ec memory ", ec_memory_new);
+    EC_DEBUG_PRINT_ADR("Create: ec memory ", ec_memory_new, __LINE__); //***** here __LINE__ is not correct. it should come from where it request
 
     if (ec_memory_new == NULL)
     {

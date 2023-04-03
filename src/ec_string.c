@@ -44,6 +44,13 @@ char* toUpper(char* s) {
 }
 
 
+void
+EC_Char_Substitute (char *str, char str_from, char str_to)
+{
+    while (*str == str_from)
+        *str++ = str_to;
+}
+
 #if 0
 CharListPtr
 Char_List (char string[])

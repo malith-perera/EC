@@ -32,6 +32,13 @@ EC_UNLOCK_FUNCTION_NAME(TYPE)                   \
     printf ("list variable %s is not exist in %s\n list", EC_GET_VAR_NAME (ec_var_name), EC_GET_VAR_NAME (ec_list_name));
 
 
+#define EC_WARN_PRINT_MSG(msg, result)                  \
+    printf ("%-7d: %-80s ", __LINE__, msg);             \
+    EC_Set_Text_Color(stdout, EC_YELLOW);               \
+    printf ("%s\n", result);                            \
+    printf("\033[0m");
+
+
 #ifdef EC_WARN
 
 #define EC_WARN_PRINT_ADR_MACRO(msg, adr)       \

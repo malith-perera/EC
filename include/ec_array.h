@@ -249,7 +249,7 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                        \
     int length                                                          \
 )                                                                       \
 {                                                                       \
-    EC_VAR_CREATE(EC_ARRAY_STRUCT(TYPE), var)                           /* TYPE *var is in this macro in ec_var.h*/\
+    EC_VAR_CREATE(EC_ARRAY_STRUCT(TYPE), var, __LINE__)                 /* TYPE *var is in this macro in ec_var.h*/\
                                                                         \
     if (EC_MEMORY)                                                      \
     {                                                                   \

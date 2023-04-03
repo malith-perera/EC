@@ -28,4 +28,7 @@ void
 print_list (StrListPtr currentPtr);
 
 
+void
+EC_Char_Substitute (char *str, char str_from, char str_to);
+
 #endif // EC_STRING

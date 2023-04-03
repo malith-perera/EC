@@ -8,12 +8,8 @@
 void
 EC_Debug_Print_Adr (char *msg, void *adr);
 
-
-#ifdef EC_DEBUG
-#define EC_DEBUG_PRINT_ADR(info, ec_memory) EC_Debug_Print_Adr (info, ec_memory)
-#else
-#define EC_DEBUG_PRINT_ADR(info, ec_memory)
-#endif
+#define EC_DEBUG_PRINT_ADR(msg, adr, line)                        \
+    printf ("%-7s> %-*s %p\n", "", EC_MSG_WIDTH, msg, adr);
 
 
 #endif // EC_DEBUG_H

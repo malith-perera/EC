@@ -21,7 +21,7 @@ typedef enum TextColor
     EC_LIGHTRED = 12,
     EC_LIGHTMAGENTA = 13,
     EC_YELLOW = 14,
-    EC_WHITE = 15,
+    EC_WHITE = 15
 } TextColor;
 
 

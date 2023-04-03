@@ -3,30 +3,39 @@
 
 #include "ec.h"
 
+
+
 #define EC_GET_VAR_NAME(ec_var_name)  #ec_var_name
 
-
-void
-EC_Test_Print_Title (char *msg, char *result);
-
-
-void
-EC_Test_Print_Subtitle (char *msg, char *result);
+#define EC_TEST_PRINT_MSG(msg, result)                  \
+    printf ("%-7d: %-80s ", __LINE__, msg);             \
+    EC_Set_Text_Color(stdout, EC_LIGHTGREEN);           \
+    printf ("%s\n", result);                            \
+    printf("\033[0m");
 
 
 void
-EC_Test_Print_End_Subtitle (char *msg, char *result);
+EC_Test_Print_Title (const char *msg);
 
 
 void
-EC_Test_Print_Msg (char *test, char *result);
+EC_Test_Print_Subtitle (char *msg);
+
+
+void
+EC_Test_Print_Msg (char *test, char *result, int line);
 
 
 void
 EC_Test_Print_Msg_Error (char *msg, char *result);
 
+
 void
 EC_Test_Print_Adr (char *msg, void *adrs);
+
+
+void
+EC_Test_Print_Header (char *msg);
 
 
 #define EC_UNLOCK_FUNCTION(TYPE)                \
