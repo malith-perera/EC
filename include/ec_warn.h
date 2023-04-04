@@ -6,7 +6,7 @@
 #define EC_GET_VAR_NAME(ec_var_name)  #ec_var_name
 
 void
-EC_Warn_Print_Msg (char *test, char *result);
+EC_Warn_Print_Msg (char *test, char *result, int line);
 
 
 void

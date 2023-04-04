@@ -52,7 +52,7 @@ Entity_Reset(Entity *entity, int n, int m)
             {
 
                 entity_request = requested_entities;
-                EC_Warn_Print_Msg("Warning : ", "Request same entity twice before request complete. Final entity request used.");
+                EC_Warn_Print_Msg("Warning : ", "Request same entity twice before request complete. Final entity request used.", __LINE__);
                 request_exist = true;
                 goto exit_loop;
 

@@ -182,6 +182,16 @@ EC_LIST_EXCHANGE_FUNCTION_NAME(TYPE)                    \
 );
 
 
+#define EC_LIST_REPLACE_FUNCTION_PROTOTYPE(TYPE)        \
+void                                                    \
+EC_LIST_REPLACE_FUNCTION_NAME(TYPE)                     \
+(                                                       \
+    EC_LIST_STRUCT(TYPE)        *list,                  \
+    EC_LIST_VAR_STRUCT(TYPE)    *ref,                   \
+    EC_LIST_VAR_STRUCT(TYPE)    *var                    \
+);
+
+
 #define EC_LIST_FUNCTION_PROTOTYPES(TYPE)               \
     EC_LIST_VAR_EXISTANCE_FUNCTION_PROTOTYPE(TYPE)      \
     EC_LIST_FREE_FUNCTION_PROTOTYPE(TYPE)               \
@@ -192,7 +202,8 @@ EC_LIST_EXCHANGE_FUNCTION_NAME(TYPE)                    \
     EC_LIST_INSERT_BEFORE_FUNCTION_PROTOTYPE(TYPE)      \
     EC_LIST_INSERT_AFTER_FUNCTION_PRTOTYPE(TYPE)        \
     EC_LIST_MOVE_FUNCTION_PROTOTYPE(TYPE)               \
-    EC_LIST_EXCHANGE_FUNCTION_PROTOTYPE(TYPE)
+    EC_LIST_EXCHANGE_FUNCTION_PROTOTYPE(TYPE)           \
+    EC_LIST_REPLACE_FUNCTION_PROTOTYPE(TYPE)
 
 
 /*---------------------------*/
@@ -601,6 +612,37 @@ EC_LIST_EXCHANGE_FUNCTION_NAME(TYPE)                        \
 }
 
 
+    //if (rep->previous != NULL) printf ("rp %d\n", rep->previous->no);\
+/* List Replace Function */
+#define EC_LIST_REPLACE_FUNCTION(TYPE)          \
+void                                            \
+EC_LIST_REPLACE_FUNCTION_NAME(TYPE)             \
+(                                               \
+    EC_LIST_STRUCT(TYPE)        *list,          \
+    EC_LIST_VAR_STRUCT(TYPE)    *ref,           /* replaced ref */\
+    EC_LIST_VAR_STRUCT(TYPE)    *var            /* replaced by var*/\
+)                                               \
+{                                               \
+    ref->var = var->var;                        \
+                                                \
+    if (var == list->first)                     \
+    {                                           \
+        var->next->previous = NULL;             \
+        list->first = var->next;                \
+    }                                           \
+    else if (var == list->last)                 \
+    {                                           \
+        var->previous->next = NULL;             \
+        list->last = var->previous;             \
+    }                                           \
+    else                                        \
+    {                                           \
+        var->previous->next = var->next;        \
+        var->next->previous = var->previous;    \
+    }                                           \
+}
+
+
 #define EC_LIST_FUNCTIONS(TYPE)             \
     EC_LIST_VAR_EXISTANCE_FUNCTION(TYPE)    \
     EC_LIST_FREE_FUNCTION(TYPE)             \
@@ -611,7 +653,7 @@ EC_LIST_EXCHANGE_FUNCTION_NAME(TYPE)                        \
     EC_LIST_INSERT_BEFORE_FUNCTION(TYPE)    \
     EC_LIST_INSERT_AFTER_FUNCTION(TYPE)     \
     EC_LIST_MOVE_FUNCTION(TYPE)             \
-    EC_LIST_EXCHANGE_FUNCTION(TYPE)
-
+    EC_LIST_EXCHANGE_FUNCTION(TYPE)         \
+    EC_LIST_REPLACE_FUNCTION(TYPE)
 
 #endif
