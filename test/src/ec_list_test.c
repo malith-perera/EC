@@ -696,7 +696,70 @@ Test_List_Var_Move_Up ()
     assert (Student_Compare (stl->last->previous->var, st4));
     assert (Student_Compare (stl->last->var, st3));
     EC_Test_Print_Msg ("Test: list reverse order", "OK", __LINE__);
+
+    // ******* auto test for more variables should implement to prove this work correctly
 }
+
+void
+Test_List_Exchange_Var ()
+{
+    EC_Test_Print_Title (__func__);
+
+    EC_Test_Print_Subtitle ("Create and initalize variables");
+
+    int i = 0;
+    StudentList *stl = Student_List ();
+    EC_Test_Print_Msg ("Create stl", "OK", __LINE__);
+
+    Student_Insert_After(stl, stl->last, st0);
+    Student_Insert_After(stl, stl->last, st1);
+    Student_Insert_After(stl, stl->last, st2);
+    EC_Test_Print_Msg ("Insert to stl as last var", "OK", __LINE__);
+
+    StudentList *stl2 = Student_List ();
+    EC_Test_Print_Msg ("Create stl2", "OK", __LINE__);
+
+    Student_Append(stl2, st3);
+    Student_Append(stl2, st4);
+    Student_Append(stl2, st5);
+    EC_Test_Print_Msg ("Append to stl2", "OK", __LINE__);
+    
+    // Exchange within same list
+    EC_Test_Print_Subtitle ("Exchange within same list");
+
+    Student_Exchange(stl->first, stl->first->next);
+    EC_Test_Print_Msg ("Call: Student_Exchange", "OK", __LINE__);
+    assert (Student_Compare (stl->first->var, st1)); 
+    assert (Student_Compare (stl->first->next->var, st0)); 
+    assert (Student_Compare (stl->first->next->next->var, st2)); 
+
+    Student_Exchange(stl->first, stl->last);
+    EC_Test_Print_Msg ("Call: Student_Exchange", "OK", __LINE__);
+    assert (Student_Compare (stl->first->var, st2)); 
+    assert (Student_Compare (stl->first->next->var, st0)); 
+    assert (Student_Compare (stl->first->next->next->var, st1)); 
+
+    EC_Test_Print_Msg ("exchange within same list", "OK", __LINE__);
+
+    // move back to position
+    Student_Move(stl, stl->last, stl->first);
+
+    // Exchange within same list
+    EC_Test_Print_Subtitle ("Exchange within different lists");
+
+    Student_Exchange(stl->first, stl2->first);
+    EC_Test_Print_Msg ("Call: Student_Exchange with var first", "OK", __LINE__);
+    assert (Student_Compare (stl->first->var, st3)); 
+    assert (Student_Compare (stl2->first->var, st0)); 
+
+    Student_Exchange(stl->last, stl2->last);
+    EC_Test_Print_Msg ("Call: Student_Exchange with var last", "OK", __LINE__);
+    assert (Student_Compare (stl->last->var, st5)); 
+    assert (Student_Compare (stl2->last->var, st2)); 
+
+    EC_Test_Print_Msg ("exchange within different lists", "OK", __LINE__);
+}
+
 
 #if 0
 
@@ -2607,10 +2670,7 @@ Test_List_Change_Var ()
 }
 
 
-void
-Test_List_Exchange_Var ()
-{
-}
+
 
 
 void
@@ -2648,6 +2708,9 @@ Run_List_Test ()
     Test_List_Var_Move_Up ();
     printf ("\n");
 
+    Test_List_Exchange_Var ();
+    printf ("\n");
+
     /*Test_List_Var_Move_Down ();*/
     /*printf ("\n");*/
 
@@ -2667,9 +2730,6 @@ Run_List_Test ()
     /*printf ("\n");*/
 
     /*Test_List_Change_Var ();*/
-    /*printf ("\n");*/
-
-    /*Test_List_Exchange_Var ();*/
     /*printf ("\n");*/
 
     /*EC_Test_Print_Msg ("Test: ec_list.h", "PASS");*/

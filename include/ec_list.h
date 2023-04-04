@@ -45,7 +45,7 @@
 #define EC_LIST_VAR_DELETE_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _List_Var_Delete)
 #define EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Drop)
 
-#define EC_LIST_VAR_EXCHANGE_FUNCTION_NAME(TYPE)    EC_CONCAT(TYPE, _List_Var_Exchange)
+#define EC_LIST_EXCHANGE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Exchange)
 #define EC_LIST_VAR_REPLACE_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _List_Var_Replace)
 #define EC_LIST_VAR_CHANGE_LIST_FUNCTION_NAME(TYPE) EC_CONCAT(TYPE, _List_Var_Change_List)
 
@@ -173,6 +173,15 @@ EC_LIST_MOVE_FUNCTION_NAME(TYPE)                     \
 );
 
 
+#define EC_LIST_EXCHANGE_FUNCTION_PROTOTYPE(TYPE)       \
+void                                                    \
+EC_LIST_EXCHANGE_FUNCTION_NAME(TYPE)                    \
+(                                                       \
+    EC_LIST_VAR_STRUCT(TYPE)    *var1,                  \
+    EC_LIST_VAR_STRUCT(TYPE)    *var2                   \
+);
+
+
 #define EC_LIST_FUNCTION_PROTOTYPES(TYPE)               \
     EC_LIST_VAR_EXISTANCE_FUNCTION_PROTOTYPE(TYPE)      \
     EC_LIST_FREE_FUNCTION_PROTOTYPE(TYPE)               \
@@ -182,7 +191,8 @@ EC_LIST_MOVE_FUNCTION_NAME(TYPE)                     \
     EC_LIST_INSERT_FUNCTION_PROTOTYPE(TYPE)             \
     EC_LIST_INSERT_BEFORE_FUNCTION_PROTOTYPE(TYPE)      \
     EC_LIST_INSERT_AFTER_FUNCTION_PRTOTYPE(TYPE)        \
-    EC_LIST_MOVE_FUNCTION_PROTOTYPE(TYPE)
+    EC_LIST_MOVE_FUNCTION_PROTOTYPE(TYPE)               \
+    EC_LIST_EXCHANGE_FUNCTION_PROTOTYPE(TYPE)
 
 
 /*---------------------------*/
@@ -576,6 +586,21 @@ EC_LIST_MOVE_FUNCTION_NAME(TYPE)                                    \
 }
 
 
+#define EC_LIST_EXCHANGE_FUNCTION(TYPE)                     \
+void                                                        \
+EC_LIST_EXCHANGE_FUNCTION_NAME(TYPE)                        \
+(                                                           \
+    EC_LIST_VAR_STRUCT(TYPE)    *var1,                      \
+    EC_LIST_VAR_STRUCT(TYPE)    *var2                       \
+)                                                           \
+{                                                           \
+    TYPE  *temp_var;                                        \
+    temp_var = var1->var;                                   \
+    var1->var = var2->var;                                  \
+    var2->var = temp_var;                                   \
+}
+
+
 #define EC_LIST_FUNCTIONS(TYPE)             \
     EC_LIST_VAR_EXISTANCE_FUNCTION(TYPE)    \
     EC_LIST_FREE_FUNCTION(TYPE)             \
@@ -585,7 +610,8 @@ EC_LIST_MOVE_FUNCTION_NAME(TYPE)                                    \
     EC_LIST_INSERT_FUNCTION(TYPE)           \
     EC_LIST_INSERT_BEFORE_FUNCTION(TYPE)    \
     EC_LIST_INSERT_AFTER_FUNCTION(TYPE)     \
-    EC_LIST_MOVE_FUNCTION(TYPE)
+    EC_LIST_MOVE_FUNCTION(TYPE)             \
+    EC_LIST_EXCHANGE_FUNCTION(TYPE)
 
 
 #endif
