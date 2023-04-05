@@ -913,6 +913,112 @@ Test_List_Copy ()
 }
 
 
+void
+Test_List_Var_Drop ()
+{
+    EC_Test_Print_Title (__func__);
+
+    // init variables
+    EC_Test_Print_Subtitle ("Initialize variables");
+    int i = 0;
+
+    StudentList *stl = Student_List();
+
+    Student_Append(stl, st0);
+    Student_Append(stl, st1);
+    Student_Append(stl, st2);
+    Student_Append(stl, st3);
+    Student_Append(stl, st4);
+    Student_Append(stl, st5);
+    EC_Test_Print_Msg ("Append st0 ... st5 to stl", "OK", __LINE__);
+
+    i = 0;
+    for_list(stl)
+    {
+        assert (Student_Compare (stl->var, &students[i])); 
+        i++;
+    }
+    assert (i == 6);
+    EC_Test_Print_Msg ("st0 ... st5 in stl", "OK", __LINE__);
+
+
+    // drop first
+    Student_Drop(stl, stl->first);
+    EC_Test_Print_Msg ("drop first var in stl", "OK", __LINE__);
+
+    i = 1;
+    for_list(stl)
+    {
+        assert (Student_Compare (stl->var, &students[i])); 
+        i++;
+    }
+    assert (i == 6);
+    EC_Test_Print_Msg ("st1 ... st5 in stl", "OK", __LINE__);
+
+    // drop last
+    Student_Drop(stl, stl->last);
+    EC_Test_Print_Msg ("drop last var in stl", "OK", __LINE__);
+
+    i = 1;
+    for_list(stl)
+    {
+        assert (Student_Compare (stl->var, &students[i])); 
+        i++;
+    }
+    assert (i == 5);
+    EC_Test_Print_Msg ("st1 ... st4 in stl", "OK", __LINE__);
+
+    i = 4;
+    for_list_reverse(stl)
+    {
+        assert (Student_Compare (stl->var, &students[i])); 
+        i--;
+    }
+    assert (i == 0);
+    EC_Test_Print_Msg ("check reverse st4 ... st1 in stl", "OK", __LINE__);
+
+    // drop second var 
+    Student_Drop (stl, stl->first->next);
+    EC_Test_Print_Msg ("drop second var in stl", "OK", __LINE__);
+
+    i = 1;
+    for_list(stl)
+    {
+        if (i == 2) i++; // be careful while droping
+        assert (Student_Compare (stl->var, &students[i])); 
+        i++;
+    }
+    assert (i == 5);
+    EC_Test_Print_Msg ("st1... st4 in stl except st2", "OK", __LINE__);
+
+    // drop second var 
+    Student_Drop (stl, stl->first->next);
+    EC_Test_Print_Msg ("drop second var in stl", "OK", __LINE__);
+
+    i = 1;
+    for_list(stl)
+    {
+        if (i == 2) i++; // be careful while droping
+        if (i == 3) i++; // be careful while droping
+        assert (Student_Compare (stl->var, &students[i])); 
+        i++;
+    }
+    assert (i == 5);
+    EC_Test_Print_Msg ("st1 ... st4 in stl except st2 and st3", "OK", __LINE__);
+
+    Student_Drop (stl, stl->last);
+
+    assert (Student_Compare (stl->first->var, st1)); 
+    EC_Test_Print_Msg ("st4 droped", "OK", __LINE__);
+
+    Student_Drop (stl, stl->first);
+
+    assert (stl->first ==  NULL); 
+    EC_Test_Print_Msg ("stl all variables droped", "OK", __LINE__);
+
+}
+
+
 #if 0
 
 void
@@ -1522,11 +1628,6 @@ Test_List_Change_Var ()
 
 
 
-void
-Test_List_Var_Drop ()
-{
-    EC_Test_Print_Msg ("Test_List_Var_Drop: ");
-}
 
 #endif 
 
@@ -1566,13 +1667,13 @@ Run_List_Test ()
     Test_List_Copy ();
     printf ("\n");
 
+    Test_List_Var_Drop ();
+    printf ("\n");
+
     /*Test_List_Var_Move_Down ();*/
     /*printf ("\n");*/
 
     /*Test_List_Var_Delete ();*/
-    /*printf ("\n");*/
-
-    /*Test_List_Var_Drop ();*/
     /*printf ("\n");*/
 
     /*Test_Sort_List ();*/

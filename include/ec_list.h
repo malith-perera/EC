@@ -43,7 +43,7 @@
 #define EC_LIST_MOVE_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _Move)
 #define EC_LIST_VAR_MOVE_DOWN_FUNCTION_NAME(TYPE)   EC_CONCAT(TYPE, _List_Var_Move_Down)
 #define EC_LIST_VAR_DELETE_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _List_Var_Delete)
-#define EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Drop)
+#define EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Drop)
 
 #define EC_LIST_EXCHANGE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Exchange)
 #define EC_LIST_VAR_REPLACE_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _List_Var_Replace)
@@ -200,6 +200,15 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                        \
 );
 
 
+#define EC_LIST_VAR_DROP_FUNCTION_PROTOTYPE(TYPE)           \
+void                                                        \
+EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
+(                                                           \
+    EC_LIST_STRUCT(TYPE)        *list,                      \
+    EC_LIST_VAR_STRUCT(TYPE)    *var                        \
+);
+
+
 #define EC_LIST_FUNCTION_PROTOTYPES(TYPE)               \
     EC_LIST_VAR_EXISTANCE_FUNCTION_PROTOTYPE(TYPE)      \
     EC_LIST_FREE_FUNCTION_PROTOTYPE(TYPE)               \
@@ -212,7 +221,8 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                        \
     EC_LIST_MOVE_FUNCTION_PROTOTYPE(TYPE)               \
     EC_LIST_EXCHANGE_FUNCTION_PROTOTYPE(TYPE)           \
     EC_LIST_REPLACE_FUNCTION_PROTOTYPE(TYPE)            \
-    EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)
+    EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)               \
+    EC_LIST_VAR_DROP_FUNCTION_PROTOTYPE(TYPE)
 
 
 /*---------------------------*/
@@ -673,6 +683,38 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                                            \
 }
 
 
+#define EC_LIST_VAR_DROP_FUNCTION(TYPE)                     \
+void                                                        \
+EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
+(                                                           \
+    EC_LIST_STRUCT(TYPE)        *list,                      \
+    EC_LIST_VAR_STRUCT(TYPE)    *var                        \
+)                                                           \
+{                                                           \
+    if (var == list->first && var == list->last)            \
+    {                                                       \
+        list->first = NULL;                                 \
+        list->last = NULL;                                  \
+        list->var = NULL;                                   \
+    }                                                       \
+    else if (var == list->first)                            \
+    {                                                       \
+        var->next->previous = NULL;                         \
+        list->first = var->next;                            \
+    }                                                       \
+    else if (var == list->last)                             \
+    {                                                       \
+        var->previous->next = NULL;                         \
+        list->last = var->previous;                         \
+    }                                                       \
+    else                                                    \
+    {                                                       \
+        var->previous->next = var->next;                    \
+        var->next->previous = var->previous;                \
+    }                                                       \
+}
+
+
 #define EC_LIST_FUNCTIONS(TYPE)             \
     EC_LIST_VAR_EXISTANCE_FUNCTION(TYPE)    \
     EC_LIST_FREE_FUNCTION(TYPE)             \
@@ -685,6 +727,8 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                                            \
     EC_LIST_MOVE_FUNCTION(TYPE)             \
     EC_LIST_EXCHANGE_FUNCTION(TYPE)         \
     EC_LIST_REPLACE_FUNCTION(TYPE)          \
-    EC_LIST_COPY_FUNCTION(TYPE)
+    EC_LIST_COPY_FUNCTION(TYPE)             \
+    EC_LIST_VAR_DROP_FUNCTION(TYPE)
+
 
 #endif
