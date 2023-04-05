@@ -217,7 +217,7 @@ Test_List_Insert ()
 
 
 void
-Test_List_Var_Move_Up ()
+Test_List_Var_Move ()
 {
     EC_Test_Print_Title (__func__);
 
@@ -1288,7 +1288,7 @@ Run_List_Test ()
     Test_List_Insert ();
     printf ("\n");
 
-    Test_List_Var_Move_Up ();
+    Test_List_Var_Move ();
     printf ("\n");
 
     Test_List_Exchange_Var ();
@@ -1303,13 +1303,10 @@ Run_List_Test ()
     Test_List_Var_Drop ();
     printf ("\n");
 
-    /*Test_List_Var_Delete ();*/
-    /*printf ("\n");*/
-
     /*Test_Sort_List ();*/
     /*printf ("\n");*/
 
-    /*Test_List_Change_Var ();*/
+    /*Test_List_Var_Delete ();*/
     /*printf ("\n");*/
 
     /*EC_Test_Print_Msg ("Test: ec_list.h", "PASS");*/
