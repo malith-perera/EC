@@ -192,6 +192,14 @@ EC_LIST_REPLACE_FUNCTION_NAME(TYPE)                     \
 );
 
 
+#define EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)           \
+EC_LIST_STRUCT(TYPE) *                                  \
+EC_LIST_COPY_FUNCTION_NAME(TYPE)                        \
+(                                                       \
+    EC_LIST_STRUCT(TYPE) *list                          \
+);
+
+
 #define EC_LIST_FUNCTION_PROTOTYPES(TYPE)               \
     EC_LIST_VAR_EXISTANCE_FUNCTION_PROTOTYPE(TYPE)      \
     EC_LIST_FREE_FUNCTION_PROTOTYPE(TYPE)               \
@@ -203,7 +211,8 @@ EC_LIST_REPLACE_FUNCTION_NAME(TYPE)                     \
     EC_LIST_INSERT_AFTER_FUNCTION_PRTOTYPE(TYPE)        \
     EC_LIST_MOVE_FUNCTION_PROTOTYPE(TYPE)               \
     EC_LIST_EXCHANGE_FUNCTION_PROTOTYPE(TYPE)           \
-    EC_LIST_REPLACE_FUNCTION_PROTOTYPE(TYPE)
+    EC_LIST_REPLACE_FUNCTION_PROTOTYPE(TYPE)            \
+    EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)
 
 
 /*---------------------------*/
@@ -643,6 +652,27 @@ EC_LIST_REPLACE_FUNCTION_NAME(TYPE)             \
 }
 
 
+// Copy array
+#define EC_LIST_COPY_FUNCTION(TYPE)                                         \
+EC_LIST_STRUCT(TYPE) *                                                      \
+EC_LIST_COPY_FUNCTION_NAME(TYPE)                                            \
+(                                                                           \
+    EC_LIST_STRUCT(TYPE) *list                                              \
+)                                                                           \
+{                                                                           \
+    EC_LIST_STRUCT(TYPE) *list_copy = EC_LIST_FUNCTION_NAME(TYPE)();        \
+                                                                            \
+    EC_LIST_VAR_STRUCT(TYPE) *var;                                          \
+                                                                            \
+    for_list(list)                                                          \
+    {                                                                       \
+        EC_LIST_APPEND_FUNCTION_NAME(TYPE)(list_copy, list->var);           \
+    }                                                                       \
+                                                                            \
+    return list_copy;                                                       \
+}
+
+
 #define EC_LIST_FUNCTIONS(TYPE)             \
     EC_LIST_VAR_EXISTANCE_FUNCTION(TYPE)    \
     EC_LIST_FREE_FUNCTION(TYPE)             \
@@ -654,6 +684,7 @@ EC_LIST_REPLACE_FUNCTION_NAME(TYPE)             \
     EC_LIST_INSERT_AFTER_FUNCTION(TYPE)     \
     EC_LIST_MOVE_FUNCTION(TYPE)             \
     EC_LIST_EXCHANGE_FUNCTION(TYPE)         \
-    EC_LIST_REPLACE_FUNCTION(TYPE)
+    EC_LIST_REPLACE_FUNCTION(TYPE)          \
+    EC_LIST_COPY_FUNCTION(TYPE)
 
 #endif

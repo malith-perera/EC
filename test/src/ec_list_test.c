@@ -870,6 +870,49 @@ Test_Replace_List ()
 }
 
 
+void
+Test_List_Copy ()
+{
+    EC_Test_Print_Title (__func__);
+
+    /* Init variables */
+    EC_Test_Print_Subtitle ("Initialize variables");
+    int i = 0;
+
+    StudentList *stl = Student_List ();
+    StudentList* stl2 = Student_List ();
+
+    Student_Append(stl, st0);
+    Student_Append(stl, st1);
+    Student_Append(stl, st2);
+    Student_Append(stl, st3);
+    Student_Append(stl, st4);
+    Student_Append(stl, st5);
+    EC_Test_Print_Msg ("Append st0 ... st5 to stl", "OK", __LINE__);
+
+    i = 0;
+    for_list (stl)
+    {
+        assert (Student_Compare (stl->var, &students[i])); 
+        i++;
+    }
+    assert (i == 6);
+    EC_Test_Print_Msg ("st0 ... st5 variables exist in stl", "OK", __LINE__);
+
+    stl2 = Student_List_Copy(stl);
+    EC_Test_Print_Msg ("Copy stl to stl2", "OK", __LINE__);
+
+    i = 0;
+    for_list (stl2)
+    {
+        assert (Student_Compare (stl2->var, &students[i])); 
+        i++;
+    }
+    assert (i == 6);
+    EC_Test_Print_Msg ("stl copied to stl2", "OK", __LINE__);
+}
+
+
 #if 0
 
 void
@@ -926,45 +969,6 @@ Test_Sort_List ()
 }
 
 
-void
-Test_List_Copy ()
-{
-/*    EC_Test_Print_Msg ("Test_List_Copy: ");*/
-
-    /*StudentList* stl1 = Student_List ();*/
-
-    /*StudentListVar* st1 = Student_List_Var ();*/
-    /*st1->no = 1;*/
-    /*st1->name = "Malith";*/
-    /*Append_Student (stl1, st1);*/
-
-    /*StudentListVar* st2 = Student_List_Var ();*/
-    /*st2->no = 2;*/
-    /*st2->name = "Geethike";*/
-    /*Append_Student (stl1, st2);*/
-
-    /*StudentList* stl2 = Student_List_Copy (stl1);*/
-
-    /*assert (stl2->first->no == 1);*/
-    /*assert (strcmp(stl2->first->name ,"Malith") == 0 );*/
-
-    /*assert (stl2->first->next->no == 2);*/
-    /*assert (strcmp(stl2->first->next->name, "Geethike") == 0 );*/
-
-    /*EC_Test_Print_Msg ("List Copy Variables", "OK");*/
-
-    /*st1->no = 3;*/
-    /*st1->name = "Malshi";*/
-    /*assert (stl2->first->no != 3);*/
-    /*assert (strcmp(stl2->first->name ,"Malshi") != 0 );*/
-
-    /*st2->no = 4;*/
-    /*st2->name = "Prisenthi";*/
-    /*assert (stl1->first->no != 4);*/
-    /*assert (strcmp(stl1->first->name ,"Prisenthi") != 0 );*/
-
-    /*EC_Test_Print_Msg ("Copied list do not affect other list", "OK");*/
-}
 
 
 /* new list functions */
@@ -1559,8 +1563,8 @@ Run_List_Test ()
     Test_Replace_List ();
     printf ("\n");
 
-    /*Test_List_Copy ();*/
-    /*printf ("\n");*/
+    Test_List_Copy ();
+    printf ("\n");
 
     /*Test_List_Var_Move_Down ();*/
     /*printf ("\n");*/
