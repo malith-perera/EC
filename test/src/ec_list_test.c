@@ -135,14 +135,14 @@ Test_List_Insert ()
     StudentList *stl = Student_List ();
     EC_Test_Print_Msg ("Create: New list", "OK", __LINE__);
 
-    Student_Insert_After (stl, NULL, st3);
-    EC_Test_Print_Msg ("Call: Student_Insert_After arg ref = NULL in empty list", "OK", __LINE__);
+    Student_Insert (stl, NULL, st3);
+    EC_Test_Print_Msg ("Call: Student_Insert arg ref = NULL in empty list", "OK", __LINE__);
 
     assert (Student_Compare (stl->first->var, &students[3])); 
     EC_Test_Print_Msg ("Test: Insert st3 into stl while arg ref = NULL in an empty list", "OK", __LINE__);
 
-    Student_Insert_After (stl, NULL, st1);
-    EC_Test_Print_Msg ("Call: Student_Insert_After arg ref = NULL in a none empty list", "OK", __LINE__);
+    Student_Insert (stl, NULL, st1);
+    EC_Test_Print_Msg ("Call: Student_Insert arg ref = NULL in a none empty list", "OK", __LINE__);
 
     assert (Student_Compare (stl->first->var, st1)); 
     EC_Test_Print_Msg ("Test: ref = stl->first->var in a none empty list", "OK", __LINE__);
@@ -155,8 +155,8 @@ Test_List_Insert ()
     assert (Student_Compare (stl->last->previous->var, st1)); 
     EC_Test_Print_Msg ("Test: stl->last->previous->var should equel to st1", "OK", __LINE__);
 
-    Student_Insert_After (stl, stl->first, st2);
-    EC_Test_Print_Msg ("Call: Student_Insert_After arg ref = stl->first in a none empty list", "OK", __LINE__);
+    Student_Insert (stl, stl->first, st2);
+    EC_Test_Print_Msg ("Call: Student_Insert arg ref = stl->first in a none empty list", "OK", __LINE__);
 
     i = 1;
     for_list(stl)
@@ -166,8 +166,8 @@ Test_List_Insert ()
     }
     EC_Test_Print_Msg ("Test: Insert st3 into stl while ref = stl->first in an empty list", "OK", __LINE__);
 
-    Student_Insert_After (stl, stl->last, st6);
-    EC_Test_Print_Msg ("Call: Student_Insert_After insert st6 as the last variable", "OK", __LINE__);
+    Student_Insert (stl, stl->last, st6);
+    EC_Test_Print_Msg ("Call: Student_Insert insert st6 as the last variable", "OK", __LINE__);
 
     i = 1;
     for_list(stl)
@@ -183,8 +183,8 @@ Test_List_Insert ()
     assert (stl->last->next == NULL); 
     EC_Test_Print_Msg ("Test: stl->last->next should be NULL", "OK", __LINE__);
 
-    Student_Insert_After (stl, stl->last->previous, st4);
-    EC_Test_Print_Msg ("Call: Student_Insert_After insert st4 before last variable", "OK", __LINE__);
+    Student_Insert (stl, stl->last->previous, st4);
+    EC_Test_Print_Msg ("Call: Student_Insert insert st4 before last variable", "OK", __LINE__);
 
     i = 1;
     for_list(stl)
@@ -201,7 +201,7 @@ Test_List_Insert ()
     {
         if (stl->var == st4)
         {
-            Student_Insert_After (stl, stl->list_var, st5);
+            Student_Insert (stl, stl->list_var, st5);
         }
         i++;
     }
@@ -615,9 +615,9 @@ Test_List_Exchange_Var ()
     StudentList *stl = Student_List ();
     EC_Test_Print_Msg ("Create stl", "OK", __LINE__);
 
-    Student_Insert_After(stl, stl->last, st0);
-    Student_Insert_After(stl, stl->last, st1);
-    Student_Insert_After(stl, stl->last, st2);
+    Student_Insert(stl, stl->last, st0);
+    Student_Insert(stl, stl->last, st1);
+    Student_Insert(stl, stl->last, st2);
     EC_Test_Print_Msg ("Insert to stl as last var", "OK", __LINE__);
 
     StudentList *stl2 = Student_List ();
@@ -707,7 +707,7 @@ Test_Replace_List ()
 
     EC_Test_Print_Subtitle ("Replece list with 3 vars");
     // fill list again for 2 vers
-    Student_Insert_After (stl, NULL, st0);
+    Student_Insert (stl, NULL, st0);
     Student_Append (stl, st2);
 
     // check list ok
@@ -727,7 +727,7 @@ Test_Replace_List ()
     assert (Student_Compare (stl->last->var, st2)); 
     EC_Test_Print_Msg ("stl->first->next replace with stl->first", "OK", __LINE__);
 
-    Student_Insert_After (stl, stl->first, st1); // insert st1 again
+    Student_Insert (stl, stl->first, st1); // insert st1 again
 
     // check list ok
     i = 0;

@@ -34,7 +34,6 @@
 
 #define EC_LIST_APPEND_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Append)
 #define EC_LIST_INSERT_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Insert)
-#define EC_LIST_INSERT_AFTER_FUNCTION_NAME(TYPE)    EC_CONCAT(TYPE, _Insert_After)
 #define EC_LIST_REPLACE_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Replace)
 #define EC_LIST_DROP_FUNCTION_NAME(TYPE)            EC_CONCAT(Drop_, TYPE)
 #define EC_LIST_SORT_FUNCTION_NAME(TYPE, SW)        EC_CONCAT4(Sort_, TYPE, _List_With_, SW)
@@ -129,21 +128,10 @@ EC_LIST_APPEND_FUNCTION_NAME(TYPE)                      \
 );
 
 
+/* List Insert Function Prototype */
 #define EC_LIST_INSERT_FUNCTION_PROTOTYPE(TYPE)         \
 void                                                    \
 EC_LIST_INSERT_FUNCTION_NAME(TYPE)                      \
-(                                                       \
-    EC_LIST_STRUCT(TYPE)        *list,                  \
-    int                         *i,                     \
-    TYPE                        *var                    \
-);
-
-
-
-/* List Insert After Function Prototype */
-#define EC_LIST_INSERT_AFTER_FUNCTION_PRTOTYPE(TYPE)    \
-void                                                    \
-EC_LIST_INSERT_AFTER_FUNCTION_NAME(TYPE)                \
 (                                                       \
     EC_LIST_STRUCT(TYPE)        *list,                  \
     EC_LIST_VAR_STRUCT(TYPE)    *ref,                   \
@@ -152,13 +140,13 @@ EC_LIST_INSERT_AFTER_FUNCTION_NAME(TYPE)                \
 
 
 /* List Move UP Function Prototype */
-#define EC_LIST_MOVE_FUNCTION_PROTOTYPE(TYPE)        \
-void                                                        \
-EC_LIST_MOVE_FUNCTION_NAME(TYPE)                     \
-(                                                           \
-    EC_LIST_STRUCT(TYPE)        *list,                      \
-    EC_LIST_VAR_STRUCT(TYPE)    *ref,                       \
-    EC_LIST_VAR_STRUCT(TYPE)    *var                        \
+#define EC_LIST_MOVE_FUNCTION_PROTOTYPE(TYPE)           \
+void                                                    \
+EC_LIST_MOVE_FUNCTION_NAME(TYPE)                        \
+(                                                       \
+    EC_LIST_STRUCT(TYPE)        *list,                  \
+    EC_LIST_VAR_STRUCT(TYPE)    *ref,                   \
+    EC_LIST_VAR_STRUCT(TYPE)    *var                    \
 );
 
 
@@ -205,7 +193,6 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
     EC_LIST_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)            \
     EC_LIST_APPEND_FUNCTION_PROTOTYPE(TYPE)             \
     EC_LIST_INSERT_FUNCTION_PROTOTYPE(TYPE)             \
-    EC_LIST_INSERT_AFTER_FUNCTION_PRTOTYPE(TYPE)        \
     EC_LIST_MOVE_FUNCTION_PROTOTYPE(TYPE)               \
     EC_LIST_EXCHANGE_FUNCTION_PROTOTYPE(TYPE)           \
     EC_LIST_REPLACE_FUNCTION_PROTOTYPE(TYPE)            \
@@ -334,34 +321,10 @@ EC_LIST_APPEND_FUNCTION_NAME(TYPE)                                  \
 }
 
 
-/* List Insert Function */
-#define EC_LIST_INSERT_FUNCTION(TYPE)                   \
-void                                                    \
-EC_LIST_INSERT_FUNCTION_NAME(TYPE)                      \
-(                                                       \
-    EC_LIST_STRUCT(TYPE)        *list,                  \
-    int                         *index,                 \
-    TYPE                        *var                    \
-)                                                       \
-{                                                       \
-    EC_LIST_VAR_STRUCT(TYPE) *previous;                 \
-    int i = 0;                                          \
-    for_list(list)                                      \
-    {                                                   \
-        previous = list->list_var;                      \
-        if (*index == i)                                \
-        {                                               \
-                                                        \
-        }                                               \
-                                                        \
-    }                                                   \
-}
-
-
 /* List Insert After Function */
-#define EC_LIST_INSERT_AFTER_FUNCTION(TYPE)                         \
+#define EC_LIST_INSERT_FUNCTION(TYPE)                               \
 void                                                                \
-EC_LIST_INSERT_AFTER_FUNCTION_NAME(TYPE)                            \
+EC_LIST_INSERT_FUNCTION_NAME(TYPE)                                  \
 (                                                                   \
     EC_LIST_STRUCT(TYPE)        *list,                              \
     EC_LIST_VAR_STRUCT(TYPE)    *ref,                               \
@@ -626,7 +589,6 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
     EC_LIST_NEW_VAR_FUNCTION(TYPE)          \
     EC_LIST_APPEND_FUNCTION(TYPE)           \
     EC_LIST_INSERT_FUNCTION(TYPE)           \
-    EC_LIST_INSERT_AFTER_FUNCTION(TYPE)     \
     EC_LIST_MOVE_FUNCTION(TYPE)             \
     EC_LIST_EXCHANGE_FUNCTION(TYPE)         \
     EC_LIST_REPLACE_FUNCTION(TYPE)          \
