@@ -64,7 +64,6 @@ Test_Enqueue_Queue ()
     EC_Test_Print_Msg ("st2 enqueued", "OK", __LINE__);
 }
 
-#if 0
 
 void
 Test_Dequeue_Queue ()
@@ -73,62 +72,26 @@ Test_Dequeue_Queue ()
 
     StudentQueue *stq = Student_Queue ();
 
-    StudentQueueVar *st1 = Student_Queue_Var ();
-    st1->no = 1;
-    st1->name = "Malith";
-    Student_Enqueue (stq, st1);
+    Student_Enqueue(stq, st0);
+    Student_Enqueue(stq, st1);
+    Student_Enqueue(stq, st2);
 
-    StudentQueueVar *st2 = Student_Queue_Var ();
-    st2->no = 2;
-    st2->name = "Geethike";
-    Student_Enqueue (stq, st2);
+    StudentQueueVar *stqv;
 
-    StudentQueueVar* dequeued_var = Student_Dequeue (stq);
+    stqv = Student_Dequeue(stq);
+    assert (Student_Compare(stqv->var, st0)); 
+    EC_Test_Print_Msg ("st0 dequeued", "OK", __LINE__);
 
-    if (dequeued_var)
-    {
-        assert (dequeued_var->no == 1);
-        assert (!strcmp (dequeued_var->name, "Malith")); // strcmp return 0 when equal so ! used
-        assert (stq->last->next == NULL);
+    stqv = Student_Dequeue(stq);
+    assert (Student_Compare(stqv->var, st1)); 
+    EC_Test_Print_Msg ("st1 dequeued", "OK", __LINE__);
 
-        assert (stq->first->no == 2);
-        assert (!strcmp (stq->first->name, "Geethike")); // strcmp return 0 when equal so ! used
-        assert (stq->first->next == NULL);
-        assert (stq->first = st2);
-        assert (stq->last == st2);
-
-        EC_Error_Print_Msg ("Dequeue queue fist variable", "OK");
-    }
-    else
-    {
-        printf ("Test written wrong\n");
-        exit(0);
-    }
-
-    StudentQueueVar* dequeued_var2 = Student_Dequeue (stq);
-
-    if (dequeued_var2)
-    {
-        assert (dequeued_var2->no == 2);
-        assert (!strcmp (dequeued_var2->name, "Geethike")); // strcmp return 0 when equal so ! used
-        assert (stq->first == NULL);
-        assert (stq->last == NULL);
-
-        EC_Error_Print_Msg ("Dequeue queue second variable", "OK");
-    }
-    else
-    {
-        printf ("Test written wrong\n");
-        exit(0);
-    }
-
-
-    /* ***************** should do a empty queue dequeue test */
-
-
-    EC_Error_Print_Msg ("Dequeue_Queue: ", "END");
+    stqv = Student_Dequeue(stq);
+    assert (Student_Compare(stqv->var, st2)); 
+    EC_Test_Print_Msg ("st2 dequeued", "OK", __LINE__);
 }
 
+#if 0
 
 void
 Test_Queue_Copy ()
@@ -187,14 +150,8 @@ Run_Queue_Test ()
     Test_Enqueue_Queue ();
     printf ("\n");
 
-#if 0
     Test_Dequeue_Queue ();
     printf ("\n");
 
-    Test_Queue_Copy ();
-    printf ("\n");
-
-    EC_Error_Print_Msg ("Test: ec_queue.h", "PASS");
-    printf ("\n");
-#endif
+    EC_Test_Print_Msg ("Test: ec_queue.h", "PASS", __LINE__);
 }
