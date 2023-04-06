@@ -74,52 +74,44 @@ Test_Pop_Stack ()
     StudentStack* stk = Student_Stack ();
     EC_Error_Print_Msg ("Create new stack", "OK");
 
-    StudentStackVar* st1 = Student_Stack_Var ();
-    StudentStackVar* st2 = Student_Stack_Var ();
-
-    EC_Error_Print_Msg ("Create stack variables", "OK");
-
-    st1->no = 1;
-    st1->name = "Malith";
-
-    st2->no = 2;
-    st2->name = "Geethike";
-
-    EC_Error_Print_Msg ("Assign stack variable attributes", "OK");
-
+    Student_Push (stk, st0);
     Student_Push (stk, st1);
     Student_Push (stk, st2);
+    Student_Push (stk, st3);
+    Student_Push (stk, st4);
 
-    StudentStackVar* pop_st2 = Student_Pop(stk);
-
-    if (pop_st2)
+    i = 4;
+    for_stack(stk)
     {
-        assert (pop_st2->no == 2);
-        assert (!strcmp (pop_st2->name, "Geethike"));
+        assert (Student_Compare(stk->var, &students[i])); 
+        i--;
     }
+    assert(i == -1);
+    EC_Test_Print_Msg ("stk pushed with st4 ... st0", "OK", __LINE__);
 
-    EC_Error_Print_Msg ("Pop fist stack variable", "OK");
+    StudentStackVar *stkv;
+    
+    stkv = Student_Pop(stk);
+    assert (Student_Compare(stkv->var, st4)); 
+    EC_Test_Print_Msg ("pop st4 in stk", "OK", __LINE__);
 
-    StudentStackVar* pop_st1 = Student_Pop(stk);
+    stkv = Student_Pop(stk);
+    assert (Student_Compare(stkv->var, st3)); 
+    EC_Test_Print_Msg ("pop st3 in stk", "OK", __LINE__);
 
-    if (pop_st1)
-    {
-        assert (pop_st1->no == 1);
-        assert (!strcmp (pop_st1->name, "Malith"));
-    }
+    stkv = Student_Pop(stk);
+    assert (Student_Compare(stkv->var, st2)); 
+    EC_Test_Print_Msg ("pop st2 in stk", "OK", __LINE__);
 
-    EC_Error_Print_Msg ("Pop second stack variable", "OK");
+    stkv = Student_Pop(stk);
+    assert (Student_Compare(stkv->var, st1)); 
+    EC_Test_Print_Msg ("pop st1 in stk", "OK", __LINE__);
 
-    StudentStackVar* pop_null = Student_Pop(stk);
-
-    if (!pop_null)
-    {
-        EC_Error_Print_Msg ("Pop empty stack", "OK");
-    }
-
-    EC_Error_Print_Msg ("Pop stack variables from stack", "OK");
+    stkv = Student_Pop(stk);
+    assert (Student_Compare(stkv->var, st0)); 
+    assert (stk->first == NULL);
+    EC_Test_Print_Msg ("pop st0 in stk", "OK", __LINE__);
 }
-
 
 
 #if 0
@@ -180,10 +172,10 @@ Run_Stack_Test ()
     Test_Push_Stack ();
     printf ("\n");
 
-#if 0
     Test_Pop_Stack ();
     printf ("\n");
 
+#if 0
     Test_Stack_Copy ();
     printf ("\n");
 

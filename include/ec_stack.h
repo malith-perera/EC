@@ -80,12 +80,21 @@ EC_STACK_PUSH_FUNCTION_NAME(TYPE)                   \
 );
 
 
+#define EC_STACK_POP_FUNCTION_PROTOTYPE(TYPE)       \
+EC_STACK_VAR_STRUCT(TYPE) *                         \
+EC_STACK_POP_FUNCTION_NAME(TYPE)                    \
+(                                                   \
+    EC_STACK_STRUCT(TYPE) *stack                    \
+);
+
+
 #define EC_STACK_FUNCTION_PROTOTYPES(TYPE)          \
     EC_STACK_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)      \
     EC_STACK_FREE_FUNCTION_PROTOTYPE(TYPE)          \
     EC_STACK_NEW_FUNCTION_PROTOTYPE(TYPE)           \
     EC_STACK_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)       \
-    EC_STACK_PUSH_FUNCTION_PROTOTYPE(TYPE)
+    EC_STACK_PUSH_FUNCTION_PROTOTYPE(TYPE)          \
+    EC_STACK_POP_FUNCTION_PROTOTYPE(TYPE)
 
 
 /* Function macros */
@@ -161,44 +170,6 @@ EC_STACK_PUSH_FUNCTION_NAME(TYPE)                   \
 }
 
 
-#define EC_STACK_FUNCTIONS(TYPE)            \
-    EC_STACK_VAR_FREE_FUNCTION(TYPE)        \
-    EC_STACK_FREE_FUNCTION(TYPE)            \
-    EC_STACK_NEW_FUNCTION(TYPE)             \
-    EC_STACK_NEW_VAR_FUNCTION(TYPE)         \
-    EC_STACK_PUSH_FUNCTION(TYPE)
-
-
-#endif // EC_STACK_H
-
-
-
-#if 0
-
-
-#define EC_STACK_POP_FUNCTION_PROTOTYPE(TYPE)       \
-EC_STACK_VAR_STRUCT(TYPE) *                         \
-EC_STACK_POP_FUNCTION_NAME(TYPE)                    \
-(                                                   \
-    EC_STACK_STRUCT(TYPE) *stack                    \
-);
-
-
-#define EC_STACK_COPY_FUNCTION_PROTOTYPE(TYPE)      \
-EC_STACK_STRUCT(TYPE) *                             \
-EC_STACK_COPY_FUNCTION_NAME(TYPE)                   \
-(                                                   \
-    EC_STACK_STRUCT(TYPE) *stack                    \
-);
-
-
-// stack prototypes
-    EC_STACK_POP_FUNCTION_PROTOTYPE(TYPE)           \
-    EC_STACK_COPY_FUNCTION_PROTOTYPE(TYPE)
-
-
-
-
 #define EC_STACK_POP_FUNCTION(TYPE)                 \
 EC_STACK_VAR_STRUCT(TYPE) *                         \
 EC_STACK_POP_FUNCTION_NAME(TYPE)                    \
@@ -216,6 +187,40 @@ EC_STACK_POP_FUNCTION_NAME(TYPE)                    \
                                                     \
     return pop_var;                                 \
 }
+
+
+#define EC_STACK_FUNCTIONS(TYPE)            \
+    EC_STACK_VAR_FREE_FUNCTION(TYPE)        \
+    EC_STACK_FREE_FUNCTION(TYPE)            \
+    EC_STACK_NEW_FUNCTION(TYPE)             \
+    EC_STACK_NEW_VAR_FUNCTION(TYPE)         \
+    EC_STACK_PUSH_FUNCTION(TYPE)            \
+    EC_STACK_POP_FUNCTION(TYPE)
+
+
+#endif // EC_STACK_H
+
+
+
+#if 0
+
+
+
+
+#define EC_STACK_COPY_FUNCTION_PROTOTYPE(TYPE)      \
+EC_STACK_STRUCT(TYPE) *                             \
+EC_STACK_COPY_FUNCTION_NAME(TYPE)                   \
+(                                                   \
+    EC_STACK_STRUCT(TYPE) *stack                    \
+);
+
+
+// stack prototypes
+    EC_STACK_COPY_FUNCTION_PROTOTYPE(TYPE)
+
+
+
+
 
 
 // Copy stack
