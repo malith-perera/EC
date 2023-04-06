@@ -3,10 +3,10 @@
 
 #include "ec.h"
 
-/* Anyone can use foreach in ec_type.h interchangebly with this. */
-#define foreach_queue(queue)                                                         \
-    for (queue->var = queue->first; queue->var != NULL; queue->var = queue->var->next)
-
+#define for_queue(queue)                                                                                                                                \
+    for (queue->queue_var = queue->first, queue->var = queue->queue_var != NULL ? queue->queue_var->var: NULL;                                          \
+         queue->queue_var != NULL;                                                                                                                      \
+         queue->queue_var = queue->queue_var != NULL ? queue->queue_var->next: NULL, queue->var = queue->queue_var != NULL ? queue->queue_var->var: NULL)
 
 #define EC_QUEUE_VAR_FREE_FUNCTION_NAME(TYPE)       EC_CONCAT2(TYPE, _Queue_Var_Free)
 #define EC_QUEUE_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT2(TYPE, _Queue_Free)
@@ -17,7 +17,6 @@
 #define EC_QUEUE_DROP_FUNCTION_NAME(TYPE)           EC_CONCAT2(Drop_, TYPE)
 #define EC_QUEUE_ENQUEUE_FUNCTION_NAME(TYPE)        EC_CONCAT2(TYPE, _Enqueue)
 #define EC_QUEUE_DEQUEUE_FUNCTION_NAME(TYPE)        EC_CONCAT2(TYPE, _Dequeue)
-#define EC_QUEUE_FRONT_FUNCTION_NAME(TYPE)          EC_CONCAT2(TYPE, _Front)
 
 
 /* Structure macros */
@@ -222,17 +221,6 @@ EC_QUEUE_DEQUEUE_FUNCTION_NAME(TYPE)                        \
     {                                                       \
         return NULL;                                        \
     }                                                       \
-}
-
-
-#define EC_QUEUE_FRONT_FUNCTION(TYPE)                       \
-EC_QUEUE_VAR_STRUCT (TYPE) *                                \
-EC_QUEUE_FRONT_FUNCTION_NAME(TYPE)                          \
-(                                                           \
-    EC_QUEUE_STRUCT(TYPE) *queue                            \
-)                                                           \
-{                                                           \
-    return queue->first;                                    \
 }
 
 
