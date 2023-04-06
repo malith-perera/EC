@@ -15,7 +15,11 @@
 
 
 void
-EC_Test_Print_Title (const char *msg);
+EC_Test_Print_Header (char *txt);
+
+
+void
+EC_Test_Print_Title (const char *func, const char *file);
 
 
 void
@@ -32,10 +36,6 @@ EC_Test_Print_Msg_Error (char *msg, char *result);
 
 void
 EC_Test_Print_Adr (char *msg, void *adrs);
-
-
-void
-EC_Test_Print_Header (char *msg);
 
 
 #define EC_UNLOCK_FUNCTION(TYPE)                \

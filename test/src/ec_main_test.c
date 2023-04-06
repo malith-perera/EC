@@ -15,9 +15,9 @@
 void
 Test_Variables ()
 {
-    EC_Test_Print_Title (__func__);
+    EC_Test_Print_Title (__func__, __FILE__);
 
-    EC_Test_Print_Subtitle ("Test: New list with zero variables");
+    EC_Test_Print_Subtitle ("Create student variables to help tests");
 
     st0 = Student_Var();
     st1 = Student_Var();
@@ -50,7 +50,6 @@ main (int argc, char *argv[])
     // init variables
     Test_Variables ();
     printf ("\n");
-
 
     if (argc >= 2)
     {

@@ -232,6 +232,16 @@ EC_QUEUE_COPY_FUNCTION_NAME(TYPE)                                           \
     EC_QUEUE_STRUCT(TYPE) *queue                                            \
 )                                                                           \
 {                                                                           \
+    EC_QUEUE_STRUCT(TYPE) *queue_copy = EC_QUEUE_NEW_FUNCTION_NAME(TYPE)(); \
+                                                                            \
+    EC_QUEUE_VAR_STRUCT(TYPE) *var;                                         \
+                                                                            \
+    for_queue(queue)                                                        \
+    {                                                                       \
+        EC_QUEUE_ENQUEUE_FUNCTION_NAME(TYPE)(queue_copy, queue->var);       \
+    }                                                                       \
+                                                                            \
+    return queue_copy;                                                      \
 }
 
 

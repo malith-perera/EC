@@ -88,13 +88,22 @@ EC_STACK_POP_FUNCTION_NAME(TYPE)                    \
 );
 
 
+#define EC_STACK_COPY_FUNCTION_PROTOTYPE(TYPE)      \
+EC_STACK_STRUCT(TYPE) *                             \
+EC_STACK_COPY_FUNCTION_NAME(TYPE)                   \
+(                                                   \
+    EC_STACK_STRUCT(TYPE) *stack                    \
+);
+
+
 #define EC_STACK_FUNCTION_PROTOTYPES(TYPE)          \
     EC_STACK_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)      \
     EC_STACK_FREE_FUNCTION_PROTOTYPE(TYPE)          \
     EC_STACK_NEW_FUNCTION_PROTOTYPE(TYPE)           \
     EC_STACK_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)       \
     EC_STACK_PUSH_FUNCTION_PROTOTYPE(TYPE)          \
-    EC_STACK_POP_FUNCTION_PROTOTYPE(TYPE)
+    EC_STACK_POP_FUNCTION_PROTOTYPE(TYPE)           \
+    EC_STACK_COPY_FUNCTION_PROTOTYPE(TYPE)
 
 
 /* Function macros */
@@ -190,40 +199,6 @@ EC_STACK_POP_FUNCTION_NAME(TYPE)                    \
 }
 
 
-#define EC_STACK_FUNCTIONS(TYPE)            \
-    EC_STACK_VAR_FREE_FUNCTION(TYPE)        \
-    EC_STACK_FREE_FUNCTION(TYPE)            \
-    EC_STACK_NEW_FUNCTION(TYPE)             \
-    EC_STACK_NEW_VAR_FUNCTION(TYPE)         \
-    EC_STACK_PUSH_FUNCTION(TYPE)            \
-    EC_STACK_POP_FUNCTION(TYPE)
-
-
-#endif // EC_STACK_H
-
-
-
-#if 0
-
-
-
-
-#define EC_STACK_COPY_FUNCTION_PROTOTYPE(TYPE)      \
-EC_STACK_STRUCT(TYPE) *                             \
-EC_STACK_COPY_FUNCTION_NAME(TYPE)                   \
-(                                                   \
-    EC_STACK_STRUCT(TYPE) *stack                    \
-);
-
-
-// stack prototypes
-    EC_STACK_COPY_FUNCTION_PROTOTYPE(TYPE)
-
-
-
-
-
-
 // Copy stack
 #define EC_STACK_COPY_FUNCTION(TYPE)                                        \
 EC_STACK_STRUCT(TYPE) *                                                     \
@@ -233,24 +208,35 @@ EC_STACK_COPY_FUNCTION_NAME(TYPE)                                           \
 )                                                                           \
 {                                                                           \
     EC_STACK_STRUCT(TYPE) *stack_copy = EC_STACK_NEW_FUNCTION_NAME(TYPE)(); \
+    EC_STACK_STRUCT(TYPE) *stack_temp = EC_STACK_NEW_FUNCTION_NAME(TYPE)(); \
                                                                             \
     EC_STACK_VAR_STRUCT(TYPE) *var;                                         \
                                                                             \
-    foreach(stack)                                                          \
+    for_stack(stack)                                                        \
     {                                                                       \
-        var = EC_STACK_NEW_VAR_FUNCTION_NAME(TYPE)();                       \
-        *var = *stack->var;                                                 \
-        EC_STACK_PUSH_FUNCTION_NAME(TYPE)(stack_copy, var);                 \
+        EC_STACK_PUSH_FUNCTION_NAME(TYPE)(stack_temp, stack->var);          \
+    }                                                                       \
+                                                                            \
+    for_stack(stack_temp)                                                   \
+    {                                                                       \
+        EC_STACK_PUSH_FUNCTION_NAME(TYPE)(stack_copy, stack_temp->var);     \
     }                                                                       \
                                                                             \
     return stack_copy;                                                      \
 }
 
 
+#define EC_STACK_FUNCTIONS(TYPE)            \
+    EC_STACK_VAR_FREE_FUNCTION(TYPE)        \
+    EC_STACK_FREE_FUNCTION(TYPE)            \
+    EC_STACK_NEW_FUNCTION(TYPE)             \
+    EC_STACK_NEW_VAR_FUNCTION(TYPE)         \
+    EC_STACK_PUSH_FUNCTION(TYPE)            \
     EC_STACK_POP_FUNCTION(TYPE)             \
     EC_STACK_COPY_FUNCTION(TYPE)
 
-#endif
+
+#endif // EC_STACK_H
 
 
 /*-------------------------------------------------------------------------------------*

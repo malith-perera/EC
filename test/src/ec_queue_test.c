@@ -11,7 +11,7 @@
 void
 Test_New_Queue ()
 {
-    EC_Test_Print_Title (__func__);
+    EC_Test_Print_Title (__func__, __FILE__);
 
     EC_Test_Print_Subtitle ("Create student stack");
 
@@ -35,7 +35,7 @@ Test_New_Queue ()
 void
 Test_Enqueue_Queue ()
 {
-    EC_Test_Print_Title (__func__);
+    EC_Test_Print_Title (__func__, __FILE__);
 
     EC_Test_Print_Subtitle ("Create student queue");
 
@@ -68,7 +68,9 @@ Test_Enqueue_Queue ()
 void
 Test_Dequeue_Queue ()
 {
-    EC_Error_Print_Msg ("Deque_Queue: ", "BEGIN");
+    EC_Test_Print_Title (__func__, __FILE__);
+
+    EC_Test_Print_Subtitle ("student dequeue");
 
     StudentQueue *stq = Student_Queue ();
 
@@ -93,9 +95,67 @@ Test_Dequeue_Queue ()
 
 
 void
+Test_Queue_For_Queue ()
+{
+    EC_Test_Print_Title (__func__, __FILE__);
+
+    EC_Test_Print_Subtitle ("student for_queue");
+
+    int i = 0;
+
+    StudentQueue *stq = Student_Queue ();
+
+    Student_Enqueue(stq, st0);
+    Student_Enqueue(stq, st1);
+    Student_Enqueue(stq, st2);
+    Student_Enqueue(stq, st3);
+    Student_Enqueue(stq, st4);
+
+    i = 0;
+    for_queue (stq)
+    {
+        assert (Student_Compare(stq->var, &students[i])); 
+        i++;
+    }
+    EC_Test_Print_Msg ("for_queue", "OK", __LINE__);
+}
+
+
+void
+Test_Queue_Copy ()
+{
+    EC_Test_Print_Title (__func__, __FILE__);
+
+    EC_Test_Print_Subtitle ("student copy");
+
+    int i = 0;
+
+    StudentQueue *stq = Student_Queue ();
+
+    Student_Enqueue(stq, st0);
+    Student_Enqueue(stq, st1);
+    Student_Enqueue(stq, st2);
+    Student_Enqueue(stq, st3);
+    Student_Enqueue(stq, st4);
+    EC_Test_Print_Msg ("enqueued", "OK", __LINE__);
+
+    StudentQueue *stq2 = Student_Queue_Copy(stq);
+    EC_Test_Print_Msg ("copy stq to stq2", "OK", __LINE__);
+
+    i = 0;
+    for_queue (stq2)
+    {
+        assert (Student_Compare(stq2->var, &students[i])); 
+        i++;
+    }
+    assert (i == 5);
+    EC_Test_Print_Msg ("stq copied to stq2", "OK", __LINE__);
+}
+
+
+void
 Run_Queue_Test ()
 {
-
     EC_Test_Print_Header ("Test: ec_queue.h");
     printf ("\n");
 
@@ -106,6 +166,12 @@ Run_Queue_Test ()
     printf ("\n");
 
     Test_Dequeue_Queue ();
+    printf ("\n");
+
+    Test_Queue_For_Queue ();
+    printf ("\n");
+
+    Test_Queue_Copy ();
     printf ("\n");
 
     EC_Test_Print_Msg ("Test: ec_queue.h", "PASS", __LINE__);

@@ -21,7 +21,7 @@ Entity *empty;
 void
 Test_Entity_Request ()
 {
-    EC_Test_Print_Title ("Test: Entity_Request");
+    EC_Test_Print_Title (__func__, __FILE__);
 
     player = Entity_Request (Player, 2, 5);
 //    enemy = Entity_Request (Enemy, 2, 10);
@@ -49,15 +49,13 @@ Test_Entity_Request ()
     current_request = current_request->next;
     assert (current_request == NULL);
     EC_Test_Print_Msg ("Test: request_array end", "OK", __LINE__);
-
-    EC_Test_Print_Title ("Test: Entity_Request");
 }
 
 
 void
 Test_Entity_Request_Warn ()
 {
-    EC_Test_Print_Title ("Test: Entity_Request");
+    EC_Test_Print_Title (__func__, __FILE__);
 
     Entity_Request (Player, 5, 10);
 
@@ -74,7 +72,6 @@ Test_Entity_Request_Warn ()
     assert (current_request->m == 10);
     EC_Test_Print_Msg ("Test: Entity_Request warning", "OK", __LINE__);
 
-    EC_Test_Print_Title ("Test: Entity_Request");
 }
 
 
@@ -82,8 +79,7 @@ void
 Test_New_Component ()
 {
     // New_Component function calls in ec_ecs_test.h
-    
-    EC_Test_Print_Title ("Test: New_Component");
+    EC_Test_Print_Title (__func__, __FILE__);
 
     assert (position_list == NULL);
     EC_Test_Print_Msg ("Test: position_list exist", "OK", __LINE__);
@@ -91,14 +87,13 @@ Test_New_Component ()
     assert (velocity_list == NULL);
     EC_Test_Print_Msg ("Test: velocity_list exist", "OK", __LINE__);
 
-    EC_Test_Print_Title ("Test: New_Component");
 }
 
 
 void
 Test_Add_Component()
 {
-    EC_Test_Print_Title ("Test: Add_Component");
+    EC_Test_Print_Title (__func__, __FILE__);
 
     Add_Component(player, Position, position);
     
@@ -110,7 +105,6 @@ Test_Add_Component()
     assert (player_velocity == NULL);
     EC_Test_Print_Msg ("Test: player_velocity exist", "OK", __LINE__);
 
-    EC_Test_Print_Title ("Test: Add_Component");
 }
 
 

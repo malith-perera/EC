@@ -4,11 +4,32 @@
 
 #include "ec_test.h"
 
+
 void
-EC_Test_Print_Title (const char *msg)
+EC_Test_Print_Header (char *txt)
+{
+    int  len = strlen(txt);
+    char buf[2048];
+
+    sprintf(buf, "%0*d", len, 0);
+    EC_Char_Substitute (buf, '0', '-');
+    printf("%s\n", buf);
+
+    printf ("%s\n", txt);
+
+    sprintf(buf, "%0*d", len, 0);
+    EC_Char_Substitute (buf, '0', '=');
+    printf("%s\n", buf);
+
+}
+
+
+void
+EC_Test_Print_Title (const char *func, const char *file)
 {
     EC_Set_Text_Color(stdout, EC_CYAN);
-    printf ("%-*s\n", EC_MSG_WIDTH, msg);
+    printf ("Func: %-*s\n", EC_MSG_WIDTH, func);
+    printf ("File: %s\n", file);
     printf("\033[0m");
 }
 
@@ -49,20 +70,3 @@ EC_Test_Print_Adr (char *msg, void *adr)
 }
 
 
-void
-EC_Test_Print_Header (char *msg)
-{
-    int  len = strlen(msg);
-    char buf[2048];
-
-    sprintf(buf, "%0*d", len, 0);
-    EC_Char_Substitute (buf, '0', '-');
-    printf("%s\n", buf);
-
-    printf ("%s\n", msg);
-
-    sprintf(buf, "%0*d", len, 0);
-    EC_Char_Substitute (buf, '0', '=');
-    printf("%s\n", buf);
-
-}

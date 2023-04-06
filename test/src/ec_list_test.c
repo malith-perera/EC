@@ -9,7 +9,7 @@
 void
 Test_New_List ()
 {
-    EC_Test_Print_Title (__func__);
+    EC_Test_Print_Title (__func__, __FILE__);
 
     /* Test list with zero list variables */
     EC_Test_Print_Subtitle ("Test: New list with zero variables");
@@ -31,7 +31,7 @@ Test_New_List ()
 void
 Test_List_Append()
 {
-    EC_Test_Print_Title (__func__);
+    EC_Test_Print_Title (__func__, __FILE__);
 
     StudentList *stl = Student_List ();
     EC_Test_Print_Msg ("Create: New list", "OK", __LINE__);
@@ -64,7 +64,7 @@ Test_List_Append()
 void
 Test_For_List()
 {
-    EC_Test_Print_Title (__func__);
+    EC_Test_Print_Title (__func__, __FILE__);
 
     StudentList *stl = Student_List ();
     EC_Test_Print_Msg ("Create: New list", "OK", __LINE__);
@@ -91,7 +91,7 @@ Test_For_List()
 void
 Test_List_Insert ()
 {
-    EC_Test_Print_Title (__func__);
+    EC_Test_Print_Title (__func__, __FILE__);
 
     int i = 0;
 
@@ -182,7 +182,7 @@ Test_List_Insert ()
 void
 Test_List_Var_Move ()
 {
-    EC_Test_Print_Title (__func__);
+    EC_Test_Print_Title (__func__, __FILE__);
 
     EC_Test_Print_Subtitle ("Create and initalize variables");
 
@@ -570,7 +570,7 @@ Test_List_Var_Move ()
 void
 Test_List_Exchange_Var ()
 {
-    EC_Test_Print_Title (__func__);
+    EC_Test_Print_Title (__func__, __FILE__);
 
     EC_Test_Print_Subtitle ("Create and initalize variables");
 
@@ -632,7 +632,7 @@ Test_List_Exchange_Var ()
 void
 Test_Replace_List ()
 {
-    EC_Test_Print_Title (__func__);
+    EC_Test_Print_Title (__func__, __FILE__);
 
     /* Init variables */
     EC_Test_Print_Subtitle ("Initialize variables");
@@ -740,7 +740,7 @@ Test_Replace_List ()
 void
 Test_List_Copy ()
 {
-    EC_Test_Print_Title (__func__);
+    EC_Test_Print_Title (__func__, __FILE__);
 
     /* Init variables */
     EC_Test_Print_Subtitle ("Initialize variables");
@@ -783,7 +783,7 @@ Test_List_Copy ()
 void
 Test_List_Var_Drop ()
 {
-    EC_Test_Print_Title (__func__);
+    EC_Test_Print_Title (__func__, __FILE__);
 
     // init variables
     EC_Test_Print_Subtitle ("Initialize variables");
