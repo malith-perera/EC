@@ -35,13 +35,33 @@ Test_New_Queue ()
 void
 Test_Enqueue_Queue ()
 {
-
     EC_Test_Print_Title (__func__);
 
-    EC_Test_Print_Subtitle ("Create student stack");
+    EC_Test_Print_Subtitle ("Create student queue");
 
     StudentQueue* stq = Student_Queue ();
 
+    // Enqueue st0
+    Student_Enqueue(stq, st0);
+    assert (Student_Compare(stq->first->var, st0)); 
+    assert (Student_Compare(stq->last->var, st0)); 
+    assert (stq->last->next == NULL); 
+    EC_Test_Print_Msg ("st0 enqueued", "OK", __LINE__);
+
+    // Enqueue st1
+    Student_Enqueue(stq, st1);
+    assert (Student_Compare(stq->first->var, st0)); 
+    assert (Student_Compare(stq->last->var, st1)); 
+    assert (stq->last->next == NULL); 
+    EC_Test_Print_Msg ("st1 enqueued", "OK", __LINE__);
+
+    // Enqueue st2
+    Student_Enqueue(stq, st2);
+    assert (Student_Compare(stq->first->var, st0)); 
+    assert (Student_Compare(stq->first->next->var, st1)); 
+    assert (Student_Compare(stq->last->var, st2)); 
+    assert (stq->last->next == NULL); 
+    EC_Test_Print_Msg ("st2 enqueued", "OK", __LINE__);
 }
 
 #if 0
@@ -164,10 +184,10 @@ Run_Queue_Test ()
     Test_New_Queue ();
     printf ("\n");
 
-#if 0
     Test_Enqueue_Queue ();
     printf ("\n");
 
+#if 0
     Test_Dequeue_Queue ();
     printf ("\n");
 

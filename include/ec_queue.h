@@ -74,8 +74,8 @@ EC_QUEUE_NEW_VAR_FUNCTION_NAME(TYPE)                        \
 void                                                        \
 EC_QUEUE_ENQUEUE_FUNCTION_NAME(TYPE)                        \
 (                                                           \
-    EC_QUEUE_STRUCT(TYPE) *queue,                           \
-    EC_QUEUE_VAR_STRUCT(TYPE) *var                          \
+    EC_QUEUE_STRUCT(TYPE)   *queue,                         \
+    TYPE                    *var                            \
 );
 
 
@@ -180,21 +180,22 @@ EC_QUEUE_NEW_VAR_FUNCTION_NAME(TYPE)                                    \
 void                                            \
 EC_QUEUE_ENQUEUE_FUNCTION_NAME(TYPE)            \
 (                                               \
-    EC_QUEUE_STRUCT(TYPE) *queue,               \
-    EC_QUEUE_VAR_STRUCT(TYPE) *var              \
+    EC_QUEUE_STRUCT(TYPE)   *queue,             \
+    TYPE                    *var                \
 )                                               \
 {                                               \
-    var->next = NULL;                           \
+    EC_VAR_CREATE(EC_QUEUE_VAR_STRUCT(TYPE), queue_var, __LINE__);    \
+    queue_var->var = var;                       \
                                                 \
     if (queue->first != NULL)                   \
     {                                           \
-        queue->last->next = var;                \
-        queue->last = var;                      \
+        queue->last->next = queue_var;          \
+        queue->last = queue_var;                \
     }                                           \
     else                                        /* no vars in queue */ \
     {                                           \
-        queue->first = var;                     \
-        queue->last = var;                      \
+        queue->first = queue_var;               \
+        queue->last = queue_var;                \
     }                                           \
 }
 
