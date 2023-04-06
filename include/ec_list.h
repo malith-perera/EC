@@ -247,6 +247,7 @@ EC_LIST_VAR_EXISTANCE_FUNCTION_NAME(TYPE)                               \
 #endif // EC_LIST_VAR_EXISTANCE_FUNCTION
 
 
+/******* list free functions not finished yet */
 #define EC_LIST_FREE_FUNCTION(TYPE)                                 \
 void                                                                \
 EC_LIST_FREE_FUNCTION_NAME(TYPE)                                    \
@@ -263,17 +264,17 @@ EC_LIST_STRUCT(TYPE) *                                                  \
 EC_LIST_FUNCTION_NAME(TYPE)                                             \
 (void)                                                                  \
 {                                                                       \
-    EC_VAR_CREATE(EC_LIST_STRUCT(TYPE), list, __LINE__)                            /* This macro in ec_var.h*/\
+    EC_VAR_CREATE(EC_LIST_STRUCT(TYPE), new_list, __LINE__)             /* This macro in ec_var.h*/\
                                                                         \
-    EC_MEMORY_CREATE(ec_memory_new, EC_TYPE_LIST, list)                 \
+    EC_MEMORY_CREATE(ec_memory_new, EC_TYPE_LIST, new_list)             \
                                                                         \
     ec_memory_new->Free_Func = EC_LIST_FREE_FUNCTION_NAME(TYPE);        \
                                                                         \
-    list->first = NULL;                                                 \
-    list->last = NULL;                                                  \
-    list->var = NULL;                                                   \
+    new_list->first = NULL;                                             \
+    new_list->last = NULL;                                              \
+    new_list->var = NULL;                                               \
                                                                         \
-    return list;                                                        \
+    return new_list;                                                    \
 }
 
 

@@ -5,90 +5,73 @@
 
 #include "ec_stack_test.h"
 
-#if 0
+
 void
 Test_New_Stack ()
 {
-    EC_Error_Print_Msg ("Test_New_Stack: ", "BEGIN");
+    EC_Test_Print_Title (__func__);
 
-    StudentStack *st_stk = Student_Stack ();
+    EC_Test_Print_Subtitle ("Create student stack");
+
+    StudentStack *stk = Student_Stack ();
     EC_Error_Print_Msg ("Create new stack", "OK");
 
-    StudentStackVar *st1 = Student_Stack_Var ();
-
-    StudentStackVar *st2 = Student_Stack_Var ();
-
-    EC_Error_Print_Msg ("Create stack variables", "OK");
-
-    st1->no = 1;
-    st1->name = "Malith";
-
-    st2->no = 2;
-    st2->name = "Geethike";
-
-    EC_Error_Print_Msg ("Assign stack variable attributes", "OK");
-
-    st_stk->first = st1;
-    st1->next = NULL;
-
-    st2->next = st_stk->first;
-    st_stk->first = st2;
-
-    assert (st_stk->first->no == 2);
-    assert (!strcmp (st_stk->first->name, "Geethike"));
-
-    assert (st_stk->first->next->no == 1);
-    assert (!strcmp (st_stk->first->next->name, "Malith"));
-
-    EC_Error_Print_Msg ("Create new stack variables", "OK");
-
-    EC_Error_Print_Msg ("Test_New_Stack: ", "END");
+    assert (stk != NULL);
+    EC_Test_Print_Msg ("stack created", "OK", __LINE__);
+    assert (stk->first == NULL);
+    EC_Test_Print_Msg ("Test: stl->first == NULL", "OK", __LINE__);
+    assert (stk->var == NULL);
+    EC_Test_Print_Msg ("Test: stl->var == NULL", "OK", __LINE__);
 }
 
 
 void
 Test_Push_Stack ()
 {
-    EC_Error_Print_Msg ("Test_Push_Stack: ", "BEGIN");
+    EC_Test_Print_Title (__func__);
+    int i = 0;
 
-    StudentStack *st_stk = Student_Stack ();
-    EC_Error_Print_Msg ("Create new stack", "OK");
+    EC_Test_Print_Subtitle ("Create student stack and push");
 
-    StudentStackVar *st1 = Student_Stack_Var ();
+    StudentStack *stk = Student_Stack ();
+    EC_Test_Print_Msg ("Create new stack", "OK", __LINE__);
 
-    StudentStackVar *st2 = Student_Stack_Var ();
+    Student_Push (stk, st0);
+    assert (Student_Compare(stk->first->var, st0)); 
+    assert (stk->first->next == NULL); 
+    EC_Test_Print_Msg ("st0 is in stk", "OK", __LINE__);
 
-    EC_Error_Print_Msg ("Create stack variables", "OK");
+    Student_Push (stk, st1);
+    assert (Student_Compare(stk->first->var, st1)); 
+    assert (Student_Compare(stk->first->next->var, st0)); 
+    assert (stk->first->next->next == NULL); 
+    EC_Test_Print_Msg ("st1 ... st0 is in stk", "OK", __LINE__);
 
-    st1->no = 1;
-    st1->name = "Malith";
+    Student_Push (stk, st2);
+    assert (Student_Compare(stk->first->var, st2)); 
+    assert (Student_Compare(stk->first->next->var, st1)); 
+    assert (Student_Compare(stk->first->next->next->var, st0)); 
+    assert (stk->first->next->next->next == NULL); 
+    EC_Test_Print_Msg ("st2 ... st0 is in stk", "OK", __LINE__);
 
-    st2->no = 2;
-    st2->name = "Geethike";
-
-    EC_Error_Print_Msg ("Assign stack variable attributes", "OK");
-
-    Student_Push (st_stk, st1);
-    Student_Push (st_stk, st2);
-
-    assert (st_stk->first->no == 2);
-    assert (!strcmp (st_stk->first->name, "Geethike"));
-
-    assert (st_stk->first->next->no == 1);
-    assert (!strcmp (st_stk->first->next->name, "Malith"));
-
-    EC_Error_Print_Msg ("Push stack variables to stack", "OK");
-
-    EC_Error_Print_Msg ("Test_Push_Stack: ", "END");
+    i = 2;
+    for_stack(stk)
+    {
+        assert (Student_Compare(stk->var, &students[i])); 
+        i--;
+    }
+    assert(i == -1);
+    EC_Test_Print_Msg ("for_stack check st2 ... st0 is in stk", "OK", __LINE__);
 }
 
 
 void
 Test_Pop_Stack ()
 {
-    EC_Error_Print_Msg ("Test_Pop_Stack: ", "BEGIN");
+    EC_Test_Print_Title (__func__);
+    int i = 0;
 
-    StudentStack* st_stk = Student_Stack ();
+    StudentStack* stk = Student_Stack ();
     EC_Error_Print_Msg ("Create new stack", "OK");
 
     StudentStackVar* st1 = Student_Stack_Var ();
@@ -104,10 +87,10 @@ Test_Pop_Stack ()
 
     EC_Error_Print_Msg ("Assign stack variable attributes", "OK");
 
-    Student_Push (st_stk, st1);
-    Student_Push (st_stk, st2);
+    Student_Push (stk, st1);
+    Student_Push (stk, st2);
 
-    StudentStackVar* pop_st2 = Student_Pop(st_stk);
+    StudentStackVar* pop_st2 = Student_Pop(stk);
 
     if (pop_st2)
     {
@@ -117,7 +100,7 @@ Test_Pop_Stack ()
 
     EC_Error_Print_Msg ("Pop fist stack variable", "OK");
 
-    StudentStackVar* pop_st1 = Student_Pop(st_stk);
+    StudentStackVar* pop_st1 = Student_Pop(stk);
 
     if (pop_st1)
     {
@@ -127,7 +110,7 @@ Test_Pop_Stack ()
 
     EC_Error_Print_Msg ("Pop second stack variable", "OK");
 
-    StudentStackVar* pop_null = Student_Pop(st_stk);
+    StudentStackVar* pop_null = Student_Pop(stk);
 
     if (!pop_null)
     {
@@ -135,11 +118,11 @@ Test_Pop_Stack ()
     }
 
     EC_Error_Print_Msg ("Pop stack variables from stack", "OK");
-
-    EC_Error_Print_Msg ("Test_Pop_Stack: ", "END");
-
 }
 
+
+
+#if 0
 
 void
 Test_Stack_Copy ()
@@ -188,10 +171,8 @@ Test_Stack_Copy ()
 void
 Run_Stack_Test ()
 {
-#if 0
-    printf ("---------------\n");
-    printf ("Test: ec_stack.h\n");
-    printf ("===============\n");
+    EC_Test_Print_Header ("Test: ec_stack.h");
+    printf ("\n");
 
     Test_New_Stack ();
     printf ("\n");
@@ -199,6 +180,7 @@ Run_Stack_Test ()
     Test_Push_Stack ();
     printf ("\n");
 
+#if 0
     Test_Pop_Stack ();
     printf ("\n");
 

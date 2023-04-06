@@ -12,10 +12,22 @@ EC_ARRAY_MIN_FUNCTION(Student, no)
 
 EC_LIST_FUNCTIONS(Student)
 //EC_LIST_SORT_FUNCTION(Student, no)
-//
+
+EC_STACK_FUNCTIONS(Student)
+
 //EC_QUEUE_FUNCTIONS(Student)
-//
-//EC_STACK_FUNCTIONS(Student)
+
+
+Student students[7] = {{0, "Malith"}, {1, "Geethike"}, {2, "Perera"}, {3, "Rohasha"}, {4, "Malshi"}, {5, "Prisenthi"}, {6, "Magret"}};
+
+
+Student *st0;
+Student *st1;
+Student *st2;
+Student *st3;
+Student *st4;
+Student *st5;
+Student *st6;
 
 
 bool

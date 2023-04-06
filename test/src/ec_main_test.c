@@ -11,6 +11,34 @@
 #include "ec_ecs_test.h"
 #include "ec_loc_test.h"
 
+
+void
+Test_Variables ()
+{
+    EC_Test_Print_Title (__func__);
+
+    EC_Test_Print_Subtitle ("Test: New list with zero variables");
+
+    st0 = Student_Var();
+    st1 = Student_Var();
+    st2 = Student_Var();
+    st3 = Student_Var();
+    st4 = Student_Var();
+    st5 = Student_Var();
+    st6 = Student_Var();
+    EC_TEST_PRINT_MSG ("Create: Create Student st0 ... st6", "OK")
+
+    *st0 = students[0];
+    *st1 = students[1];
+    *st2 = students[2];
+    *st3 = students[3];
+    *st4 = students[4];
+    *st5 = students[5];
+    *st6 = students[6];
+    EC_Test_Print_Msg ("Initialize: Assign values to Student st0 ... st6", "OK", __LINE__);
+}
+
+
 int
 main (int argc, char *argv[])
 {
@@ -18,6 +46,11 @@ main (int argc, char *argv[])
 
     EC_Test_Print_Header ("Test: EClib");
     printf ("\n");
+
+    // init variables
+    Test_Variables ();
+    printf ("\n");
+
 
     if (argc >= 2)
     {
@@ -70,12 +103,12 @@ main (int argc, char *argv[])
 
     if (no == 4 || no == 0)
     {
-        Run_Queue_Test ();
+        Run_Stack_Test ();
     }
 
     if (no == 5 || no == 0)
     {
-        Run_Stack_Test ();
+        Run_Queue_Test ();
     }
 
     if (no == 6 || no == 0)

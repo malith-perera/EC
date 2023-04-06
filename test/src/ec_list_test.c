@@ -5,43 +5,6 @@
 
 #include "ec_list_test.h"
 
-Student students[7] = {{0, "Malith"}, {1, "Geethike"}, {2, "Perera"}, {3, "Rohasha"}, {4, "Malshi"}, {5, "Prisenthi"}, {6, "Magret"}};
-
-Student *st0;
-Student *st1;
-Student *st2;
-Student *st3;
-Student *st4;
-Student *st5;
-Student *st6;
-
-
-void
-Test_List_Helpers ()
-{
-    EC_Test_Print_Title (__func__);
-
-    EC_Test_Print_Subtitle ("Test: New list with zero variables");
-
-    st0 = Student_Var();
-    st1 = Student_Var();
-    st2 = Student_Var();
-    st3 = Student_Var();
-    st4 = Student_Var();
-    st5 = Student_Var();
-    st6 = Student_Var();
-    EC_TEST_PRINT_MSG ("Create: Create Student st0 ... st6", "OK")
-
-    *st0 = students[0];
-    *st1 = students[1];
-    *st2 = students[2];
-    *st3 = students[3];
-    *st4 = students[4];
-    *st5 = students[5];
-    *st6 = students[6];
-    EC_Test_Print_Msg ("Initialize: Assign values to Student st0 ... st6", "OK", __LINE__);
-}
-
 
 void
 Test_New_List ()
@@ -1258,9 +1221,6 @@ void
 Run_List_Test ()
 {
     EC_Test_Print_Header ("Test: ec_list.h");
-    printf ("\n");
-
-    Test_List_Helpers ();
     printf ("\n");
 
     Test_New_List ();
