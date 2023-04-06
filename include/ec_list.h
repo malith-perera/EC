@@ -273,7 +273,7 @@ EC_LIST_FUNCTION_NAME(TYPE)                                             \
     new_list->first = NULL;                                             \
     new_list->last = NULL;                                              \
     new_list->var = NULL;                                               \
-    new_list->list_var = NULL;                                               \
+    new_list->var = NULL;                                               \
                                                                         \
     return new_list;                                                    \
 }
