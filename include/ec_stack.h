@@ -134,12 +134,13 @@ EC_STACK_NEW_FUNCTION_NAME(TYPE)                                        \
 {                                                                       \
     EC_VAR_CREATE(EC_STACK_STRUCT(TYPE), new_stack, __LINE__)                     /*TYPE *var is in this macro in ec_var.h*/\
                                                                         \
-    EC_MEMORY_CREATE(ec_memory_new, EC_TYPE_LIST, new_stack)            \
+    EC_MEMORY_CREATE(ec_memory_new, EC_TYPE_STACK, new_stack)            \
                                                                         \
     ec_memory_new->Free_Func = EC_STACK_FREE_FUNCTION_NAME(TYPE);       \
                                                                         \
     new_stack->first = NULL;                                            \
     new_stack->var = NULL;                                              \
+    new_stack->stack_var = NULL;                                        \
                                                                         \
     return new_stack;                                                   \
 }

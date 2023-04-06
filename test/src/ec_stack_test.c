@@ -129,5 +129,5 @@ Run_Stack_Test ()
     Test_Pop_Stack ();
     printf ("\n");
     
-    EC_Test_Print_Msg ("Test: ec_stack.h", "PASS");
+    EC_Test_Print_Msg ("Test: ec_stack.h", "PASS", __LINE__);
 }
