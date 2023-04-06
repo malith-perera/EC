@@ -300,6 +300,6 @@ Run_Var_Test ()
     /*Test_Var_Free_Unlocked ();*/
     /*printf ("\n");*/
 
-    EC_Error_Print_Msg ("Test: ec_var.h", "PASS");
+    EC_Test_Print_Msg ("Test: ec_var.h", "PASS");
     printf ("\n");
 }
