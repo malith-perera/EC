@@ -312,7 +312,7 @@ Test_Array_Max ()
     assert (!strcmp (st_max->name, "Malshi")); // strcmp 0 when equel assert fail when 0 thats why ! used
     EC_Error_Print_Msg ("Max found in array last", "OK");
 
-    // max found in array mid
+    // change values to find max in array mid
     sta->array[0].no = 3;
     sta->array[1].no = 4;
 
@@ -323,6 +323,7 @@ Test_Array_Max ()
 
     EC_Error_Print_Msg ("Test_Array_Max: ", "END");
 }
+
 
 void
 Test_Array_Min ()
@@ -367,7 +368,6 @@ Test_Array_Min ()
 
     EC_Error_Print_Msg ("Test_Array_Min: ", "END");
 }
-
 
 
 /* integer arrays */
@@ -613,13 +613,6 @@ Run_Array_Test ()
 }
 
 
-/*
- foreach_array (sta)
-  {
-    printf ("Number %d Name %s\n", sta->var->no,  sta->var->name);
-  }
-  */
-
 
 
  /* Binary array search */
@@ -720,21 +713,3 @@ Run_Array_Test ()
   Free_int (&number);
   free(number);
 */
-
-
-
-
-/********* implement test foreach_array */
-/*void*/
-/*Print_Student_Array*/
-/*(*/
-    /*StudentArray *sta*/
-/*)*/
-/*{*/
-    /*foreach_array (sta)*/
-    /*{*/
-        /*printf ("%d ", sta->var->no);*/
-    /*}*/
-/*}*/
-
-

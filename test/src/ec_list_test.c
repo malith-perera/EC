@@ -979,19 +979,6 @@ Test_Sort_List ()
 }
 
 
-
-
-/* new list functions */
-
-    /*foreach (stl2)*/
-    /*{*/
-        /*stl2->var->no = students[i].no;*/
-        /*stl2->var->name = students[i].name;*/
-        /*i++;*/
-    /*}*/
-
-
-
 void
 Test_List_Var_Delete ()
 {

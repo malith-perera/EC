@@ -1,5 +1,11 @@
 #include "ec_array.h"
 
+/* Todo
+ * binary search
+ * reverse array
+ * resize array
+ * sort array
+ */
 
 /* reverse int array */
 

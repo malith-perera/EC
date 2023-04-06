@@ -29,7 +29,6 @@
 #define EC_ARRAY_MAX_FUNCTION_NAME(TYPE, SW)        EC_CONCAT3(TYPE, _Array_Max_, SW)
 #define EC_ARRAY_MIN_FUNCTION_NAME(TYPE, SW)        EC_CONCAT3(TYPE, _Array_Min_, SW)
 
-
 /* Structure macros */
 // defined in ec_memory.h
 #define EC_ARRAY_STRUCT(TYPE)           EC_CONCAT2(TYPE, Array)
@@ -525,32 +524,4 @@ EC_ARRAY_MIN_FUNCTION_NAME(TYPE, SW)                \
     EC_ARRAY_MIN_FUNCTION(TYPE, SW)
 
 
-
 #endif // EC_ARRAY_H
-
-
-/*
-EC_ARRAY_RESIZE**
-EC_ARRAY_RESIZE_FUNCTION_NAME(EC_ARRAY_RESIZE)
-(
-    EC_ARRAY_RESIZE **var,
-    int *current_size,
-    int new_size
-)
-{
-    EC_ARRAY_RESIZE *arr = (EC_ARRAY_RESIZE *) realloc (*var, sizeof (EC_ARRAY_RESIZE) * new_size);
-
-    *current_size = new_size;
-
-    if (arr != NULL)
-    {
-        *var = arr;
-        return var;
-    }
-
-
-    printf ("Cannot resize array\n");
-    return NULL;
-}
-
-*/
