@@ -1,6 +1,73 @@
 #include "ec_ecs.h"
 
 
+EC_VAR_FUNCTIONS(EC_EntityComponent)
+
+/* new ecs */
+
+int ec_n_entity; // total number of entities
+EC_EntityComponentList *ec_entity_component_list = NULL; // All entity components
+
+
+
+/* end new ecs */
+
+
+int nEntity;
+
+
+ECEntity
+EC_Entity_New (int n, int M)
+{
+    ECEntity entity;
+    entity.I = nEntity;           // first entity id
+    entity.n = nEntity + n;       // currunt number of entities exist after some time
+    entity.M = M;                 // maximum number of entities required for an entity type in an array
+    nEntity += M;                 // increase total number of entities
+
+    return entity;
+}
+
+
+void
+ECS_Free ()
+{
+    //Entity_Request_Array_Free ();
+    //Entity_List_Free ();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#if 0
+
 static int entity_i;
 
 
@@ -178,12 +245,6 @@ Entity_List_Free ()
 }
 
 
-void
-ECS_Free ()
-{
-    Entity_Request_Array_Free ();
-    Entity_List_Free ();
-}
 
 
 void
@@ -218,3 +279,5 @@ Get_Request_List()
 {
     return request_list;
 }
+
+#endif

@@ -26,7 +26,7 @@
 #define EC_STACK_VAR_STRUCT(TYPE)               EC_CONCAT(TYPE, StackVar)
 
 
-#define EC_STACK(TYPE, VAR)                         /* VAR should define and pass by user as a macro */\
+#define EC_Stack(TYPE)                              \
 typedef struct EC_STACK_VAR_STRUCT(TYPE) {          \
     TYPE                                *var;       \
     struct EC_STACK_VAR_STRUCT(TYPE)    *next;      \

@@ -1,8 +1,11 @@
+#ifndef EC_LIST_H
+#define EC_LIST_H
+
 #include "ec.h"
 
-//#define for_list(list, ec_list_var, ec_var)                                                                                               \
-//    for (ec_list_var = list->current = list->first, ec_var = list->current != NULL ? list->current->var: NULL;                            \
-//         list->current != NULL;                                                                                                           \
+//#define for_list(list, ec_list_var, ec_var)                                                                                               	\
+//    for (ec_list_var = list->current = list->first, ec_var = list->current != NULL ? list->current->var: NULL;                            	\
+//         list->current != NULL;                                                                                                           	\
 //         list->current = list->current != NULL ? list->current->next: NULL, ec_var = list->current != NULL ? list->current->var: NULL)
 
 
@@ -17,9 +20,6 @@
          list->list_var != NULL;                                                                                                                \
          list->list_var = list->list_var != NULL ? list->list_var->previous: NULL, list->var = list->list_var != NULL ? list->list_var->var: NULL)
 
-
-#ifndef EC_LIST_H
-#define EC_LIST_H
 
 /* Function name macros */
 #ifdef EC_DEV
@@ -57,7 +57,7 @@
 #define EC_LIST_VAR_STRUCT(TYPE)                    EC_CONCAT(TYPE, ListVar)
 
 
-#define EC_LIST(TYPE)                                   /* VAR should define and pass by user as a macro */\
+#define EC_List(TYPE)                                   \
 typedef struct EC_LIST_VAR_STRUCT(TYPE) {               \
     TYPE                            *var;               \
     struct EC_LIST_VAR_STRUCT(TYPE) *next;              \

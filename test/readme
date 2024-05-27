@@ -2,29 +2,11 @@
  EC Test
 =========
 
-EC test source and include files to test errors on it's self.
+EC Test tests errors in EC.
 
-To test change to 'test' directory first.
 cd test
+./make
+./bin/ectest
 
-To setup (run both ./cmake.sh and ./makeinstall.sh)
-./setup.sh
-
-To cmake on ectest
-./cmake
-
-To make and install in bin ectest
-./makeinstall.sh
-
-To run tests
-./test.sh
-
-To debug with gdb
-gdb ./bin/ectest
-
-To check memory leaks with valgrind
-valgrind ./bin/ectest
-
-
+It's worthy to add new test functions while you add new functionalities.
 If you change source please renew the test functions related with the changed source.
-It's worthy to add new test functions if you add new functionalities.

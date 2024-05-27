@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(EC)
 
-set(CMAKE_BUILD_TYPE DEBUG)  #Release
+set(CMAKE_BUILD_TYPE DEBUG)  #RELEASE
 
 # Bump up warning levels appropriately for clang, gcc & msvc
 

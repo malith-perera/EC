@@ -29,10 +29,10 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 #set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 set (PROJECT_LINK_LIBS libEC.so)
-set (PROJECT_LINK_DIRS "${PARENT_DIR}/build")
+set (PROJECT_LINK_DIRS "${PARENT_DIR}/lib")
 link_directories (${PROJECT_LINK_DIRS})
 
-set (PROJECT_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/include")
+set (PROJECT_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/src")
 include_directories (${PROJECT_INCLUDE_DIRS} "${PARENT_DIR}/include")
 
 #file(GLOB...) allows wildcard additions

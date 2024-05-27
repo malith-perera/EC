@@ -1,16 +1,18 @@
-#include "ec_main_test.h"
-
 #ifndef STUDENT_H
 #define STUDENT_H
 
-#define STUDENT     \
-    int     no;     \
-    char*   name;
+#include "ec_main_test.h"
 
-EC_VAR(Student, STUDENT)
+typedef struct Student {
+    int     no;
+    char*   name;
+    EC_MEMORY_REF
+} Student;
+
+EC_Var(Student)
 EC_VAR_FUNCTION_PROTOTYPES(Student)
 
-EC_ARRAY(Student)
+EC_Array(Student)
 EC_ARRAY_FUNCTION_PROTOTYPES(Student)
 EC_ARRAY_REVERSE_FUNCTION_PROTOTYPE(Student)
 
@@ -20,16 +22,16 @@ EC_ARRAY_STR_FUNCTION_PROTOTYPE(Student, name)
 EC_ARRAY_MAX_FUNCTION_PROTOTYPE(Student, no)
 EC_ARRAY_MIN_FUNCTION_PROTOTYPE(Student, no)
 
-EC_LIST(Student)
+EC_List(Student)
 EC_LIST_FUNCTION_PROTOTYPES(Student)
 
 //EC_LIST_SORT_FUNCTION_PROTOTYPE(Student, no)
 
-EC_STACK(Student, STUDENT)
-EC_STACK_FUNCTION_PROTOTYPES(Student)
-
-EC_QUEUE(Student, STUDENT)
+EC_Queue(Student)
 EC_QUEUE_FUNCTION_PROTOTYPES(Student)
+
+EC_Stack(Student)
+EC_STACK_FUNCTION_PROTOTYPES(Student)
 
 extern Student students[7];
 

@@ -4,8 +4,8 @@
 
  * Extended C (EC) is a library that help you to develop pure C programs more easily.
  * It allows you to create varibles, arrays, lists, queues, stacks and their relevent functions more quickly.
- * EC helps you to think programs with objects in mind.
- * It also supports data oriented desing using inbuilt entity component system.
+ * It helps you to think programs with objects in mind.
+ * It also supports data oriented desing using EC entity component system.
  * Further more EC manages memory and minimize memory errors and leaks if you are interested in.
  
  * Syntax
@@ -17,7 +17,7 @@
  this_is_a_variable                         -> variable
  thisIsAPointer                             -> pointer / array / list / queues / stacks
  
- vi: set expandtab tabstop=4 shiftwidth=4
+ vi: set expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
  Also used more spaces than usual to minimize headaches. :)
 */
@@ -82,9 +82,10 @@
 #include "ec_queue.h"
 #include "ec_stack.h"
 
-#include "ec_ecs.h"
 
 #include "ec_loc.h"
+
+#include "ec_ecs.h"
 
 //#include "ec_syntax.h"
 //#include "ec_bits.h"

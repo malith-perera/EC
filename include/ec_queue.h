@@ -25,7 +25,7 @@
 #define EC_QUEUE_VAR_STRUCT(TYPE)                   EC_CONCAT2(TYPE, QueueVar)
 
 
-#define EC_QUEUE(TYPE, VAR)                         /* VAR should define and pass by user as a macro */\
+#define EC_Queue(TYPE)                              \
 typedef struct EC_QUEUE_VAR_STRUCT(TYPE){           \
     TYPE                             *var;          \
     struct EC_QUEUE_VAR_STRUCT(TYPE) *next;         \

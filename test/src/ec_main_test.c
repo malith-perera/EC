@@ -8,8 +8,9 @@
 #include "ec_list_test.h"
 #include "ec_queue_test.h"
 #include "ec_stack_test.h"
-#include "ec_ecs_test.h"
 #include "ec_loc_test.h"
+
+#include "ec_ecs_test.h"
 
 
 void
@@ -114,7 +115,7 @@ main (int argc, char *argv[])
     {
         Run_ECS_Test ();
     }
-
+    
     if (no == 7 || no == 0)
     {
         Run_Loc_Test ();
@@ -125,7 +126,6 @@ main (int argc, char *argv[])
     EC_Test_Print_Msg ("EC_Clean", "OK", __LINE__);
     EC_Error_Print_Msg ("EC_Clean", "END");
 
-    printf ("\n");
     printf ("Test: EClib Successful\n\n");
 
     return 0;

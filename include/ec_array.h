@@ -33,7 +33,7 @@
 // defined in ec_memory.h
 #define EC_ARRAY_STRUCT(TYPE)           EC_CONCAT2(TYPE, Array)
 
-#define EC_ARRAY(TYPE)                                  \
+#define EC_Array(TYPE)                                  \
 typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
     TYPE            *array;                             \
     int             length;                             \

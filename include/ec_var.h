@@ -1,8 +1,8 @@
-#include "ec.h"
-#define EC_VAR_DEBUG 1
-
 #ifndef EC_VAR_H
 #define EC_VAR_H
+
+#include "ec.h"
+#define EC_VAR_DEBUG 1
 
 /* Function name macros */
 #define EC_VAR_NEW_FUNCTION_NAME(TYPE)          EC_CONCAT(TYPE, _Var)
@@ -15,12 +15,7 @@
 /*------------*/
 
 
-#define EC_VAR(TYPE, VAR)                       \
-    typedef struct TYPE {                       \
-        VAR                                     \
-        EC_MEMORY_REF                           \
-    } TYPE;                                     \
-                                                \
+#define EC_Var(TYPE)                       		\
     typedef struct TYPE EC_CONCAT(TYPE, Var);   /* optional StudentVar for Student */
 
 
@@ -117,8 +112,8 @@ EC_VAR_NEW_FUNCTION_NAME(TYPE)(void)                                    \
 }
 
 
-/*printf ("create var %p\n", var_copy);                              \*/
-/*printf ("create mem %p\n", var_clone->ec_mem);                      \*/
+/*printf ("create var %p\n", var_copy);          */
+/*printf ("create mem %p\n", var_clone->ec_mem); */
 // Clone variable var to var_clone
 #define EC_VAR_CLONE_FUNCTION(TYPE)                         \
 TYPE *                                                      \

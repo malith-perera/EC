@@ -4,6 +4,7 @@
 void
 Test_Args()
 {
+    /* check for arg tests */
     assert (EC_COUNT_ARGS() == 0);
     assert (EC_COUNT_ARGS(1) == 1);
     assert (EC_COUNT_ARGS(1, 2) == 2);
@@ -12,7 +13,7 @@ Test_Args()
     assert (EC_COUNT_ARGS(1, 2, 3, 4, 5, 6, 7, 8, 9) == 9);
     assert (EC_COUNT_ARGS(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) == 10);
 
-    foreach_entity(player, position, velocity, size);
+    //foreach_entity(player, position, velocity, size);
 }
 
 
