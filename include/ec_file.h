@@ -6,8 +6,6 @@
     printf ("%s:%d In function '%s':%s\n", __FILE__, __LINE__, __func__, ARG1(__VA_ARGS__));
 
 
-
-
 typedef struct _ECLine {
 	char *text;
 	struct ECLine * nextPtr;
@@ -28,10 +26,6 @@ typedef ECFile * ECFilePtr;
 
 void ecfile_ECFile_init ( ECFilePtr obj, char *file_name );
 void ecfile_ECFile_parse ( ECFilePtr obj );
-
-
-
-
 
 
 #define NUM_LINES 4000

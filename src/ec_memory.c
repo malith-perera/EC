@@ -5,6 +5,8 @@
 /* User to free ec_memory one at a time with EC_Memory_Free_Unlock_One function
  * to track current position */
 
+ECMemory *ec_memory;
+
 ECMemory *free_one = NULL;
 
 ECMemory *

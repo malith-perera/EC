@@ -5,6 +5,6 @@
 #include "student.h"
 
 void
-Run_List_Test ();
+Run_List_Test();
 
 #endif // EC_LIST_TEST_H

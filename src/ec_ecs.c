@@ -1,8 +1,6 @@
 #include "ec_ecs.h"
 
 
-EC_VAR_FUNCTIONS(EC_EntityComponent)
-
 /* new ecs */
 
 int ec_n_entity; // total number of entities

@@ -2,7 +2,7 @@
  * Extended C Library
  * ------------------
 
- * Extended C (EC) is a library that help you to develop pure C programs more easily.
+ * Extended C(EC) is a library that help you to develop pure C programs more easily.
  * It allows you to create varibles, arrays, lists, queues, stacks and their relevent functions more quickly.
  * It helps you to think programs with objects in mind.
  * It also supports data oriented desing using EC entity component system.
@@ -93,5 +93,13 @@
 
 void
 EC_Clean();
+
+#define EC(TYPE) 	\
+	EC_VAR(TYPE)	\
+	EC_ARRAY(TYPE) 	\
+	EC_LIST(TYPE) 	\
+	EC_QUEUE(TYPE) 	\
+	EC_STACK(TYPE) 	
+
 
 #endif // EC_H

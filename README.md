@@ -1,33 +1,35 @@
-# Extended C 
+## Extended C 
 
  * Extended C (EC) is a library that help you to develop pure C programs more easily.
- * It allows you to create varibles, arrays, lists, queues, stacks and their relevent functions more quickly.
- * EC helps you to think programs with objects in mind.
- * It also supports data oriented desing using inbuilt entity component system.
- * Further more EC can manages memory and minimize memory errors and leaks if you are interested in.
+ * It allows you to create dynamic variables, arrays, lists, queues, stacks and their relevant functions easily.
+ * EC helps you to design programs with objects in mind.
+ * And it also supports Data Oriented Design using inbuilt Entity Component System (ECS).
+ * Further more EC can manages dynamic memory and minimize memory errors and leaks if you are interested in.
 
 
 Example:
 
 Think you need to create a list of students in a classroom. Also think student has properties like name, grade and age.  
 
-First what you have to do is define these property variables in a macro as below.  
+First write a structure. If you wish to hand over memory management to EC add EC_MEMORY_REF macro as below.  
 
-<pre><code><i>
-define STUDENT      \
-   int  index;      \
-   int  grade;
-</i></code></pre>  
 
-Next use EC_LIST macro in EC as below. Here 'Student' is new list type and 'student_vars' has defined above.  
+<pre><code>
+typedef struct Student {  
+   int  index;  
+   int  grade;  
+   EC_MEMORY_REF // <i>Optional</i>  
+} Student;  
+</code></pre>
 
-<code><i>EC_LIST(Student, STUDENT)</i></code><br>
 
-After that you will get many list functions freely available without writing them. Let's examine some of the functions created by EC for you.<br>
+Next turn Student to list as below.  
 
-You can create a student list with 20 students as below.  
+<pre><code>List(Student)</code></pre>
 
-<code><i>StudentList *student_list = Student_List();</i></code><br>
+Now you can create a Student list as below.  
+
+<pre><code><i>StudentList *student_list = Student_List();</i></code></pre>
 
 You can create one by one student as below.  
 
@@ -72,12 +74,10 @@ foreach_list (student_list) {
 }
 </i></code></pre>  
 
-&nbsp; &nbsp; Not only these. EC does many things for you. It's purposely written so that it's much more customizable to optimize your code to gain it's maximum performance. And it's always open you to make changes and improvements on it. Hope you will find this useful and enjoy with EC programming.  
+&nbsp; &nbsp; Not only these. EC does many things for you. It's purposely written so that it's much more customized to optimize your code to gain it's maximum performance. And it's always open you to make changes and improvements on it. Hope you will find this useful and enjoy with EC programming.  
 
 For binary downloads, manuals, documentations, tutorials please visit:  
 
 <http://www.extendedc.org>  
 
 ![Logo, Extended C logo ](ec.png)  
-
-*(not working yet)*

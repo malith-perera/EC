@@ -1,5 +1,5 @@
-#ifndef EC_LIST_H
-#define EC_LIST_H
+#ifndef __EC_LIST_H__
+#define __EC_LIST_H__
 
 #include "ec.h"
 
@@ -55,23 +55,6 @@
 // EC_MEMORY_REF defined in ec_memory.h
 #define EC_LIST_STRUCT(TYPE)                        EC_CONCAT(TYPE, List)
 #define EC_LIST_VAR_STRUCT(TYPE)                    EC_CONCAT(TYPE, ListVar)
-
-
-#define EC_List(TYPE)                                   \
-typedef struct EC_LIST_VAR_STRUCT(TYPE) {               \
-    TYPE                            *var;               \
-    struct EC_LIST_VAR_STRUCT(TYPE) *next;              \
-    struct EC_LIST_VAR_STRUCT(TYPE) *previous;          \
-} EC_LIST_VAR_STRUCT(TYPE);                             \
-                                                        \
-                                                        \
-typedef struct EC_LIST_STRUCT(TYPE) {                   \
-    EC_LIST_VAR_STRUCT(TYPE) *first;                     /* first var in the list */\
-    EC_LIST_VAR_STRUCT(TYPE) *last;                     /* last var in the list */\
-    TYPE                     *var;                      /* current (holding) var in the list */\
-    EC_LIST_VAR_STRUCT(TYPE) *list_var;                 /* hold var temporaly in for_list repeatition */\
-    EC_MEMORY_REF                                       \
-} EC_LIST_STRUCT(TYPE);
 
 
 /*---------------------------*/
@@ -186,18 +169,32 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
 );
 
 
-#define EC_LIST_FUNCTION_PROTOTYPES(TYPE)               \
-    EC_LIST_VAR_EXISTANCE_FUNCTION_PROTOTYPE(TYPE)      \
-    EC_LIST_FREE_FUNCTION_PROTOTYPE(TYPE)               \
-    EC_LIST_NEW_FUNCTION_PROTOTYPE(TYPE)                \
-    EC_LIST_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)            \
-    EC_LIST_APPEND_FUNCTION_PROTOTYPE(TYPE)             \
-    EC_LIST_INSERT_FUNCTION_PROTOTYPE(TYPE)             \
-    EC_LIST_MOVE_FUNCTION_PROTOTYPE(TYPE)               \
-    EC_LIST_EXCHANGE_FUNCTION_PROTOTYPE(TYPE)           \
-    EC_LIST_REPLACE_FUNCTION_PROTOTYPE(TYPE)            \
-    EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)               \
-    EC_LIST_VAR_DROP_FUNCTION_PROTOTYPE(TYPE)
+#define EC_LIST_H(TYPE)           						\
+	typedef struct EC_LIST_VAR_STRUCT(TYPE) {           \
+		TYPE                            *var;           \
+		struct EC_LIST_VAR_STRUCT(TYPE) *next;          \
+		struct EC_LIST_VAR_STRUCT(TYPE) *previous;      \
+	} EC_LIST_VAR_STRUCT(TYPE);                         \
+														\
+	typedef struct EC_LIST_STRUCT(TYPE) {               \
+		EC_LIST_VAR_STRUCT(TYPE) *first;                /* first var in the list */\
+		EC_LIST_VAR_STRUCT(TYPE) *last;                 /* last var in the list */\
+		TYPE                     *var;                  /* current (holding) var in the list */\
+		EC_LIST_VAR_STRUCT(TYPE) *list_var;             /* hold var temporaly in for_list repeatition */\
+		EC_MEMORY_REF                                   \
+	} EC_LIST_STRUCT(TYPE); 							\
+														\
+	EC_LIST_VAR_EXISTANCE_FUNCTION_PROTOTYPE(TYPE)      \
+	EC_LIST_FREE_FUNCTION_PROTOTYPE(TYPE)               \
+	EC_LIST_NEW_FUNCTION_PROTOTYPE(TYPE)                \
+	EC_LIST_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)            \
+	EC_LIST_APPEND_FUNCTION_PROTOTYPE(TYPE)             \
+	EC_LIST_INSERT_FUNCTION_PROTOTYPE(TYPE)             \
+	EC_LIST_MOVE_FUNCTION_PROTOTYPE(TYPE)               \
+	EC_LIST_EXCHANGE_FUNCTION_PROTOTYPE(TYPE)           \
+	EC_LIST_REPLACE_FUNCTION_PROTOTYPE(TYPE)            \
+	EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)               \
+	EC_LIST_VAR_DROP_FUNCTION_PROTOTYPE(TYPE)
 
 
 /*---------------------------*/
@@ -584,7 +581,7 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
 }
 
 
-#define EC_LIST_FUNCTIONS(TYPE)             \
+#define EC_LIST_C(TYPE)             		\
     EC_LIST_VAR_EXISTANCE_FUNCTION(TYPE)    \
     EC_LIST_FREE_FUNCTION(TYPE)             \
     EC_LIST_NEW_FUNCTION(TYPE)              \
@@ -598,4 +595,9 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
     EC_LIST_VAR_DROP_FUNCTION(TYPE)
 
 
-#endif
+#define EC_LIST(TYPE) 		\
+	EC_LIST_H(TYPE) 		\
+	EC_LIST_C(TYPE)
+
+
+#endif // __EC_LIST_H__

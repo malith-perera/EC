@@ -1,5 +1,5 @@
-#ifndef EC_STACK_H
-#define EC_STACK_H
+#ifndef __EC_STACK_H__
+#define __EC_STACK_H__
 
 #include "ec.h"
 
@@ -26,19 +26,6 @@
 #define EC_STACK_VAR_STRUCT(TYPE)               EC_CONCAT(TYPE, StackVar)
 
 
-#define EC_Stack(TYPE)                              \
-typedef struct EC_STACK_VAR_STRUCT(TYPE) {          \
-    TYPE                                *var;       \
-    struct EC_STACK_VAR_STRUCT(TYPE)    *next;      \
-} EC_STACK_VAR_STRUCT(TYPE);                        \
-                                                    \
-                                                    \
-typedef struct EC_STACK_STRUCT(TYPE) {              \
-    EC_STACK_VAR_STRUCT(TYPE)   *first;             \
-    TYPE                        *var;               \
-    EC_STACK_VAR_STRUCT(TYPE)   *stack_var;         \
-    EC_MEMORY_REF                                   \
-} EC_STACK_STRUCT(TYPE);
 
 
 /* Function prototype macros */
@@ -96,7 +83,19 @@ EC_STACK_COPY_FUNCTION_NAME(TYPE)                   \
 );
 
 
-#define EC_STACK_FUNCTION_PROTOTYPES(TYPE)          \
+#define EC_STACK_H(TYPE)                            \
+    typedef struct EC_STACK_VAR_STRUCT(TYPE) {      \
+        TYPE                                *var;   \
+        struct EC_STACK_VAR_STRUCT(TYPE)    *next;  \
+    } EC_STACK_VAR_STRUCT(TYPE);                    \
+                                                    \
+    typedef struct EC_STACK_STRUCT(TYPE) {          \
+        EC_STACK_VAR_STRUCT(TYPE)   *first;         \
+        TYPE                        *var;           \
+        EC_STACK_VAR_STRUCT(TYPE)   *stack_var;     \
+        EC_MEMORY_REF                               \
+    } EC_STACK_STRUCT(TYPE);                        \
+                                                    \
     EC_STACK_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)      \
     EC_STACK_FREE_FUNCTION_PROTOTYPE(TYPE)          \
     EC_STACK_NEW_FUNCTION_PROTOTYPE(TYPE)           \
@@ -143,7 +142,7 @@ EC_STACK_NEW_FUNCTION_NAME(TYPE)                                        \
 {                                                                       \
     EC_VAR_CREATE(EC_STACK_STRUCT(TYPE), new_stack, __LINE__)                     /*TYPE *var is in this macro in ec_var.h*/\
                                                                         \
-    EC_MEMORY_CREATE(ec_memory_new, EC_TYPE_STACK, new_stack)            \
+    EC_MEMORY_CREATE(ec_memory_new, EC_TYPE_STACK, new_stack)           \
                                                                         \
     ec_memory_new->Free_Func = EC_STACK_FREE_FUNCTION_NAME(TYPE);       \
                                                                         \
@@ -226,7 +225,7 @@ EC_STACK_COPY_FUNCTION_NAME(TYPE)                                           \
 }
 
 
-#define EC_STACK_FUNCTIONS(TYPE)            \
+#define EC_STACK_C(TYPE)                    \
     EC_STACK_VAR_FREE_FUNCTION(TYPE)        \
     EC_STACK_FREE_FUNCTION(TYPE)            \
     EC_STACK_NEW_FUNCTION(TYPE)             \
@@ -236,7 +235,11 @@ EC_STACK_COPY_FUNCTION_NAME(TYPE)                                           \
     EC_STACK_COPY_FUNCTION(TYPE)
 
 
-#endif // EC_STACK_H
+#define EC_STACK(TYPE) 		\
+	EC_STACK_H(TYPE) 		\
+	EC_STACK_C(TYPE)
+
+#endif // __EC_STACK_H__
 
 
 /*-------------------------------------------------------------------------------------*

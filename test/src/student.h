@@ -9,11 +9,9 @@ typedef struct Student {
     EC_MEMORY_REF
 } Student;
 
-EC_Var(Student)
-EC_VAR_FUNCTION_PROTOTYPES(Student)
+EC_VAR_H(Student)
 
-EC_Array(Student)
-EC_ARRAY_FUNCTION_PROTOTYPES(Student)
+EC_ARRAY_H(Student)
 EC_ARRAY_REVERSE_FUNCTION_PROTOTYPE(Student)
 
 EC_ARRAY_SORT_FUNCTION_PROTOTYPE(Student, no)
@@ -22,18 +20,15 @@ EC_ARRAY_STR_FUNCTION_PROTOTYPE(Student, name)
 EC_ARRAY_MAX_FUNCTION_PROTOTYPE(Student, no)
 EC_ARRAY_MIN_FUNCTION_PROTOTYPE(Student, no)
 
-EC_List(Student)
-EC_LIST_FUNCTION_PROTOTYPES(Student)
+EC_LIST_H(Student)
 
 //EC_LIST_SORT_FUNCTION_PROTOTYPE(Student, no)
 
-EC_Queue(Student)
-EC_QUEUE_FUNCTION_PROTOTYPES(Student)
+EC_QUEUE_H(Student)
 
-EC_Stack(Student)
-EC_STACK_FUNCTION_PROTOTYPES(Student)
+EC_STACK_H(Student)
 
-extern Student students[7];
+extern Student *students;
 
 extern Student *st0;
 extern Student *st1;
@@ -44,7 +39,6 @@ extern Student *st5;
 extern Student *st6;
 
 bool
-Student_Compare (Student *a, Student *b);
-
+Student_Compare(Student *a, Student *b);
 
 #endif // STUDENT_H

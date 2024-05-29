@@ -1,12 +1,21 @@
-#ifndef EC_ARRAY_H
-#define EC_ARRAY_H
+#ifndef __EC_ARRAY_H__ 
+#define __EC_ARRAY_H__
 
 #include "ec.h"
 
 /* Can not replace with foreach in ec_type.h */
-#define foreach_array(arr)                                                                            \
-    arr->i = 0;                                                                                       \
+#define foreach_array(arr)                                                            			\
+    arr->i = 0;                                                                               	\
     for (arr->var = arr->array; arr->i < arr->length; arr->var = arr->array + ++arr->i)
+
+
+/* Hope for_array is faster than foreach_array because it use local variable */
+#define for_array(arr, a)                                                           			\
+    register int EC_CONCAT3(ec_, a, _i) = 0; 													\
+	register long int EC_CONCAT3(ec_, a, _length) = arr->length;                                \
+    for (a = arr->array; 																		\
+		EC_CONCAT3(ec_, a, _i) < EC_CONCAT3(ec_, a, _length); 									\
+		a = arr->array + ++EC_CONCAT3(ec_, a, _i))
 
 
 #define NELEMS(x) (sizeof(x) / sizeof((x)[0]))
@@ -32,15 +41,6 @@
 /* Structure macros */
 // defined in ec_memory.h
 #define EC_ARRAY_STRUCT(TYPE)           EC_CONCAT2(TYPE, Array)
-
-#define EC_Array(TYPE)                                  \
-typedef struct EC_ARRAY_STRUCT(TYPE) {                  \
-    TYPE            *array;                             \
-    int             length;                             \
-    int             i;                                  \
-    TYPE            *var;                               \
-    EC_MEMORY_REF                                       \
-} EC_ARRAY_STRUCT(TYPE);
 
 
 /* Function prototype macros */
@@ -93,13 +93,20 @@ EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                    \
 );
 
 
-#define EC_ARRAY_FUNCTION_PROTOTYPES(TYPE)              \
-    EC_ARRAY_FREE_FUNCTION_PROTOTYPE(TYPE)              \
-    EC_ARRAY_FREE_VAR_FUNCTION_PROTOTYPE(TYPE)          \
-    EC_ARRAY_UNLOCK_FUNCTION_PROTOTYPE(TYPE)            \
-    EC_ARRAY_NEW_FUNCTION_PROTOTYPE(TYPE)               \
-    EC_ARRAY_COPY_FUNCTION_PROTOTYPE(TYPE)              \
-    EC_ARRAY_REVERSE_FUNCTION_PROTOTYPE(TYPE)
+#define EC_ARRAY_H(TYPE)          \
+typedef struct EC_ARRAY_STRUCT(TYPE) {              \
+	TYPE            *array;                         \
+	int             length;                         \
+	int             i;                              \
+	TYPE            *var;                           \
+	EC_MEMORY_REF                                   \
+} EC_ARRAY_STRUCT(TYPE); 							\
+EC_ARRAY_FREE_FUNCTION_PROTOTYPE(TYPE)              \
+EC_ARRAY_FREE_VAR_FUNCTION_PROTOTYPE(TYPE)          \
+EC_ARRAY_UNLOCK_FUNCTION_PROTOTYPE(TYPE)            \
+EC_ARRAY_NEW_FUNCTION_PROTOTYPE(TYPE)               \
+EC_ARRAY_COPY_FUNCTION_PROTOTYPE(TYPE)              \
+EC_ARRAY_REVERSE_FUNCTION_PROTOTYPE(TYPE)
 
 
 #define EC_ARRAY_SORT_FUNCTION_PROTOTYPE(TYPE, SW)      \
@@ -283,13 +290,13 @@ EC_ARRAY_COPY_FUNCTION_NAME(TYPE)                                               
     EC_ARRAY_STRUCT(TYPE) *array                                                            \
 )                                                                                           \
 {                                                                                           \
-    EC_ARRAY_STRUCT(TYPE) *array_clone = EC_ARRAY_NEW_FUNCTION_NAME(TYPE) (array->length);   \
+    EC_ARRAY_STRUCT(TYPE) *array_clone = EC_ARRAY_NEW_FUNCTION_NAME(TYPE) (array->length);  \
                                                                                             \
-    memcpy (array_clone->array, array->array, sizeof(TYPE) * array->length);                 \
+    memcpy (array_clone->array, array->array, sizeof(TYPE) * array->length);                \
                                                                                             \
-    array_clone->length = array->length;                                                     \
+    array_clone->length = array->length;                                                    \
                                                                                             \
-    return array_clone;                                                                      \
+    return array_clone;                                                                     \
 }
 
 
@@ -311,7 +318,7 @@ EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                                \
 }
 
 
-#define EC_ARRAY_FUNCTIONS(TYPE)        \
+#define EC_ARRAY_C(TYPE)        		\
     EC_ARRAY_FREE_FUNCTION(TYPE)        \
     EC_ARRAY_FREE_VAR_FUNCTION(TYPE)    \
     EC_ARRAY_UNLOCK_FUNCTION(TYPE)      \
@@ -517,6 +524,7 @@ EC_ARRAY_MIN_FUNCTION_NAME(TYPE, SW)                \
     return min;                                     \
 }
 
+
 #define EC_ARRAY_SW_FUNCTIONS(TYPE, SW)             /* SW for Search With or Sort With */ \
     EC_ARRAY_SORT_FUNCTION(TYPE, SW)                \
     EC_ARRAY_INT_FUNCTION(TYPE, SW)                 \
@@ -524,4 +532,8 @@ EC_ARRAY_MIN_FUNCTION_NAME(TYPE, SW)                \
     EC_ARRAY_MIN_FUNCTION(TYPE, SW)
 
 
-#endif // EC_ARRAY_H
+#define EC_ARRAY(TYPE) 					\
+	EC_ARRAY_H(TYPE)					\
+	EC_ARRAY_C(TYPE)
+
+#endif // __EC_ARRAY_H__

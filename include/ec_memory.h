@@ -1,8 +1,8 @@
 #include "ec.h"
 
 
-#ifndef EC_MEMORY_H
-#define EC_MEMORY_H
+#ifndef __EC_MEMORY_H__
+#define __EC_MEMORY_H__
 
 
 /* ECMemoryLock types */
@@ -39,14 +39,14 @@ typedef struct ECMemory {
 
 
 /* List of all allocated ec_memory */
-static ECMemory *ec_memory;
+extern ECMemory *ec_memory;
 
 #ifdef EC_MEMORY
 
-#define EC_MEMORY_CREATE(ec_memory_new, ec_type, ec_var)            /* ec_type -> ECType ... ec_var -> assigning ec_variable to ec_memory_new */\
-        ECMemory *ec_memory_new = EC_Memory_Create (ec_type);       \
-        EC_ERROR_MEM_ALLOC(ec_memory_new, __FILE__, __LINE__)       /* when memory allocation failed */\
-        ec_memory_new->var = ec_var;                                \
+#define EC_MEMORY_CREATE(ec_memory_new, ec_type, ec_var)        /* ec_type -> ECType ... ec_var -> assigning ec_variable to ec_memory_new */\
+        ECMemory *ec_memory_new = EC_Memory_Create (ec_type);   \
+        EC_ERROR_MEM_ALLOC(ec_memory_new, __FILE__, __LINE__)   /* when memory allocation failed */\
+        ec_memory_new->var = ec_var;                            \
         ec_var->ec_mem = ec_memory_new;
 
 #else
@@ -99,4 +99,4 @@ EC_Memory_Free_Unlock_One ();
     free(EC_VAR);
 
 
-#endif // EC_MEMORY_H
+#endif // __EC_MEMORY_H__

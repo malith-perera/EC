@@ -1,5 +1,5 @@
-#ifndef EC_QUEUE_H
-#define EC_QUEUE_H
+#ifndef __EC_QUEUE_H__
+#define __EC_QUEUE_H__
 
 #include "ec.h"
 
@@ -23,22 +23,6 @@
 // defined in ec_memory.h
 #define EC_QUEUE_STRUCT(TYPE)                       EC_CONCAT2(TYPE, Queue)
 #define EC_QUEUE_VAR_STRUCT(TYPE)                   EC_CONCAT2(TYPE, QueueVar)
-
-
-#define EC_Queue(TYPE)                              \
-typedef struct EC_QUEUE_VAR_STRUCT(TYPE){           \
-    TYPE                             *var;          \
-    struct EC_QUEUE_VAR_STRUCT(TYPE) *next;         \
-} EC_QUEUE_VAR_STRUCT(TYPE);                        \
-                                                    \
-                                                    \
-typedef struct EC_QUEUE_STRUCT(TYPE){               \
-    EC_QUEUE_VAR_STRUCT(TYPE)   *first;             \
-    EC_QUEUE_VAR_STRUCT(TYPE)   *last;              \
-    TYPE                        *var;               \
-    EC_QUEUE_VAR_STRUCT(TYPE)   *queue_var;         \
-    EC_MEMORY_REF                                   \
-} EC_QUEUE_STRUCT(TYPE);
 
 
 #define EC_QUEUE_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)          \
@@ -94,13 +78,26 @@ EC_QUEUE_COPY_FUNCTION_NAME(TYPE)                           \
 );
 
 
-#define EC_QUEUE_FUNCTION_PROTOTYPES(TYPE)                  \
-    EC_QUEUE_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)              \
-    EC_QUEUE_FREE_FUNCTION_PROTOTYPE(TYPE)                  \
-    EC_QUEUE_NEW_FUNCTION_PROTOTYPE(TYPE)                   \
-    EC_QUEUE_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)               \
-    EC_QUEUE_ENQUEUE_FUNCTION_PROTOTYPE(TYPE)               \
-    EC_QUEUE_DEQUEUE_FUNCTION_PROTOTYPE(TYPE)               \
+#define EC_QUEUE_H(TYPE)                            \
+    typedef struct EC_QUEUE_VAR_STRUCT(TYPE){       \
+        TYPE                             *var;      \
+        struct EC_QUEUE_VAR_STRUCT(TYPE) *next;     \
+    } EC_QUEUE_VAR_STRUCT(TYPE);                    \
+                                                    \
+    typedef struct EC_QUEUE_STRUCT(TYPE){           \
+        EC_QUEUE_VAR_STRUCT(TYPE)   *first;         \
+        EC_QUEUE_VAR_STRUCT(TYPE)   *last;          \
+        TYPE                        *var;           \
+        EC_QUEUE_VAR_STRUCT(TYPE)   *queue_var;     \
+        EC_MEMORY_REF                               \
+    } EC_QUEUE_STRUCT(TYPE);                        \
+                                                    \
+    EC_QUEUE_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)      \
+    EC_QUEUE_FREE_FUNCTION_PROTOTYPE(TYPE)          \
+    EC_QUEUE_NEW_FUNCTION_PROTOTYPE(TYPE)           \
+    EC_QUEUE_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)       \
+    EC_QUEUE_ENQUEUE_FUNCTION_PROTOTYPE(TYPE)       \
+    EC_QUEUE_DEQUEUE_FUNCTION_PROTOTYPE(TYPE)       \
     EC_QUEUE_COPY_FUNCTION_PROTOTYPE(TYPE)
 
 
@@ -245,7 +242,7 @@ EC_QUEUE_COPY_FUNCTION_NAME(TYPE)                                           \
 }
 
 
-#define EC_QUEUE_FUNCTIONS(TYPE)        \
+#define EC_QUEUE_C(TYPE)                \
     EC_QUEUE_VAR_FREE_FUNCTION(TYPE)    \
     EC_QUEUE_FREE_FUNCTION(TYPE)        \
     EC_QUEUE_NEW_FUNCTION(TYPE)         \
@@ -254,4 +251,10 @@ EC_QUEUE_COPY_FUNCTION_NAME(TYPE)                                           \
     EC_QUEUE_DEQUEUE_FUNCTION(TYPE)     \
     EC_QUEUE_COPY_FUNCTION(TYPE)
 
-#endif // EC_QUEUE_H
+
+#define EC_QUEUE(TYPE) 		\
+	EC_QUEUE_H(TYPE) 		\
+	EC_QUEUE_C(TYPE)
+
+
+#endif // __EC_QUEUE_H__
