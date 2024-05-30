@@ -1,5 +1,5 @@
-#ifndef EC_ECS_TEST_H
-#define EC_ECS_TEST_H
+#ifndef __EC_ECS_TEST_H__
+#define __EC_ECS_TEST_H__
 
 #include "ec_main_test.h"
 #include "component.h"
@@ -29,4 +29,4 @@ EC_Entity_Component_H(Enemy, Position)
 void
 Run_ECS_Test();
 
-#endif // EC_ECS_TEST_H
+#endif // __EC_ECS_TEST_H__

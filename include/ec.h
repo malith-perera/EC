@@ -19,7 +19,7 @@
  
  vi: set expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
- Also used more spaces than usual to minimize headaches. :)
+ Also used more spaces to minimize headaches. :)
 */
 
 #ifndef EC_H
@@ -91,8 +91,6 @@
 //#include "ec_bits.h"
 //#include "ec_vector.h"
 
-void
-EC_Clean();
 
 #define EC(TYPE) 	\
 	EC_VAR(TYPE)	\

@@ -1,5 +1,5 @@
-#ifndef STUDENT_H
-#define STUDENT_H
+#ifndef __STUDENT_H__
+#define __STUDENT_H__
 
 #include "ec_main_test.h"
 
@@ -41,4 +41,4 @@ extern Student *st6;
 bool
 Student_Compare(Student *a, Student *b);
 
-#endif // STUDENT_H
+#endif // __STUDENT_H__

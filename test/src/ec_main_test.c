@@ -124,7 +124,8 @@ main(int argc, char *argv[])
     }
 
     EC_Error_Print_Msg("EC_Clean", "BEGIN");
-    EC_Clean();
+    //EC_Clean();
+    Clean();
     EC_Test_Print_Msg("EC_Clean", "OK", __LINE__);
     EC_Error_Print_Msg("EC_Clean", "END");
 

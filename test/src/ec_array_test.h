@@ -1,5 +1,5 @@
-#ifndef EC_ARRAY_TEST_H
-#define EC_ARRAY_TEST_H
+#ifndef __EC_ARRAY_TEST_H__
+#define __EC_ARRAY_TEST_H__
 
 #include "ec_main_test.h"
 #include "student.h"
@@ -7,4 +7,4 @@
 void
 Run_Array_Test();
 
-#endif // EC_ARRAY_TEST_H
+#endif // __EC_ARRAY_TEST_H__

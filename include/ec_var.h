@@ -85,6 +85,7 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)                         \
 /* Create memory for any variable type ex: var, arry, list, list var */
 #define EC_VAR_CREATE(TYPE, var, line)                      \
     TYPE *var = (TYPE *) malloc(sizeof(TYPE));             	\
+	Add(var);                                               \
     EC_ERROR_MEM_ALLOC(var, __FILE__, line)                 /* when memory allocation failed */\
     EC_DEBUG_PRINT_ADR("Create: ec var", var, line)         /* only when EC_DEBUG */
 
@@ -94,13 +95,24 @@ TYPE *                                                          \
 EC_VAR_NEW_FUNCTION_NAME(TYPE)(void)                            \
 {                                                               \
     EC_VAR_CREATE(TYPE, var, __LINE__)                          /* var is created variable */\
-                                                                \
-    EC_MEMORY_CREATE(ec_memory_new, EC_TYPE_VAR, var)           \
-                                                                \
-    ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE); \
-                                                                \
+																\
     return var;                                                 \
 }
+
+
+//#define EC_VAR_NEW_FUNCTION(TYPE)                               \
+//TYPE *                                                          \
+//EC_VAR_NEW_FUNCTION_NAME(TYPE)(void)                            \
+//{                                                               \
+//    EC_VAR_CREATE(TYPE, var, __LINE__)                          /* var is created variable */\
+//                                                                \
+//    EC_MEMORY_CREATE(ec_memory_new, EC_TYPE_VAR, var)           \
+//                                                                \
+//    ec_memory_new->Free_Func = EC_VAR_FREE_FUNCTION_NAME(TYPE); \
+//                                                                \
+//    return var;                                                 \
+//}
+
 
 
 // Clone variable var to var_clone

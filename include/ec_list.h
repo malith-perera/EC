@@ -28,7 +28,7 @@
 
 #define EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Free_Func) // *** when change errors
 #define EC_LIST_FREE_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _List_Free)
-#define EC_LIST_FUNCTION_NAME(TYPE)                 EC_CONCAT(TYPE, _List)
+#define EC_LIST_NEW_FUNCTION_NAME(TYPE)                 EC_CONCAT(TYPE, _List)
 #define EC_LIST_VAR_FUNCTION_NAME(TYPE)             EC_CONCAT(TYPE, _List_Var)
 #define EC_LIST_COPY_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _List_Copy)
 
@@ -89,7 +89,7 @@ EC_LIST_FREE_FUNCTION_NAME(TYPE)                        \
 
 #define EC_LIST_NEW_FUNCTION_PROTOTYPE(TYPE)            \
 EC_LIST_STRUCT(TYPE) *                                  \
-EC_LIST_FUNCTION_NAME(TYPE)                             \
+EC_LIST_NEW_FUNCTION_NAME(TYPE)                             \
 (void);
 
 
@@ -258,19 +258,10 @@ EC_LIST_FREE_FUNCTION_NAME(TYPE)                                    \
 
 #define EC_LIST_NEW_FUNCTION(TYPE)                                      \
 EC_LIST_STRUCT(TYPE) *                                                  \
-EC_LIST_FUNCTION_NAME(TYPE)                                             \
+EC_LIST_NEW_FUNCTION_NAME(TYPE)                                             \
 (void)                                                                  \
 {                                                                       \
     EC_VAR_CREATE(EC_LIST_STRUCT(TYPE), new_list, __LINE__)             /* This macro in ec_var.h*/\
-                                                                        \
-    EC_MEMORY_CREATE(ec_memory_new, EC_TYPE_LIST, new_list)             \
-                                                                        \
-    ec_memory_new->Free_Func = EC_LIST_FREE_FUNCTION_NAME(TYPE);        \
-                                                                        \
-    new_list->first = NULL;                                             \
-    new_list->last = NULL;                                              \
-    new_list->var = NULL;                                               \
-    new_list->var = NULL;                                               \
                                                                         \
     return new_list;                                                    \
 }
@@ -536,7 +527,7 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                                            \
     EC_LIST_STRUCT(TYPE) *list                                              \
 )                                                                           \
 {                                                                           \
-    EC_LIST_STRUCT(TYPE) *list_copy = EC_LIST_FUNCTION_NAME(TYPE)();        \
+    EC_LIST_STRUCT(TYPE) *list_copy = EC_LIST_NEW_FUNCTION_NAME(TYPE)();        \
                                                                             \
     EC_LIST_VAR_STRUCT(TYPE) *var;                                          \
                                                                             \

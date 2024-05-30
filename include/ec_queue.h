@@ -148,14 +148,6 @@ EC_QUEUE_NEW_FUNCTION_NAME(TYPE)                                        \
 {                                                                       \
     EC_VAR_CREATE(EC_QUEUE_STRUCT(TYPE), new_queue, __LINE__);          /* TYPE *var is in this macro in ec_var.h*/ \
                                                                         \
-    EC_MEMORY_CREATE(ec_memory_new, EC_TYPE_QUEUE, new_queue)           \
-    ec_memory_new->Free_Func = EC_QUEUE_FREE_FUNCTION_NAME(TYPE);       \
-                                                                        \
-    new_queue->first = NULL;                                            \
-    new_queue->last = NULL;                                             \
-    new_queue->var = NULL;                                              \
-    new_queue->queue_var = NULL;                                        \
-                                                                        \
     return new_queue;                                                   \
 }
 

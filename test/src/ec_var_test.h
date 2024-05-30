@@ -1,5 +1,5 @@
-#ifndef EC_REF_VAR_TEST_H
-#define EC_REF_VAR_TEST_H
+#ifndef __EC_REF_VAR_TEST_H__
+#define __EC_REF_VAR_TEST_H__
 
 #include "ec_main_test.h"
 #include "student.h"
@@ -7,4 +7,4 @@
 void
 Run_Var_Test();
 
-#endif //EC_REF_VAR_TEST_H
+#endif // __EC_REF_VAR_TEST_H__

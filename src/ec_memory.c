@@ -2,200 +2,72 @@
 
 #define DEBUG_EC_MEMORY 1
 
-/* User to free ec_memory one at a time with EC_Memory_Free_Unlock_One function
- * to track current position */
+Memory *memory;
 
-ECMemory *ec_memory;
 
-ECMemory *free_one = NULL;
-
-ECMemory *
-EC_Memory_Create(ECType ec_type)                                   
+void Add(void *ptr)
 {
-    ECMemory *ec_memory_new = (ECMemory*) malloc (sizeof(ECMemory));
+    Memory *temp;
 
-    EC_DEBUG_PRINT_ADR("Create: ec memory ", ec_memory_new, __LINE__); //***** here __LINE__ is not correct. it should come from where it request
+    Memory *m = (Memory *) malloc (sizeof(Memory));
+    m->ptr = ptr;
 
-    if (ec_memory_new == NULL)
-    {
-        EC_Error_Mem_Alloc (__FILE__, __LINE__);
-        return NULL;
-    }
-
-    ec_memory_new->type = ec_type;
-    ec_memory_new->lock = EC_LOCK;
-    ec_memory_new->next = NULL;
-
-    EC_Memory_Push (ec_memory_new);
+    m->next = memory;
+    memory = m;
 }
 
-
-/* Free an ec_memory variable */
-void
-EC_Memory_Var_Free (ECMemory *ec_mem)
+void Clean()
 {
-    if (ec_mem != NULL) /* if ec_mem exist */
-    {
-        if (ec_mem != ec_memory) /* not the first ec_mem */
-        {
-            if (ec_mem->next != NULL && ec_mem->previous != NULL)
-            {
-                ec_mem->previous->next = ec_mem->next;
-            }
-            else if (ec_mem->previous != NULL)
-            {
-                ec_mem->previous->next = NULL;
-            }
-        }
-        else /* first ec_mem */
-        {
-            if (ec_mem->next != NULL) /* not the only ec_mem exist */
-            {
-                ec_memory = ec_memory->next;
-                ec_memory->previous = NULL;
-            }
-            else /* the only ec_mem exist */
-            {
-                ec_memory = NULL;
-            }
-        }
+    Memory *temp = NULL;
+    Memory *current = NULL;
 
-        if (DEBUG) EC_Test_Print_Adr ("ec memory var free", ec_mem);
+    current = memory;
 
-        free (ec_mem);
-    }
-    else
-    {
-        ec_memory = NULL;
-    }
-}
-
-
-void
-EC_Memory_Free_All
-(
-    ECMemory *ec_mem
-)
-{
-    if (ec_mem != NULL)
-    {
-        if (ec_mem->var != NULL)
-        {
-            ec_mem->Free_Func(ec_mem->var);
-        }
-    }
-}
-
-
-/* Clean all ec_memory at the end of the program */
-void
-EC_Memory_Clean ()
-{
-    ECMemory *current;
-    ECMemory *temp;
-
-    current = ec_memory;
-
-    while (current != NULL)
-    {
-        if (current->var != NULL)
-            current->Free_Func(current->var);
-
+    while (current != NULL) {
         temp = current;
         current = current->next;
-        free(temp);
-    }
 
-    ec_memory = NULL;
-}
+        if (temp != NULL) {
+            free(temp->ptr);
+            free(temp);
 
-
-/* Push new_ec_memory to ec_memory */
-void
-EC_Memory_Push (ECMemory *ec_memory_new)
-{
-    if (ec_memory != NULL) /* if there ec_memory var exist */
-    {
-        ec_memory_new->next = ec_memory;
-        ec_memory->previous = ec_memory_new;
-        ec_memory = ec_memory_new;
-    }
-    else
-    {
-        ec_memory = ec_memory_new;
-        ec_memory->previous = NULL;
-        ec_memory->next = NULL;
-    }
-}
-
-
-
-/* Free all memory if lock == EC_UNLOCK in ec_memory var */
-
-void
-EC_Memory_Free_Unlocked ()
-{
-    ECMemory *current;
-    ECMemory *temp;
-
-    current = ec_memory;
-
-    while (current != NULL)
-    {
-        if (current->lock == EC_UNLOCK)
-        {
-            if (current->var != NULL)
-            {
-                current->Free_Func (current->var);
-            }
-
-            temp = current;
-            current = current->next;
-            free (temp);
             temp = NULL;
-
-            break;
+            temp->ptr == NULL;
         }
+    }
 
+    memory = NULL;
+}
+
+
+void
+Free(void *ptr)
+{
+    Memory *current = memory, *previous;
+
+    // If ptr is the first item
+    if (current != NULL && current->ptr == ptr) {
+        memory = current->next;
+        free(current->ptr);
+        free(current);
+        current->ptr = NULL;
+        current = NULL;
+        return;
+    }
+
+    // Search till find ptr
+    while (current != NULL && current->ptr != ptr) {
+        previous = current;
         current = current->next;
     }
 
-    free_one = ec_memory; // reset free_one to ec_memory. free_one use to track the var when free one by one in Free_Unlock_One function.
-}
+    // If ptr is not in the list
+    if (current == NULL) return;
 
-
-/* Free ec_memory if lock == EC_UNLOCK but only one at a time */
-void
-EC_Memory_Free_Unlock_One ()
-{
-    ECMemory *current;
-    ECMemory *temp;
-
-    if (free_one != NULL)
-    {
-        current = free_one;         // ECMemory *free_one; global variable defined above
-    }
-    else
-    {
-        current = ec_memory;
-    }
-
-    while (current != NULL)
-    {
-        if (current->lock == EC_UNLOCK)
-        {
-            if (current->var != NULL)
-            {
-                current->Free_Func (current->var);
-            }
-
-            temp = current;
-            current = current->next;
-            free (temp);
-            temp = NULL;
-
-            free_one = current;
-            break;
-        }
-    }
+    // Free 
+    previous->next = current->next;
+    free(current->ptr);
+    free(current);
+    current->ptr = NULL;
+    current = NULL;
 }

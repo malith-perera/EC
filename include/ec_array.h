@@ -236,16 +236,16 @@ EC_ARRAY_FREE_FUNCTION_NAME(TYPE)                                   \
 }
 
 
-#define EC_ARRAY_UNLOCK_FUNCTION(TYPE)                              \
-void                                                                \
-EC_ARRAY_UNLOCK_FUNCTION_NAME(TYPE)                                 \
-(                                                                   \
-    void *var                                                       \
-)                                                                   \
-{                                                                   \
-    EC_ARRAY_STRUCT(TYPE) *v = (EC_ARRAY_STRUCT(TYPE) *) var;       \
-    v->ec_mem->lock = EC_UNLOCK;                                    \
-}
+//#define EC_ARRAY_UNLOCK_FUNCTION(TYPE)                              \
+//void                                                                \
+//EC_ARRAY_UNLOCK_FUNCTION_NAME(TYPE)                                 \
+//(                                                                   \
+//    void *var                                                       \
+//)                                                                   \
+//{                                                                   \
+//    EC_ARRAY_STRUCT(TYPE) *v = (EC_ARRAY_STRUCT(TYPE) *) var;       \
+//    v->ec_mem->lock = EC_UNLOCK;                                    \
+//}
 
 
 #define EC_ARRAY_NEW_FUNCTION(TYPE)                                     \
@@ -257,14 +257,6 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                        \
 {                                                                       \
     EC_VAR_CREATE(EC_ARRAY_STRUCT(TYPE), var, __LINE__)                 /* TYPE *var is in this macro in ec_var.h*/\
                                                                         \
-    if (EC_MEMORY)                                                      \
-    {                                                                   \
-        EC_MEMORY_CREATE(ec_memory_new, EC_TYPE_ARRAY, var)             \
-        ec_memory_new->Free_Func = EC_ARRAY_FREE_FUNCTION_NAME(TYPE);   \
-        var->ec_mem = ec_memory_new;                                    \
-        var->ec_mem->lock = EC_LOCK;                                    \
-    }                                                                   \
-                                                                        \
     TYPE *array = (TYPE *) malloc (sizeof (TYPE) * length);             \
                                                                         \
     if (array == NULL)                                                  \
@@ -275,6 +267,8 @@ EC_ARRAY_NEW_FUNCTION_NAME(TYPE)                                        \
                                                                         \
     var->length = length;                                               \
     var->array = array;                                                 \
+																		\
+	Add(array); 														\
                                                                         \
     return var;                                                         \
 }
@@ -321,7 +315,6 @@ EC_ARRAY_REVERSE_FUNCTION_NAME(TYPE)                                \
 #define EC_ARRAY_C(TYPE)        		\
     EC_ARRAY_FREE_FUNCTION(TYPE)        \
     EC_ARRAY_FREE_VAR_FUNCTION(TYPE)    \
-    EC_ARRAY_UNLOCK_FUNCTION(TYPE)      \
     EC_ARRAY_NEW_FUNCTION(TYPE)         \
     EC_ARRAY_COPY_FUNCTION(TYPE)        \
     EC_ARRAY_REVERSE_FUNCTION(TYPE)
