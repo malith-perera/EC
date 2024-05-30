@@ -18,14 +18,13 @@ EC(Student)
 
 ### Create a dynamic variable
 <pre><code>
-Student *student = Student_Var();
+Student *student1 = Student_Var();
 
 student->index = 101;
 student->name = "Arnold";
 </code></pre>
 
 ### Create a List variable
-<pre><code>List(Student)</code></pre>
 
 <pre><code>
 StudentList *student_list = Student_List();
@@ -33,12 +32,12 @@ StudentList *student_list = Student_List();
 
 ### Append student into a list
 <pre><code>
-Student_Append (student_list, student);
+Student_Append (student_list, student1);
 </code></pre>
 
 ### Insert student into a list
 <pre><code>
-Student_Insert (student_list, student, 5);
+Student_Insert (student_list, student1, 5);
 </code></pre>
 
 Insert as the 5th item. 
@@ -46,23 +45,23 @@ Insert as the 5th item.
 ### Move student inside the list
 
 <pre><code>
-Student_Move (student_list, student, 5);
+Student_Move (student_list, student1, 5);
 </code></pre>
 
 ### Exchange students in the list
 <pre><code>
-Student_Exchange(student_list, student, student2);
+Student_Exchange(student_list, student1, student2);
 </pre></code>
 
 ### Replace list student from one another
 <pre><code>
-Student_Replace (student_list, student, student2);
+Student_Replace (student_list, student1, student2);
 </code></pre>
 
 ### Remove student from the list
 
 <pre><code>
-Student_Remove(student_list, student);
+Student_Remove(student_list, student1);
 </code></pre>
 
 ### Loop in the list
