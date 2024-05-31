@@ -1,7 +1,7 @@
 ## EC Tutorial
 <hr>
 
-Hope you have the basic knowledge of C language and compile a C source file with a header file.
+Hope you have the basic knowledge of C language and compile a C source files with headers and link a dynamic library.
 
 ### EC_VAR
 <hr>
@@ -59,7 +59,7 @@ Create dynamic arrays.
 *student.c*  
 <pre><code>
 #include &ltstdio.h&gt
-#include "student.h"
+#include "ec.h"
 
 typedef struct Student {
     int no;

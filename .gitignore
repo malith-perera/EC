@@ -3,4 +3,4 @@ build/
 test/build
 *.swp
 *.swo
-*.backup
+*.md.backup
