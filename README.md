@@ -1,12 +1,15 @@
-# EC
+# EC - Extended C
 <hr>
   
- * EC (Extended C) is a simple library and a tool kit that provide you a rapid way to develop C programs more easily.
- * Also it make the space you to optimize the code and gain the maximum performance after that.
- * It let you to create dynamic variables, arrays, lists, queues, stacks and their relevant functions without much effort.
- * EC allows you to think about the programs with objects in mind.
+## Introducton
+
+ * EC is a simple library and a tool kit that provide you a rapid way to develop C programs more easily.
+ * It let you to create dynamic variables, arrays, lists, queues, stacks and their relevant functions without any effort.
+ * And you can take the advantage of it's evolving extended easy functionalities too.
+ * EC helps you to think about programs with objects in mind.
  * And it also supports Data Oriented Design using inbuilt Entity Component System (ECS).
  * Further more EC can manages dynamic memory and minimize  errors and memory leaks if you are interested in.
+ * Finally it makes the space you to optimize the code and gain the maximum performance what you expect from C.
 
 ## Overview
 
@@ -47,7 +50,7 @@ Append student at end of the list
 Student_Insert(student_list, student, 5);
 ```
 
-Insert student as the 5th list item. 
+Insert student as the 5th member of the list. 
 
 ### Move student inside the list
 
@@ -84,7 +87,7 @@ for_list(student_list) {
 ```
 Go through list one by one.  
 
-Not only these. EC does many things for you. It's purposely written so that you can customize it to write optimized C code to get it's maximum performance. And it's always let you to make changes and improvements on It. Hope you will enjoy with EC programming.  
+Not only these. EC does many things for you. It's purposely written so that you can customize it to write optimized C code to get it's maximum performance. And it always welcomes you to make changes and improvements on it. Hope you will enjoy with EC programming.  
   
 Happy Programming!
   
