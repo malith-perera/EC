@@ -10,6 +10,7 @@
 #include "ec_stack_test.h"
 #include "ec_loc_test.h"
 #include "ec_EC_test.h"
+#include "ec_time_test.h"
 
 #include "ec_ecs_test.h"
 
@@ -122,6 +123,12 @@ main(int argc, char *argv[])
     {
         Run_Loc_Test();
     }
+
+    if(no == 8 || no == 0)
+    {
+        Run_Time_Test();
+    }
+
 
     EC_Error_Print_Msg("EC_Clean", "BEGIN");
     //EC_Clean();

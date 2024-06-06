@@ -13,6 +13,7 @@ make
 
 if [ -f "libEC.so" ]; then
   cp libEC.so ../lib/
+  cp ec ../bin/
   cd ..
   rm -r build
 else

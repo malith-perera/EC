@@ -64,6 +64,8 @@
 #include <stdint.h>
 #include <string.h>
 
+#include "ec_version.h"
+
 #include "ec_text_color.h"
 #include "ec_type.h"
 #include "ec_macro.h"
@@ -75,6 +77,7 @@
 #include "ec_error.h"
 #include "ec_warn.h"
 #include "ec_memory.h"
+#include "ec_time.h"
 
 #include "ec_var.h"
 #include "ec_array.h"
