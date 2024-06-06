@@ -3,13 +3,13 @@
   
 ## Introducton
 
- * EC is a simple library and a tool kit that provide you a rapid way to develop C programs more easily.
+ * EC is a simple library and a tool kit that provide a way to develop pure C programs more easily.
  * It lets you to create dynamic variables, arrays, lists, queues, stacks and their relevant functions without any effort.
- * And you can take the advantage of it's evolving easy functionalities too.
+ * You can take the advantage of evolving extended easy functionalities of Extended C library.
  * EC helps you to think about programs with objects in mind.
  * And it also supports Data Oriented Design using inbuilt Entity Component System (ECS).
  * Further more EC can manages dynamic memory and minimize  errors and memory leaks if you are interested in.
- * Finally it makes the space you to optimize the code and gain the maximum performance of C.
+ * Finally it extends the space you to optimize the code and gain the maximum performance of C language.
 
 ## Overview
 
@@ -87,7 +87,7 @@ for_list(student_list) {
 ```
 Go through list one by one.  
 
-Not only these. EC does many things for you. It's purposely written so that you can customize it to write optimized C code to get it's maximum performance. And we always welcomes you to make changes and improvements on it. Hope you will enjoy with EC programming.  
+Not only these. EC does many things for you. It's purposely written so that you can customize it to write optimized C code to get it's maximum performance. And we always welcome you to make improvements on it. Hope you will enjoy with EC programming.  
   
 Happy Programming!
   
