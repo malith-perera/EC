@@ -24,17 +24,17 @@ endif ()
 #get_filename_component (PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)
 
 # Set an output directory for binary ectest
-set(BIN_DIR "${PROJECT_SOURCE_DIR}/build")
+set(BIN_DIR "${PROJECT_SOURCE_DIR}/lib")
 
 set (PROJECT_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/include" "${PROJECT_SOURCE_DIR}/.ec" "/usr/local/include")
 
 set (PROJECT_LINK_DIRS ${PROJECT_SOURCE_DIR}/lib)
 link_directories (${PROJECT_LINK_DIRS})
 
-#Bring the headers, such as Student.h into the project
+#Bring the .h header files into the project
 include_directories(${PROJECT_INCLUDE_DIRS})
 
-#However, the file(GLOB...) allows for wildcard additions:
+#file(GLOB...) for wildcard additions
 file(GLOB SOURCE_FILES "${PROJECT_SOURCE_DIR}/src/*.c")
 
 #Generate the shared library from the sources
@@ -48,8 +48,7 @@ link_directories (${PROJECT_LINK_DIRS})
 add_executable(ec ${SOURCE_FILES})
 
 #Set the location for library installation -- i.e., /usr/lib in this case
-# not really necessary in this example. Use "sudo make install" to apply
-install(TARGETS EC DESTINATION /usr/lib)
-
+#not really necessary in this example. Use "sudo make install" to apply
+install(TARGETS EC DESTINATION /usr/bin/EC)
 
 #message ("${PROJECT_SOURCE_DIR}")

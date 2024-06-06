@@ -64,6 +64,17 @@
 #include <stdint.h>
 #include <string.h>
 
+#ifdef LINUX
+#include <unistd.h>
+#endif
+
+
+#ifdef WIN32
+#include <io.h>
+#define F_OK 0
+#define access _access
+#endif
+
 #include "ec_version.h"
 
 #include "ec_text_color.h"

@@ -1,3 +1,0 @@
-// the configured options and settings for Tutorial
-#define EC_VERSION_MAJOR @EC_VERSION_MAJOR@
-#define EC_VERSION_MINOR @EC_VERSION_MINOR@
