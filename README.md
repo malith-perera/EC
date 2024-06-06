@@ -4,12 +4,12 @@
 ## Introducton
 
  * EC is a simple library and a tool kit that provide you a rapid way to develop C programs more easily.
- * It let you to create dynamic variables, arrays, lists, queues, stacks and their relevant functions without any effort.
- * And you can take the advantage of it's evolving extended easy functionalities too.
+ * It lets you to create dynamic variables, arrays, lists, queues, stacks and their relevant functions without any effort.
+ * And you can take the advantage of it's evolving easy functionalities too.
  * EC helps you to think about programs with objects in mind.
  * And it also supports Data Oriented Design using inbuilt Entity Component System (ECS).
  * Further more EC can manages dynamic memory and minimize  errors and memory leaks if you are interested in.
- * Finally it makes the space you to optimize the code and gain the maximum performance what you expect from C.
+ * Finally it makes the space you to optimize the code and gain the maximum performance of C.
 
 ## Overview
 
@@ -50,20 +50,20 @@ Append student at end of the list
 Student_Insert(student_list, student, 5);
 ```
 
-Insert student as the 5th member of the list. 
+Insert student as the 5th student of the list. 
 
 ### Move student inside the list
 
 ```c
 Student_Move(student_list, student, 5);
 ```
-move student 5 places left.  
+Move student 5 places towards end of the list.  
 
 ### Exchange students in the list
 ```c
 Student_Exchange(student_list, student, student2);
 ```
-exchange student with student2.  
+Exchange student with student2.  
 
 ### Replace list student from one another
 ```c
@@ -87,7 +87,7 @@ for_list(student_list) {
 ```
 Go through list one by one.  
 
-Not only these. EC does many things for you. It's purposely written so that you can customize it to write optimized C code to get it's maximum performance. And it always welcomes you to make changes and improvements on it. Hope you will enjoy with EC programming.  
+Not only these. EC does many things for you. It's purposely written so that you can customize it to write optimized C code to get it's maximum performance. And we always welcomes you to make changes and improvements on it. Hope you will enjoy with EC programming.  
   
 Happy Programming!
   
