@@ -81,10 +81,10 @@ EC_Todo_Print(FILE *fptr)
     char type_txt[322];
     int i = 0, j = 0;
 
-    printf (" %5s%-60s%-15s%-20s%-15s\n %5s%-60s%-15s%-20s%-15s\n %5s%-60s%-15s%-20s%-15s\n",
-           "", "-------------", "----------", "----------", " ---------",
-           "", "   EC Todo   ", "   Type   ", " Assigned ", "  Urgency ",
-           "", "-------------", "----------", "----------", " ---------"); 
+    printf (" %5s%-60s%-15s%-15s%-20s\n %5s%-60s%-15s%-15s%-20s\n %5s%-60s%-15s%-15s%-20s\n",
+           "", "-------------", "----------", " ---------", "----------", 
+           "", "   EC Todo   ", "   Type   ", "  Urgency ", " Assigned ", 
+           "", "-------------", "----------", " ---------", "----------"); 
 
     while ((c = fgetc(fptr)) != EOF) {
         if(c != '\n')
@@ -138,7 +138,7 @@ EC_Todo_Print(FILE *fptr)
                 strcpy(color, "\x1B[0;37m ");
             }
  
-            printf(" %-5d %-60s%-15s%-20s%-s%-15s\033[0m\n", total_todo, title, type_txt, "No", color, urgency_txt);
+            printf(" %-5d %-60s%-15s%s%-15s\033[0m%-20s\n", total_todo, title, type_txt, color, urgency_txt, "No");
 
             strcpy(todo_str, "");
             i = j = 0;
@@ -147,7 +147,7 @@ EC_Todo_Print(FILE *fptr)
 
     if(total_todo == 0) {
 
-        printf(" %-5d %-60s%-15s%-20s%-s%-15s\033[0m\n", total_todo, "Nothing to do ;)", "Party Type", "Everyone", "\x1B[1;31m ", "Very Urgent");
+        printf(" %-5d %-60s%-15s%s%-15s\033[0m%-20s\n", total_todo, "Nothing to do ;)", "Party Type", "\x1B[1;31m", "Very Urgent", "Everyone");
         printf("\n");
         printf(" (Use \"ec -h todo\" for help)\n");
     }
@@ -233,12 +233,18 @@ EC_Todo_Append(int argc, char *argv[], char *path)
     }
     else {
         if (argc == 3) {
-            type = Todo_Check_Type(argv[2]);
-            urgency = Todo_Check_Urgency(argv[2]);
+            if(argv[2][0] == '-') {
+                type = Todo_Check_Type(argv[2]);
+                urgency = Todo_Check_Urgency(argv[2]);
 
-            printf("Todo: ");
-            fgets(todo_str, 512, stdin);
-            todo_str[strlen(todo_str) - 1] = '\0'; // remove last appended \n by fgets
+                printf("Todo: ");
+                fgets(todo_str, 512, stdin);
+                todo_str[strlen(todo_str) - 1] = '\0'; // remove last appended \n by fgets
+            }
+            else {
+                strcpy(todo_str, argv[2]); 
+            }
+
             if (type == '\0') {
                 Todo_Print_Type_Options();
                 printf("Type: "); 
@@ -300,14 +306,103 @@ EC_Todo_Append(int argc, char *argv[], char *path)
 
 
 void
-EC_Todo_Change(int argc, char *argv[], char *path)
+EC_Todo_Change_Title(int argc, char *argv[])
 {
-    printf ("going to change todo list values\n");
+    FILE *fptr, *fptr2;
+    char c;
+    int i = 0, j = 0;
+    int current_todo_line = 1;
+    int change_line = 0;
+    char todo_str[1024];
+    char new_todo_str[512];
+    char type = '\0';
+    char urgency = '\0';
+
+    if (argc == 3) {
+        printf("Line Number: ");
+        scanf("%d", &change_line);
+
+        EC_Flush();
+
+        printf("Todo: ");
+        fgets(new_todo_str, 512, stdin);
+        new_todo_str[strlen(new_todo_str) - 1] = '\0';
+    }
+    else if (argc == 4) {
+        change_line = atoi(argv[3]);
+
+        printf("Todo: ");
+        fgets(new_todo_str, 512, stdin);
+        new_todo_str[strlen(new_todo_str) - 1] = '\0';
+    }
+    else if (argc == 5) {
+        change_line = atoi(argv[3]);
+        strcpy(new_todo_str, argv[4]);
+    }
+    else {
+        printf ("Unknown amount of arguments\n");
+    }
+
+    fptr = fopen(".ec/ec_todo", "r");
+    fptr2 = fopen(".ec/ec_todo.tmp", "w");
+
+    if (fptr != NULL && fptr2 != NULL) {
+        while ((c = fgetc(fptr)) != EOF) {
+            if(c != '\n')
+                todo_str[i++] = c;
+            else {
+                if(current_todo_line == change_line) {
+                    while (todo_str[j] != '\0') {
+                        if (todo_str[j] == ':') {
+                            j += 2;
+                            type = todo_str[j];
+                            j += 3;
+                            urgency = todo_str[j];
+                        }
+                        j++;
+                    }
+                    sprintf(todo_str, "%s:;%c:;%c", new_todo_str, type, urgency);
+                    j = 0;
+                }
+                else
+                    todo_str[i++] = '\0';
+
+                fprintf(fptr2, "%s\n", todo_str);
+
+                current_todo_line++;
+                strcpy(todo_str, "");
+                i = 0;
+            }
+        }
+        fclose(fptr);
+        fclose(fptr2);
+    }
+    else {
+        printf("Error: Todo_Change Cannot open todo file in write mode.\n");
+    }
+
+    fptr = fopen(".ec/ec_todo", "w");
+    fptr2 = fopen(".ec/ec_todo.tmp", "r");
+
+    if (fptr != NULL && fptr2 != NULL) {
+        while ((c = fgetc(fptr2)) != EOF)
+            fputc(c, fptr);
+
+        fseek(fptr2, 0, SEEK_SET);
+
+        EC_Todo_Print(fptr2);
+
+        fclose(fptr);
+        fclose(fptr2);
+    }
+    else {
+        printf ("Error: could not update ec_todo file\n");
+    }
 }
 
 
 void
-EC_Todo_Discription(char *argv[], int argc)
+EC_Todo_Discription(int argc, char *argv[])
 {
     char id[32];
 

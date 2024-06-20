@@ -829,21 +829,17 @@ Argc_3(int argc, char *argv[], char *path)
     else if(strcmp(argv[1], "lib") == 0)
 		EC_Lib(argv, path);
 
-    else if((strcmp(argv[1], "todo") == 0 && strcmp(argv[2], "-h") == 0 ) ||
-            (strcmp(argv[1], "-h") == 0 && strcmp(argv[2], "todo") == 0 ))
+    else if((strcmp(argv[1], "todo") == 0 && strcmp(argv[2], "-h") == 0 ))
         EC_Todo_Help_Options();
+
+    else if(strcmp(argv[1], "todo") == 0 && strcmp(argv[2], "-l") == 0)
+		EC_Todo_Print_List(path);
+
+    else if(strcmp(argv[1], "todo") == 0 && strcmp(argv[2], "-t") == 0)
+        EC_Todo_Change_Title(argc, argv);
 
     else if(strcmp(argv[1], "todo") == 0 && argv[2][0] == '-')
         EC_Todo_Append(argc, argv, path);
-
-    else if(strcmp(argv[1], "todo") == 0) {
-        if (atoi(argv[2]) != 0) { // arg is a integer
-            EC_Todo_Discription(argv, argc);
-        }
-        else { // arg is a todo string
-            EC_Todo_Append(argc, argv, path);
-        }
-    }
 
     else if(strcmp(argv[1], "user") == 0 && strcmp(argv[2], "--compiler") == 0) 
         EC_Set_Compiler(argc, argv);
@@ -874,11 +870,14 @@ Argc_4(int argc, char *argv[], char *path)
     else if(strcmp(argv[1], "todo") == 0 && strcmp(argv[2], "-s") == 0) // -s submit
         EC_Todo_Remove(argv, argc, path);
 
+    else if(strcmp(argv[1], "todo") == 0 && strcmp(argv[2], "-l") == 0)
+        EC_Todo_Discription(argc, argv);
+
+    else if(strcmp(argv[1], "todo") == 0 && strcmp(argv[2], "-t") == 0)
+        EC_Todo_Change_Title(argc, argv);
+
     else if(strcmp(argv[1], "todo") == 0 && argv[2][0] == '-') 
         EC_Todo_Append(argc, argv, path);
-
-    else if(strcmp(argv[1], "todo") == 0 && argv[3][0] == '-') 
-        EC_Todo_Change(argc, argv, path);
 
     else if(strcmp(argv[1], "todo") == 0)
 		EC_Todo_Print_List(path);
@@ -900,6 +899,8 @@ Argc_4(int argc, char *argv[], char *path)
 void
 Argc_5(int argc, char *argv[], char *path)
 {
+    if(strcmp(argv[1], "todo") == 0 && strcmp(argv[2], "-t") == 0)
+        EC_Todo_Change_Title(argc, argv);
 }
 
 

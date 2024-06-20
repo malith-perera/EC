@@ -20,10 +20,10 @@ void
 EC_Todo_Append(int argc, char *argv[], char *path);
 
 void
-EC_Todo_Change(int argc, char *argv[], char *path);
+EC_Todo_Change_Title(int argc, char *argv[]);
 
 void
-EC_Todo_Discription(char *argv[], int argc);
+EC_Todo_Discription(int argc, char *argv[]);
 
 void
 EC_Todo_Remove(char *argv[], int argc, char *path);
