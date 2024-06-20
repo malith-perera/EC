@@ -1,13 +1,14 @@
 # EC - Extended C
-## Introducton
 
-EC is a simple library and a tool kit that provide you a rapid way of developing C programs using EC variables and Extended C library functionalities without any effort.  
+## Introduction
+
+EC is a simple library and a tool kit that provide you a rapid way of developing C programs using EC variables, extended library functions without much effort.  
 
 Also it helps you to think and develop the programs with objects in mind. And it also supports Data Oriented Design using inbuilt Entity Component System (ECS).  
 
 Further more EC can manage dynamic memory and minimizes errors and memory leaks if you are interested in.  
 
-Finally it always extends the space you to optimize the code and gain the maximum performance of C.  
+Finally it extends the space you to optimize the code and purposely written so that you to gain it's the maximum performance.  
 
 ## Overview
 
@@ -23,12 +24,12 @@ Declare the Student and pass it to EC.
 
 ### Create a dynamic variable
 ```c
-Student *student = Student_Var();
+Student *student = Student_New();
 
 student->index = 101;
 student->name = "Arnold";
 ```
-Create student and initialize the student values.  
+Create a new student and initialize the student values.  
 
 ### Create a List variable
 
@@ -85,7 +86,7 @@ for_list(student_list) {
 ```
 Go through list one by one.  
 
-Not only these. EC does many things for you. It's purposely written so that you can customize it to write optimized C code to gain it's maximum value. And you are always welcome to step up EC to the next level. Hope you will enjoy with EC programming.  
+> Not only these. EC does many things for you. And you are always welcome to step up EC to the next level. Hope you will enjoy with EC programming.  
   
 Happy Programming!
   
@@ -93,5 +94,4 @@ For binary downloads, manuals, documentations, tutorials please visit:
 
 <http://www.extendedc.org>  
 
-![Logo, Extended C logo ](ec.png)  
-
+![Logo, Extended C logo ](usr/share/ec/logo.png)  

@@ -3,22 +3,21 @@
 
 #include "ec.h"
 
-//#define for_list(list, ec_list_var, ec_var)                                                                                               	\
-//    for (ec_list_var = list->current = list->first, ec_var = list->current != NULL ? list->current->var: NULL;                            	\
-//         list->current != NULL;                                                                                                           	\
-//         list->current = list->current != NULL ? list->current->next: NULL, ec_var = list->current != NULL ? list->current->var: NULL)
+
+#define for_list(ec_list, ec_var)                                                      		\
+    for (ec_list->list_var = ec_list->first, 												\
+		ec_var = ec_list->var = ec_list->list_var != NULL ? ec_list->list_var->var: NULL;   \
+		ec_list->list_var != NULL;                                                  		\
+		ec_list->list_var = ec_list->list_var != NULL ? ec_list->list_var->next: NULL,		\
+		ec_var = ec_list->list_var != NULL ? ec_list->list_var->var: NULL)
 
 
-#define for_list(list)                                                                                                                          \
-    for (list->list_var = list->first, list->var = list->list_var != NULL ? list->list_var->var: NULL;                                          \
-         list->list_var != NULL;                                                                                                                \
-         list->list_var = list->list_var != NULL ? list->list_var->next: NULL, list->var = list->list_var != NULL ? list->list_var->var: NULL)
-
-
-#define for_list_reverse(list)                                                                                                                  \
-    for (list->list_var = list->last, list->var = list->list_var != NULL ? list->list_var->var: NULL;                                           \
-         list->list_var != NULL;                                                                                                                \
-         list->list_var = list->list_var != NULL ? list->list_var->previous: NULL, list->var = list->list_var != NULL ? list->list_var->var: NULL)
+#define for_list_reverse(list, ec_var) 					                                  	\
+    for (list->list_var = list->last, 														\
+		ec_var = list->var = list->list_var != NULL ? list->list_var->var: NULL;            \
+        list->list_var != NULL;                                                            	\
+        list->list_var = list->list_var != NULL ? list->list_var->previous: NULL, 			\
+ 		ec_var = list->var = list->list_var != NULL ? list->list_var->var: NULL)
 
 
 /* Function name macros */
@@ -28,7 +27,7 @@
 
 #define EC_LIST_VAR_FREE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _List_Var_Free_Func) // *** when change errors
 #define EC_LIST_FREE_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _List_Free)
-#define EC_LIST_NEW_FUNCTION_NAME(TYPE)                 EC_CONCAT(TYPE, _List)
+#define EC_LIST_NEW_FUNCTION_NAME(TYPE)             EC_CONCAT(TYPE, _List)
 #define EC_LIST_VAR_FUNCTION_NAME(TYPE)             EC_CONCAT(TYPE, _List_Var)
 #define EC_LIST_COPY_FUNCTION_NAME(TYPE)            EC_CONCAT(TYPE, _List_Copy)
 
@@ -47,8 +46,8 @@
 #define EC_LIST_VAR_REPLACE_FUNCTION_NAME(TYPE)     EC_CONCAT(TYPE, _List_Var_Replace)
 #define EC_LIST_VAR_CHANGE_LIST_FUNCTION_NAME(TYPE) EC_CONCAT(TYPE, _List_Var_Change_List)
 
-//#define EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)      EC_CONCAT(TYPE, _Unlist)
-//#define EC_UNLIST_NAME(TYPE)                        EC_CONCAT(TYPE, _unlisted_list)
+//#define EC_LIST_VAR_UNLIST_FUNCTION_NAME(TYPE)    EC_CONCAT(TYPE, _Unlist)
+//#define EC_UNLIST_NAME(TYPE)                      EC_CONCAT(TYPE, _unlisted_list)
 
 
 /* Structure macros */
@@ -89,7 +88,7 @@ EC_LIST_FREE_FUNCTION_NAME(TYPE)                        \
 
 #define EC_LIST_NEW_FUNCTION_PROTOTYPE(TYPE)            \
 EC_LIST_STRUCT(TYPE) *                                  \
-EC_LIST_NEW_FUNCTION_NAME(TYPE)                             \
+EC_LIST_NEW_FUNCTION_NAME(TYPE)                         \
 (void);
 
 
@@ -160,12 +159,12 @@ EC_LIST_COPY_FUNCTION_NAME(TYPE)                        \
 );
 
 
-#define EC_LIST_VAR_DROP_FUNCTION_PROTOTYPE(TYPE)           \
-void                                                        \
-EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
-(                                                           \
-    EC_LIST_STRUCT(TYPE)        *list,                      \
-    EC_LIST_VAR_STRUCT(TYPE)    *var                        \
+#define EC_LIST_VAR_DROP_FUNCTION_PROTOTYPE(TYPE)       \
+void                                                    \
+EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                    \
+(                                                       \
+    EC_LIST_STRUCT(TYPE)        *list,                  \
+    EC_LIST_VAR_STRUCT(TYPE)    *var                    \
 );
 
 
@@ -218,7 +217,9 @@ EC_LIST_VAR_EXISTANCE_FUNCTION_NAME(TYPE)                               \
 {                                                                       \
     bool ref_exist = false;                                             \
     bool var_exist = false;                                             \
-    for_list(list)                                                      \
+																		\
+	TYPE *EC_CONCAT3(ec_, list, _var); 									\
+    for_list(list, EC_CONCAT3(ec_, list, _var))                         \
     {                                                                   \
         if (list->list_var == ref || ref == NULL) ref_exist = true;     \
         if (list->list_var == var) var_exist = true;                    \
@@ -256,14 +257,14 @@ EC_LIST_FREE_FUNCTION_NAME(TYPE)                                    \
 }
 
 
-#define EC_LIST_NEW_FUNCTION(TYPE)                                      \
-EC_LIST_STRUCT(TYPE) *                                                  \
-EC_LIST_NEW_FUNCTION_NAME(TYPE)                                             \
-(void)                                                                  \
-{                                                                       \
-    EC_VAR_CREATE(EC_LIST_STRUCT(TYPE), new_list, __LINE__)             /* This macro in ec_var.h*/\
-                                                                        \
-    return new_list;                                                    \
+#define EC_LIST_NEW_FUNCTION(TYPE)                                  \
+EC_LIST_STRUCT(TYPE) *                                              \
+EC_LIST_NEW_FUNCTION_NAME(TYPE)                                     \
+(void)                                                              \
+{                                                                   \
+    EC_VAR_CREATE(EC_LIST_STRUCT(TYPE), new_list, __LINE__)         /* This macro in ec_var.h*/\
+                                                                    \
+    return new_list;                                                \
 }
 
 
@@ -473,18 +474,18 @@ EC_LIST_MOVE_FUNCTION_NAME(TYPE)                                    \
 }
 
 
-#define EC_LIST_EXCHANGE_FUNCTION(TYPE)                     \
-void                                                        \
-EC_LIST_EXCHANGE_FUNCTION_NAME(TYPE)                        \
-(                                                           \
-    EC_LIST_VAR_STRUCT(TYPE)    *var1,                      \
-    EC_LIST_VAR_STRUCT(TYPE)    *var2                       \
-)                                                           \
-{                                                           \
-    TYPE  *temp_var;                                        \
-    temp_var = var1->var;                                   \
-    var1->var = var2->var;                                  \
-    var2->var = temp_var;                                   \
+#define EC_LIST_EXCHANGE_FUNCTION(TYPE)         \
+void                                            \
+EC_LIST_EXCHANGE_FUNCTION_NAME(TYPE)            \
+(                                               \
+    EC_LIST_VAR_STRUCT(TYPE)    *var1,          \
+    EC_LIST_VAR_STRUCT(TYPE)    *var2           \
+)                                               \
+{                                               \
+    TYPE  *temp_var;                            \
+    temp_var = var1->var;                       \
+    var1->var = var2->var;                      \
+    var2->var = temp_var;                       \
 }
 
 
@@ -520,23 +521,22 @@ EC_LIST_REPLACE_FUNCTION_NAME(TYPE)             \
 
 
 // Copy array
-#define EC_LIST_COPY_FUNCTION(TYPE)                                         \
-EC_LIST_STRUCT(TYPE) *                                                      \
-EC_LIST_COPY_FUNCTION_NAME(TYPE)                                            \
-(                                                                           \
-    EC_LIST_STRUCT(TYPE) *list                                              \
-)                                                                           \
-{                                                                           \
-    EC_LIST_STRUCT(TYPE) *list_copy = EC_LIST_NEW_FUNCTION_NAME(TYPE)();        \
-                                                                            \
-    EC_LIST_VAR_STRUCT(TYPE) *var;                                          \
-                                                                            \
-    for_list(list)                                                          \
-    {                                                                       \
-        EC_LIST_APPEND_FUNCTION_NAME(TYPE)(list_copy, list->var);           \
-    }                                                                       \
-                                                                            \
-    return list_copy;                                                       \
+#define EC_LIST_COPY_FUNCTION(TYPE)                                         		\
+EC_LIST_STRUCT(TYPE) *                                                      		\
+EC_LIST_COPY_FUNCTION_NAME(TYPE)                                            		\
+(                                                                           		\
+    EC_LIST_STRUCT(TYPE) *list                                              		\
+)                                                                           		\
+{                                                                           		\
+    EC_LIST_STRUCT(TYPE) *list_copy = EC_LIST_NEW_FUNCTION_NAME(TYPE)();    		\
+                                                                            		\
+	TYPE *EC_CONCAT3(ec_, list, _var); 												\
+    for_list(list, EC_CONCAT3(ec_, list, _var))                             		\
+    {                                                                       		\
+        EC_LIST_APPEND_FUNCTION_NAME(TYPE)(list_copy, EC_CONCAT3(ec_, list, _var)); \
+    }                                                                       		\
+                                                                            		\
+    return list_copy;                                                       		\
 }
 
 

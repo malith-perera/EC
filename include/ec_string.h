@@ -27,8 +27,10 @@ print_line (StrListPtr currentPtr, int line);
 void
 print_list (StrListPtr currentPtr);
 
-
 void
 EC_Char_Substitute (char *str, char str_from, char str_to);
+
+void
+EC_Flush();
 
 #endif // EC_STRING

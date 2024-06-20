@@ -22,13 +22,13 @@ Test_Variables()
 
     EC_Test_Print_Subtitle("Create student variables to help tests");
 
-    st0 = Student_Var();
-    st1 = Student_Var();
-    st2 = Student_Var();
-    st3 = Student_Var();
-    st4 = Student_Var();
-    st5 = Student_Var();
-    st6 = Student_Var();
+    st0 = Student_New();
+    st1 = Student_New();
+    st2 = Student_New();
+    st3 = Student_New();
+    st4 = Student_New();
+    st5 = Student_New();
+    st6 = Student_New();
     EC_TEST_PRINT_MSG("Create: Create Student st0 ... st6", "OK")
 
     *st0 = students[0];

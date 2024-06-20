@@ -10,7 +10,7 @@ Test_EC()
     EC_Test_Print_Title(__func__, __FILE__);
     EC_Test_Print_Subtitle("Test: EC(TYPE)");
 
-    Book *book1 = Book_Var();
+    Book *book1 = Book_New();
     strcpy(book1->name, "Harry Potter");
     book1->no = 323;
 

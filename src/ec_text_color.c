@@ -104,6 +104,27 @@ void Reset_Text_Color ()
     printf("\033[0m");
 }
 
+
+void print_colors ()
+{
+    printf("\x1B[0;30m 0;30m color \033[0m\n");
+    printf("\x1B[0;31m 0;31m color \033[0m\n");
+    printf("\x1B[0;32m 0;32m color \033[0m\n");
+    printf("\x1B[0;33m 0;33m color \033[0m\n");
+    printf("\x1B[0;34m 0;34m color \033[0m\n");
+    printf("\x1B[0;35m 0;35m color \033[0m\n");
+    printf("\x1B[0;36m 0;36m color \033[0m\n");
+    printf("\x1B[0;37m 0;37m color \033[0m\n");
+    printf("\x1B[1;30m 1;30m color \033[0m\n");
+    printf("\x1B[1;31m 1;31m color \033[0m\n");
+    printf("\x1B[1;32m 1;32m color \033[0m\n");
+    printf("\x1B[1;33m 1;33m color \033[0m\n");
+    printf("\x1B[1;34m 1;34m color \033[0m\n");
+    printf("\x1B[1;35m 1;35m color \033[0m\n");
+    printf("\x1B[1;36m 1;36m color \033[0m\n");
+    printf("\x1B[1;37m 1;37m color \033[0m\n");
+}
+
 #endif
 
 /*int main(void)*/

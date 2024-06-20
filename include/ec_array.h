@@ -3,22 +3,25 @@
 
 #include "ec.h"
 
+#define NELEMS(x) (sizeof(x) / sizeof((x)[0]))
+
 /* Can not replace with foreach in ec_type.h */
-#define foreach_array(arr)                                                            			\
-    arr->i = 0;                                                                               	\
+#define foreach_array(arr)                                                            		\
+    arr->i = 0;                                                                             \
     for (arr->var = arr->array; arr->i < arr->length; arr->var = arr->array + ++arr->i)
 
 
 /* Hope for_array is faster than foreach_array because it use local variable */
-#define for_array(arr, a)                                                           			\
-    register int EC_CONCAT3(ec_, a, _i) = 0; 													\
-	register long int EC_CONCAT3(ec_, a, _length) = arr->length;                                \
-    for (a = arr->array; 																		\
-		EC_CONCAT3(ec_, a, _i) < EC_CONCAT3(ec_, a, _length); 									\
-		a = arr->array + ++EC_CONCAT3(ec_, a, _i))
+/*****  design cannot apply twice in same function */
+#define for_array(arr, a)                                           \
+    int EC_CONCAT3(ec_, a, _i) = 0; 							    \
+    long int EC_CONCAT3(ec_, a, _length) = NELEMS(arr);             \
+    for (a = arr->array; 											\
+	EC_CONCAT3(ec_, a, _i) < EC_CONCAT3(ec_, a, _length); 			\
+	a = arr->array + ++EC_CONCAT3(ec_, a, _i))
 
 
-#define NELEMS(x) (sizeof(x) / sizeof((x)[0]))
+
 
 /*
 #define EC_ARRAY_FIND_FUNCTION_NAME(T, F) EC_CONCAT3(Find_, T, F)

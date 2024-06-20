@@ -32,13 +32,15 @@ EC_Capitalize(char word[])
 }
 
 
-char* toLower(char* s) {
+char*
+toLower(char* s) {
   for(char *p=s; *p; p++) *p=tolower(*p);
   return s;
 }
 
 
-char* toUpper(char* s) {
+char*
+toUpper(char* s) {
   for(char *p=s; *p; p++) *p=toupper(*p);
   return s;
 }
@@ -50,6 +52,31 @@ EC_Char_Substitute (char *str, char str_from, char str_to)
     while (*str == str_from)
         *str++ = str_to;
 }
+
+
+void
+EC_Flush()
+{
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) ;
+}
+
+void
+EC_Fgets(char str[], int n) {
+    fgets(str, strlen(str), stdin);
+}
+
+void
+EC_Option ()
+{
+    char option;
+
+    do {
+        option = getchar();
+        while(getchar() != '\n'); // Discard line feed
+    } while (option != 'q');
+}
+
 
 #if 0
 CharListPtr

@@ -38,18 +38,18 @@ Set_Date(EC_Date *date, int year, int month, int day)
 char *
 Date_To_Str(int year, int month, int day)
 {
-    char *date_str = (char *) malloc(sizeof(char) * 11);
+    char *date_str = (char *) malloc(sizeof(char) * 32);
 
     if (month < 10 && day < 10) {
-        snprintf(date_str, 11, "%d-0%d-0%d", year, month, day);
+        sprintf(date_str, "%d-0%d-0%d", year, month, day);
     }
     else if(month < 10)
-        snprintf(date_str, 11, "%d-0%d-%d", year, month, day);
+        sprintf(date_str, "%d-0%d-%d", year, month, day);
     else if (day < 10) {
-        snprintf(date_str, 11, "%d-%d-0%d", year, month, day);
+        sprintf(date_str, "%d-%d-0%d", year, month, day);
     }
     else {
-        snprintf(date_str, 11, "%d-%d-%d", year, month, day);
+        sprintf(date_str, "%d-%d-%d", year, month, day);
     }
 
     return date_str;

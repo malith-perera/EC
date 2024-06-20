@@ -24,67 +24,77 @@ typedef struct _ECFile ECFile;
 typedef ECFile * ECFilePtr;
 
 
-void ecfile_ECFile_init ( ECFilePtr obj, char *file_name );
-void ecfile_ECFile_parse ( ECFilePtr obj );
+void ecfile_ECFile_init ( ECFilePtr ec_file, char *file_name );
+void ecfile_ECFile_parse ( ECFilePtr ec_file );
 
 
 #define NUM_LINES 4000
 
 /* Statement types */
-enum _BlockType
+typedef enum BlockType
 {
   FILE_OBJECT,
   OBJECT,
   FUNCTION,
   METHOD
-};
+} BlockType;
 
-typedef enum _BlockType BlockType;
 
 /* EcWord */
-struct _EcWord
+typedef struct EcWord
 {
   int type;
   char *text;
-};
+} EcWord;
 
-typedef struct _EcWord EcWord;
 
 /* EcBlock */
-struct _EcBlock
+typedef struct EcBlock
 {
   BlockType type;
   char *name;
   int level;
   EcWord words[100];
-};
+} EcBlock;
 
-typedef struct _EcBlock EcBlock;
 
-/* EcFileLine */
-struct _EcFileLine
+/* EC_FileLine */
+typedef struct EC_FileLine
 {
   int number;
   char text[200];
-};
+} EC_FileLine;
 
-typedef struct _EcFileLine EcFileLine;
 
 /* ECFile */
-struct _EcFile
+typedef struct EC_File
 {
   char *name;
   char *type;
-  EcFileLine lines[NUM_LINES];
+  EC_FileLine lines[NUM_LINES];
   EcBlock blocks[];
-};
-
-typedef struct _EcFile EcFile;
+} EC_File;
 
 void
-ec_read (EcFile *obj, char *file_name);
+EC_Read (EC_File *ec_file);
+
+typedef enum {
+    EMPTY,
+    NONE_EMPTY,
+    CODE_LINE,
+    FIRST_SLASH,
+    SINGLE_LINE,
+    MULTI_LINE_IN,
+    MULTI_LINE_IN_END,
+    MULTI_LINE
+} LineType;
+
 
 void
-Lines_Of_Code (char* filename);
+EC_Lines_Of_Code (char* filename);
+
+
+void
+EC_Total_Lines_Of_Code(char *directory, char filetype);
 
 #endif // EC_FILE_H

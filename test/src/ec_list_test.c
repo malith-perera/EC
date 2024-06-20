@@ -77,10 +77,11 @@ Test_For_List()
     int i = 0;
     char msg[32];
 
-    for_list(stl)
+    Student *st;
+    for_list(stl, st)
     {
         strcpy(msg, "");
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         sprintf(msg, "Test: Appended st%d in stl", i);
         EC_Test_Print_Msg(msg, "OK", __LINE__);
         i++;
@@ -94,6 +95,7 @@ Test_List_Insert()
     EC_Test_Print_Title(__func__, __FILE__);
 
     int i = 0;
+    Student *st;
 
     StudentList *stl = Student_List();
     EC_Test_Print_Msg("Create: New list", "OK", __LINE__);
@@ -122,9 +124,9 @@ Test_List_Insert()
     EC_Test_Print_Msg("Call: Student_Insert arg ref = stl->first in a none empty list", "OK", __LINE__);
 
     i = 1;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     EC_Test_Print_Msg("Test: Insert st3 into stl while ref = stl->first in an empty list", "OK", __LINE__);
@@ -133,10 +135,10 @@ Test_List_Insert()
     EC_Test_Print_Msg("Call: Student_Insert insert st6 as the last variable", "OK", __LINE__);
 
     i = 1;
-    for_list(stl)
+    for_list(stl, st)
     {
         if(i == 4 || i == 5) {i++; continue;} // st4, st5 not still not exist
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     EC_Test_Print_Msg("Test: Insert st6 into stl", "OK", __LINE__);
@@ -150,19 +152,19 @@ Test_List_Insert()
     EC_Test_Print_Msg("Call: Student_Insert insert st4 before last variable", "OK", __LINE__);
 
     i = 1;
-    for_list(stl)
+    for_list(stl, st)
     {
         if(i == 5) {i++; continue;} // st5 not still not exist
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     EC_Test_Print_Msg("Test: Insert st5 into stl", "OK", __LINE__);
 
     // Insert st5 after st4
     i = 1;
-    for_list(stl)
+    for_list(stl, st)
     {
-        if(stl->var == st4)
+        if(st == st4)
         {
             Student_Insert(stl, stl->list_var, st5);
         }
@@ -170,9 +172,9 @@ Test_List_Insert()
     }
 
     i = 1;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     EC_Test_Print_Msg("Test: Insert st1 ... st5 into stl", "OK", __LINE__);
@@ -187,6 +189,8 @@ Test_List_Var_Move()
     EC_Test_Print_Subtitle("Create and initalize variables");
 
     int i = 0;
+    Student *st;
+
     StudentListVar none_existing_var1; // not a var in the list
     StudentListVar none_existing_var2; // not a var in the list
     StudentList *stl = Student_List();
@@ -243,9 +247,9 @@ Test_List_Var_Move()
 
     // check stl order
     i = 0;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 2);
@@ -292,9 +296,9 @@ Test_List_Var_Move()
 
     // check stl sequence
     i = 0;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 2);
@@ -302,9 +306,9 @@ Test_List_Var_Move()
 
     // check reverse sequence
     i = 1;
-    for_list_reverse(stl)
+    for_list_reverse(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i--;
     }
     assert(i == -1);
@@ -320,9 +324,9 @@ Test_List_Var_Move()
 
     // check list sequence
     i = 0;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 3);
@@ -398,9 +402,9 @@ Test_List_Var_Move()
     Student_Move(stl, NULL, stl->last);
 
     i = 0;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 3);
@@ -408,9 +412,9 @@ Test_List_Var_Move()
 
     // check reverse sequence
     i = 2;
-    for_list_reverse(stl)
+    for_list_reverse(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i--;
     }
     assert(i == -1);
@@ -423,9 +427,9 @@ Test_List_Var_Move()
     EC_Test_Print_Msg("Append st3 to stl", "OK", __LINE__);
 
     i = 0;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 4);
@@ -486,18 +490,18 @@ Test_List_Var_Move()
 
     // check list sequence
     i = 0;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 4);
     EC_Test_Print_Msg("Test: st0, st1, st2, st3 sequence", "OK", __LINE__);
 
     i = 3;
-    for_list_reverse(stl)
+    for_list_reverse(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i--;
     }
     assert(i == -1);
@@ -637,6 +641,7 @@ Test_Replace_List()
     /* Init variables */
     EC_Test_Print_Subtitle("Initialize variables");
     int i = 0;
+    Student *st;
 
     /* if list is empty */
     StudentList *stl = Student_List();
@@ -675,9 +680,9 @@ Test_Replace_List()
 
     // check list ok
     i = 0;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 3);
@@ -694,9 +699,9 @@ Test_Replace_List()
 
     // check list ok
     i = 0;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 3);
@@ -745,6 +750,7 @@ Test_List_Copy()
     /* Init variables */
     EC_Test_Print_Subtitle("Initialize variables");
     int i = 0;
+    Student *st;
 
     StudentList *stl = Student_List();
     StudentList* stl2 = Student_List();
@@ -758,9 +764,9 @@ Test_List_Copy()
     EC_Test_Print_Msg("Append st0 ... st5 to stl", "OK", __LINE__);
 
     i = 0;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 6);
@@ -769,10 +775,11 @@ Test_List_Copy()
     stl2 = Student_List_Copy(stl);
     EC_Test_Print_Msg("Copy stl to stl2", "OK", __LINE__);
 
+
     i = 0;
-    for_list(stl2)
+    for_list(stl2, st)
     {
-        assert(Student_Compare(stl2->var, &students[i])); 
+        assert(Student_Compare(st, &students[i]));
         i++;
     }
     assert(i == 6);
@@ -788,6 +795,7 @@ Test_List_Var_Drop()
     // init variables
     EC_Test_Print_Subtitle("Initialize variables");
     int i = 0;
+    Student *st;
 
     StudentList *stl = Student_List();
 
@@ -800,9 +808,9 @@ Test_List_Var_Drop()
     EC_Test_Print_Msg("Append st0 ... st5 to stl", "OK", __LINE__);
 
     i = 0;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 6);
@@ -814,9 +822,9 @@ Test_List_Var_Drop()
     EC_Test_Print_Msg("drop first var in stl", "OK", __LINE__);
 
     i = 1;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 6);
@@ -827,16 +835,16 @@ Test_List_Var_Drop()
     EC_Test_Print_Msg("drop last var in stl", "OK", __LINE__);
 
     i = 1;
-    for_list(stl)
+    for_list(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 5);
     EC_Test_Print_Msg("st1 ... st4 in stl", "OK", __LINE__);
 
     i = 4;
-    for_list_reverse(stl)
+    for_list_reverse(stl, st)
     {
         assert(Student_Compare(stl->var, &students[i])); 
         i--;
@@ -849,10 +857,10 @@ Test_List_Var_Drop()
     EC_Test_Print_Msg("drop second var in stl", "OK", __LINE__);
 
     i = 1;
-    for_list(stl)
+    for_list(stl, st)
     {
         if(i == 2) i++; // be careful while droping
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 5);
@@ -863,11 +871,11 @@ Test_List_Var_Drop()
     EC_Test_Print_Msg("drop second var in stl", "OK", __LINE__);
 
     i = 1;
-    for_list(stl)
+    for_list(stl, st)
     {
         if(i == 2) i++; // be careful while droping
         if(i == 3) i++; // be careful while droping
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i++;
     }
     assert(i == 5);

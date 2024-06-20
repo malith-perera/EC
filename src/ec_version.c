@@ -1,57 +1,35 @@
 #include "ec_version.h"
 
 void
-EC_Version_New()
+EC_Version_Change
+(
+    char    *argv[],
+    char    *path,
+    int     years,
+    int     months,
+    int     days
+)
 {
-	char command[256];
-	char path[512];
-
-    strcpy(command, "mkdir .ec");
-    if (system(command) != 0) {
-        printf ("system function failier\n");
-    }
-
-    strcpy(command, "touch .ec/info");
-    if (system(command) != 0) {
-        printf ("system function failier\n");
-        exit(EXIT_FAILURE); 
-    }
-}
-
-
-void
-EC_Version_Update()
-{
-    char sentence[512];
+    char sentence[256];
+    char version_h_path[256];
 
 	sprintf(sentence, 
-		"#ifndef VERSION_H\n"
-		"#define VERSION_H\n\n"
-		"#ifdef VERSION\n"
-		"#undef VERSION\n"
-		"#define VERSION %d\n"
-		"#endif // VERSION\n\n"
-		"#ifdef VERSION_YEARS\n"
-		"#undef VERSION_YEARS\n"
-		"#define VERSION_YEARS %d\n"
-		"#endif // VERSION_YEARS\n\n"
-		"#ifdef VERSION_MONTHS\n"
-		"#undef VERSION_MONTHS\n"
-		"#define VERSION_MONTHS %d\n"
-		"#endif // VERSION_MONTHS\n\n"
-		"#ifdef VERSION_DAYS\n"
-		"#undef VERSION_DAYS\n"
-		"#define VERSION_DAYS %d\n"
-		"#endif // VERSION_DAYS\n\n"
-		"#endif // VERSION_H\n", 1, 0, 0, 0);
+		"#ifndef %s_VERSION_H\n"
+		"#define %s_VERSION_H\n\n"
+		"#define %s_VERSION_YEARS %d\n"
+		"#define %s_VERSION_MONTHS %d\n"
+		"#define %s_VERSION_ADD_FIX %d\n\n"
+		"#endif // %s_VERSION_H\n", argv[2], argv[2], argv[2], years, argv[2], months, argv[2], days, argv[2]);
     
-    printf ("version.h lenght %ld", strlen(sentence));
+    //printf ("version.h lenght %ld", strlen(sentence));
+
+    sprintf(version_h_path, "%s%s%s%s", path, "/include/", argv[2], "_version.h");
 
     // creating file pointer to work with files
     FILE *fptr;
 
     // opening file in writing mode
-    fptr = fopen(".ec/version.h", "w");
+    fptr = fopen(version_h_path, "w");
 
     // exiting program 
     if (fptr == NULL) {
@@ -61,4 +39,12 @@ EC_Version_Update()
 
     fprintf(fptr, "%s", sentence);
     fclose(fptr);
+}
+
+
+void
+EC_Version_Update(char *argv[], char *path)
+{
+    // *** Get the updated version number
+    EC_Version_Change(argv, path, 0, 0, 0);
 }
