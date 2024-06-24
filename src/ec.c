@@ -1,9 +1,10 @@
 #include <stdio.h>
-#include "ec.h"
 #include <errno.h> 
 #include <sys/utsname.h> 
 
-#include "version.h"
+#include "ec.h"
+#include "ec_version.h"
+#include "ec_todo.h"
 
 
 typedef enum UserFileRow { EC_USER_NAME = 1, EC_USER_ID, EC_USER_EMAIL, EC_USER_COMPILER, EC_USER_EDITOR, EC_USER_ROWS
@@ -167,6 +168,7 @@ EC_Make_Sh_Create(char *argv[], char *path)
         exit(EXIT_FAILURE); 
 	}
 }
+
 
 void
 EC_Run_Sh_Create(char *argv[], char *path)
@@ -934,8 +936,8 @@ main(int argc, char *argv[])
 			break;
 	}
 
-    EC_Total_Lines_Of_Code("src", 'c');
-    EC_Total_Lines_Of_Code("include", 'h');
+    //EC_Total_Lines_Of_Code("src", 'c');
+    //EC_Total_Lines_Of_Code("include", 'h');
 
 	return 0;
 }

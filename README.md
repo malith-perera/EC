@@ -94,4 +94,4 @@ For binary downloads, manuals, documentations, tutorials please visit:
 
 <http://www.extendedc.org>  
 
-![Logo, Extended C logo ](usr/share/ec/logo.png)  
+![Logo, Extended C logo ](doc/logo.png)  

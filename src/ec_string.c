@@ -8,6 +8,25 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "ec_string.h"
+
+
+void
+EC_Char_Substitute (char *str, char str_from, char str_to)
+{
+    while (*str == str_from)
+        *str++ = str_to;
+}
+
+
+void
+EC_Flush()
+{
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) ;
+}
+
+#if 0
 
 void
 EC_Simplize(char word[])
@@ -46,20 +65,8 @@ toUpper(char* s) {
 }
 
 
-void
-EC_Char_Substitute (char *str, char str_from, char str_to)
-{
-    while (*str == str_from)
-        *str++ = str_to;
-}
 
 
-void
-EC_Flush()
-{
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF) ;
-}
 
 void
 EC_Fgets(char str[], int n) {
@@ -78,7 +85,13 @@ EC_Option ()
 }
 
 
-#if 0
+
+
+
+
+
+
+
 CharListPtr
 Char_List (char string[])
 {

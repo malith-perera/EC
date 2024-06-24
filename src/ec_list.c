@@ -51,7 +51,7 @@ StudentList *list_slice = Student_Slice (grade_6, st1, st3);
 /* Copy a list Slice */
 StudentList *slice_copy = Student_Copy_List_Slice (grade_6, st1, st3);
 
+
+/* EC_Warn_List_Var_Not_Exist (test_this_var, stl3); */
+
 #endif
-
-
-/*EC_Warn_List_Var_Not_Exist (test_this_var, stl3);*/
