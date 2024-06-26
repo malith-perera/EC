@@ -64,7 +64,7 @@ Create_Header_Files(char *argv[], char *path)
 		"#endif // %s_H\n"
 		, argv[2], argv[2], argv[2]);
 
-	sprintf(path_file, "%s%s%s%s", path, "include/", argv[2], ".h");
+	sprintf(path_file, "%s%s%s%s", path, "src/", argv[2], ".h");
 
     // open file in write mode
     fptr = fopen(path_file, "w");
@@ -90,61 +90,47 @@ EC_Make_Sh_Create(char *argv[], char *path)
 	char command[512];
 	char path_file[256];
     FILE *fptr;
-    char app_text_sh[256] = "";
-    char lib_text_sh[256] = "";
-    char lib_dir[] = "lib";
-    char app_dir[] = "bin";
-
+    char text_sh[256] = "";
 
     if (strcmp(argv[1], "app") == 0 || strcmp(argv[1], "applib") == 0 ) {
         strcpy(app_name, argv[2]);
 
-        sprintf(app_text_sh, 
-            "if [ -f \"build/%s\" ]; then\n"
-            "   cp build/%s bin/%s\n"
-            "   ln -sf bin/%s %s\n" 
-            "   BUILDED=1\n"
-            "fi", app_name, app_name, app_name, app_name, app_name);
+        sprintf(text_sh, 
+            "if [ -f \".ec/build/%s\" ]; then\n"
+            "  cp -f .ec/build/%s %s\n"
+            "  ln -sf ../EC/ec .\n"  
+            "fi", app_name, app_name, app_name);
     }
 
     if (strcmp(argv[1], "lib") == 0 || strcmp(argv[1], "applib") == 0){
 		sprintf(lib_name, "%s%s%s", "lib", argv[2], ".so");
-        sprintf(lib_text_sh, 
-            "if [ -f \"build/%s\" ]; then\n"
-            "   cp build/%s lib/%s\n"
-            "   BUILDED=1\n"
+        sprintf(text_sh, 
+            "if [ -f \".ec/build/%s\" ]; then\n"
+            "   cp -f .ec/build/%s %s\n"
             "fi", lib_name, lib_name, lib_name);
     }
-	
+
 	sprintf(ec_make_sh, 
 		"#!/bin/bash\n"
 		"\n"
-		"if [ -d \"build\" ]; then\n"
-		"  rm -r build\n"
+		"if [ -d \".ec/build\" ]; then\n"
+		"  cd .ec/build\n"
+        "else\n"
+        "  mkdir .ec/build\n"
+        "  cd .ec/build\n"
 		"fi\n"
 		"\n"
-		"mkdir build\n"
-		"cd build\n"
-		"\n"
-		"cmake -G \"Unix Makefiles\" -DCMAKE_BUILD_TYPE=Debug ../ #Release #Debug\n"
+		"cmake -G \"Unix Makefiles\" -DCMAKE_BUILD_TYPE=Debug .. #Release #Debug\n"
 		"\n"
 		"make -j${nproc}\n"
 		"\n"
-        "cd .."
+        "cd ../..\n"
 		"\n"
-        "BUILDED=0\n\n"
-        "%s\n"
-        "%s\n"
-        "if [ $BUILDED != 1 ]; then\n"
-        "  echo 'Error: Cannot build'\n"
-        "else\n"
-		"  rm -r build\n"
-        "  echo 'Build Successful'\n"
-		"fi\n", app_text_sh, lib_text_sh);
+        "%s\n", text_sh);
 
 	//printf("cmake %ld\n", strlen(cmake_file));
 
-	sprintf(path_file, "%s.ec/ec_make.sh", path);
+	sprintf(path_file, "%s/.ec/ec_make.sh", path);
 
     // File pointer
 
@@ -174,19 +160,13 @@ void
 EC_Run_Sh_Create(char *argv[], char *path)
 {
 	char name[128];
-	char dir[4];
 	char ec_run_sh[512];  
 	char command[64];
 	char path_file[32];
     FILE *fptr;
 
 	if(strcmp(argv[1], "app") == 0) {
-		strcpy(dir, "bin");
 		strcpy(name, argv[2]);
-	}
-	
-	if(strcmp(argv[1], "lib") == 0) {
-        return;
 	}
 	
 	sprintf(ec_run_sh, 
@@ -195,13 +175,13 @@ EC_Run_Sh_Create(char *argv[], char *path)
         "echo 'Run %s'\n"
         "echo\n"
 		"\n"
-		"if [ -f \"bin/%s\" ]; then\n"
-        "./bin/%s\n"
+		"if [ -f \"%s\" ]; then\n"
+        "./%s\n"
 		"fi\n", argv[2], argv[2], argv[2]);
 
 	//printf("cmake %ld\n", strlen(cmake_file));
 
-	sprintf(path_file, "%s.ec/ec_run.sh", path);
+	sprintf(path_file, "%s/.ec/ec_run.sh", path);
 
     // File pointer
 
@@ -304,17 +284,18 @@ Create_App_CMake_File(char *app_name, char *path)
 		"endif ()\n"
 		"\n"
 		"get_filename_component(PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)\n"
+		"get_filename_component(PARENT2_DIR ${PARENT_DIR} DIRECTORY)\n"
 		"\n"
 		"#Set include directories\n"
-		"set (PROJECT_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/include ${PARENT_DIR}/EC/include \"/usr/local/include\")\n"
+		"set (PROJECT_INCLUDE_DIRS ${PARENT_DIR}/src ${PARENT_DIR}/include ${PARENT2_DIR}/EC/src \"/usr/local/include\")\n"
 		"include_directories(${PROJECT_INCLUDE_DIRS})\n"
 		"\n"
-		"set (PROJECT_LINK_DIRS ${PARENT_DIR}/EC/lib)\n"
+		"set (PROJECT_LINK_DIRS ${PARENT2_DIR}/EC)\n"
 		"set (PROJECT_LINK_LIBS libEC.so)\n"
 		"link_directories (${PROJECT_LINK_DIRS})\n"
 		"\n"
 		"#However, the file(GLOB...) allows for wildcard additions\n"
-		"file(GLOB SOURCE_FILES \"${PROJECT_SOURCE_DIR}/src/*.c\")\n"
+		"file(GLOB SOURCE_FILES \"${PARENT_DIR}/src/*.c\")\n"
 		"\n"
 		"add_executable(%s ${SOURCE_FILES})\n"
 		"target_link_libraries(%s ${PROJECT_LINK_LIBS})\n"
@@ -327,8 +308,7 @@ Create_App_CMake_File(char *app_name, char *path)
 
 	char path_file[256];
 
-	strcpy(path_file, path);
-	strcat(path_file, "/CMakeLists.txt");
+    sprintf(path_file, "%s.ec/CMakeLists.txt", path);
 
     // open file in write mode
     fptr = fopen(path_file, "w");
@@ -371,7 +351,7 @@ Create_Lib_CMake_File(char *argv[], char *path)
 		"get_filename_component(PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)\n"
 		"\n"
 		"#Set include directories\n"
-		"set (PROJECT_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/include ${PARENT_DIR}/EC/include \"${PROJECT_SOURCE_DIR}/.ec\" \"/usr/local/include\")\n"
+		"set (PROJECT_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/include ${PARENT_DIR}/EC/src /usr/local/include)\n"
 		"\n"
 		"#Bring the .h header files into the project\n"
 		"include_directories(${PROJECT_INCLUDE_DIRS})\n"
@@ -391,14 +371,14 @@ Create_Lib_CMake_File(char *argv[], char *path)
 	char path_file[512];
 
 	strcpy(path_file, path);
-	strcat(path_file, "/CMakeLists.txt");
+	strcat(path_file, "CMakeLists.txt");
 
     // open file in write mode
     fptr = fopen(path_file, "w");
 
     // exiting program 
     if (fptr == NULL) {
-        printf("Error! cannot create lib make file\n");
+        printf("Error: cannot create lib make file\n");
         exit(1);
     }
 
@@ -412,15 +392,15 @@ EC_Create_App_Lib_Directories(char *argv[], char *path)
 {
 	char command[512];
 
-	char *directories[5] = {"bin", "lib", "include", "src", ".ec"}; 
+	char *directories[2] = {"src", ".ec"}; 
 
-	sprintf(command, "%s%s%s", "mkdir ", path, argv[2]);
+	sprintf(command, "mkdir %s%s", path, argv[2]);
 
 	if (system(command) != 0) {
 		printf ("system function failier\n");
 	}
 
-	for(int i = 0; i < 5; i++) {
+	for(int i = 0; i < 2; i++) {
 		sprintf(command, "%s%s%s%s%s", "mkdir ", path, argv[2], "/", directories[i]);
 
 		if (system(command) != 0) {
@@ -436,7 +416,7 @@ EC_Copy_EC(char *argv[], char *app_path)
 	char command[128];
 
     // Create a link for ec
-	sprintf(command, "ln -sf ../EC/bin/ec %sec", app_path);
+	sprintf(command, "ln -sf ../EC/ec %sec", app_path);
 
     if(system(command) != 0) {
         printf ("system function failier. cannot create sympolic link to bin/ec\n");
@@ -452,9 +432,7 @@ EC_App(char *argv[], char *path)
 
     char app_path[128] = {'\0'};
 
-	strcat(app_path, path);
-	strcat(app_path, argv[2]);
-	strcat(app_path, "/");
+    sprintf(app_path, "%s%s/", path, argv[2]);
 
 	EC_Make_Sh_Create(argv, app_path);
 	Create_Main_Files(argv, app_path);
@@ -484,7 +462,6 @@ EC_Lib(char *argv[], char *path)
 	Create_Lib_CMake_File(argv, app_path);
     EC_Todo_Create_File(argv, app_path);
 	EC_Version_Update(argv, app_path);
-    EC_Copy_EC(argv, app_path);
     EC_Create_Remove_Todo_Tmp_Sh(argv, app_path);
 }
 
@@ -492,7 +469,7 @@ EC_Lib(char *argv[], char *path)
 void
 EC_Make()
 {
-    if (system("sh .ec/ec_make.sh") != 0) {
+    if (system("sh ./.ec/ec_make.sh") != 0) {
         printf ("system in EC_Make fail\n");
     }
 }
@@ -761,23 +738,9 @@ Argc_1(char *argv[], char *path)
 
     }
 
-	char filepath[256];
+    EC_Make();
 
-	strcpy(filepath, ".ec/ec_make.sh");
-
-	// if ec_make.sh exist run it
-	FILE *file;
-    if((file = fopen(filepath, "r")) != NULL) {
-        fclose(file);
-		EC_Make();
-    }
-
-	strcpy(filepath, ".ec/ec_run.sh");
-
-    if((file = fopen(filepath,"r"))!=NULL) {
-        fclose(file);
-		EC_Run();
-    }
+    EC_Run();
 
     if(user_id_rand != 0) {
         printf("\n");

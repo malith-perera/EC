@@ -16,6 +16,7 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
 	endif ()
 endif ()
 
+
 get_filename_component (PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)
 
 # Set an output directory for binary ectest
@@ -29,14 +30,14 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 #set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 set (PROJECT_LINK_LIBS libEC.so)
-set (PROJECT_LINK_DIRS "${PARENT_DIR}/lib")
+set (PROJECT_LINK_DIRS "${PARENT_DIR}")
 link_directories (${PROJECT_LINK_DIRS})
 
 set (PROJECT_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}")
-include_directories (${PROJECT_INCLUDE_DIRS} "${PARENT_DIR}/include")
+include_directories (${PROJECT_INCLUDE_DIRS} "${PARENT_DIR}/src" "${PROJECT_SOURCE_DIR}/src")
 
 #file(GLOB...) allows wildcard additions
-file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/*.c")
+file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/*.c")
 
 #Generate executable from the sources
 add_executable(${PROJECT_NAME} ${SOURCES})

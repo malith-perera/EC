@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#if [ -d "build" ]; then
-  #rm -r build
-#fi
-
 if [ -d "build" ]; then
   cd build
 else
@@ -18,7 +14,6 @@ make
 if [ -f "tests" ]; then
   cp tests ../tests
   cd ..
-  #rm -r build
 else
   echo "Error: cannot build"
 fi

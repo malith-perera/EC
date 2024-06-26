@@ -1,6 +1,6 @@
 build/
 *.vim
-tests/build
+tests/build/
 *.swp
 *.swo
 *.md.backup

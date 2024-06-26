@@ -23,7 +23,7 @@ EC_Version_Change
     
     //printf ("version.h lenght %ld", strlen(sentence));
 
-    sprintf(version_h_path, "%s%s%s%s", path, "/include/", argv[2], "_version.h");
+    sprintf(version_h_path, "%s%s%s%s", path, "/src/", argv[2], "_version.h");
 
     // creating file pointer to work with files
     FILE *fptr;
@@ -33,7 +33,7 @@ EC_Version_Change
 
     // exiting program 
     if (fptr == NULL) {
-        printf("Error!");
+        printf("Error: app lib version.h cannot be created\n");
         exit(1);
     }
 

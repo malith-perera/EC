@@ -20,22 +20,20 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
 	endif ()
 endif ()
 
-message ("${PROJECT_SOURCE_DIR}")
+get_filename_component (PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)
 
-#get_filename_component (PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)
-
-set(PROJECT_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/include" "${PROJECT_SOURCE_DIR}/src")
+set(PROJECT_INCLUDE_DIRS "${PARENT_DIR}/include" "${PARENT_DIR}/src")
 
 #Bring the .h header files into the project
 include_directories(${PROJECT_INCLUDE_DIRS})
 
 #file(GLOB...) for wildcard additions
-file(GLOB SOURCE_FILES "${PROJECT_SOURCE_DIR}/src/*.c")
+file(GLOB SOURCE_FILES "${PARENT_DIR}/src/*.c")
 
 #Generate the shared library from the sources
 add_library(${CMAKE_PROJECT_NAME} SHARED ${SOURCE_FILES})
 
-set(PROJECT_LINK_DIRS "${PROJECT_SOURCE_DIR}/libi")
+set(PROJECT_LINK_DIRS "${PARENT_DIR}")
 set(PROJECT_LINK_LIBS libEC.so)
 link_directories (${PROJECT_LINK_DIRS})
 

@@ -1,22 +1,19 @@
 #!/bin/bash
 
-if [ -d "build" ]; then
-  cd build
+if [ -d ".ec/build" ]; then
+  cd .ec/build
 else
-  mkdir build
-  cd build
+  mkdir .ec/build
+  cd .ec/build
 fi
 
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ../ #Release
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug .. #Release #Debug
 
-make
+make -j${nproc}
 
 cd ..
 
-if [ -f "build/libEC.so" ]; then
-  cp build/libEC.so libEC.so
-fi
-
 if [ -f "build/ec" ]; then
-  cp -f build/ec ec
+  cp -f build/ec ../ec
+  cp -f build/libEC.so ../libEC.so
 fi
