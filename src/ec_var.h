@@ -85,7 +85,7 @@ EC_VAR_FREE_FUNCTION_NAME(TYPE)                         \
 /* Create memory for any variable type ex: var, arry, list, list var */
 #define EC_VAR_CREATE(TYPE, var, line)                      \
     TYPE *var = (TYPE *) malloc(sizeof(TYPE));             	\
-	Add(var);                                               \
+	EC_Memory_Add(var);                                     \
     EC_ERROR_MEM_ALLOC(var, __FILE__, line)                 /* when memory allocation failed */\
     EC_DEBUG_PRINT_ADR("Create: ec var", var, line)         /* only when EC_DEBUG */
 

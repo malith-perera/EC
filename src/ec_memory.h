@@ -12,7 +12,7 @@ typedef struct Memory {
 
 extern Memory *memory;
 
-void Add(void *ptr);
+void EC_Memory_Add(void *ptr);
 void Clean();
 void Free(void *ptr);
 

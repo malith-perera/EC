@@ -15,18 +15,18 @@ Test_New_Array()
     StudentArray *sta = Student_Array(2);
     EC_Error_Print_Msg("Create new array", "OK");
 
-    sta->array[0].no    = 1;
-    sta->array[0].name  = "Malith";
+    sta->var[0].no    = 1;
+    sta->var[0].name  = "Malith";
 
-    sta->array[1].no    = 2;
-    sta->array[1].name  = "Geethike";
+    sta->var[1].no    = 2;
+    sta->var[1].name  = "Geethike";
 
     EC_Error_Print_Msg("Assign array variables", "OK");
 
-    assert(sta->array[0].no == 1);
-    assert(strcmp(sta->array[0].name, "Malith") == 0);
-    assert(sta->array[1].no == 2);
-    assert(strcmp(sta->array[1].name, "Geethike") == 0);
+    assert(sta->var[0].no == 1);
+    assert(strcmp(sta->var[0].name, "Malith") == 0);
+    assert(sta->var[1].no == 2);
+    assert(strcmp(sta->var[1].name, "Geethike") == 0);
 
     EC_Error_Print_Msg("Access arry variables", "OK");
 
@@ -48,19 +48,19 @@ Test_Array_Clone()
     StudentArray* sta1 = Student_Array(2);
     EC_Error_Print_Msg("Create new ec array", "OK");
 
-    sta1->array[0].no = 1;
-    sta1->array[0].name = "Malith";
+    sta1->var[0].no = 1;
+    sta1->var[0].name = "Malith";
 
-    sta1->array[1].no = 2;
-    sta1->array[1].name = "Geethike";
+    sta1->var[1].no = 2;
+    sta1->var[1].name = "Geethike";
 
     StudentArray* sta2 = Student_Array_Clone(sta1);
 
-    assert(sta2->array[0].no == 1);
-    assert(strcmp(sta2->array[0].name, "Malith") == 0);
+    assert(sta2->var[0].no == 1);
+    assert(strcmp(sta2->var[0].name, "Malith") == 0);
 
-    assert(sta2->array[1].no == 2);
-    assert(strcmp(sta2->array[1].name, "Geethike") == 0);
+    assert(sta2->var[1].no == 2);
+    assert(strcmp(sta2->var[1].name, "Geethike") == 0);
 
     EC_Error_Print_Msg("Array variable copied: ", "OK");
 
@@ -68,15 +68,15 @@ Test_Array_Clone()
 
     EC_Error_Print_Msg("Array length copied: ", "OK");
 
-    sta1->array[0].no = 3;
-    sta1->array[0].name = "Malshi";
-    assert(sta2->array[0].no != 3);
-    assert(strcmp(sta2->array[0].name, "Geethike") != 0);
+    sta1->var[0].no = 3;
+    sta1->var[0].name = "Malshi";
+    assert(sta2->var[0].no != 3);
+    assert(strcmp(sta2->var[0].name, "Geethike") != 0);
 
-    sta2->array[1].no = 4;
-    sta2->array[1].name = "Presenthi";
-    assert(sta1->array[1].no != 4);
-    assert(strcmp(sta1->array[1].name, "Presenthi") != 0);
+    sta2->var[1].no = 4;
+    sta2->var[1].name = "Presenthi";
+    assert(sta1->var[1].no != 4);
+    assert(strcmp(sta1->var[1].name, "Presenthi") != 0);
 
     EC_Error_Print_Msg("Changing one array variable do not affect other: ", "OK");
 
@@ -94,14 +94,14 @@ Test_Array_Free()
     StudentArray* sta = Student_Array(2);
     EC_Error_Print_Msg("Create new ec array", "OK");
 
-    sta->array[0].no = 1;
-    sta->array[0].name = "Malith";
+    sta->var[0].no = 1;
+    sta->var[0].name = "Malith";
 
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
+    sta->var[1].no = 2;
+    sta->var[1].name = "Geethike";
 
-    assert(sta->array[1].no == 2);
-    assert(strcmp(sta->array[1].name, "Geethike") == 0);
+    assert(sta->var[1].no == 2);
+    assert(strcmp(sta->var[1].name, "Geethike") == 0);
     EC_Error_Print_Msg("Create assign array", "OK");
 
     Student_Array_Free(sta);
@@ -117,14 +117,14 @@ Test_For_Array()
     EC_Error_Print_Msg("Test_For_Array: ", "BEGIN");
 
     StudentArray *sta = Student_Array(4);
-    sta->array[0].no = 1;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 3;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 4;
-    sta->array[3].name = "Malshi";
+    sta->var[0].no = 1;
+    sta->var[0].name = "Malith";
+    sta->var[1].no = 2;
+    sta->var[1].name = "Geethike";
+    sta->var[2].no = 3;
+    sta->var[2].name = "Perera";
+    sta->var[3].no = 4;
+    sta->var[3].name = "Malshi";
 
     Student *s;
     int no = 1;
@@ -144,25 +144,27 @@ Test_Array_Reverse()
     char* names[] = {"Malith", "Geethike", "Perera", "Malshi"};
 
     StudentArray *sta = Student_Array(4);
-    sta->array[0].no = 1;
-    sta->array[0].name = names[0];
-    sta->array[1].no = 2;
-    sta->array[1].name = names[1];
-    sta->array[2].no = 3;
-    sta->array[2].name = names[2];
-    sta->array[3].no = 4;
-    sta->array[3].name = names[3];
+    sta->var[0].no = 1;
+    sta->var[0].name = names[0];
+    sta->var[1].no = 2;
+    sta->var[1].name = names[1];
+    sta->var[2].no = 3;
+    sta->var[2].name = names[2];
+    sta->var[3].no = 4;
+    sta->var[3].name = names[3];
 
     EC_Error_Print_Msg("Array created and assigned", "OK");
 
     Student_Array_Reverse(sta);
     EC_Error_Print_Msg("Reverse array function call", "OK");
 
+    int i = 0;
+
     Student *s;
-    for_array(sta, s)
-    {
-        assert(s->no == 4 - ec_s_i);
-        assert(!strcmp(s->name, names[3 - ec_s_i])); // strcmp return 0 when equal. assert fail when 0. so use !
+    for_array(sta, s) {
+        assert(s->no == 4 - i);
+        assert(!strcmp(s->name, names[3 - i])); // strcmp return 0 when equal. assert fail when 0. so use !
+        i++;
     }
 
     EC_Error_Print_Msg("Array_Reverse", "OK");
@@ -177,65 +179,63 @@ Test_Array_Sort()
     EC_Error_Print_Msg("Test_Array_Sort: ", "BEGIN");
 
     StudentArray *sta = Student_Array(4);
-    sta->array[0].no = 1;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 3;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 4;
-    sta->array[3].name = "Malshi";
+    sta->var[0].no = 1;
+    sta->var[0].name = "Malith";
+    sta->var[1].no = 2;
+    sta->var[1].name = "Geethike";
+    sta->var[2].no = 3;
+    sta->var[2].name = "Perera";
+    sta->var[3].no = 4;
+    sta->var[3].name = "Malshi";
 
     Student_Array_Sort_With_no(sta);
 
+    Student *s;
 
-    foreach_array(sta)
-    {
-        assert(sta->var->no == sta->i + 1); // sta->i is an array internal variable to loop array
+    for_array(sta, s) {
+        assert(s->no == s_i + 1); // s_i is an created array internal variable s + _ + i to loop array
     }
 
     EC_Error_Print_Msg("Sort when no sort needed ", "OK");
 
     // minimum is last
-    sta->array[0].no = 4;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 3;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 1;
-    sta->array[3].name = "Malshi";
+    sta->var[0].no = 4;
+    sta->var[0].name = "Malith";
+    sta->var[1].no = 2;
+    sta->var[1].name = "Geethike";
+    sta->var[2].no = 3;
+    sta->var[2].name = "Perera";
+    sta->var[3].no = 1;
+    sta->var[3].name = "Malshi";
 
     Student_Array_Sort_With_no(sta);
 
     char *names1[] = {"Malshi", "Geethike", "Perera", "Malith"};
 
-    foreach_array(sta)
-    {
-        assert(sta->var->no == sta->i + 1);
-        assert(!strcmp(sta->var->name, names1[sta->i])); // strcmp return 0 when equal. assert fail when 0. so use !
+    for_array(sta, s) {
+        assert(s->no == s_i + 1);
+        assert(!strcmp(s->name, names1[s_i])); // strcmp return 0 when equal. assert fail when 0. so use !
     }
 
     EC_Error_Print_Msg("Sort when minimum is last element", "OK");
 
     // maximum is first
-    sta->array[0].no = 4;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 3;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 1;
-    sta->array[3].name = "Malshi";
+    sta->var[0].no = 4;
+    sta->var[0].name = "Malith";
+    sta->var[1].no = 2;
+    sta->var[1].name = "Geethike";
+    sta->var[2].no = 3;
+    sta->var[2].name = "Perera";
+    sta->var[3].no = 1;
+    sta->var[3].name = "Malshi";
 
     Student_Array_Sort_With_no(sta);
 
     char *names2[] = {"Malshi", "Geethike", "Perera", "Malith"};
 
-    foreach_array(sta)
-    {
-        assert(sta->var->no == sta->i + 1);
-        assert(!strcmp(sta->var->name, names2[sta->i])); // strcmp return 0 when equal. assert fail when 0. so use !
+    for_array(sta, s) {
+        assert(s->no == s_i + 1);
+        assert(!strcmp(s->name, names2[s_i])); // strcmp return 0 when equal. assert fail when 0. so use !
     }
 
     EC_Error_Print_Msg("Sort when maximum is first element ", "OK");
@@ -250,14 +250,14 @@ Test_Array_Int()
     EC_Error_Print_Msg("Test_Array_Search_Var: ", "BEGIN");
 
     StudentArray* sta = Student_Array(4);
-    sta->array[0].no = 1;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 3;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 4;
-    sta->array[3].name = "Malshi";
+    sta->var[0].no = 1;
+    sta->var[0].name = "Malith";
+    sta->var[1].no = 2;
+    sta->var[1].name = "Geethike";
+    sta->var[2].no = 3;
+    sta->var[2].name = "Perera";
+    sta->var[3].no = 4;
+    sta->var[3].name = "Malshi";
 
     EC_Error_Print_Msg("Array created and assigned", "OK");
 
@@ -267,7 +267,7 @@ Test_Array_Int()
 
     assert(array == 2);
 
-    assert(sta->array[array].no == 3);
+    assert(sta->var[array].no == 3);
 
     EC_Error_Print_Msg("Array_Int", "OK");
 
@@ -281,14 +281,14 @@ Test_Array_Str()
     EC_Error_Print_Msg("Test_Array: ", "BEGIN");
 
     StudentArray* sta = Student_Array(4);
-    sta->array[0].no = 1;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 3;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 4;
-    sta->array[3].name = "Malshi";
+    sta->var[0].no = 1;
+    sta->var[0].name = "Malith";
+    sta->var[1].no = 2;
+    sta->var[1].name = "Geethike";
+    sta->var[2].no = 3;
+    sta->var[2].name = "Perera";
+    sta->var[3].no = 4;
+    sta->var[3].name = "Malshi";
 
     EC_Error_Print_Msg("Array created and assigned", "OK");
 
@@ -298,7 +298,7 @@ Test_Array_Str()
 
     assert(array == 2);
 
-    assert(sta->array[array].no == 3);
+    assert(sta->var[array].no == 3);
 
     EC_Error_Print_Msg("Array_Str", "OK");
 
@@ -314,14 +314,14 @@ Test_Array_Max()
     Student* st_max;
 
     StudentArray* sta = Student_Array(4);
-    sta->array[0].no = 4;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 3;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 2;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 1;
-    sta->array[3].name = "Malshi";
+    sta->var[0].no = 4;
+    sta->var[0].name = "Malith";
+    sta->var[1].no = 3;
+    sta->var[1].name = "Geethike";
+    sta->var[2].no = 2;
+    sta->var[2].name = "Perera";
+    sta->var[3].no = 1;
+    sta->var[3].name = "Malshi";
 
     // max found in array first
     st_max = Student_Array_Max_no(sta);
@@ -330,8 +330,8 @@ Test_Array_Max()
     EC_Error_Print_Msg("Max found in array first", "OK");
 
     // max found in array last
-    sta->array[0].no = 1;
-    sta->array[3].no = 4;
+    sta->var[0].no = 1;
+    sta->var[3].no = 4;
 
     st_max = Student_Array_Max_no(sta);
     assert(st_max->no == 4);
@@ -339,8 +339,8 @@ Test_Array_Max()
     EC_Error_Print_Msg("Max found in array last", "OK");
 
     // change values to find max in array mid
-    sta->array[0].no = 3;
-    sta->array[1].no = 4;
+    sta->var[0].no = 3;
+    sta->var[1].no = 4;
 
     st_max = Student_Array_Max_no(sta);
     assert(st_max->no == 4);
@@ -359,14 +359,14 @@ Test_Array_Min()
     Student* st_min;
 
     StudentArray *sta = Student_Array(4);
-    sta->array[0].no = 1;
-    sta->array[0].name = "Malith";
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
-    sta->array[2].no = 3;
-    sta->array[2].name = "Perera";
-    sta->array[3].no = 4;
-    sta->array[3].name = "Malshi";
+    sta->var[0].no = 1;
+    sta->var[0].name = "Malith";
+    sta->var[1].no = 2;
+    sta->var[1].name = "Geethike";
+    sta->var[2].no = 3;
+    sta->var[2].name = "Perera";
+    sta->var[3].no = 4;
+    sta->var[3].name = "Malshi";
 
     // min found in array first
     st_min = Student_Array_Min_no(sta);
@@ -375,8 +375,8 @@ Test_Array_Min()
     EC_Error_Print_Msg("Min found in array first", "OK");
 
     // min found in array last
-    sta->array[0].no = 4;
-    sta->array[3].no = 1;
+    sta->var[0].no = 4;
+    sta->var[3].no = 1;
 
     st_min = Student_Array_Min_no(sta);
     assert(st_min->no == 1);
@@ -384,8 +384,8 @@ Test_Array_Min()
     EC_Error_Print_Msg("Min found in array last", "OK");
 
     // min found in array mid
-    sta->array[0].no = 2;
-    sta->array[1].no = 1;
+    sta->var[0].no = 2;
+    sta->var[1].no = 1;
 
     st_min = Student_Array_Min_no(sta);
     assert(st_min->no == 1);
@@ -549,11 +549,11 @@ Test_Array_Unlock()
     StudentArray* sta = Student_Array(2);
     EC_Error_Print_Msg("Create new ec array", "OK");
 
-    sta->array[0].no = 1;
-    sta->array[0].name = "Malith";
+    sta->var[0].no = 1;
+    sta->var[0].name = "Malith";
 
-    sta->array[1].no = 2;
-    sta->array[1].name = "Geethike";
+    sta->var[1].no = 2;
+    sta->var[1].name = "Geethike";
 
     EC_Error_Print_Msg("Create assign array", "OK");
 

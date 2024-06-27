@@ -1,7 +1,7 @@
 #include "ec_c_file_test.h"
 #include "c_file.h"
+#include "ec_c_file.h"
 
-EC_LIST_C(Str)
 
 void
 Test_EC_C_Fuctions() {

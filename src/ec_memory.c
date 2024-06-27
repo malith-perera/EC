@@ -5,7 +5,7 @@
 Memory *memory;
 
 
-void Add(void *ptr)
+void EC_Memory_Add(void *ptr)
 {
     Memory *temp;
 
@@ -15,6 +15,7 @@ void Add(void *ptr)
     m->next = memory;
     memory = m;
 }
+
 
 void Clean()
 {

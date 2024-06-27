@@ -5,7 +5,7 @@
 EC is an easy to use extended C library and a tool kit for high performance, rapid application development in C language.
 
 ### EC Features
-+ Easy dynamic variables
++ Extended dynamic variables
 + Extended functions
 + Easy tool kit
 + Entity component system
