@@ -5,3 +5,6 @@ build/
 *.md.backup
 *.tmp
 ec_local_user
+test
+libEC.so
+ec
