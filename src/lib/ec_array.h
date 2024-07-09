@@ -3,7 +3,9 @@
 
 #include "ec.h"
 
+
 #define NELEMS(x) (sizeof(x) / sizeof((x)[0]))
+
 
 #define for_array(ec_array, aptr)                               \
     aptr = ec_array->var;                                       \
@@ -11,6 +13,15 @@
          EC_CONCAT(aptr, _i) < ec_array->length;                \
          aptr = ec_array->var + ++EC_CONCAT(aptr, _i))
 
+
+#define Static_Array(type, array, len)      \
+    type EC_CONCAT(ec_c_, array)[len];      \
+    EC_CONCAT(type, Array) ec_array;        \
+    ec_array.var = EC_CONCAT(ec_c_, array); \
+    ec_array.length = len;                  \
+    EC_CONCAT(type, Array) * const array = &ec_array;
+
+   
 /*
 #define EC_ARRAY_FIND_FUNCTION_NAME(T, F) EC_CONCAT3(Find_, T, F)
 #define EC_ARRAY_RESIZE_FUNCTION_NAME(TYPE) EC_CONCAT2(Resize_, T)

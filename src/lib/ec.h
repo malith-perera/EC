@@ -25,8 +25,8 @@
 */
 
 
-#ifndef EC_H
-#define EC_H
+#ifndef EC_H_
+#define EC_H_
 
 
 /* Development stage debuging */
@@ -66,38 +66,51 @@
 #include <string.h>
 #include <time.h>
 
+#include "ec_test.h"
+
 #include "ec_debug.h"
-#include "ec_string.h"
 
 #include "ec_text_color.h"
 #include "ec_type.h"
 #include "ec_macro.h"
-#include "ec_file.h"
 
-#include "ec_test.h"
 #include "ec_error.h"
 #include "ec_warn.h"
 #include "ec_memory.h"
-#include "ec_time.h"
 
 #include "ec_var.h"
 #include "ec_array.h"
 #include "ec_list.h"
 #include "ec_queue.h"
 #include "ec_stack.h"
+#include "ec_string.h"
 #include "ec_ecs.h"
 
-
+#include "ec_version.h"
 
 //#include "ec_syntax.h"
 //#include "ec_bits.h"
 //#include "ec_vector.h"
 
-#define EC(TYPE) 	\
-	EC_VAR(TYPE)	\
-	EC_ARRAY(TYPE) 	\
-	EC_LIST(TYPE) 	\
-	EC_QUEUE(TYPE) 	\
-	EC_STACK(TYPE) 	
+#define EC(TYPE)        \
+	EC_VAR(TYPE)        \
+	EC_ARRAY(TYPE)      \
+	EC_LIST(TYPE)       \
+	EC_QUEUE(TYPE)      \
+	EC_STACK(TYPE)      
 
-#endif // EC_H
+#define EC_C(TYPE)      \
+    EC_VAR_C(TYPE)      \
+	EC_ARRAY_C(TYPE)    \
+	EC_LIST_C(TYPE)     \
+	EC_QUEUE_C(TYPE)    \
+	EC_STACK_C(TYPE)        
+
+#define EC_H(TYPE)      \
+    EC_VAR_H(TYPE)      \
+	EC_ARRAY_H(TYPE)    \
+	EC_LIST_H(TYPE)     \
+	EC_QUEUE_H(TYPE)    \
+	EC_STACK_H(TYPE)        
+
+#endif // EC_H_

@@ -3,10 +3,13 @@
 
 #include "ec.h"
 
-#define for_stack(stack)                                                                                                                                \
-    for (stack->stack_var = stack->first, stack->var = stack->stack_var != NULL ? stack->stack_var->var: NULL;                                          \
-         stack->stack_var != NULL;                                                                                                                      \
-         stack->stack_var = stack->stack_var != NULL ? stack->stack_var->next: NULL, stack->var = stack->stack_var != NULL ? stack->stack_var->var: NULL)
+#define for_stack(stack, ec_var)                                                            \
+    for(stack->stack_var = stack->first,                                                    \
+        ec_var = stack->stack_var != NULL ? stack->stack_var->var: NULL;                    \
+        stack->stack_var != NULL;                                                           \
+        stack->stack_var = stack->stack_var != NULL ? stack->stack_var->next: NULL,         \
+        ec_var = stack->stack_var != NULL ? stack->stack_var->var: NULL)
+
 
 /* Function name macros */
 #define EC_STACK_VAR_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT(TYPE, _Stack_Var_Free)
@@ -203,14 +206,15 @@ EC_STACK_COPY_FUNCTION_NAME(TYPE)                                           \
                                                                             \
     EC_STACK_VAR_STRUCT(TYPE) *var;                                         \
                                                                             \
-    for_stack(stack)                                                        \
+    TYPE *ec_var;                                                           \
+    for_stack(stack, ec_var)                                                \
     {                                                                       \
-        EC_STACK_PUSH_FUNCTION_NAME(TYPE)(stack_temp, stack->var);          \
+        EC_STACK_PUSH_FUNCTION_NAME(TYPE)(stack_temp, ec_var);              \
     }                                                                       \
                                                                             \
-    for_stack(stack_temp)                                                   \
+    for_stack(stack_temp, ec_var)                                           \
     {                                                                       \
-        EC_STACK_PUSH_FUNCTION_NAME(TYPE)(stack_copy, stack_temp->var);     \
+        EC_STACK_PUSH_FUNCTION_NAME(TYPE)(stack_copy, ec_var);              \
     }                                                                       \
                                                                             \
     return stack_copy;                                                      \

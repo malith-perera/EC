@@ -2,15 +2,15 @@
 
 ## Introduction
 
-EC is an easy to use extended C library and a tool kit for high performance, rapid application development in C language.
+EC is an easy to use extended C library and a tool kit for high performance, rapid application development in pure C language.
 
 ### EC Features
-+ Extended dynamic variables
-+ Extended functions
++ Extended variables & functions
 + Easy tool kit
++ Objects in mind
 + Entity component system
-+ Think with objects
 + Dynamic memory management
++ Rapid application development
 + Optimizable code
 + High performance
 
@@ -84,14 +84,15 @@ Remove student1 from the student_list.
 ### Loop in the list
 
 ```c
-for_list(student_list) {
-  printf("Name %s\n", student_list->var->name);
+Student *st;
+for_list(student_list, st) {
+  printf("Id %d Name %s\n", st->id, st->name);
 }
 ```
-Go through the student_list and get one by one student in the list.  
+Go through the student_list and get student one by one in the list.  
 
 ## Welcome!
-> Not only these. EC does many things for you. For more information, manuals, tutorials, examples and binary downloads please follow the link below. Also you are warmly welcome to upgrade EC to the next level. Hope you will enjoy with EC programming.  
+> Not only these. EC does many things for you. For manuals, tutorials, examples and binary downloads please follow the link below. Also you are warmly welcome to upgrade EC to the next level. Hope you will enjoy with EC programming.  
   
 Be EC !
   

@@ -5,8 +5,8 @@
 
 
 #define for_list(ec_list, ec_var)                                                      		\
-    for (ec_list->list_var = ec_list->first, 												\
-		ec_var = ec_list->var = ec_list->list_var != NULL ? ec_list->list_var->var: NULL;   \
+    for(ec_list->list_var = ec_list->first, 												\
+		ec_var = ec_list->list_var != NULL ? ec_list->list_var->var: NULL;                  \
 		ec_list->list_var != NULL;                                                  		\
 		ec_list->list_var = ec_list->list_var != NULL ? ec_list->list_var->next: NULL,		\
 		ec_var = ec_list->list_var != NULL ? ec_list->list_var->var: NULL)
@@ -14,10 +14,10 @@
 
 #define for_list_reverse(list, ec_var) 					                                  	\
     for (list->list_var = list->last, 														\
-		ec_var = list->var = list->list_var != NULL ? list->list_var->var: NULL;            \
+		ec_var = list->list_var != NULL ? list->list_var->var: NULL;                        \
         list->list_var != NULL;                                                            	\
         list->list_var = list->list_var != NULL ? list->list_var->previous: NULL, 			\
- 		ec_var = list->var = list->list_var != NULL ? list->list_var->var: NULL)
+ 		ec_var = list->list_var != NULL ? list->list_var->var: NULL)
 
 
 /* Function name macros */
@@ -178,7 +178,6 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                    \
 	typedef struct EC_LIST_STRUCT(TYPE) {               \
 		EC_LIST_VAR_STRUCT(TYPE) *first;                /* first var in the list */\
 		EC_LIST_VAR_STRUCT(TYPE) *last;                 /* last var in the list */\
-		TYPE                     *var;                  /* current (holding) var in the list */\
 		EC_LIST_VAR_STRUCT(TYPE) *list_var;             /* hold var temporaly in for_list repeatition */\
 		EC_MEMORY_REF                                   \
 	} EC_LIST_STRUCT(TYPE); 							\
@@ -552,7 +551,6 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
     {                                                       \
         list->first = NULL;                                 \
         list->last = NULL;                                  \
-        list->var = NULL;                                   \
     }                                                       \
     else if (var == list->first)                            \
     {                                                       \

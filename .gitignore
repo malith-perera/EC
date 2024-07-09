@@ -1,6 +1,7 @@
 build/
 *.vim
-tests/build/
 *.swp
 *.swo
 *.md.backup
+*.tmp
+ec_local_user

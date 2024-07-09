@@ -23,7 +23,6 @@ Test_New_List()
     EC_Test_Print_Msg("Test: stl->first == NULL", "OK", __LINE__);
     assert(stl->last == NULL);
     EC_Test_Print_Msg("Test: stl->last == NULL", "OK", __LINE__);
-    assert(stl->var == NULL);
     EC_Test_Print_Msg("Test: stl->var == NULL", "OK", __LINE__);
 }
 
@@ -846,7 +845,7 @@ Test_List_Var_Drop()
     i = 4;
     for_list_reverse(stl, st)
     {
-        assert(Student_Compare(stl->var, &students[i])); 
+        assert(Student_Compare(st, &students[i])); 
         i--;
     }
     assert(i == 0);

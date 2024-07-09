@@ -12,6 +12,26 @@ void
 EC_Flush();
 
 
+void
+EC_Strip_Right(char *string);
+
+
+void
+EC_Strip_Left(char *string);
+
+
+void
+EC_Strip(char *string);
+
+
+char *
+EC_String_To_Lower(char *str); 
+
+
+char *
+EC_String_To_Upper(char *str); 
+
+
 #endif // EC_STRING
 
 

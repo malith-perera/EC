@@ -43,9 +43,10 @@ Test_For_Stack()
     Student_Push (stk, st4);
 
     i = 4;
-    for_stack(stk)
+    Student *st;
+    for_stack(stk, st)
     {
-        assert (Student_Compare(stk->var, &students[i])); 
+        assert (Student_Compare(st, &students[i])); 
         i--;
     }
     assert( i == -1);
@@ -83,9 +84,10 @@ Test_Push_Stack ()
     EC_Test_Print_Msg ("st2 ... st0 is in stk", "OK", __LINE__);
 
     i = 2;
-    for_stack(stk)
+    Student *st;
+    for_stack(stk, st)
     {
-        assert (Student_Compare(stk->var, &students[i])); 
+        assert (Student_Compare(st, &students[i])); 
         i--;
     }
     assert(i == -1);
@@ -109,9 +111,10 @@ Test_Pop_Stack ()
     Student_Push (stk, st4);
 
     i = 4;
-    for_stack(stk)
+    Student *st;
+    for_stack(stk, st)
     {
-        assert (Student_Compare(stk->var, &students[i])); 
+        assert (Student_Compare(st, &students[i])); 
         i--;
     }
     assert(i == -1);
@@ -158,9 +161,10 @@ Test_Stack_Copy ()
     Student_Push (stk, st4);
 
     i = 4;
-    for_stack(stk)
+    Student *st;
+    for_stack(stk, st)
     {
-        printf ("%d\n", stk->var->no);
+        printf ("%d\n", st->no);
         assert (Student_Compare(stk->var, &students[i])); 
         i--;
     }
@@ -172,9 +176,9 @@ Test_Stack_Copy ()
     stk2 = Student_Stack_Copy (stk);
 
     i = 4;
-    for_stack(stk2)
+    for_stack(stk2, st)
     {
-        assert (Student_Compare(stk2->var, &students[i])); 
+        assert (Student_Compare(st, &students[i])); 
         i--;
     }
     assert(i == -1);

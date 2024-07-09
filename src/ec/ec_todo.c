@@ -15,15 +15,17 @@ EC_Todo_Create_File(char *argv[], char *path)
     FILE *fptr;
     char path_file[512];
     
-    sprintf(path_file, "%s%s", path, ".ec/ec_todo");
+    sprintf(path_file, "%s%s", path, ".ec/todo");
 
     // Open file in write mode
     fptr= fopen(path_file, "w");
 
-    if (fptr == NULL) {
+    if (fptr == NULL) 
+    {
         printf("Error: Cannot open todo file in write mode.\n");
     }
-    else {
+    else 
+    {
         fclose(fptr);
     }
 }
@@ -88,7 +90,9 @@ EC_Todo_Print(FILE *fptr)
 
     while ((c = fgetc(fptr)) != EOF) {
         if(c != '\n')
+        {
             todo_str[i++] = c;
+        }
         else
         {
             total_todo++;
@@ -113,27 +117,33 @@ EC_Todo_Print(FILE *fptr)
             urgency = todo_str[j + 5];
 
             // Type
-            if (type == 'a') {
+            if (type == 'a')
+            {
                 strcpy (type_txt, "Addition"); 
             }
-            else if (type == 'b') {
+            else if (type == 'b')
+            {
                 strcpy (type_txt, "Bugfix"); 
             }
 
             // Urgency
-            if (urgency == 'u') {
+            if (urgency == 'u')
+            {
                 strcpy(urgency_txt, "Urgent");
                 strcpy(color, "\x1B[0;31m ");
             }
-            else if (urgency == 'e') {
+            else if (urgency == 'e')
+            {
                 strcpy(urgency_txt, "Essential");
                 strcpy(color, "\x1B[0;32m ");
             }
-            else if (urgency == 'r') {
+            else if (urgency == 'r')
+            {
                 strcpy(urgency_txt, "Required");
                 strcpy(color, "\x1B[0;34m ");
             }
-            else if (urgency == 'o') {
+            else if (urgency == 'o')
+            {
                 strcpy(urgency_txt, "Optional");
                 strcpy(color, "\x1B[0;37m ");
             }
@@ -145,8 +155,8 @@ EC_Todo_Print(FILE *fptr)
         }
     }
 
-    if(total_todo == 0) {
-
+    if(total_todo == 0)
+    {
         printf(" %-5d %-60s%-15s%s%-15s\033[0m%-20s\n", total_todo, "Nothing to do ;)", "Party Type", "\x1B[1;31m", "Very Urgent", "Everyone");
         printf("\n");
         printf(" (Use \"ec -h todo\" for help)\n");
@@ -160,7 +170,7 @@ EC_Todo_Print_List(char *path)
     FILE *fptr;
 
     // Open file in read mode
-    fptr = fopen(".ec/ec_todo", "r");
+    fptr = fopen(".ec/todo", "r");
 
     if (fptr == NULL) {
         printf("Error: Cannot open todo file in read.\n");
@@ -226,7 +236,7 @@ EC_Todo_Append(int argc, char *argv[], char *path)
     static int a = 1;
 
     // Open file in append mode
-    fptr = fopen(".ec/ec_todo", "a+");
+    fptr = fopen(".ec/todo", "a+");
 
     if (fptr == NULL) {
         printf("Error: Cannot open todo file in append mode.\n");
@@ -343,8 +353,8 @@ EC_Todo_Change_Title(int argc, char *argv[])
         printf ("Unknown amount of arguments\n");
     }
 
-    fptr = fopen(".ec/ec_todo", "r");
-    fptr2 = fopen(".ec/ec_todo.tmp", "w");
+    fptr = fopen(".ec/todo", "r");
+    fptr2 = fopen(".ec/todo.tmp", "w");
 
     if (fptr != NULL && fptr2 != NULL) {
         while ((c = fgetc(fptr)) != EOF) {
@@ -381,8 +391,8 @@ EC_Todo_Change_Title(int argc, char *argv[])
         printf("Error: Todo_Change Cannot open todo file in write mode.\n");
     }
 
-    fptr = fopen(".ec/ec_todo", "w");
-    fptr2 = fopen(".ec/ec_todo.tmp", "r");
+    fptr = fopen(".ec/todo", "w");
+    fptr2 = fopen(".ec/todo.tmp", "r");
 
     if (fptr != NULL && fptr2 != NULL) {
         while ((c = fgetc(fptr2)) != EOF)
@@ -396,7 +406,7 @@ EC_Todo_Change_Title(int argc, char *argv[])
         fclose(fptr2);
     }
     else {
-        printf ("Error: could not update ec_todo file\n");
+        printf ("Error: could not update todo file\n");
     }
 }
 
@@ -441,8 +451,8 @@ EC_Todo_Remove(char *argv[], int argc, char *path)
         return;
     }
 
-    fptr = fopen(".ec/ec_todo", "r");
-    fptr2 = fopen(".ec/ec_todo.tmp", "w");
+    fptr = fopen(".ec/todo", "r");
+    fptr2 = fopen(".ec/todo.tmp", "w");
 
     if (fptr != NULL && fptr2 != NULL) {
         while ((c = fgetc(fptr)) != EOF) {
@@ -470,8 +480,8 @@ EC_Todo_Remove(char *argv[], int argc, char *path)
         printf("Error: Todo_Remove Cannot open todo file in write mode.\n");
     }
 
-    fptr = fopen(".ec/ec_todo", "w");
-    fptr2 = fopen(".ec/ec_todo.tmp", "r");
+    fptr = fopen(".ec/todo", "w");
+    fptr2 = fopen(".ec/todo.tmp", "r");
 
     if (fptr != NULL && fptr2 != NULL) {
         while ((c = fgetc(fptr2)) != EOF)
@@ -485,6 +495,6 @@ EC_Todo_Remove(char *argv[], int argc, char *path)
         fclose(fptr2);
     }
     else {
-        printf ("Error: could not update ec_todo file\n");
+        printf ("Error: could not update todo file\n");
     }
 }

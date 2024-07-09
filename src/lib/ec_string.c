@@ -26,47 +26,78 @@ EC_Flush()
     while ((c = getchar()) != '\n' && c != EOF) ;
 }
 
+
+void
+EC_Strip_Right(char *string)
+{
+    for(int i = strlen(string) - 1; i >= 0; i--)
+    {
+        if(string[i] == ' ')
+        {
+            string[i] = '\0';
+        }
+        else
+        {
+            break;
+        }
+    }
+}
+
+
+void
+EC_Strip_Left(char *string)
+{
+    int j = 0;
+
+    for(int i = 0; i < strlen(string) + 1; i++)
+    {
+        if(string[i] != ' ')
+        {
+            while(i < strlen(string) + 1)
+            {
+                string[j] = string[i];
+                i++;
+                j++;
+            }
+            break;
+        }
+    }
+}
+
+
+void
+EC_Strip(char *string)
+{
+    EC_Strip_Right(string);
+    EC_Strip_Left(string);
+}
+
+
+char *
+EC_String_To_Lower(char *str)
+{
+    for(char *cptr=str; *cptr; cptr++)
+    {
+        *cptr=tolower(*cptr);
+    }
+
+    return str;
+}
+
+
+char *
+EC_String_To_Upper(char *str)
+{
+    for(char *cptr=str; *cptr; cptr++)
+    {
+        *cptr=toupper(*cptr);
+    }
+
+    return str;
+}
+
+
 #if 0
-
-void
-EC_Simplize(char word[])
-{
-    for(int i = 0; i < strlen(word); i++)
-    {
-        if (word[i] >= 'A'  && word[i] <= 'Z')
-            word[i] = word[i] + 32;
-    }
-
-}
-
-
-void
-EC_Capitalize(char word[])
-{
-    for(int i = 0; i < strlen(word); i++)
-    {
-        if (word[i] >= 'a'  && word[i] <= 'z')
-            word[i] = word[i] - 32;
-    }
-}
-
-
-char*
-toLower(char* s) {
-  for(char *p=s; *p; p++) *p=tolower(*p);
-  return s;
-}
-
-
-char*
-toUpper(char* s) {
-  for(char *p=s; *p; p++) *p=toupper(*p);
-  return s;
-}
-
-
-
-
 
 void
 EC_Fgets(char str[], int n) {
@@ -83,13 +114,6 @@ EC_Option ()
         while(getchar() != '\n'); // Discard line feed
     } while (option != 'q');
 }
-
-
-
-
-
-
-
 
 
 CharListPtr

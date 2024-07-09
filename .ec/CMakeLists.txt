@@ -22,26 +22,36 @@ endif ()
 
 get_filename_component (PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)
 
-set(PROJECT_INCLUDE_DIRS "${PARENT_DIR}/include" "${PARENT_DIR}/src")
-
 #Bring the .h header files into the project
+set(PROJECT_INCLUDE_DIRS ${PARENT_DIR}/include ${PARENT_DIR}/src/lib ${PARENT_DIR}/tests)
 include_directories(${PROJECT_INCLUDE_DIRS})
 
 #file(GLOB...) for wildcard additions
-file(GLOB SOURCE_FILES "${PARENT_DIR}/src/*.c")
+file(GLOB EC_SOURCE_FILES "${PARENT_DIR}/src/lib/*.c")
+file(GLOB SOURCE_FILES "${PARENT_DIR}/src/ec/*.c")
+file(GLOB TEST_SOURCE_FILES "${PARENT_DIR}/src/tests/*.c")
 
 #Generate the shared library from the sources
-add_library(${CMAKE_PROJECT_NAME} SHARED ${SOURCE_FILES})
+add_library(${CMAKE_PROJECT_NAME} SHARED ${EC_SOURCE_FILES})
 
-set(PROJECT_LINK_DIRS "${PARENT_DIR}")
+set(PROJECT_LINK_DIRS ${PARENT_DIR})
 set(PROJECT_LINK_LIBS libEC.so)
 link_directories (${PROJECT_LINK_DIRS})
 
 #Generate the executable
 add_executable(ec ${SOURCE_FILES})
 
+#Generate the executable
+add_executable(test ${TEST_SOURCE_FILES})
+
+target_link_libraries(ec LINK_PUBLIC ${PROJECT_LINK_LIBS})
+target_link_libraries(test LINK_PUBLIC ${PROJECT_LINK_LIBS})
+
+
+#target_link_libraries(test LINK_PUBLIC ${PROJECT_LINK_LIBS} m) # m for math library
+
 #Set the location for library installation -- i.e., /usr/lib in this case
 #not really necessary in this example. Use "sudo make install" to apply
 #install(TARGETS EC DESTINATION /usr/bin/ec)
 
-#message ("${PROJECT_SOURCE_DIR}")
+#message (${PARENT_DIR})

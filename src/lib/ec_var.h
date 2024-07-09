@@ -128,7 +128,7 @@ EC_VAR_COPY_FUNCTION_NAME(TYPE)                             \
 
 
 /* All function prototypes */
-#define EC_VAR_H(TYPE)    \
+#define EC_VAR_H(TYPE)                          \
     typedef struct TYPE EC_CONCAT(TYPE, Var);   /* optional StudentVar for Student */\
     EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)    	\
     EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)     	\

@@ -1,9 +1,8 @@
  # EC Tests
 
-To run tests move to EC/tests directory.  
+To run test  
 
-./ec_make.sh  
-./tests  
+./test  
 
 It's very worthy to add new test functions while you are adding new functionalities.  
 

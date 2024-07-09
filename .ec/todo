@@ -1,0 +1,46 @@
+ec.c: ./ec libapp Create CMakeLists.txt not implemented:;b:;r
+ec.c: Increase EC Todo line space to 80 characters:;b:;o
+Adding new files functions to existing app/lib:;a:;o
+Put EC in App or Lib folder:;a:;o
+Static_Array not tested:;b:;r
+Add ./ec did for what someone have done in the past:;a:;r
+Assign users to the project:;a:;r
+./ec alone display dependency checking every time:;b:;e
+Display options at the end of the todo list:;a:;e
+Taken time for a task:;a:;o
+use tmp file when unexpected lose before write:;b:;r
+./ec todo -r does not work as supposed:;b:;e
+When someone assigned to a task and need a Help display it:;a:;o
+Read only 80 characters for todo list task:;b:;r
+Adding a full description todo:;a:;r
+Manuael pages:;a:;r
+Tutorials:;a:;e
+Website:;a:;e
+Clear Var:;b:;e
+Clear Array:;b:;e
+Clear List:;b:;e
+Clear Stack:;b:;e
+Clear Queue:;b:;e
+Clear ECS:;b:;e
+Create a sample game:;a:;e
+Porting to windows:;b:;e
+Porting to Mac:;b:;e
+Clear Memory:;b:;e
+Option to move list items up and down:;a:;r
+Update Back to C:;a:;r
+EC Programming book:;a:;r
+Adding EC Static variables:;a:;r
+EC Developers guide:;a:;r
+Udemy tutorials:;a:;r
+Option to choose syntax style:;a:;r
+Interchange within Arrays, List, Queues etc.:;a:;o
+Create a Wiki page:;a:;r
+Versioning:;a:;o
+Saving backups:;a:;r
+Put a note when someone working on a function:;a:;o
+Save function changes seperately:;a:;o
+Display current working user:;a:;o
+Change current working user:;a:;o
+find function in a file:;a:;o
+Change Todo list according to display size:;a:;r
+Display who did the job:;a:;r

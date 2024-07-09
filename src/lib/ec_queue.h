@@ -3,10 +3,13 @@
 
 #include "ec.h"
 
-#define for_queue(queue)                                                                                                                                \
-    for (queue->queue_var = queue->first, queue->var = queue->queue_var != NULL ? queue->queue_var->var: NULL;                                          \
-         queue->queue_var != NULL;                                                                                                                      \
-         queue->queue_var = queue->queue_var != NULL ? queue->queue_var->next: NULL, queue->var = queue->queue_var != NULL ? queue->queue_var->var: NULL)
+#define for_queue(ec_queue, ec_var)                                                             \
+    for(ec_queue->queue_var = ec_queue->first,                                                  \
+	    ec_var = ec_queue->queue_var != NULL ? ec_queue->queue_var->var: NULL;                  \
+        ec_queue->queue_var != NULL;                                                            \
+        ec_queue->queue_var = ec_queue->queue_var != NULL ? ec_queue->queue_var->next: NULL,    \
+	    ec_var = ec_queue->queue_var != NULL ? ec_queue->queue_var->var: NULL)
+
 
 #define EC_QUEUE_VAR_FREE_FUNCTION_NAME(TYPE)       EC_CONCAT2(TYPE, _Queue_Var_Free)
 #define EC_QUEUE_FREE_FUNCTION_NAME(TYPE)           EC_CONCAT2(TYPE, _Queue_Free)
@@ -225,9 +228,10 @@ EC_QUEUE_COPY_FUNCTION_NAME(TYPE)                                           \
                                                                             \
     EC_QUEUE_VAR_STRUCT(TYPE) *var;                                         \
                                                                             \
-    for_queue(queue)                                                        \
+    TYPE *ec_var;                                                           \
+    for_queue(queue, ec_var)                                                \
     {                                                                       \
-        EC_QUEUE_ENQUEUE_FUNCTION_NAME(TYPE)(queue_copy, queue->var);       \
+        EC_QUEUE_ENQUEUE_FUNCTION_NAME(TYPE)(queue_copy, ec_var);           \
     }                                                                       \
                                                                             \
     return queue_copy;                                                      \

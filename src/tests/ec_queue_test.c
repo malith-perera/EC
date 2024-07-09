@@ -112,9 +112,10 @@ Test_Queue_For_Queue ()
     Student_Enqueue(stq, st4);
 
     i = 0;
-    for_queue (stq)
+    Student *st;
+    for_queue (stq, st)
     {
-        assert (Student_Compare(stq->var, &students[i])); 
+        assert (Student_Compare(st, &students[i])); 
         i++;
     }
     EC_Test_Print_Msg ("for_queue", "OK", __LINE__);
@@ -143,9 +144,10 @@ Test_Queue_Copy ()
     EC_Test_Print_Msg ("copy stq to stq2", "OK", __LINE__);
 
     i = 0;
-    for_queue (stq2)
+    Student *st;
+    for_queue (stq2, st)
     {
-        assert (Student_Compare(stq2->var, &students[i])); 
+        assert (Student_Compare(st, &students[i])); 
         i++;
     }
     assert (i == 5);

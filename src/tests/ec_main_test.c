@@ -61,15 +61,15 @@ main(int argc, char *argv[])
         printf("Select Test\n");
         printf("-----------\n");
         printf("Test: All           0\n");
-        printf("Test: Exit         -1\n");
         printf("Test: Var           1\n");
         printf("Test: Array         2\n");
         printf("Test: List          3\n");
-        printf("Test: Queue         4\n");
-        printf("Test: Stack         5\n");
+        printf("Test: Stack         4\n");
+        printf("Test: Queue         5\n");
         printf("Test: ECS           6\n");
         printf("Test: Time          7\n");
         printf("Test: C File        8\n");
+        printf("Test: Exit         -1\n");
         printf("\n");
 
         printf("Test : ");
