@@ -40,6 +40,14 @@ EC_User_Create_File(char *app_path);
 
 
 void
+EC_User_New(void);
+
+
+void
+EC_User_Key(void);
+
+
+void
 EC_User_Add(void);
 
 

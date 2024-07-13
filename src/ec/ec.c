@@ -10,7 +10,7 @@
 
 
 void
-Create_Main_Files(char *argv[], char *path)
+Create_Main_File(char *argv[], char *path)
 {
 	char main_file[512];
 	char path_file[512];
@@ -20,10 +20,12 @@ Create_Main_Files(char *argv[], char *path)
     {
 		sprintf(main_file, 
 			"#include \"%s.h\"\n\n"
-			"int\nmain(int argc, char *argv[])\n"
+			"int\n"
+            "main(int argc, char *argv[])\n"
 			"{\n"
-			"	printf(\"Hello World!\\n\");\n"
-			"	printf(\"%s is running.\\n\");\n\n"
+			"    printf(\"Hello World!\\n\");\n"
+            "    Print_Message(\"%s\");\n"
+            "\n"
 			"	return 0;\n"
 			"}\n", argv[2], argv[2]);
 	}
@@ -48,7 +50,7 @@ Create_Main_Files(char *argv[], char *path)
 
 
 void
-Create_Header_Files(char *argv[], char *path)
+Create_Header_File(char *argv[], char *path)
 {
 	char header_file[512];
 	char path_file[512];
@@ -56,9 +58,12 @@ Create_Header_Files(char *argv[], char *path)
 
 	sprintf(header_file, 
 		"#ifndef %s_H\n"
-		"#define %s_H\n\n"
+		"#define %s_H\n"
+        "\n"
 		"#include \"ec.h\"\n"
-		"#include \"%s_version.h\"\n\n"
+		"#include \"%s_version.h\"\n"
+        "#include \"message.h\"\n"
+        "\n"
 		"#endif // %s_H\n"
 		, argv[2], argv[2], argv[2], argv[2]);
 
@@ -68,14 +73,328 @@ Create_Header_Files(char *argv[], char *path)
     fptr = fopen(path_file, "w");
 
     // exiting program 
-    if (fptr == NULL)
-    {
-        printf("Error: Cannot create app.h file\n");
-    }
-    else
+    if (fptr != NULL)
     {
         fprintf(fptr, "%s", header_file);
         fclose(fptr);
+    }
+    else
+    {
+        printf("Error: Cannot create app.h file\n");
+    }
+}
+
+
+void
+Create_Message_File(char *argv[], char *path)
+{
+	char app_msg_file[1024];
+	char path_file[512];
+    FILE *fptr;
+
+	if(strcmp(argv[1], "app") == 0 )
+    {
+		sprintf(app_msg_file, 
+			"#include \"message.h\"\n"
+            "\n"
+			"char* \n"
+            "Set_Message(char msg[])\n"
+			"{\n"
+            "    sprintf(msg, \"%%s%%s\", msg, \" is running.\");\n" 
+            "\n"
+            "    return msg;\n"
+			"}\n"
+            "\n"
+            "\n"
+            "void\n"
+            "Print_Message(char *msg)\n"
+			"{\n"
+            "    char message[64];\n"
+            "    strcpy(message, msg);\n"
+            "\n"
+            "    printf(\"%%s\\n\", Set_Message(message));\n"
+			"}\n");
+	}
+
+    // File pointer
+	sprintf(path_file, "%s%s", path, "src/message.c");
+
+    // open file in write mode
+    fptr = fopen(path_file, "w");
+
+    // exiting program 
+    if (fptr == NULL)
+    {
+        printf("Error: Cannot create app_message.c file\n");
+    }
+    else
+    {
+        fprintf(fptr, "%s", app_msg_file);
+        fclose(fptr);
+    }
+}
+
+
+void
+Create_Message_Header_File(char *argv[], char *path)
+{
+	char msg_header_file[512];
+	char path_file[512];
+    FILE *fptr; //File pointer
+
+	sprintf(msg_header_file, 
+		"#ifndef MESSAGE_H\n"
+		"#define MESSAGE_H\n"
+        "\n"
+		"#include \"ec.h\"\n"
+        "#include \"%s.h\"\n"
+		"#include \"%s_version.h\"\n"
+        "\n"
+        "\n"
+        "char*\n"
+        "Set_Message(char msg[]);\n"
+        "\n"
+        "\n"
+        "void\n"
+        "Print_Message(char *msg);\n"
+        "\n"
+		"#endif // MESSAGE_H\n"
+		, argv[2], argv[2]);
+
+	sprintf(path_file, "%s%s", path, "src/message.h");
+
+    // open file in write mode
+    fptr = fopen(path_file, "w");
+
+    // exiting program 
+    if (fptr != NULL)
+    {
+        fprintf(fptr, "%s", msg_header_file);
+        fclose(fptr);
+    }
+    else
+    {
+        printf("Error: Cannot create app.h file\n");
+    }
+}
+
+
+void
+Create_Test_Main_File(char *argv[], char *path)
+{
+	char main_test_file[2048];
+	char path_file[512];
+    FILE *fptr;
+
+	if(strcmp(argv[1], "app") == 0 )
+    {
+		sprintf(main_test_file, 
+			"#include \"message_test.h\"\n"
+            "\n"
+            "\n"
+            "int\n"
+            "main(int argc, char *argv[])\n"
+            "{\n"
+            "    int test_no;\n"
+            "\n"
+            "    EC_Test_Print_Header(\"Test: %s\");\n"
+            "    printf(\"\\n\");\n"
+            "\n"
+            "    if(argc >= 2)\n"
+            "    {\n"
+            "        test_no = atoi(argv[1]);\n"
+            "    }\n"
+            "    else\n"
+            "    {\n"
+            "        printf(\"Select Test\\n\");\n"
+            "        printf(\"-----------\\n\");\n"
+            "        printf(\"Test: All           0\\n\");\n"
+            "        printf(\"Test: Message       1\\n\");\n"
+            "        printf(\"Test: Exit         -1\\n\");\n"
+            "        printf(\"\\n\");\n"
+            "\n"
+            "        printf(\"Test : \");\n"
+            "        scanf(\"%%d\", &test_no);\n"
+            "        printf(\"\\n\");\n"
+            "    }\n"
+            "\n"
+            "    // Exit\n"
+            "    if(test_no == -1)\n"
+            "    {\n"
+            "        return 0;\n"
+            "    }\n"
+            "\n"
+            "    if(test_no == 0)\n"
+            "    {\n"
+            "        printf(\"Run All Tests\\n\");\n"
+            "        printf(\"-------------\\n\");\n"
+            "    }\n"
+            "\n"
+            "    if(test_no == 1 || test_no == 0)\n"
+            "    {\n"
+            "        Test_Message();\n"
+            "    }\n"
+            "\n"
+            "    EC_Error_Print_Msg(\"EC_Clean\", \"BEGIN\");\n"
+            "    Clean();\n"
+            "    EC_Test_Print_Msg(\"EC_Clean\", \"OK\", __LINE__);\n"
+            "    EC_Error_Print_Msg(\"EC_Clean\", \"END\");\n"
+            "\n"
+            "    printf(\"\\n\");\n"
+            "    printf(\"Test: %s Successful\\n\");\n"
+            "\n"
+            "    return 0;\n"
+            "}\n", argv[2], argv[2]);
+	}
+
+    // File pointer
+	sprintf(path_file, "%s%s%s%s", path, "tests/", argv[2], "_test.c");
+
+    // open file in write mode
+    fptr = fopen(path_file, "w");
+
+    // exiting program 
+    if (fptr == NULL)
+    {
+        printf("Error: Cannot create app_test.c file\n");
+    }
+    else
+    {
+        fprintf(fptr, "%s", main_test_file);
+        fclose(fptr);
+    }
+}
+
+void
+Create_Test_Header_File(char *argv[], char *path)
+{
+	char test_header_file[512];
+	char path_file[512];
+    FILE *fptr; //File pointer
+
+	sprintf(test_header_file, 
+		"#ifndef %s_TEST_H\n"
+		"#define %s_TEST_H\n\n"
+        "#include <assert.h>\n"
+		"#include \"ec.h\"\n"
+		"#include \"%s_version.h\"\n\n"
+		"#endif // %s_TEST_H\n"
+		, argv[2], argv[2], argv[2], argv[2]);
+
+	sprintf(path_file, "%s%s%s%s", path, "tests/", argv[2], "_test.h");
+
+    // open file in write mode
+    fptr = fopen(path_file, "w");
+
+    if (fptr != NULL)
+    {
+        fprintf(fptr, "%s", test_header_file);
+        fclose(fptr);
+    }
+    else
+    {
+        printf("Error: Cannot create app_test.h file\n");
+    }
+}
+
+
+void
+Create_Message_Test_File(char *argv[], char *path)
+{
+	char msg_test_file[2048];
+	char path_file[512];
+    FILE *fptr;
+
+	if(strcmp(argv[1], "app") == 0 )
+    {
+		sprintf(msg_test_file, 
+			"#include \"%s_test.h\"\n"
+			"#include \"message.h\"\n"
+            "\n"
+            "\n"
+            "void\n"
+            "Test_Set_Message()\n"
+            "{\n"
+            "    EC_Test_Print_Title(__func__, __FILE__);\n"
+            "    EC_Test_Print_Subtitle(\"Test: Set_Message\");\n"
+            "    EC_Error_Print_Msg(\"Test_Set_Message: \", \"BEGIN\");\n"
+            "\n"
+            "    char answer[64] = \"%s\";\n"
+            "\n"
+            "    strcpy(answer, Set_Message(answer));\n"
+            "\n"
+            "    assert(strcmp(answer, \"%s is running.\") == 0); // If answer is not equal assert function exit at here\n"
+            "    \n"
+            "    EC_Test_Print_Msg(\"Test: Set_Message\", \"OK\", __LINE__);\n"
+            "\n"
+            "    EC_Error_Print_Msg(\"Test_Set_Message: \", \"END\");\n"
+            "}\n"
+            "\n"
+            "\n"
+            "void\n"
+            "Test_Message()\n"
+            "{\n"
+            "    EC_Test_Print_Header(\"Test: App.c\");\n"
+            "\n"
+            "    Test_Set_Message();\n"
+            "    printf(\"\\n\");\n"
+            "\n"
+            "    EC_Error_Print_Msg(\"Test: App.c\", \"PASS\");\n"
+            "}\n"
+            , argv[2], argv[2], argv[2]);
+	}
+
+    // File pointer
+	sprintf(path_file, "%s%s", path, "tests/message_test.c");
+
+    // open file in write mode
+    fptr = fopen(path_file, "w");
+
+    // exiting program 
+    if (fptr == NULL)
+    {
+        printf("Error: Cannot create app_test.c file\n");
+    }
+    else
+    {
+        fprintf(fptr, "%s", msg_test_file);
+        fclose(fptr);
+    }
+}
+
+
+void
+Create_Test_Message_Header_File(char *argv[], char *path)
+{
+	char test_msg_header_file[512];
+	char path_file[512];
+    FILE *fptr; //File pointer
+
+	sprintf(test_msg_header_file, 
+		"#ifndef %s_TEST_H\n"
+		"#define %s_TEST_H\n\n"
+		"#include \"ec.h\"\n"
+		"#include \"%s_version.h\"\n\n"
+        "\n"
+        "void\n"
+        "Test_Message();\n"
+        "\n"
+		"#endif // %s_TEST_H\n"
+		, argv[2], argv[2], argv[2], argv[2]);
+
+	sprintf(path_file, "%s%s", path, "tests/message_test.h");
+
+    // open file in write mode
+    fptr = fopen(path_file, "w");
+
+    if (fptr != NULL)
+    {
+        fprintf(fptr, "%s", test_msg_header_file);
+        fclose(fptr);
+    }
+    else
+    {
+        printf("Error: Cannot create app_test.h file\n");
     }
 }
 
@@ -86,7 +405,7 @@ EC_Make_Sh_Create(char *argv[], char *path)
 	char app_name[32];
 	char lib_name[32];
 	char dir[4];
-	char ec_make_sh[2048];  
+	char make_sh[2048];  
 	char command[512];
 	char path_file[256];
     FILE *fptr;
@@ -103,12 +422,19 @@ EC_Make_Sh_Create(char *argv[], char *path)
         strcpy(app_name, argv[2]);
 
         sprintf(app_text, 
+            "if [ -f ../EC/ec ]\n"
+            "then\n"
+            "  ln -sf ../EC/ec ec\n"
+            "fi\n"
+            "\n"
             "if [ -f .ec/build/%s ]\n"
             "then\n"
-            "  cp -f .ec/build/%s %s\n"
-            "  ln -sf ../EC/ec ec\n"
-            "else\n"
-            "  echo 'Error: Unable to build'\n" 
+            "  mv -f .ec/build/%s %s\n"
+            "fi\n"
+            "\n"
+            "if [ -f .ec/build/test ]\n"
+            "then\n"
+            "  mv -f .ec/build/test test\n"
             "fi\n", app_name, app_name, app_name);
 
         sprintf(app_remove_text,
@@ -128,11 +454,17 @@ EC_Make_Sh_Create(char *argv[], char *path)
 	    sprintf(lib_name, "%s%s%s", "lib", argv[2], ".so");
 
         sprintf(lib_text, 
+            "if [ -f ../EC/ec ]\n"
+            "then\n"
+            "  ln -sf ../EC/ec ec\n"
+            "fi\n"
             "if [ -f .ec/build/%s ]\n"
             "then\n"
-            "  cp -f .ec/build/%s %s\n"
-            "elso\n"
-            "  echo 'Error: Unable to build\n'"
+            "  mv -f .ec/build/%s %s\n"
+            "fi\n"
+            "if [ -f .ec/build/test ]\n"
+            "then\n"
+            "  mv -f .ec/build/test test\n"
             "fi\n", lib_name, lib_name, lib_name);
 
         sprintf(lib_remove_text,
@@ -150,7 +482,7 @@ EC_Make_Sh_Create(char *argv[], char *path)
     sprintf(text_sh, "%s%s", app_text, lib_text);
     sprintf(remove_text_sh, "%s%s", app_remove_text, lib_remove_text);
 
-	sprintf(ec_make_sh, 
+	sprintf(make_sh, 
 		"#!/bin/bash\n"
 		"\n"
 		"if [ ! -d .ec/build ]\n"
@@ -172,7 +504,7 @@ EC_Make_Sh_Create(char *argv[], char *path)
 
 	//printf("cmake %ld\n", strlen(cmake_file));
 
-	sprintf(path_file, "%s/.ec/ec_make.sh", path);
+	sprintf(path_file, "%s/.ec/make.sh", path);
 
     // File pointer
 
@@ -182,11 +514,11 @@ EC_Make_Sh_Create(char *argv[], char *path)
     // exiting program 
     if(fptr == NULL)
     {
-        printf("Error: Cannot create ec_make.sh file\n");
+        printf("Error: Cannot create make.sh file\n");
         exit(1);
     }
 
-    fprintf(fptr, "%s", ec_make_sh);
+    fprintf(fptr, "%s", make_sh);
 
     fclose(fptr);
 
@@ -226,7 +558,7 @@ EC_Run_Sh_Create(char *argv[], char *path)
 
 	//printf("cmake %ld\n", strlen(cmake_file));
 
-	sprintf(path_file, "%s/.ec/ec_run.sh", path);
+	sprintf(path_file, "%s/.ec/run.sh", path);
 
     // File pointer
 
@@ -236,7 +568,7 @@ EC_Run_Sh_Create(char *argv[], char *path)
     // exiting program 
     if(fptr == NULL)
     {
-        printf("Error: Cannot create ec_make.sh file\n");
+        printf("Error: Cannot create make.sh file\n");
         exit(1);
     }
 
@@ -259,7 +591,7 @@ EC_Create_Remove_Todo_Tmp_Sh(char *argv[], char *path)
 {
 	char name[128];
 	char dir[4];
-	char ec_remove_todo_tmp_sh[128];  
+	char remove_todo_tmp_sh[128];  
 	char command[512];
 	char path_file[32];
     FILE *fptr;
@@ -275,14 +607,14 @@ EC_Create_Remove_Todo_Tmp_Sh(char *argv[], char *path)
         return;
 	}
 	
-	sprintf(ec_remove_todo_tmp_sh, 
+	sprintf(remove_todo_tmp_sh, 
 		"#!/bin/bash\n"
 		"\n"
 		"if [ -f \".ec/todo.tmp\" ]; then\n"
         "rm .ec/todo.tmp\n"
 		"fi\n");
 
-	sprintf(path_file, "%s.ec/ec_remove_todo_tmp.sh", path);
+	sprintf(path_file, "%s.ec/remove_todo_tmp.sh", path);
 
     // File pointer
 
@@ -292,11 +624,11 @@ EC_Create_Remove_Todo_Tmp_Sh(char *argv[], char *path)
     // exiting program 
     if(fptr == NULL)
     {
-        printf("Error: Cannot create ec_remove_todo_tmp.sh file\n");
+        printf("Error: Cannot create remove_todo_tmp.sh file\n");
         exit(1);
     }
 
-    fprintf(fptr, "%s", ec_remove_todo_tmp_sh);
+    fprintf(fptr, "%s", remove_todo_tmp_sh);
 
     fclose(fptr);
 
@@ -337,24 +669,30 @@ Create_App_CMake_File(char *app_name, char *path)
 		"get_filename_component(PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)\n"
 		"get_filename_component(PARENT2_DIR ${PARENT_DIR} DIRECTORY)\n"
 		"\n"
-		"#Set include directories\n"
-		"set (PROJECT_INCLUDE_DIRS ${PARENT_DIR}/src ${PARENT_DIR}/include ${PARENT2_DIR}/EC/src \"/usr/local/include\")\n"
+		"#include directories add .h headder files\n"
+		"set (PROJECT_INCLUDE_DIRS ${PARENT_DIR}/src ${PARENT_DIR}/tests ${PARENT2_DIR}/EC/src/lib \"/usr/local/include\")\n"
 		"include_directories(${PROJECT_INCLUDE_DIRS})\n"
 		"\n"
-		"#Set link directories\n"
+		"#file(GLOB...) add .c source files\n"
+		"file(GLOB SOURCE_FILES \"${PARENT_DIR}/src/*.c\")\n"
+        "file(GLOB TEST_SOURCE_FILES \"${PARENT_DIR}/tests/*.c\")\n"
+		"\n"
+		"#Set libraries\n"
 		"set (PROJECT_LINK_DIRS ${PARENT2_DIR}/EC)\n"
 		"set (PROJECT_LINK_LIBS libEC.so)\n"
 		"link_directories (${PROJECT_LINK_DIRS})\n"
 		"\n"
-		"#function file(GLOB...) allows for wildcard additions\n"
-		"file(GLOB SOURCE_FILES \"${PARENT_DIR}/src/*.c\")\n"
-		"\n"
-		"#Generate executable from the sources\n"
+		"#Generate executables\n"
 		"add_executable(${PROJECT_NAME} ${SOURCE_FILES})\n"
-		"target_link_libraries(${PROJECT_NAME} ${PROJECT_LINK_LIBS})\n"
-		"\n"		
+        "list(FILTER SOURCE_FILES EXCLUDE REGEX \"%s.c\")\n"
+        "add_executable(test ${TEST_SOURCE_FILES} ${SOURCE_FILES})\n"
+		"\n"
+        "#Link libraries\n"
+		"target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${PROJECT_LINK_LIBS})\n"
+		"target_link_libraries(test LINK_PUBLIC ${PROJECT_LINK_LIBS})\n"
+		"\n"
 		"#message (\"${PROJECT_SOURCE_DIR}\")\n"
-	, app_name);
+        , app_name, app_name);
 
 	//printf("cmake %ld\n", strlen(cmake_file));
 
@@ -365,10 +703,10 @@ Create_App_CMake_File(char *app_name, char *path)
 
     sprintf(path_file, "%s.ec/CMakeLists.txt", path);
 
-    // open file in write mode
+    // Open file in write mode
     fptr = fopen(path_file, "w");
 
-    // exiting program 
+    // Exit when fail
     if (fptr == NULL)
     {
         printf("Error: Cannot create app makefile\n");
@@ -449,7 +787,7 @@ EC_Create_App_Lib_Directories(char *argv[], char *path)
 {
 	char command[512];
 
-	char *directories[2] = {"src", ".ec"}; 
+	char *directories[3] = {"src", ".ec", "tests"}; 
 
 	sprintf(command, "mkdir %s%s", path, argv[2]);
 
@@ -458,7 +796,7 @@ EC_Create_App_Lib_Directories(char *argv[], char *path)
 		printf ("system function failier\n");
 	}
 
-	for(int i = 0; i < 2; i++)
+	for(int i = 0; i < 3; i++)
     {
 		sprintf(command, "%s%s%s%s%s", "mkdir ", path, argv[2], "/", directories[i]);
 
@@ -489,15 +827,21 @@ EC_Copy_EC(char *argv[], char *app_path)
 void
 EC_App(char *argv[], char *path)
 {
-	EC_Create_App_Lib_Directories(argv, path);
+    char app_path[128];
 
-    char app_path[128] = {'\0'};
+	EC_Create_App_Lib_Directories(argv, path);
 
     sprintf(app_path, "%s%s/", path, argv[2]);
 
 	EC_Make_Sh_Create(argv, app_path);
-	Create_Main_Files(argv, app_path);
-	Create_Header_Files(argv, app_path);
+	Create_Main_File(argv, app_path);
+	Create_Header_File(argv, app_path);
+    Create_Message_File(argv, app_path);
+    Create_Message_Header_File(argv, app_path);
+	Create_Test_Main_File(argv, app_path);
+	Create_Test_Header_File(argv, app_path);
+    Create_Message_Test_File(argv, app_path);
+    Create_Test_Message_Header_File(argv, app_path);
 	Create_App_CMake_File(argv[2], app_path);
     EC_Todo_Create_File(argv, app_path);
 	EC_Version_Update(argv, app_path);
@@ -511,35 +855,38 @@ EC_App(char *argv[], char *path)
 void
 EC_Lib(char *argv[], char *path)
 {
+    char lib_path[128];
+
 	EC_Create_App_Lib_Directories(argv, path);
 
-    char app_path[128] = {'\0'};
+    sprintf(lib_path, "%s%s/", path, argv[2]);
 
-	strcat(app_path, path);
-	strcat(app_path, argv[2]);
-	strcat(app_path, "/");
-
-	EC_Make_Sh_Create(argv, app_path);
-	Create_Header_Files(argv, app_path);
-	Create_Lib_CMake_File(argv, app_path);
-    EC_Todo_Create_File(argv, app_path);
-	EC_Version_Update(argv, app_path);
-    EC_Create_Remove_Todo_Tmp_Sh(argv, app_path);
-    EC_User_Create_File(app_path);
+	EC_Make_Sh_Create(argv, lib_path);
+	Create_Header_File(argv, lib_path);
+    Create_Message_Header_File(argv, lib_path);
+	Create_Test_Main_File(argv, lib_path);
+	Create_Test_Header_File(argv, lib_path);
+    Create_Message_Test_File(argv, lib_path);
+    Create_Test_Message_Header_File(argv, lib_path);
+	Create_Lib_CMake_File(argv, lib_path);
+    EC_Todo_Create_File(argv, lib_path);
+	EC_Version_Update(argv, lib_path);
+    EC_Create_Remove_Todo_Tmp_Sh(argv, lib_path);
+    EC_User_Create_File(lib_path);
 }
 
 
 void
 EC_Make()
 {
-    if (system("sh ./.ec/ec_make.sh") == 0)
+    if (system("sh .ec/make.sh") == 0)
     {
         printf("\n");
         printf("[ Help: \"ec -h\" ] [ Change user: \"ec user -c\" ]\n"); 
     }
     else
     {
-        printf ("system in EC_Make fail\n");
+        printf ("System fail. make.sh error\n");
     }
 }
 
@@ -547,7 +894,7 @@ EC_Make()
 void
 EC_Run()
 {
-    if (system("sh ./.ec/ec_run.sh") != 0)
+    if (system("sh .ec/run.sh") != 0)
     {
         printf ("system in EC_Run failed\n");
     }
@@ -564,13 +911,12 @@ EC_Help()
 void
 Argc_1(char *argv[], char *path)
 {
-    FILE *ec_user_file;
-    char user_id[256];
-    char user_name[128];
-    int i = 0;
-    int line = 1;
-    char c;
-
+    FILE  *ec_user_file;
+    int    user_id;
+    char   user_name[128];
+    char   user_var[256];
+    int    line = 1;
+    char   c;
 	struct utsname unm; 
 	errno = 0; 
 
@@ -583,45 +929,21 @@ Argc_1(char *argv[], char *path)
 	printf("EC %d.%d.%d on ", EC_VERSION_YEARS, EC_VERSION_MONTHS, EC_VERSION_ADD_FIX);
 	printf("%s %s %s\n", unm.sysname, unm.release, unm.machine); 
     //printf("%s\n", unm.version);
+    // int r = system("cat /etc/os-release"); 
 
     //if(system("lsb_release -ds") == 0); 
 
-    // Open ec_user_local file
-    ec_user_file = fopen("../EC/.ec/ec_user_local", "r");
+    // Open user file
+    ec_user_file = fopen("../EC/.ec/user", "r");
         
     if(ec_user_file != NULL)
     {
-        i = 0;
-        while(line != 3)
+        while(!feof(ec_user_file))
         {
-            if(line == 1)
-            {
-                if ( (c = fgetc(ec_user_file)) != '\n')
-                {
-                    user_name[i++] = c;
-                }
-                else
-                {
-                    user_name[i] = '\0';
-                    line = 2;
-                    i = 0;
-                }
-            }
-
-            if(line == 2)
-            {
-                if ( (c = fgetc(ec_user_file)) != '\n')
-                {
-                    user_id[i++] = c;
-                }
-                else {
-                    user_id[i] = '\0';
-                    line = 3;
-                }
-            }
+            fscanf(ec_user_file, "%d\n%s\n%s\n%s\n%s\n\n,", &user_id, user_name, user_var, user_var, user_var);
         }
 
-        printf("User: %s ID: %s\n\n", user_name, user_id);
+        printf("User: %s ID: %d\n\n", user_name, user_id);
 
         fclose(ec_user_file);
     }
@@ -637,9 +959,14 @@ Argc_1(char *argv[], char *path)
 
             printf("\n");
 
-            EC_User_Add();
+            printf("Use:\n");
+            printf("%-25s%s\n", "ec user -n", "New user");
+            printf("%-25s%s\n", "ec user -a user_key", "User key");
+
+            return;
         }
-        else {
+        else
+        {
             printf("Dependency problem\n");
             return;
         }
@@ -675,7 +1002,7 @@ Argc_2(int argc, char *argv[], char *path)
     {
 		EC_Todo_Print_List(path);
     }
-    else if(strcmp(argv[1], "ec_make.sh") == 0)
+    else if(strcmp(argv[1], "make.sh") == 0)
     {
 		EC_Make();
     }
@@ -725,13 +1052,17 @@ Argc_3(int argc, char *argv[], char *path)
     {
         EC_Todo_Append(argc, argv, path);
     }
+    else if(strcmp(argv[1], "user") == 0 && strcmp(argv[2], "-n") == 0) 
+    {
+        EC_User_New(); // Add new user and output user key file
+    }
+    else if(strcmp(argv[1], "user") == 0 && strcmp(argv[2], "-k") == 0) 
+    {
+        EC_User_Key(); // Output a user key file according to current user
+    }
     else if(strcmp(argv[1], "user") == 0 && strcmp(argv[2], "-a") == 0) 
     {
         EC_User_Add();
-    }
-    else if(strcmp(argv[1], "user") == 0 && strcmp(argv[2], "-c") == 0) 
-    {
-        EC_User_Change();
     }
     else if(strcmp(argv[1], "user") == 0 && strcmp(argv[2], "--compiler") == 0) 
     {
@@ -819,7 +1150,6 @@ Argc_5(int argc, char *argv[], char *path)
 int
 main(int argc, char *argv[])
 {
-   // int r = system("cat /etc/os-release"); 
 
 	char path[128] = {'\0'};
 
@@ -846,8 +1176,10 @@ main(int argc, char *argv[])
 			break;
 	}
 
-    //EC_Total_Lines_Of_Code("src", 'c');
-    //EC_Total_Lines_Of_Code("src", 'h');
+    //EC_Total_Lines_Of_Code("src/ec", 'c');
+    //EC_Total_Lines_Of_Code("src/ec", 'h');
+    //EC_Total_Lines_Of_Code("src/lib", 'c');
+    //EC_Total_Lines_Of_Code("src/lib", 'h');
 
 	return 0;
 }

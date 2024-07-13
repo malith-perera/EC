@@ -1,7 +1,25 @@
 #include "ec_user.h"
 
 
-char *ec_user_file_key_names[EC_USER_KEYS] = {"Id", "User", "Email", "Compiler", "Editor"};
+char *user_file_key_names[EC_USER_KEYS] = {"Id", "User", "Email", "Compiler", "Editor"};
+
+
+int
+EC_Local_Id(void)
+{
+    int user_id;
+
+    // Set rand number as local id
+    srand(time(NULL));
+
+    while(user_id == 0)
+    {
+        user_id = rand();
+        user_id = (user_id / 10) * 10 + (rand() % 5);   // Set right most bit < 5 mean it's still a local id
+    }
+
+    return user_id;
+}
 
 
 void
@@ -28,12 +46,131 @@ EC_User_Create_File(char *app_path)
 
 
 void
+EC_User_New(void)
+{
+    FILE *fptr;
+    int id;
+    char name[64];
+    char email[256];
+    char compiler[32];
+    char editor[32];
+    char key_file[128];
+    char key_path_file[256];
+
+    printf("Add new user\n");
+    printf("------------\n");
+    printf("Name    : ");
+    scanf("%s", name);
+
+    printf("Email   : ");
+    scanf("%s", email);
+
+    printf("Compiler: ");
+    scanf("%s", compiler);
+
+    printf("Editor  : ");
+    scanf("%s", editor);
+
+    fptr = fopen(".ec/user", "a");
+
+    if(fptr != NULL)
+    {
+        id = EC_Local_Id();
+        fprintf(fptr, "%d\n%s\n%s\n%s\n%s\n\n", id, name, email, compiler, editor);
+        fclose(fptr);
+        fptr = NULL;
+
+        sprintf(key_file, "%s.key", name);
+
+        fptr = fopen(key_file, "w");
+
+        if(fptr != NULL)
+        {
+            fprintf(fptr, "%d\n%s\n%s\n%s\n%s\n\n", id, name, email, compiler, editor);
+            fclose(fptr);
+
+            printf("\n"); 
+            printf("ID      : %d\n", id);
+            printf("Key file: %s\n", key_file); 
+            printf("\n"); 
+            printf("Use:\n");
+            printf("%s %-20s%s\n", "ec user -a", key_file, "Add user to a project");
+        }
+        else
+        {
+            printf("Unable to create key_file\n");
+        }
+    }
+    else
+    {
+        printf("cannot open user file\n");
+    }
+}
+
+
+void
+EC_User_Key(void)
+{
+    FILE *fptr;
+    int  user_id;
+    char user_name[64];
+    char *email;
+    char *compiler;
+    char *editor;
+    char file_name[256];
+
+    fptr = fopen("user_current", "r");
+
+    if(fptr != NULL)
+    {
+        fscanf(fptr, "%d\n%s", &user_id, user_name);
+
+        // Search user from user_local file
+
+        if(user_id && user_name)
+        {
+            printf("User key file based on current user\n");
+            printf("Current user: %s\nID: %d\n", user_name, user_id);
+
+            fclose(fptr);
+            fptr = NULL;
+
+            sprintf(file_name, "ec_key-%s.txt", user_name);
+
+            fptr = fopen(file_name, "w");
+
+            if(fptr != NULL)
+            {
+                fprintf(fptr, "%d\n%s\n%s\n%s\n%s\n", user_id, user_name, email, compiler, editor);
+
+                fclose(fptr);
+
+                printf("User key file created: ec_key-%s\n", user_name);
+            }
+            else
+            {
+                printf("User key file cannot be created\n");
+            }
+        }
+        else
+        {
+            fclose(fptr);
+        }
+    }
+    else
+    {
+        printf("Cannot open user_current file\n");
+    }
+}
+
+
+void
 EC_User_Add(void)
 {
-    FILE *ec_user_file_ptr;
-    FILE *ec_user_local_file_ptr;
-    FILE *ec_user_current_file_ptr;
-    char new_lines[EC_USER_KEYS - 2];
+    FILE *user_file_ptr;
+    FILE *user_local_file_ptr;
+    FILE *user_current_file_ptr;
+    char new_lines[EC_USER_KEYS - 2] = {'\0',};
     char user_name[128];
     int  user_id = 0;
     int  user_id_current = 0;
@@ -45,14 +182,12 @@ EC_User_Add(void)
     struct UserCurrent user_current;
     User user;
 
-    ec_user_local_file_ptr = fopen(".ec/user_local", "r");
+    user_local_file_ptr = fopen(".ec/user_local", "r");
 
-    if(ec_user_local_file_ptr != NULL)
+    if(user_local_file_ptr != NULL)
     {
         printf("You are in EC directory.\n");
-        printf("Do you want to add as a EC core developer?\n");
-        printf("You will be able to bug fix or add new things to EC\n");
-        printf("Yes(y)/No(n)?");
+        printf("Do you want to add as a EC core developer? [Yes(y)/No(n)]\n");
         scanf("%s", answer);
 
         EC_Strip(answer);
@@ -61,19 +196,19 @@ EC_User_Add(void)
 
         if (strcmp(answer, "n") == 0 || strcmp(answer, "no") == 0)
         {
-            printf("Please move into your projects directory and use \"ec user -a\"\n");
+            printf("Please move into your project directory and use \"ec user -a\"\n");
         }
         else if(strcmp(answer, "y") == 0 || strcmp(answer, "yes") == 0)
         {
-            ec_user_file_ptr = fopen("../EC/.ec/ec_user", "a");
-            ec_user_local_file_ptr = fopen("../EC/.ec/ec_user_local", "r");
-            ec_user_current_file_ptr = fopen("../EC/.ec/ec_user_current", "r");
+            user_file_ptr = fopen("../EC/.ec/user", "a");
+            user_local_file_ptr = fopen("../EC/.ec/user_local", "r");
+            user_current_file_ptr = fopen("../EC/.ec/user_current", "r");
 
             i = 0; 
             line = 1;
 
             // Get current User info
-            while((c = fgetc(ec_user_current_file_ptr)) != EOF)
+            while((c = fgetc(user_current_file_ptr)) != EOF)
             {
                 if(line == 1) 
                 {
@@ -107,7 +242,7 @@ EC_User_Add(void)
             line = 1;
             i = 0;
 
-            while((c = fgetc(ec_user_local_file_ptr)) != EOF)
+            while((c = fgetc(user_local_file_ptr)) != EOF)
             {
                 if(line == 1)
                 {
@@ -125,7 +260,7 @@ EC_User_Add(void)
                         {
                             line = 1;
                             do {
-                                c = fgetc(ec_user_local_file_ptr);
+                                c = fgetc(user_local_file_ptr);
 
                                 if (c == '\n')
                                 {
@@ -138,7 +273,7 @@ EC_User_Add(void)
                             line = 2;
 
                             do {
-                                c = fgetc(ec_user_local_file_ptr);
+                                c = fgetc(user_local_file_ptr);
 
                                 if (c != '\n')
                                 {
@@ -183,29 +318,21 @@ EC_User_Add(void)
             printf ("Unknown option\n");
         }
 
-        fclose(ec_user_file_ptr);
-        fclose(ec_user_current_file_ptr);
-        fclose(ec_user_local_file_ptr);
+        fclose(user_file_ptr);
+        fclose(user_current_file_ptr);
+        fclose(user_local_file_ptr);
     }
     else
     {
-        ec_user_file_ptr = fopen(".ec/ec_user", "a");
+        user_file_ptr = fopen(".ec/user", "a");
 
-        if(ec_user_file_ptr != NULL)
+        if(user_file_ptr != NULL)
         {
             printf("Enter user name: ");
             scanf("%s", user_name);
 
-            // Set rand number as local id
-            srand(time(NULL));
-
-            while(user_id == 0)
-            {
-                user_id = rand();
-                user_id = (user_id / 10) * 10 + 1;   // Set right most bit to 1 mean it's still a local id
-            }
-
-            strcpy(new_lines, ""); // Without strcpy strcat do not append '\0'
+            user_id = EC_Local_Id(); 
+            strcpy(new_lines, "");
 
             i = 0;
 
@@ -217,24 +344,25 @@ EC_User_Add(void)
 
             printf("\n");
             printf("New user added\n");
+            printf("--------------\n");
             printf("User name: %s\nLocal ID : %d\n\n", user_name, user_id);
 
-            fprintf(ec_user_file_ptr, "%d\n%s\n%s", user_id, user_name, new_lines);
+            fprintf(user_file_ptr, "%d\n%s\n%s", user_id, user_name, new_lines);
 
-            fclose(ec_user_file_ptr);
+            fclose(user_file_ptr);
 
-            ec_user_file_ptr = NULL;
+            user_file_ptr = NULL;
 
-            ec_user_file_ptr = fopen("../EC/.ec/ec_user_current", "w");
+            user_file_ptr = fopen("../EC/.ec/user_current", "w");
 
-            if(ec_user_file_ptr != NULL)
+            if(user_file_ptr != NULL)
             {
-                fprintf(ec_user_file_ptr, "%d\n%s", user_id, user_name);
-                fclose(ec_user_file_ptr);
+                fprintf(user_file_ptr, "%d\n%s", user_id, user_name);
+                fclose(user_file_ptr);
             }
             else
             {
-                printf("Error: Unable to open ec_user_current file\n");
+                printf("Error: Unable to open user_current file\n");
             }
         }
         else
@@ -249,6 +377,7 @@ EC_User_Add(void)
 void
 EC_User_Get_All()
 {
+    // If more than one user
     printf("Show All users\n");
     // Get all users from user_local file in EC/.ec
     //EC_Dir_Search("..", "");
@@ -261,23 +390,23 @@ EC_User_Get_All()
 void
 EC_User_Change(void)
 {
-    FILE *ec_user_file_ptr;
+    FILE *user_file_ptr;
     char user_name[128];
     int  user_id = 0;
     int  user_number = 0;
     char c;
     int  i = 0;
 
-    ec_user_file_ptr = fopen("../EC/.ec/ec_user_current", "r");
+    user_file_ptr = fopen("../EC/.ec/user_current", "r");
 
     printf("Current User:\n");
 
-    if(ec_user_file_ptr)
+    if(user_file_ptr)
     {
         i = 0;
-        printf("%-6s : ", ec_user_file_key_names[i++]);
+        printf("%-6s : ", user_file_key_names[i++]);
 
-        while((c = fgetc(ec_user_file_ptr)) != EOF)
+        while((c = fgetc(user_file_ptr)) != EOF)
         {
             if(c != '\n')
             {
@@ -286,15 +415,16 @@ EC_User_Change(void)
             else
             {
                 printf("\n");
-                printf("%-6s : ", ec_user_file_key_names[i]);
+                printf("%-6s : ", user_file_key_names[i]);
                 i++;
             }
         }
 
-        printf("\n");
+        printf("\n\n");
 
         EC_User_Get_All();
 
+        printf("\n");
         printf("Enter user number: ");
         scanf("%d", &user_number);
 
@@ -306,7 +436,7 @@ EC_User_Change(void)
         printf("Id  : %d\n", user_id);
 
 
-        fclose(ec_user_file_ptr);
+        fclose(user_file_ptr);
     }
 }
 
@@ -322,13 +452,13 @@ EC_User_Update_File(char *row_str, UserFileKey KEY, UserFileType file_type)
 
     if (file_type = EC_USER_FILE)
     {
-        fptr = fopen("../EC/.ec/ec_user", "r");
-        fptr2 = fopen("../EC/.ec/ec_user.tmp", "w");
+        fptr = fopen("../EC/.ec/user", "r");
+        fptr2 = fopen("../EC/.ec/user.tmp", "w");
     }
     else if (file_type == EC_USER_LOCAL_FILE)
     {
-        fptr = fopen("../EC/.ec/ec_user_local", "r");
-        fptr2 = fopen("../EC/.ec/ec_user_local.tmp", "w");
+        fptr = fopen("../EC/.ec/user_local", "r");
+        fptr2 = fopen("../EC/.ec/user_local.tmp", "w");
     }
 
     if (fptr != NULL && fptr2 != NULL)
@@ -362,18 +492,18 @@ EC_User_Update_File(char *row_str, UserFileKey KEY, UserFileType file_type)
     }
     else
     {
-        printf("Error: ec_user cannot open write mode.\n");
+        printf("Error: user cannot open write mode.\n");
     }
 
     if (file_type = EC_USER_FILE)
     {
-        fptr = fopen("../EC/.ec/ec_user", "w");
-        fptr2 = fopen("../EC/.ec/ec_user.tmp", "r");
+        fptr = fopen("../EC/.ec/user", "w");
+        fptr2 = fopen("../EC/.ec/user.tmp", "r");
     }
     else if (file_type == EC_USER_LOCAL_FILE)
     {
-        fptr = fopen("../EC/.ec/ec_user_local", "w");
-        fptr2 = fopen("../EC/.ec/ec_user_local.tmp", "r");
+        fptr = fopen("../EC/.ec/user_local", "w");
+        fptr2 = fopen("../EC/.ec/user_local.tmp", "r");
     }
 
     if (fptr != NULL && fptr2 != NULL)
@@ -388,7 +518,7 @@ EC_User_Update_File(char *row_str, UserFileKey KEY, UserFileType file_type)
     }
     else
     {
-        printf ("Error: could not update ec_user file\n");
+        printf ("Error: could not update user file\n");
     }
 }
 
@@ -412,7 +542,7 @@ EC_User_Name(int argc, char *argv[], UserFileType file_type)
     }
     else
     {
-        printf("Cannot add user name to ec_user file. Unknown amount of arguments\n");
+        printf("Cannot add user name to user file. Unknown amount of arguments\n");
     }
 }
 
@@ -436,7 +566,7 @@ EC_User_Compiler(int argc, char *argv[], UserFileType file_type)
     }
     else
     {
-        printf("Cannot add user compiler to ec_user file. Unknown amount of arguments\n");
+        printf("Cannot add user compiler to user file. Unknown amount of arguments\n");
     }
 }
 
@@ -460,7 +590,7 @@ EC_User_Email(int argc, char *argv[], UserFileType file_type)
     }
     else
     {
-        printf("Cannot add user email address to ec_user file. Unknown amount of arguments\n");
+        printf("Cannot add user email address to user file. Unknown amount of arguments\n");
     }
 }
 
@@ -484,7 +614,7 @@ EC_User_Editor(int argc, char *argv[], UserFileType file_type)
     }
     else
     {
-        printf("Cannot add user editor to ec_user file. Unknown amount of arguments\n");
+        printf("Cannot add user editor to user file. Unknown amount of arguments\n");
     }
 }
 
@@ -498,14 +628,14 @@ EC_User_Print_File(UserFileType file_type)
 
     if(file_type == EC_USER_CURRENT_FILE)
     {
-        fptr = fopen("../EC/.ec/ec_user_current", "r");
+        fptr = fopen("../EC/.ec/user_current", "r");
     }
     else
     {
-        fptr = fopen("../EC/.ec/ec_user", "r");
+        fptr = fopen("../EC/.ec/user", "r");
     }
 
-    printf("%-12s: ", ec_user_file_key_names[i++]); // Print ec_user_file first key
+    printf("%-12s: ", user_file_key_names[i++]); // Print user_file first key
 
     if (fptr != NULL)
     {
@@ -515,7 +645,7 @@ EC_User_Print_File(UserFileType file_type)
 
             if(c == '\n' && i < EC_USER_KEYS - 1)
             {
-                printf("%-12s: ", ec_user_file_key_names[i++]);
+                printf("%-12s: ", user_file_key_names[i++]);
             }
         }
         printf("\n");
@@ -524,6 +654,6 @@ EC_User_Print_File(UserFileType file_type)
     }
     else
     {
-        printf("Error: cannot open ec_user file to print before change\n");
+        printf("Error: cannot open user file to print before change\n");
     }
 }

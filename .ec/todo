@@ -44,3 +44,4 @@ Change current working user:;a:;o
 find function in a file:;a:;o
 Change Todo list according to display size:;a:;r
 Display who did the job:;a:;r
+Add tests directory and files:;a:;r

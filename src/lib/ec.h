@@ -67,7 +67,7 @@
 #include <time.h>
 
 #include "ec_test.h"
-
+#include "ec_file.h"
 #include "ec_debug.h"
 
 #include "ec_text_color.h"
@@ -85,8 +85,6 @@
 #include "ec_stack.h"
 #include "ec_string.h"
 #include "ec_ecs.h"
-
-#include "ec_version.h"
 
 //#include "ec_syntax.h"
 //#include "ec_bits.h"

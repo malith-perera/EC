@@ -4,7 +4,9 @@ build/
 *.swo
 *.md.backup
 *.tmp
-ec_local_user
-test
 libEC.so
 ec
+test
+deps
+*.key
+user_current
