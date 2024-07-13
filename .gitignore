@@ -5,7 +5,7 @@ build/
 *.md.backup
 *.tmp
 libEC.so
-ec
+/ec
 test
 deps
 *.key
