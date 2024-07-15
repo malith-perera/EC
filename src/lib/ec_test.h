@@ -38,6 +38,14 @@ void
 EC_Test_Print_Adr (char *msg, void *adrs);
 
 
+void
+EC_Test(char *test_number_text);
+
+
+void
+EC_Test_Help();
+
+
 #define EC_UNLOCK_FUNCTION(TYPE)                \
 void                                            \
 EC_UNLOCK_FUNCTION_NAME(TYPE)                   \

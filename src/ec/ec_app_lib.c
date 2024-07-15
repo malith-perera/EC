@@ -5,6 +5,22 @@
 
 
 void
+App_Help()
+{
+    printf("Use:\n");
+    printf("ec app app_name\n");
+}
+
+
+void
+Lib_Help()
+{
+    printf("Use:\n");
+    printf("ec lib lib_name\n");
+}
+
+
+void
 Create_Main_File(char *argv[], char *path)
 {
 	char main_file[512];
@@ -821,7 +837,7 @@ EC_Copy_EC(char *argv[], char *app_path)
 
 
 void
-EC_App(char *argv[], char *path)
+EC_Create_App(char *argv[], char *path)
 {
     char app_path[128];
 
@@ -849,7 +865,7 @@ EC_App(char *argv[], char *path)
 
 
 void
-EC_Lib(char *argv[], char *path)
+EC_Create_Lib(char *argv[], char *path)
 {
     char lib_path[128];
 

@@ -2,16 +2,6 @@
 #include "ec_cli.h"
 
 
-void
-Total_Lines()
-{
-    EC_Total_Lines_Of_Code("src/ec", 'c');
-    EC_Total_Lines_Of_Code("src/ec", 'h');
-    EC_Total_Lines_Of_Code("src/lib", 'c');
-    EC_Total_Lines_Of_Code("src/lib", 'h');
-}
-
-
 int
 main(int argc, char *argv[])
 {
@@ -40,8 +30,8 @@ main(int argc, char *argv[])
             printf ("Too many amount of arguments\n");
 			break;
 	}
-
-    //Total_Lines();
+    
+    Clean();
 
 	return 0;
 }

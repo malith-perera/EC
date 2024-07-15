@@ -5,6 +5,14 @@
 
 
 void
+App_Help();
+
+
+void
+Lib_Help();
+
+
+void
 Create_Main_File(char *argv[], char *path);
 
 
@@ -145,11 +153,11 @@ EC_Copy_EC(char *argv[], char *app_path);
 
 
 void
-EC_App(char *argv[], char *path);
+EC_Create_App(char *argv[], char *path);
 
 
 void
-EC_Lib(char *argv[], char *path);
+EC_Create_Lib(char *argv[], char *path);
 
 
 #endif // EC_APP_LIB_H

@@ -21,6 +21,10 @@ EC_Todo_Print_List(char *path);
 
 
 void
+EC_Todo_Help_Change_Position();
+
+
+void
 EC_Todo_Append(int argc, char *argv[], char *path);
 
 
@@ -34,6 +38,10 @@ EC_Todo_Discription(int argc, char *argv[]);
 
 void
 EC_Todo_Remove(char *argv[], int argc, char *path);
+
+
+void
+EC_Todo_Change_Position(char *argv[]);
 
 
 void

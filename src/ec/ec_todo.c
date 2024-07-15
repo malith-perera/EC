@@ -9,6 +9,13 @@
    Desctiption
  */
 
+typedef struct Todo {
+    char task[128];
+    char options[4];
+} Todo;
+
+EC(Todo)
+
 void
 EC_Todo_Create_File(char *argv[], char *path)
 {
@@ -42,6 +49,16 @@ void
 Todo_Print_Type_Options()
 {
     printf("Type: [ a = addition ] [ b = bugfix ]\n");
+}
+
+
+void
+EC_Todo_Help_Change_Position()
+{
+    printf("Use:\n");
+    printf("ec todo -p  lines                 lines up\n");
+    printf("ec todo -p -lines                 lines down\n");
+    printf("ec todo -p  now_line new_line     change position\n");
 }
 
 
@@ -114,7 +131,7 @@ EC_Todo_Print(FILE *fptr)
             }
 
             type = todo_str[j + 2];
-            urgency = todo_str[j + 5];
+            urgency = todo_str[j + 3];
 
             // Type
             if (type == 'a')
@@ -496,5 +513,211 @@ EC_Todo_Remove(char *argv[], int argc, char *path)
     }
     else {
         printf ("Error: could not update todo file\n");
+    }
+}
+
+
+void
+EC_Todo_Change_Position(char *argv[])
+{
+    FILE *fptr, *fptr_tmp;
+    char  task[512];
+    char  options[4];
+    char  c;
+    int   section = 1;
+    int   i = 0;
+    Todo *todo = NULL;
+    Todo *line = NULL;
+
+    int old_pos = atoi(argv[2]);
+    int new_pos = atoi(argv[3]);
+
+    if(old_pos == new_pos) return;
+
+    TodoList *list = Todo_List();
+
+    if( old_pos != 0 && new_pos != 0)
+    {
+        // Open file in write mode
+        fptr= fopen(".ec/todo", "r");
+        fptr_tmp = fopen(".ec/todo.tmp", "w"); // todo.tmp is used to protect todo file without currupting
+
+        if (fptr != NULL) 
+        {
+            while((c = fgetc(fptr)) != EOF)
+            {
+                if(section == 1)
+                {
+                    if(c != ':')
+                    {
+                        task[i++] = c;
+                    }
+                    else
+                    {
+                        if((c = fgetc(fptr)) == ';')
+                        {
+                            task[i] = '\0';
+                            i = 0;
+                            section = 2;
+                        }
+                        else
+                        {   
+                            task[i] = ':';
+                            task[++i] = c;
+                        }
+                    }
+                }
+                else
+                {
+                    if(c != '\n')
+                    {
+                        options[i++] = c;
+                    }
+                    else
+                    {
+                        options[i] = '\0';
+                        i = 0;
+                        section = 1;
+
+                        Todo *td = Todo_New();
+                        strcpy(td->task, task);
+                        strcpy(td->options, options);
+                        Todo_Append(list, td);
+                    }
+                }
+            }
+
+            i = 1;
+
+            if(old_pos < new_pos)
+            {
+                for_list(list, todo)
+                {
+                    if(i == old_pos)
+                    {
+                        line = todo;
+                    }
+                    else if(i == new_pos)
+                    {
+                        fprintf(fptr_tmp, "%s:;%s\n", todo->task, todo->options);
+                        fprintf(fptr_tmp, "%s:;%s\n", line->task, line->options);
+                    }
+                    else
+                    {
+                        fprintf(fptr_tmp, "%s:;%s\n", todo->task, todo->options);
+                    }
+
+                    i++;
+                }
+
+                if (new_pos >= i || old_pos >= i || new_pos <= 0 || old_pos <= 0)
+                {
+                    printf("Position out of range\n");
+                    fclose(fptr);
+                    fclose(fptr_tmp);
+                    return;
+                }
+            }
+            else // old_pos > new_pos
+            {
+                i = 1;
+                for_list(list, todo)
+                {
+                    if(i == old_pos)
+                    {
+                        line = todo;
+                        break;
+                    }
+
+                    i++;
+                }
+
+                if(line == NULL)
+                {
+                    printf("Position out of range\n");
+                    fclose(fptr);
+                    fclose(fptr_tmp);
+                    return;
+                }
+
+                i = 1;
+                for_list(list, todo)
+                {
+                    if(i == new_pos)
+                    {
+                        fprintf(fptr_tmp, "%s:;%s\n", line->task, line->options);
+                        fprintf(fptr_tmp, "%s:;%s\n", todo->task, todo->options);
+                    }
+                    else if(i == old_pos)
+                    {
+                        i++;
+                        continue;
+                    }
+                    else
+                    {
+                        fprintf(fptr_tmp, "%s:;%s\n", todo->task, todo->options);
+                    }
+
+                    i++;
+                }
+
+                if(new_pos >= i || new_pos <= 0 || old_pos <= 0)
+                {
+                    printf("Position out of range\n");
+                    fclose(fptr);
+                    fclose(fptr_tmp);
+                    return;
+                }
+            }
+
+            fclose(fptr);
+            fptr = NULL;
+
+            fclose(fptr_tmp);
+            fptr_tmp = NULL;
+
+            // Write todo file from todo.tmp
+            // ** use list instead
+
+            fptr= fopen(".ec/todo", "w");
+            fptr_tmp = fopen(".ec/todo.tmp", "r");
+
+            if(fptr != NULL)
+            {
+                while((c = fgetc(fptr_tmp)) != EOF)
+                {
+                    fputc(c, fptr);
+                }
+
+                fclose(fptr_tmp);
+                fclose(fptr);
+                fptr = NULL;
+
+                if (system("rm -f .ec/todo.tmp") != 0)
+                {
+                    printf("Unable to remove todo.tmp file\n");
+                }
+
+                fptr= fopen(".ec/todo", "r");
+
+                if(fptr != NULL)
+                {
+                    EC_Todo_Print(fptr);
+                    fclose(fptr);
+                }
+            }
+            else
+            {
+                printf("Error: Unable to open todo in write mode\n");
+            }
+        }
+        else 
+        {
+            printf("Error: Cannot open todo file in read mode.\n");
+        }
+    }
+    else
+    {
+        EC_Todo_Help_Change_Position();
     }
 }

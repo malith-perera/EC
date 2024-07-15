@@ -35,6 +35,17 @@ EC_Run()
 
 
 void
+EC_Total_Lines()
+{
+    EC_Total_Lines_Of_Code("src/ec", 'c');
+    EC_Total_Lines_Of_Code("src/ec", 'h');
+    EC_Total_Lines_Of_Code("src/lib", 'c');
+    EC_Total_Lines_Of_Code("src/lib", 'h');
+    EC_Total_Lines_Of_Code("include", 'h');
+}
+
+
+void
 EC_Help()
 {
     printf("ec [ -h = Help ] [ user = User info ] [ app = Create application ] [ lib = Create library ] [ todo = Todo list ] \n");
@@ -117,19 +128,17 @@ Argc_2(int argc, char *argv[], char *path)
     {
 		printf( "EC %d.%d.%d\n", EC_VERSION_YEARS, EC_VERSION_MONTHS, EC_VERSION_ADD_FIX);
     }
-
-    else if(strcmp(argv[1], "app") == 0)
-    {
-		printf("app name is missing\n");	
-    }
-
-    else if(strcmp(argv[1], "lib") == 0)
-    {
-		printf("lib name is missing\n");	
-    }
     else if(strcmp(argv[1], "version") == 0)
     {
 		EC_Version_Update(argv, path);
+    }
+    else if(strcmp(argv[1], "app") == 0)
+    {
+        App_Help();
+    }
+    else if(strcmp(argv[1], "lib") == 0)
+    {
+		Lib_Help();	
     }
     else if(strcmp(argv[1], "todo") == 0)
     {
@@ -151,6 +160,14 @@ Argc_2(int argc, char *argv[], char *path)
     {
         EC_User_Print_File(EC_USER_CURRENT_FILE);
     }
+    else if(strcmp(argv[1], "test") == 0) 
+    {
+        EC_Test("0");
+    }
+    else if(strcmp(argv[1], "lines") == 0) 
+    {
+        EC_Total_Lines();
+    }
     else
     {
         printf("Unknown command\n");
@@ -161,13 +178,26 @@ Argc_2(int argc, char *argv[], char *path)
 void
 Argc_3(int argc, char *argv[], char *path)
 {
-	if(strcmp(argv[1], "app") == 0)
+
+    if(strcmp(argv[1], "app") == 0 && strcmp(argv[2], "-h") == 0)
     {
-		EC_App(argv, path);
+        App_Help();
+    }
+    else if(strcmp(argv[1], "lib") == 0 && strcmp(argv[2], "-h") == 0)
+    {
+		Lib_Help();	
+    }
+	else if(strcmp(argv[1], "app") == 0)
+    {
+		EC_Create_App(argv, path);
     }
     else if(strcmp(argv[1], "lib") == 0)
     {
-		EC_Lib(argv, path);
+		EC_Create_Lib(argv, path);
+    }
+    else if(strcmp(argv[1], "todo") == 0 && argv[2] == "-a")
+    {
+        EC_Todo_Append(argc, argv, path);
     }
     else if((strcmp(argv[1], "todo") == 0 && strcmp(argv[2], "-h") == 0 ))
     {
@@ -181,9 +211,9 @@ Argc_3(int argc, char *argv[], char *path)
     {
         EC_Todo_Change_Title(argc, argv);
     }
-    else if(strcmp(argv[1], "todo") == 0 && argv[2][0] == '-')
+    else if(strcmp(argv[1], "todo") == 0 && strcmp(argv[2], "-p") == 0)
     {
-        EC_Todo_Append(argc, argv, path);
+        EC_Todo_Help_Change_Position();
     }
     else if(strcmp(argv[1], "user") == 0 && strcmp(argv[2], "-n") == 0) 
     {
@@ -209,6 +239,14 @@ Argc_3(int argc, char *argv[], char *path)
     {
         EC_User_Editor(argc, argv, EC_USER_LOCAL_FILE);
     }
+    else if(strcmp(argv[1], "test") == 0 && strcmp(argv[2], "-h") == 0) 
+    {
+        EC_Test_Help();
+    }
+    else if(strcmp(argv[1], "test") == 0) 
+    {
+        EC_Test(argv[2]);
+    }
     else
     {
         printf("Unknown command\n");
@@ -221,11 +259,15 @@ Argc_4(int argc, char *argv[], char *path)
 {
 	if(strcmp(argv[1], "app") == 0 && strcmp(argv[2], "-c") == 0)
     {
-		EC_App(argv, path);
+		EC_Create_App(argv, path);
     }
     else if(strcmp(argv[1], "lib") == 0 && strcmp(argv[2], "-c") == 0)
     {
-		EC_Lib(argv, path);
+		EC_Create_Lib(argv, path);
+    }
+    else if(strcmp(argv[1], "todo") == 0 && argv[2] == "-a") 
+    {
+        EC_Todo_Append(argc, argv, path);
     }
     else if(strcmp(argv[1], "todo") == 0 && strcmp(argv[2], "-r") == 0)
     {
@@ -243,13 +285,9 @@ Argc_4(int argc, char *argv[], char *path)
     {
         EC_Todo_Change_Title(argc, argv);
     }
-    else if(strcmp(argv[1], "todo") == 0 && argv[2][0] == '-') 
-    {
-        EC_Todo_Append(argc, argv, path);
-    }
     else if(strcmp(argv[1], "todo") == 0)
     {
-		EC_Todo_Print_List(path);
+        EC_Todo_Change_Position(argv);
     }
     else if(strcmp(argv[1], "user") == 0 && strcmp(argv[2], "--compiler") == 0) 
     {

@@ -70,3 +70,37 @@ EC_Test_Print_Adr (char *msg, void *adr)
 }
 
 
+void
+EC_Test(char *test_number_text)
+{
+    char command[16];
+
+    printf("%s\n", test_number_text);
+
+    if (atoi(test_number_text) != 0 || strcmp(test_number_text, "0") == 0)
+    {
+        sprintf(command, "./test %s", test_number_text);
+
+        if (system(command) == 0)
+        {
+            printf("Test: PASS\n");
+        }
+        else
+        {
+            printf("Test: FAIL\n");
+        }
+    }
+    else
+    {
+        printf("\n");
+        EC_Test_Help();
+    }
+}
+
+void
+EC_Test_Help()
+{
+    printf("Use:\n");
+    printf("ec test                Test All\n");
+    printf("ec test test_number    Test selected test\n");
+}
