@@ -1,10 +1,11 @@
+Display current working user:;ao
 Change current working user:;ao
 find function in a file:;ao
 Change Todo list according to display size:;ar
 Display who did the job:;ar
 Add tests directory and files:;ar
-ec.c:pp Create CMakeLists.txt not implemented:;br
-ec.c:EC Todo line space to 80 characters:;bo
+ec.c:p Create CMakeLists.txt not implemented:;br
+ec.c:C Todo line space to 80 characters:;bo
 Adding new files functions to existing app/lib:;ao
 Put EC in App or Lib folder:;ao
 Static_Array not tested:;br
@@ -44,4 +45,6 @@ Versioning:;ao
 Saving backups:;ar
 Put a note when someone working on a function:;ao
 Save function changes seperately:;ao
-Display current working user:;ao
+Arrange todo list:;a:;.
+Test Add:;b:;u
+49:;q:;r

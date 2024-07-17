@@ -242,25 +242,29 @@ void
 EC_Todo_Append(int argc, char *argv[], char *path)
 {
     FILE *fptr;
-    char todo_str[512];
+    char  todo_str[512];
 
-    char type;
-    char urgency;
+    char  type;
+    char  urgency;
 
-    char type_str[3];
-    char urgency_str[3];
+    char  type_str[3];
+    char  urgency_str[3];
 
     static int a = 1;
 
     // Open file in append mode
     fptr = fopen(".ec/todo", "a+");
 
-    if (fptr == NULL) {
+    if (fptr == NULL)
+    {
         printf("Error: Cannot open todo file in append mode.\n");
     }
-    else {
-        if (argc == 3) {
-            if(argv[2][0] == '-') {
+    else
+    {
+        if (argc == 3)
+        {
+            if(argv[2][0] == '-')
+            {
                 type = Todo_Check_Type(argv[2]);
                 urgency = Todo_Check_Urgency(argv[2]);
 
@@ -268,40 +272,77 @@ EC_Todo_Append(int argc, char *argv[], char *path)
                 fgets(todo_str, 512, stdin);
                 todo_str[strlen(todo_str) - 1] = '\0'; // remove last appended \n by fgets
             }
-            else {
+            else
+            {
                 strcpy(todo_str, argv[2]); 
             }
 
-            if (type == '\0') {
+            if (type == '\0')
+            {
+GOTO_TYPE:
                 Todo_Print_Type_Options();
                 printf("Type: "); 
-                fgets(type_str, 3, stdin);
+                scanf("%s", type_str);
                 printf("\n");
+
+                EC_String_To_Lower(type_str);
 
                 type = type_str[0];
+
+                if(type == 'q') return;
+
                 if(type == '-' )
+                {
                     type = type_str[1];
+                }
+
+                if(!(type != 'a' && type != 'b'))
+                {
+                    printf("Unknown option: %s\n", type_str);
+                    goto GOTO_TYPE;
+                }
             }
 
-            if (urgency == '\0') {
+            if (urgency == '\0')
+            {
+GOTO_URGENCY:
                 Todo_Print_Urgency_Options();
                 printf("Urgency: "); 
-                fgets(urgency_str, 3, stdin);
+                scanf("%s", urgency_str);
                 printf("\n");
                 
+                EC_String_To_Lower(urgency_str);
+
                 urgency = urgency_str[0];
+
+                if(urgency == 'q') return;
+
                 if(urgency == '-' )
+                {
                     urgency = urgency_str[1];
+                }
+
+
+                if(!(urgency != 'u' &&
+                     urgency != 'e' &&
+                     urgency != 'r' &&
+                     urgency != 'o' ))
+                {
+                    printf("Unknown option: %s\n", type_str);
+                    goto GOTO_URGENCY;
+                }
             }
 
             fprintf(fptr, "%s:;%c:;%c\n", todo_str, type, urgency);
         }
 
-        else if (argc == 4) {
+        else if (argc == 4)
+        {
             type = Todo_Check_Type(argv[2]);
             urgency = Todo_Check_Urgency(argv[2]); 
 
-            if (type == '\0') {
+            if (type == '\0')
+            {
                 Todo_Print_Type_Options();
                 printf("Type: "); 
                 scanf("%s", type_str);
@@ -309,7 +350,8 @@ EC_Todo_Append(int argc, char *argv[], char *path)
                 type = type_str[0];
             }
 
-            if (urgency == '\0') {
+            if (urgency == '\0')
+            {
                 Todo_Print_Urgency_Options();
                 printf("Urgency: "); 
                 scanf("%s", urgency_str);
@@ -319,7 +361,8 @@ EC_Todo_Append(int argc, char *argv[], char *path)
 
             fprintf(fptr, "%s:;%c:;%c\n", argv[3], type, urgency);
         }
-        else {
+        else
+        {
             printf ("Unknown number of arguments\n");
             return;
         }
@@ -333,19 +376,27 @@ EC_Todo_Append(int argc, char *argv[], char *path)
 
 
 void
+EC_Describe_Todo()
+{
+    printf("describe\n");
+}
+
+
+void
 EC_Todo_Change_Title(int argc, char *argv[])
 {
     FILE *fptr, *fptr2;
-    char c;
-    int i = 0, j = 0;
-    int current_todo_line = 1;
-    int change_line = 0;
-    char todo_str[1024];
-    char new_todo_str[512];
-    char type = '\0';
-    char urgency = '\0';
+    char  c;
+    int   i = 0, j = 0;
+    int   current_todo_line = 1;
+    int   change_line = 0;
+    char  todo_str[1024];
+    char  new_todo_str[512];
+    char  type = '\0';
+    char  urgency = '\0';
 
-    if (argc == 3) {
+    if (argc == 3)
+    {
         printf("Line Number: ");
         scanf("%d", &change_line);
 
@@ -355,44 +406,59 @@ EC_Todo_Change_Title(int argc, char *argv[])
         fgets(new_todo_str, 512, stdin);
         new_todo_str[strlen(new_todo_str) - 1] = '\0';
     }
-    else if (argc == 4) {
+    else if (argc == 4)
+    {
         change_line = atoi(argv[3]);
 
         printf("Todo: ");
         fgets(new_todo_str, 512, stdin);
         new_todo_str[strlen(new_todo_str) - 1] = '\0';
     }
-    else if (argc == 5) {
+    else if (argc == 5)
+    {
         change_line = atoi(argv[3]);
         strcpy(new_todo_str, argv[4]);
     }
-    else {
+    else
+    {
         printf ("Unknown amount of arguments\n");
     }
 
     fptr = fopen(".ec/todo", "r");
     fptr2 = fopen(".ec/todo.tmp", "w");
 
-    if (fptr != NULL && fptr2 != NULL) {
-        while ((c = fgetc(fptr)) != EOF) {
+    if (fptr != NULL && fptr2 != NULL)
+    {
+        while ((c = fgetc(fptr)) != EOF)
+        {
             if(c != '\n')
+            {
                 todo_str[i++] = c;
-            else {
-                if(current_todo_line == change_line) {
-                    while (todo_str[j] != '\0') {
-                        if (todo_str[j] == ':') {
+            }
+            else
+            {
+                if(current_todo_line == change_line)
+                {
+                    while (todo_str[j] != '\0')
+                    {
+                        if (todo_str[j] == ':')
+                        {
                             j += 2;
                             type = todo_str[j];
                             j += 3;
                             urgency = todo_str[j];
                         }
+
                         j++;
                     }
+                    
                     sprintf(todo_str, "%s:;%c:;%c", new_todo_str, type, urgency);
                     j = 0;
                 }
                 else
+                {
                     todo_str[i++] = '\0';
+                }
 
                 fprintf(fptr2, "%s\n", todo_str);
 
@@ -411,9 +477,12 @@ EC_Todo_Change_Title(int argc, char *argv[])
     fptr = fopen(".ec/todo", "w");
     fptr2 = fopen(".ec/todo.tmp", "r");
 
-    if (fptr != NULL && fptr2 != NULL) {
+    if (fptr != NULL && fptr2 != NULL)
+    {
         while ((c = fgetc(fptr2)) != EOF)
+        {
             fputc(c, fptr);
+        }
 
         fseek(fptr2, 0, SEEK_SET);
 
@@ -422,7 +491,8 @@ EC_Todo_Change_Title(int argc, char *argv[])
         fclose(fptr);
         fclose(fptr2);
     }
-    else {
+    else
+    {
         printf ("Error: could not update todo file\n");
     }
 }
@@ -439,7 +509,8 @@ EC_Todo_Discription(int argc, char *argv[])
     printf("Enter : ");
     scanf("%s", id);
 
-    if( id[0] != 'q') {
+    if( id[0] != 'q')
+    {
         printf ("view %d\n", atoi(id));
     }
 }
@@ -455,15 +526,18 @@ EC_Todo_Remove(char *argv[], int argc, char *path)
     int remove_line = 0;
     char todo_str[512];
 
-    if (argc == 3) {
+    if (argc == 3)
+    {
         printf ("Remove todo: ");
         scanf("%d", &remove_line);
         printf ("\n");
     }
-    else if (argc == 4) {
+    else if (argc == 4)
+    {
         remove_line = atoi(argv[3]);
     }
-    else {
+    else
+    {
         printf ("Unknown removing option\n");
         return;
     }
@@ -471,12 +545,16 @@ EC_Todo_Remove(char *argv[], int argc, char *path)
     fptr = fopen(".ec/todo", "r");
     fptr2 = fopen(".ec/todo.tmp", "w");
 
-    if (fptr != NULL && fptr2 != NULL) {
-        while ((c = fgetc(fptr)) != EOF) {
+    if (fptr != NULL && fptr2 != NULL)
+    {
+        while ((c = fgetc(fptr)) != EOF)
+        {
             if(c != '\n')
                 todo_str[i++] = c;
-            else {
-                if(current_todo_line == remove_line) {
+            else
+            {
+                if(current_todo_line == remove_line)
+                {
                     strcpy(todo_str, "");
                     i = 0;
                     current_todo_line++;
@@ -493,16 +571,20 @@ EC_Todo_Remove(char *argv[], int argc, char *path)
         fclose(fptr);
         fclose(fptr2);
     }
-    else {
+    else
+    {
         printf("Error: Todo_Remove Cannot open todo file in write mode.\n");
     }
 
     fptr = fopen(".ec/todo", "w");
     fptr2 = fopen(".ec/todo.tmp", "r");
 
-    if (fptr != NULL && fptr2 != NULL) {
+    if (fptr != NULL && fptr2 != NULL)
+    {
         while ((c = fgetc(fptr2)) != EOF)
+        {
             fputc(c, fptr);
+        }
 
         fseek(fptr2, 0, SEEK_SET);
 
@@ -511,7 +593,8 @@ EC_Todo_Remove(char *argv[], int argc, char *path)
         fclose(fptr);
         fclose(fptr2);
     }
-    else {
+    else
+    {
         printf ("Error: could not update todo file\n");
     }
 }

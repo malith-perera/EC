@@ -29,6 +29,10 @@ EC_Todo_Append(int argc, char *argv[], char *path);
 
 
 void
+EC_Describe_Todo();
+
+
+void
 EC_Todo_Change_Title(int argc, char *argv[]);
 
 
