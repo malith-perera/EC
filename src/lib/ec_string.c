@@ -97,6 +97,23 @@ EC_String_To_Upper(char *str)
 }
 
 
+bool
+EC_Is_String(char str[])
+{
+    if((str[0] >= 'a' && str[0] <= 'z'))
+    {
+        return true;
+    }
+
+    if((str[0] >= 'A' && str[0] <= 'Z'))
+    {
+        return true;
+    }
+
+    return false;
+}
+
+
 #if 0
 
 void

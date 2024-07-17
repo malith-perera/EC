@@ -32,6 +32,10 @@ char *
 EC_String_To_Upper(char *str); 
 
 
+bool
+EC_Is_String(char str[]);
+
+
 #endif // EC_STRING
 
 
