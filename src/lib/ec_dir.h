@@ -9,4 +9,8 @@ void
 EC_Dir_Get_Content(char *basePath);
 
 
+bool
+EC_Is_Dir(char *dir);
+
+
 #endif //EC_DIR

@@ -1,6 +1,6 @@
 #include "ec_dir.h"
 #include <dirent.h>
-
+#include <sys/stat.h>
 
 void
 EC_Dir_Get_Content(char *basePath)
@@ -29,4 +29,19 @@ EC_Dir_Get_Content(char *basePath)
     }
 
     closedir(dir);
+}
+
+
+bool
+EC_Is_Dir(char *dir)
+{
+    struct stat stats;
+
+    stat(dir, &stats);
+
+    // Check for file existence
+    if (S_ISDIR(stats.st_mode))
+        return true;
+
+    return false;
 }
