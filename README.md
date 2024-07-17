@@ -2,7 +2,7 @@
 
 ## Introduction
 
-EC is an easy to use extended C library and a tool kit for high performance, rapid application development in pure C language.
+EC is an easy to use extended C library and a tool kit for high performance, easy application development in pure C language.
 
 ### EC Features
 + Extended variables & functions
@@ -10,7 +10,7 @@ EC is an easy to use extended C library and a tool kit for high performance, rap
 + Objects in mind
 + Entity component system
 + Dynamic memory management
-+ Rapid application development
++ EC application development
 + Optimizable code
 + High performance
 
@@ -97,6 +97,3 @@ Go through the student_list and get student one by one in the list.
 Be EC !
   
 ![Logo, Extended C logo ](doc/logo.png)  
-  
-<http://www.eclab.org>  
-
