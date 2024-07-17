@@ -4,7 +4,7 @@
 #include "ec.h"
 
 
-#define NELEMS(x) (sizeof(x) / sizeof((x)[0]))
+#define ARRAY_LENGTH(x) (sizeof(x) / sizeof((x)[0]))
 
 
 #define for_array(ec_array, aptr)                               \
