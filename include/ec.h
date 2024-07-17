@@ -68,6 +68,7 @@
 
 #include "ec_test.h"
 #include "ec_file.h"
+#include "ec_dir.h"
 #include "ec_debug.h"
 
 #include "ec_text_color.h"

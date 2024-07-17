@@ -35,6 +35,33 @@ EC_Run()
 
 
 void
+EC_Rebuild()
+{
+
+    printf("Rebuilding and recompiling\n");
+    
+    if(EC_Is_Dir(".ec/build") == true)
+    {
+        if(system("rm -rf .ec/build") == 0)
+        {
+            printf("Delete build directory\n");
+        }
+        else
+        {
+            printf("Error: unable to delete .ec/build directory\n");
+        }
+    }
+    else
+    {
+        printf("build directory not exist in .ec directory for delete\n");
+    }
+
+    EC_Make();
+    EC_Run();
+}
+
+
+void
 EC_Total_Lines()
 {
     EC_Total_Lines_Of_Code("src/ec", 'c');
@@ -152,6 +179,10 @@ Argc_2(int argc, char *argv[], char *path)
     {
         EC_Make();
     }
+    else if(strcmp(argv[1], "-f") == 0)
+    {
+        EC_Rebuild();
+    }
     else if(strcmp(argv[1], "-h") == 0) 
     {
         EC_Help();
@@ -195,9 +226,23 @@ Argc_3(int argc, char *argv[], char *path)
     {
 		EC_Create_Lib(argv, path);
     }
-    else if(strcmp(argv[1], "todo") == 0 && argv[2] == "-a")
+    else if(strcmp(argv[1], "todo") == 0)
     {
-        EC_Todo_Append(argc, argv, path);
+        if(argv[2][0] == '-')
+        {
+            EC_Todo_Append(argc, argv, path);
+        }
+        else
+        {
+            if(EC_Is_String(argv[2]))
+            {
+                EC_Todo_Append(argc, argv, path);
+            }
+            else
+            {
+                EC_Describe_Todo(argv[2]);
+            }
+        }
     }
     else if((strcmp(argv[1], "todo") == 0 && strcmp(argv[2], "-h") == 0 ))
     {
@@ -265,10 +310,6 @@ Argc_4(int argc, char *argv[], char *path)
     {
 		EC_Create_Lib(argv, path);
     }
-    else if(strcmp(argv[1], "todo") == 0 && argv[2] == "-a") 
-    {
-        EC_Todo_Append(argc, argv, path);
-    }
     else if(strcmp(argv[1], "todo") == 0 && strcmp(argv[2], "-r") == 0)
     {
         EC_Todo_Remove(argv, argc, path);
@@ -285,9 +326,23 @@ Argc_4(int argc, char *argv[], char *path)
     {
         EC_Todo_Change_Title(argc, argv);
     }
-    else if(strcmp(argv[1], "todo") == 0)
+    else if(strcmp(argv[1], "todo") == 0) 
     {
-        EC_Todo_Change_Position(argv);
+        if(argv[2][0] == '-')
+        {
+            EC_Todo_Append(argc, argv, path);
+        }
+        else
+        {
+            if(EC_Is_String(argv[2]) == false && EC_Is_String(argv[3]) == false)
+            {
+                EC_Todo_Change_Position(argv);
+            }
+            else
+            {
+                printf("Unknown command options\n");
+            }
+        }
     }
     else if(strcmp(argv[1], "user") == 0 && strcmp(argv[2], "--compiler") == 0) 
     {
