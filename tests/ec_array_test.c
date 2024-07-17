@@ -28,7 +28,7 @@ Test_New_Array()
     assert(sta->var[1].no == 2);
     assert(strcmp(sta->var[1].name, "Geethike") == 0);
 
-    EC_Error_Print_Msg("Access arry variables", "OK");
+    EC_Error_Print_Msg("Accessing array variables", "OK");
 
     assert(sta->length == 2);
     EC_Error_Print_Msg("Array length exist", "OK");

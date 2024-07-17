@@ -682,7 +682,7 @@ Create_App_CMake_File(char *app_name, char *path)
 		"get_filename_component(PARENT2_DIR ${PARENT_DIR} DIRECTORY)\n"
 		"\n"
 		"#include directories add .h headder files\n"
-		"set (PROJECT_INCLUDE_DIRS ${PARENT_DIR}/src ${PARENT_DIR}/tests ${PARENT2_DIR}/EC/src/lib \"/usr/local/include\")\n"
+		"set (PROJECT_INCLUDE_DIRS ${PARENT_DIR}/src ${PARENT_DIR}/include ${PARENT_DIR}/tests ${PARENT2_DIR}/EC/src/lib ${PARENT2_DIR}/EC/include \"/usr/local/include\")\n"
 		"include_directories(${PROJECT_INCLUDE_DIRS})\n"
 		"\n"
 		"#file(GLOB...) add .c source files\n"
