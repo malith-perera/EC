@@ -48,7 +48,7 @@ Todo_Print_Urgency_Options()
 void
 Todo_Print_Type_Options()
 {
-    printf("Type: [ a = addition ] [ b = bugfix ]\n");
+    printf("Type: [ a = addition ] [ b = bugfix ] [ q = quit ]\n");
 }
 
 
@@ -238,14 +238,67 @@ Todo_Check_Urgency(char option[])
 }
 
 
+char
+Get_Type()
+{
+    char type_str[3];
+
+    GOTO_TYPE:
+    Todo_Print_Type_Options();
+    printf("Type: "); 
+    scanf("%s", type_str);
+    printf("\n");
+
+    EC_String_To_Lower(type_str);
+
+    if(type_str[0] == 'q') return 'q';
+
+    if(!(type_str[0] == 'a' || type_str[0] == 'b'))
+    {
+        printf("Unknown option: %s\n", type_str);
+        goto GOTO_TYPE;
+    }
+
+    return type_str[0];
+}
+
+
+char
+Get_Urgency()
+{
+    char urgency_str[3];
+
+    GOTO_URGENCY:
+    Todo_Print_Urgency_Options();
+    printf("Urgency: "); 
+    scanf("%s", urgency_str);
+    printf("\n");
+    
+    EC_String_To_Lower(urgency_str);
+
+    if(urgency_str[0] == 'q') return 'q';
+
+    if(!(urgency_str[0] == 'u' ||
+         urgency_str[0] == 'e' ||
+         urgency_str[0] == 'r' ||
+         urgency_str[0] == 'o' ))
+    {
+        printf("Unknown option: %s\n", urgency_str);
+        goto GOTO_URGENCY;
+    }
+
+    return urgency_str[0];
+}
+
+
 void
 EC_Todo_Append(int argc, char *argv[], char *path)
 {
     FILE *fptr;
     char  todo_str[512];
 
-    char  type;
-    char  urgency;
+    char  type = '\0';
+    char  urgency = '\0';
 
     char  type_str[3];
     char  urgency_str[3];
@@ -279,61 +332,17 @@ EC_Todo_Append(int argc, char *argv[], char *path)
 
             if (type == '\0')
             {
-GOTO_TYPE:
-                Todo_Print_Type_Options();
-                printf("Type: "); 
-                scanf("%s", type_str);
-                printf("\n");
-
-                EC_String_To_Lower(type_str);
-
-                type = type_str[0];
-
+                type = Get_Type();
                 if(type == 'q') return;
-
-                if(type == '-' )
-                {
-                    type = type_str[1];
-                }
-
-                if(!(type != 'a' && type != 'b'))
-                {
-                    printf("Unknown option: %s\n", type_str);
-                    goto GOTO_TYPE;
-                }
             }
 
             if (urgency == '\0')
             {
-GOTO_URGENCY:
-                Todo_Print_Urgency_Options();
-                printf("Urgency: "); 
-                scanf("%s", urgency_str);
-                printf("\n");
-                
-                EC_String_To_Lower(urgency_str);
-
-                urgency = urgency_str[0];
-
+                urgency = Get_Urgency();
                 if(urgency == 'q') return;
-
-                if(urgency == '-' )
-                {
-                    urgency = urgency_str[1];
-                }
-
-
-                if(!(urgency != 'u' &&
-                     urgency != 'e' &&
-                     urgency != 'r' &&
-                     urgency != 'o' ))
-                {
-                    printf("Unknown option: %s\n", type_str);
-                    goto GOTO_URGENCY;
-                }
             }
 
-            fprintf(fptr, "%s:;%c:;%c\n", todo_str, type, urgency);
+            fprintf(fptr, "%s:;%c%c\n", todo_str, type, urgency);
         }
 
         else if (argc == 4)
@@ -343,23 +352,17 @@ GOTO_URGENCY:
 
             if (type == '\0')
             {
-                Todo_Print_Type_Options();
-                printf("Type: "); 
-                scanf("%s", type_str);
-                printf("\n");
-                type = type_str[0];
+                type = Get_Type();
+                if(type == 'q') return;
             }
 
             if (urgency == '\0')
             {
-                Todo_Print_Urgency_Options();
-                printf("Urgency: "); 
-                scanf("%s", urgency_str);
-                printf("\n");
-                urgency = urgency_str[0];
+                urgency = Get_Urgency();
+                if(urgency == 'q') return;
             }
 
-            fprintf(fptr, "%s:;%c:;%c\n", argv[3], type, urgency);
+            fprintf(fptr, "%s:;%c%c\n", argv[3], type, urgency);
         }
         else
         {

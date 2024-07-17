@@ -1,5 +1,11 @@
-ec.c:ec libapp Create CMakeLists.txt not implemented:;br
-ec.c:crease EC Todo line space to 80 characters:;bo
+Display current working user:;ao
+Change current working user:;ao
+find function in a file:;ao
+Change Todo list according to display size:;ar
+Display who did the job:;ar
+Add tests directory and files:;ar
+ec.c:p Create CMakeLists.txt not implemented:;br
+ec.c:C Todo line space to 80 characters:;bo
 Adding new files functions to existing app/lib:;ao
 Put EC in App or Lib folder:;ao
 Static_Array not tested:;br
@@ -7,7 +13,6 @@ Add ./ec did for what someone have done in the past:;ar
 Assign users to the project:;ar
 ./ec alone display dependency checking every time:;be
 Display options at the end of the todo list:;ae
-Taken time for a task:;ao
 use tmp file when unexpected lose before write:;br
 ./ec todo -r does not work as supposed:;be
 When someone assigned to a task and need a Help display it:;ao
@@ -22,6 +27,7 @@ Clear List:;be
 Clear Stack:;be
 Clear Queue:;be
 Clear ECS:;be
+Taken time for a task:;ao
 Create a sample game:;ae
 Porting to windows:;be
 Porting to Mac:;be
@@ -39,9 +45,4 @@ Versioning:;ao
 Saving backups:;ar
 Put a note when someone working on a function:;ao
 Save function changes seperately:;ao
-Display current working user:;ao
-Change current working user:;ao
-find function in a file:;ao
-Change Todo list according to display size:;ar
-Display who did the job:;ar
-Add tests directory and files:;ar
+Arrange todo list:;a:;.
