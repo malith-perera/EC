@@ -1,10 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <stdbool.h>
+#include <string.h>
 #include <dirent.h>
-#include "ec_file.h"
-#include "ec_error.h"
+#include "ec_code.h"
 
 #define DEBUG 0
 
@@ -31,7 +27,6 @@ char *line_type_name[] = {
     "MULTI_LINE_IN_END",
     "MULTI_LINE"
 };
-
 
 
 void ecfile_ECFile_parse ( ECFilePtr ec_file )
@@ -81,42 +76,9 @@ void ecfile_ECFile_parse ( ECFilePtr ec_file )
 }
 
 
-void split ()
-{
-}
-
-
 // ECFile Methods
 
-int line_counter = 0;
-
-void
-EC_Read (EC_File *ec_file)
-{
-    FILE *fPtr;
-    char c;
-    int line_char = 0;
-
-    if ((fPtr = fopen (ec_file->name, "r")) == NULL) {
-        //ec_error (FILE_ERROR, ec_file->name , 0, 0, "");
-    }
-    else {
-        while ((c = fgetc(fPtr)) != EOF) {
-            switch (c) {
-                case '\n':
-                    ec_file->lines[line_counter].text[line_char] = '\0';
-                    ec_file->lines[line_counter].number = line_counter++;
-                    line_char = 0;
-                    break;
-                default:
-                    ec_file->lines[line_counter].text[line_char] = c;
-                    line_char++;
-            }
-        }
-        fclose (fPtr);
-    }
-}
-
+static int line_counter = 0;
 
 void
 ec_block (EC_File *ec_file) {
@@ -146,9 +108,9 @@ ec_block (EC_File *ec_file) {
 
 
 void
-EC_Lines_Of_Code (char* filename)
+EC_Lines_Of_Code(char* filename)
 {
-    FILE* f = fopen(filename, "r");
+    FILE *f = fopen(filename, "r");
 
     static int total_lines = 0;
     static int total_code_lines = 0;
@@ -161,7 +123,6 @@ EC_Lines_Of_Code (char* filename)
         int         empty_lines     = 0;
         int         file_lines     = 0;
         LineType    line_type       = EMPTY;
-
 
         while ((c = fgetc(f)) != EOF)
         {
@@ -281,6 +242,7 @@ EC_Lines_Of_Code (char* filename)
         fprintf(stderr, "file not found\n");
     }
 }
+
 
 void
 EC_Total_Lines_Of_Code(char *directory, char filetype)

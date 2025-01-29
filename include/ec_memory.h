@@ -1,8 +1,9 @@
 #include "ec.h"
 
 
-#ifndef __EC_MEMORY_H__
-#define __EC_MEMORY_H__
+#ifndef EC_MEMORY_H
+#define EC_MEMORY_H
+
 
 typedef struct Memory {
     void *ptr;
@@ -12,16 +13,25 @@ typedef struct Memory {
 
 extern Memory *memory;
 
+
 void EC_Memory_Add(void *ptr);
+
+
 void Clean();
+
+
 void Free(void *ptr);
 
 
 #ifdef EC_MEMORY
-#define EC_MEMORY_REF       \
-    Memory *ec_mem;
+
+#define EC_MEMORY_REF Memory *ec_mem;
+
 #else
+
 #define EC_MEMORY_REF
+
 #endif //EC_MEMORY
 
-#endif // __EC_MEMORY_H__
+
+#endif // EC_MEMORY_H

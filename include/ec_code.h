@@ -1,6 +1,7 @@
-#ifndef EC_FILE_H
-#define EC_FILE_H
+#ifndef EC_CODE_H
+#define EC_CODE_H
 
+#include "ec.h"
 
 #define EC_Line(...) \
     printf ("%s:%d In function '%s':%s\n", __FILE__, __LINE__, __func__, ARG1(__VA_ARGS__));
@@ -78,6 +79,7 @@ typedef struct EC_File
 void
 EC_Read (EC_File *ec_file);
 
+
 typedef enum {
     EMPTY,
     NONE_EMPTY,
@@ -91,10 +93,11 @@ typedef enum {
 
 
 void
-EC_Lines_Of_Code (char* filename);
+EC_Lines_Of_Code(char* filename);
 
 
 void
 EC_Total_Lines_Of_Code(char *directory, char filetype);
 
-#endif // EC_FILE_H
+
+#endif // EC_CODE_H

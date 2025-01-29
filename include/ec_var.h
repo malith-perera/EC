@@ -10,11 +10,12 @@
 #define EC_VAR_CLONE_FUNCTION_NAME(TYPE)        EC_CONCAT(TYPE, _Clone)
 #define EC_VAR_COPY_FUNCTION_NAME(TYPE)         EC_CONCAT(TYPE, _Copy)
 
+
 /*---------*/
 /* EC Free */
 /*---------*/
 
-#ifdef EC_MEMORY
+#ifdef EC_MEMORY // if EC_MEMORY defined
 
 #define EC_Free(var)                            \
     var->ec_mem->lock = EC_UNLOCK;              \
@@ -24,7 +25,7 @@
     var->ec_mem->lock = EC_UNLOCK;              \
     free(var)
 
-#else // EC_MEMORY not defined  
+#else // if not EC_MEMORY defined  
 
 #define EC_Free(var)                            \
     free(var)
@@ -35,7 +36,10 @@
 #endif  // EC_MEMORY 
 
 
+/*---------------------*/
 /* Function Prototypes */
+/*---------------------*/
+
 #define EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)    \
 void                                            \
 EC_VAR_FREE_FUNCTION_NAME(TYPE)                 \
@@ -66,19 +70,19 @@ EC_VAR_COPY_FUNCTION_NAME(TYPE)                 \
 );
 
 
-/* Macro functions */
+/*-----------*/
+/* Functions */
+/*-----------*/
 
-#define EC_VAR_FREE_FUNCTION(TYPE)                      \
-void                                                    \
-EC_VAR_FREE_FUNCTION_NAME(TYPE)                         \
-(                                                       \
-    void *var                                           \
-)                                                       \
-{                                                       \
-    TYPE *v =(TYPE *) var;                             	\
-    EC_DEBUG_PRINT_ADR("ec var free", v, __LINE__);     \
-    free(v);                                           	\
-    v = NULL;                                           \
+#define EC_VAR_FREE_FUNCTION(TYPE)              \
+void                                            \
+EC_VAR_FREE_FUNCTION_NAME(TYPE)                 \
+(                                               \
+    void *var                                   \
+)                                               \
+{                                               \
+    free(var);                                  \
+    var = NULL;                                 \
 }
 
 
@@ -129,7 +133,6 @@ EC_VAR_COPY_FUNCTION_NAME(TYPE)                             \
 
 /* All function prototypes */
 #define EC_VAR_H(TYPE)                          \
-    typedef struct TYPE EC_CONCAT(TYPE, Var);   /* optional StudentVar for Student */\
     EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)    	\
     EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)     	\
     EC_VAR_CLONE_FUNCTION_PROTOTYPE(TYPE)   	\
@@ -137,16 +140,16 @@ EC_VAR_COPY_FUNCTION_NAME(TYPE)                             \
 
 
 /* All functions */
-#define EC_VAR_C(TYPE)         			\
-    EC_VAR_FREE_FUNCTION(TYPE)         	\
-    EC_VAR_NEW_FUNCTION(TYPE)          	\
-    EC_VAR_CLONE_FUNCTION(TYPE)        	\
+#define EC_VAR_C(TYPE)                          \
+    EC_VAR_FREE_FUNCTION(TYPE)                  \
+    EC_VAR_NEW_FUNCTION(TYPE)                   \
+    EC_VAR_CLONE_FUNCTION(TYPE)                 \
     EC_VAR_COPY_FUNCTION(TYPE)
 
 
 /* All prototypes and functions */
-#define EC_VAR(TYPE) 					\
-		EC_VAR_H(TYPE)         			\
+#define EC_VAR(TYPE)                            \
+		EC_VAR_H(TYPE)                          \
 		EC_VAR_C(TYPE)
 
 

@@ -39,7 +39,7 @@ then
   mv -f build/ec ../ec
 fi
 
-if [ -f "build/test" ]
+if [ -f "build/ec_test" ]
 then
-  mv -f build/test ../test
+  mv -f build/ec_test ../ec_test
 fi

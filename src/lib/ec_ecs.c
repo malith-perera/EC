@@ -46,24 +46,6 @@ ECS_Free ()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #if 0
 
 static int entity_i;

@@ -91,21 +91,22 @@ EC_Todo_Print(FILE *fptr)
 {
     char todo_str[512];
     char c;
-    int total_todo = 0;
-    char title[128];
+    int  total_todo = 0;
+    char task[128];
     char color[32];
     char urgency;
     char urgency_txt[32];
     char type;
     char type_txt[322];
-    int i = 0, j = 0;
+    int  i = 0, j = 0;
 
     printf (" %5s%-60s%-15s%-15s%-20s\n %5s%-60s%-15s%-15s%-20s\n %5s%-60s%-15s%-15s%-20s\n",
            "", "-------------", "----------", " ---------", "----------", 
            "", "   EC Todo   ", "   Type   ", "  Urgency ", " Assigned ", 
            "", "-------------", "----------", " ---------", "----------"); 
 
-    while ((c = fgetc(fptr)) != EOF) {
+    while ((c = fgetc(fptr)) != EOF)
+    {
         if(c != '\n')
         {
             todo_str[i++] = c;
@@ -115,18 +116,25 @@ EC_Todo_Print(FILE *fptr)
             total_todo++;
             todo_str[i++] = '\0';
 
-            while(todo_str[j] != '\0') {
+            while(todo_str[j] != '\0')
+            {
                 if (todo_str[j] != ':')
-                    title[j] = todo_str[j];
-                else {
-                    if (todo_str[j + 1] == ';') {
-                        title[j] = '\0';
+                {
+                    task[j] = todo_str[j];
+                }
+                else
+                {
+                    if (todo_str[j + 1] == ';')
+                    {
+                        task[j] = '\0';
                         break;
                     }
-                    else {
-                        title[j] = todo_str[j];
+                    else
+                    {
+                        task[j] = todo_str[j];
                     }
                 }
+
                 j++;
             }
 
@@ -165,9 +173,10 @@ EC_Todo_Print(FILE *fptr)
                 strcpy(color, "\x1B[0;37m ");
             }
  
-            printf(" %-5d %-60s%-15s%s%-15s\033[0m%-20s\n", total_todo, title, type_txt, color, urgency_txt, "No");
+            printf(" %-5d %-60s%-15s%s%-15s\033[0m%-20s\n", total_todo, task, type_txt, color, urgency_txt, "No");
 
             strcpy(todo_str, "");
+
             i = j = 0;
         }
     }
@@ -189,10 +198,12 @@ EC_Todo_Print_List(char *path)
     // Open file in read mode
     fptr = fopen(".ec/todo", "r");
 
-    if (fptr == NULL) {
+    if (fptr == NULL)
+    {
         printf("Error: Cannot open todo file in read.\n");
     }
-    else {
+    else
+    {
         EC_Todo_Print(fptr);
         fclose(fptr);
     }
@@ -204,11 +215,12 @@ Todo_Check_Type(char option[])
 {
     int i = 1;
 
-    while (option[i] != '\0') {
-        if (option[i] == 'a')
-            return 'a';
-        if (option[i] == 'b')
-            return 'b';
+    while (option[i] != '\0')
+    {
+        if (option[i] == 'a') return 'a';
+
+        if (option[i] == 'b') return 'b';
+
         i++;
     }
 
@@ -222,15 +234,16 @@ Todo_Check_Urgency(char option[])
 {
     int i = 1;
 
-    while (option[i] != '\0') {
-        if (option[i] == 'u')
-            return 'u';
-        if (option[i] == 'e')
-            return 'e';
-        if (option[i] == 'r')
-            return 'r';
-        if (option[i] == 'o')
-            return 'o';
+    while (option[i] != '\0')
+    {
+        if (option[i] == 'u') return 'u';
+
+        if (option[i] == 'e') return 'e';
+
+        if (option[i] == 'r') return 'r';
+        
+        if (option[i] == 'o') return 'o';
+
         i++;
     }
 

@@ -58,8 +58,8 @@ Test_Var_Copy_Default()
 {
     EC_Error_Print_Msg("Test_Var_Copy_Default: ", "BEGIN");
 
-    StudentVar *st1 = Student_New();
-    StudentVar *st2 = Student_New();
+    Student *st1 = Student_New();
+    Student *st2 = Student_New();
     EC_Error_Print_Msg("Create new ec var", "OK");
 
     st1->no = 1;
@@ -80,7 +80,7 @@ Test_Var_Copy_Default()
 
     EC_Error_Print_Msg("Changing one var should not affect other", "OK");
 
-    StudentVar st_local;
+    Student st_local;
     st_local.no = 3;
     st_local.name = "Perera";
 
@@ -109,12 +109,12 @@ Test_Var_Copy()
 {
     EC_Error_Print_Msg("Test_Var_Copy: ", "BEGIN");
 
-    StudentVar *st1 = Student_New();
+    Student *st1 = Student_New();
     st1->no = 1;
     st1->name = "Malith";
     EC_Error_Print_Msg("Create and assign new ec var", "OK");
 
-    StudentVar *st2 = Student_New();
+    Student *st2 = Student_New();
     Student_Copy(st2, st1);
     EC_Error_Print_Msg("Var copied: ", "OK");
 
@@ -129,7 +129,7 @@ Test_Var_Copy()
     assert(strcmp(st1->name, "Geethike") != 0);
     EC_Error_Print_Msg("Changing one var should not affect other", "OK");
 
-    StudentVar st_local;
+    Student st_local;
     st_local.no = 3;
     st_local.name = "Perera";
     EC_Error_Print_Msg("Create and assign local var", "OK");
@@ -155,13 +155,13 @@ Test_Var_Clone()
 {
     EC_Error_Print_Msg("Test_Var_Clone: ", "BEGIN");
 
-    StudentVar *st1 = Student_New();
+    Student *st1 = Student_New();
     EC_Error_Print_Msg("Create new ec var", "OK");
 
     st1->no = 1;
     st1->name = "Malith";
 
-    StudentVar *st2 = Student_Clone(st1);
+    Student *st2 = Student_Clone(st1);
     assert(st2->no == 1);
     assert(strcmp(st2->name, "Malith") == 0);
     EC_Error_Print_Msg("Var cloned: ", "OK");
@@ -172,7 +172,7 @@ Test_Var_Clone()
     assert(strcmp(st1->name, "Geethike") != 0);
     EC_Error_Print_Msg("Changing one var should not affect other", "OK");
 
-    StudentVar st_local;
+    Student st_local;
     st_local.no = 3;
     st_local.name = "Perera";
     EC_Error_Print_Msg("create and assign local var", "OK");

@@ -1,6 +1,8 @@
 #include "ec_memory.h"
 
+
 #define DEBUG_EC_MEMORY 1
+
 
 Memory *memory;
 
@@ -24,11 +26,13 @@ void Clean()
 
     current = memory;
 
-    while (current != NULL) {
+    while (current != NULL)
+    {
         temp = current;
         current = current->next;
 
-        if (temp != NULL) {
+        if (temp != NULL)
+        {
             free(temp->ptr);
             free(temp);
 
@@ -47,7 +51,8 @@ Free(void *ptr)
     Memory *current = memory, *previous;
 
     // If ptr is the first item
-    if (current != NULL && current->ptr == ptr) {
+    if (current != NULL && current->ptr == ptr)
+    {
         memory = current->next;
         free(current->ptr);
         free(current);
@@ -57,7 +62,8 @@ Free(void *ptr)
     }
 
     // Search till find ptr
-    while (current != NULL && current->ptr != ptr) {
+    while (current != NULL && current->ptr != ptr)
+    {
         previous = current;
         current = current->next;
     }

@@ -1,49 +1,49 @@
-Display current working user:;ao
-Change current working user:;ao
-find function in a file:;ao
-Change Todo list according to display size:;ar
-Display who did the job:;ar
-Add tests directory and files:;ar
-ec.c:p Create CMakeLists.txt not implemented:;br
-ec.c:C Todo line space to 80 characters:;bo
-Adding new files functions to existing app/lib:;ao
-Put EC in App or Lib folder:;ao
-Static_Array not tested:;br
-Add ./ec did for what someone have done in the past:;ar
-Assign users to the project:;ar
-./ec alone display dependency checking every time:;be
-Display options at the end of the todo list:;ae
-use tmp file when unexpected lose before write:;br
-./ec todo -r does not work as supposed:;be
-When someone assigned to a task and need a Help display it:;ao
-Read only 80 characters for todo list task:;br
-Adding a full description todo:;ar
-Manuael pages:;ar
-Tutorials:;ae
-Website:;ae
-Clear Var:;be
-Clear Array:;be
-Clear List:;be
-Clear Stack:;be
-Clear Queue:;be
-Clear ECS:;be
-Taken time for a task:;ao
-Create a sample game:;ae
-Porting to windows:;be
-Porting to Mac:;be
-Clear Memory:;be
-Option to move list items up and down:;ar
-Update Back to C:;ar
-EC Programming book:;ar
-Adding EC Static variables:;ar
-EC Developers guide:;ar
-Udemy tutorials:;ar
-Option to choose syntax style:;ar
-Interchange within Arrays, List, Queues etc.:;ao
-Create a Wiki page:;ar
-Versioning:;ao
-Saving backups:;ar
-Put a note when someone working on a function:;ao
-Save function changes seperately:;ao
-Arrange todo list:;a:;.
-Add Todo task date time:;ae
+Display current working user:;ao:;9999999999:;2025-07-17:;17:45
+Change current working user:;ao:;9999999999:;2025-07-17:;17:45
+find function in a file:;ao:;9999999999:;2025-07-17:;17:45
+Change Todo list according to display size:;ar:;9999999999:;2025-07-17:;17:45
+Display who did the job:;ar:;9999999999:;2025-07-17:;17:45
+Add tests directory and files:;ar:;9999999999:;2025-07-17:;17:45
+ec.c:p Create CMakeLists.txt not implemented:;br:;9999999999:;2025-07-17:;17:45
+ec.c:C Todo line space to 80 characters:;bo:;9999999999:;2025-07-17:;17:45
+Adding new files functions to existing app/lib:;ao:;9999999999:;2025-07-17:;17:45
+Put EC in App or Lib folder:;ao:;9999999999:;2025-07-17:;17:45
+Static_Array not tested:;br:;9999999999:;2025-07-17:;17:45
+Add ./ec did for what someone have done in the past:;ar:;9999999999:;2025-07-17:;17:45
+Assign users to the project:;ar:;9999999999:;2025-07-17:;17:45
+./ec alone display dependency checking every time:;be:;9999999999:;2025-07-17:;17:45
+Display options at the end of the todo list:;ae:;9999999999:;2025-07-17:;17:45
+use tmp file when unexpected lose before write:;br:;9999999999:;2025-07-17:;17:45
+./ec todo -r does not work as supposed:;be:;9999999999:;2025-07-17:;17:45
+When someone assigned to a task and need a Help display it:;ao:;9999999999:;2025-07-17:;17:45
+Read only 80 characters for todo list task:;br:;9999999999:;2025-07-17:;17:45
+Adding a full description todo:;ar:;9999999999:;2025-07-17:;17:45
+Manuael pages:;ar:;9999999999:;2025-07-17:;17:45
+Tutorials:;ae:;9999999999:;2025-07-17:;17:45
+Website:;ae:;9999999999:;2025-07-17:;17:45
+Clear Var:;be:;9999999999:;2025-07-17:;17:45
+Clear Array:;be:;9999999999:;2025-07-17:;17:45
+Clear List:;be:;9999999999:;2025-07-17:;17:45
+Clear Stack:;be:;9999999999:;2025-07-17:;17:45
+Clear Queue:;be:;9999999999:;2025-07-17:;17:45
+Clear ECS:;be:;9999999999:;2025-07-17:;17:45
+Taken time for a task:;ao:;9999999999:;2025-07-17:;17:45
+Create a sample game:;ae:;9999999999:;2025-07-17:;17:45
+Porting to windows:;be:;9999999999:;2025-07-17:;17:45
+Porting to Mac:;be:;9999999999:;2025-07-17:;17:45
+Clear Memory:;be:;9999999999:;2025-07-17:;17:45
+Option to move list items up and down:;ar:;9999999999:;2025-07-17:;17:45
+Update Back to C:;ar:;9999999999:;2025-07-17:;17:45
+EC Programming book:;ar:;9999999999:;2025-07-17:;17:45
+Adding EC Static variables:;ar:;9999999999:;2025-07-17:;17:45
+EC Developers guide:;ar:;9999999999:;2025-07-17:;17:45
+Udemy tutorials:;ar:;9999999999:;2025-07-17:;17:45
+Option to choose syntax style:;ar:;9999999999:;2025-07-17:;17:45
+Interchange within Arrays, List, Queues etc.:;ao:;9999999999:;2025-07-17:;17:45
+Create a Wiki page:;ar:;9999999999:;2025-07-17:;17:45
+Versioning:;ao:;9999999999:;2025-07-17:;17:45
+Saving backups:;ar:;9999999999:;2025-07-17:;17:45
+Put a note when someone working on a function:;ao:;9999999999:;2025-07-17:;17:45
+Save function changes seperately:;ao:;9999999999:;2025-07-17:;17:45
+Arrange todo list:;a:;.:;9999999999:;2025-07-17:;17:45
+Add Todo task date time:;ae:;9999999999:;2025-07-17:;17:45

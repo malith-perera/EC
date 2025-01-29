@@ -30,8 +30,8 @@ Declare a Student
 ```c
 Student *student1 = Student_New();
 
-student->index = 101;
-student->name = "Arnold";
+student1->index = 101;
+student1->name = "Arnold";
 ```
 Create a new student and initialize the student variables.  
 
@@ -66,7 +66,7 @@ Move student1 5 steps towards end of the student_list.
 ```c
 Student_Exchange(student_list, student1, student2);
 ```
-Exchange student1 with student2 in the student_list.  
+Exchange student1 and student2 positions in the student_list.  
 
 ### Replace list student
 ```c

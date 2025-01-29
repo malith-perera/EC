@@ -10,3 +10,5 @@ test
 deps
 *.key
 user_current
+vim/
+dev/

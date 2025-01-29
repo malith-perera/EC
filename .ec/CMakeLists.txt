@@ -23,7 +23,7 @@ endif ()
 get_filename_component (PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)
 
 #Bring the .h header files into the project
-set(PROJECT_INCLUDE_DIRS ${PARENT_DIR}/include ${PARENT_DIR}/src/lib ${PARENT_DIR}/tests)
+set(PROJECT_INCLUDE_DIRS ${PARENT_DIR}/include ${PARENT_DIR}/tests)
 include_directories(${PROJECT_INCLUDE_DIRS})
 
 #file(GLOB...) for wildcard additions
@@ -41,11 +41,11 @@ link_directories (${PROJECT_LINK_DIRS})
 
 #Generate the executable
 add_executable(ec ${SOURCE_FILES})
-add_executable(test ${TEST_SOURCE_FILES})
+add_executable(ec_test ${TEST_SOURCE_FILES})
 
 #Link libraries
 target_link_libraries(ec LINK_PUBLIC ${PROJECT_LINK_LIBS})
-target_link_libraries(test LINK_PUBLIC ${PROJECT_LINK_LIBS})
+target_link_libraries(ec_test LINK_PUBLIC ${PROJECT_LINK_LIBS})
 
 
 #target_link_libraries(test LINK_PUBLIC ${PROJECT_LINK_LIBS} m) # m for math library

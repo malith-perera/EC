@@ -75,7 +75,7 @@ EC_Check_Dependancy()
 
     printf("\n");
 
-select_again:
+    SELECT_AGAIN:
     // if move than one compiler exist
     if(n_compilers > 1)
     {
@@ -120,7 +120,7 @@ select_again:
         else
         {
             printf("Unknown compiler. Please try again.\n");
-            goto select_again;
+            goto SELECT_AGAIN;
         }
     }
     else if (n_compilers == 1)

@@ -168,33 +168,6 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                    \
 );
 
 
-#define EC_LIST_H(TYPE)           						\
-	typedef struct EC_LIST_VAR_STRUCT(TYPE) {           \
-		TYPE                            *var;           \
-		struct EC_LIST_VAR_STRUCT(TYPE) *next;          \
-		struct EC_LIST_VAR_STRUCT(TYPE) *previous;      \
-	} EC_LIST_VAR_STRUCT(TYPE);                         \
-														\
-	typedef struct EC_LIST_STRUCT(TYPE) {               \
-		EC_LIST_VAR_STRUCT(TYPE) *first;                /* first var in the list */\
-		EC_LIST_VAR_STRUCT(TYPE) *last;                 /* last var in the list */\
-		EC_LIST_VAR_STRUCT(TYPE) *list_var;             /* hold var temporaly in for_list repeatition */\
-		EC_MEMORY_REF                                   \
-	} EC_LIST_STRUCT(TYPE); 							\
-														\
-	EC_LIST_VAR_EXISTANCE_FUNCTION_PROTOTYPE(TYPE)      \
-	EC_LIST_FREE_FUNCTION_PROTOTYPE(TYPE)               \
-	EC_LIST_NEW_FUNCTION_PROTOTYPE(TYPE)                \
-	EC_LIST_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)            \
-	EC_LIST_APPEND_FUNCTION_PROTOTYPE(TYPE)             \
-	EC_LIST_INSERT_FUNCTION_PROTOTYPE(TYPE)             \
-	EC_LIST_MOVE_FUNCTION_PROTOTYPE(TYPE)               \
-	EC_LIST_EXCHANGE_FUNCTION_PROTOTYPE(TYPE)           \
-	EC_LIST_REPLACE_FUNCTION_PROTOTYPE(TYPE)            \
-	EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)               \
-	EC_LIST_VAR_DROP_FUNCTION_PROTOTYPE(TYPE)
-
-
 /*---------------------------*/
 /* Macro Generated Functions */
 /*---------------------------*/
@@ -488,7 +461,7 @@ EC_LIST_EXCHANGE_FUNCTION_NAME(TYPE)            \
 }
 
 
-    //if (rep->previous != NULL) printf ("rp %d\n", rep->previous->no);\
+//if (rep->previous != NULL) printf ("rp %d\n", rep->previous->no);\
 /* List Replace Function */
 #define EC_LIST_REPLACE_FUNCTION(TYPE)          \
 void                                            \
@@ -570,17 +543,44 @@ EC_LIST_VAR_DROP_FUNCTION_NAME(TYPE)                        \
 }
 
 
-#define EC_LIST_C(TYPE)             		\
-    EC_LIST_VAR_EXISTANCE_FUNCTION(TYPE)    \
-    EC_LIST_FREE_FUNCTION(TYPE)             \
-    EC_LIST_NEW_FUNCTION(TYPE)              \
-    EC_LIST_NEW_VAR_FUNCTION(TYPE)          \
-    EC_LIST_APPEND_FUNCTION(TYPE)           \
-    EC_LIST_INSERT_FUNCTION(TYPE)           \
-    EC_LIST_MOVE_FUNCTION(TYPE)             \
-    EC_LIST_EXCHANGE_FUNCTION(TYPE)         \
-    EC_LIST_REPLACE_FUNCTION(TYPE)          \
-    EC_LIST_COPY_FUNCTION(TYPE)             \
+#define EC_LIST_H(TYPE)                                     \
+	typedef struct EC_LIST_VAR_STRUCT(TYPE) {               \
+		TYPE                            *var;               \
+		struct EC_LIST_VAR_STRUCT(TYPE) *next;              \
+		struct EC_LIST_VAR_STRUCT(TYPE) *previous;          \
+	} EC_LIST_VAR_STRUCT(TYPE);                             \
+                                                            \
+	typedef struct EC_LIST_STRUCT(TYPE) {                   \
+		EC_LIST_VAR_STRUCT(TYPE) *first;                    /* first var in the list */\
+		EC_LIST_VAR_STRUCT(TYPE) *last;                     /* last var in the list */\
+		EC_LIST_VAR_STRUCT(TYPE) *list_var;                 /* hold var temporaly in for_list repeatition */\
+		EC_MEMORY_REF                                       \
+	} EC_LIST_STRUCT(TYPE);                                 \
+                                                            \
+	EC_LIST_VAR_EXISTANCE_FUNCTION_PROTOTYPE(TYPE)          \
+	EC_LIST_FREE_FUNCTION_PROTOTYPE(TYPE)                   \
+	EC_LIST_NEW_FUNCTION_PROTOTYPE(TYPE)                    \
+	EC_LIST_NEW_VAR_FUNCTION_PROTOTYPE(TYPE)                \
+	EC_LIST_APPEND_FUNCTION_PROTOTYPE(TYPE)                 \
+	EC_LIST_INSERT_FUNCTION_PROTOTYPE(TYPE)                 \
+	EC_LIST_MOVE_FUNCTION_PROTOTYPE(TYPE)                   \
+	EC_LIST_EXCHANGE_FUNCTION_PROTOTYPE(TYPE)               \
+	EC_LIST_REPLACE_FUNCTION_PROTOTYPE(TYPE)                \
+	EC_LIST_COPY_FUNCTION_PROTOTYPE(TYPE)                   \
+	EC_LIST_VAR_DROP_FUNCTION_PROTOTYPE(TYPE)
+
+
+#define EC_LIST_C(TYPE)                                     \
+    EC_LIST_VAR_EXISTANCE_FUNCTION(TYPE)                    \
+    EC_LIST_FREE_FUNCTION(TYPE)                             \
+    EC_LIST_NEW_FUNCTION(TYPE)                              \
+    EC_LIST_NEW_VAR_FUNCTION(TYPE)                          \
+    EC_LIST_APPEND_FUNCTION(TYPE)                           \
+    EC_LIST_INSERT_FUNCTION(TYPE)                           \
+    EC_LIST_MOVE_FUNCTION(TYPE)                             \
+    EC_LIST_EXCHANGE_FUNCTION(TYPE)                         \
+    EC_LIST_REPLACE_FUNCTION(TYPE)                          \
+    EC_LIST_COPY_FUNCTION(TYPE)                             \
     EC_LIST_VAR_DROP_FUNCTION(TYPE)
 
 

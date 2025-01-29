@@ -19,9 +19,11 @@ EC_Print_Error (char *msg, void *adrs);
 
 
 #define EC_ERROR_MEM_ALLOC(var, file, line)                                             \
-    if (var == NULL) {                                                                  \
+    if (var == NULL)                                                                    \
+    {                                                                                   \
         fprintf(stderr, "Error: Cannot allocate memory in file:%s: %d\n", file, line);  \
     }
+
 
 void
 EC_Error_Mem_Alloc (char* file, int line);

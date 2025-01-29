@@ -74,7 +74,7 @@ Test_For_List()
     EC_Test_Print_Msg("Append: st1, st2 and st3 to stl", "OK", __LINE__);
 
     int i = 0;
-    char msg[32];
+    char msg[64];
 
     Student *st;
     for_list(stl, st)

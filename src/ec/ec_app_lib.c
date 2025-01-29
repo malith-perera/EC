@@ -697,14 +697,14 @@ Create_App_CMake_File(char *app_name, char *path)
 		"#Generate executables\n"
 		"add_executable(${PROJECT_NAME} ${SOURCE_FILES})\n"
         "list(FILTER SOURCE_FILES EXCLUDE REGEX \"%s.c\")\n"
-        "add_executable(test ${TEST_SOURCE_FILES} ${SOURCE_FILES})\n"
+        "add_executable(test%s ${TEST_SOURCE_FILES} ${SOURCE_FILES})\n"
 		"\n"
         "#Link libraries\n"
 		"target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${PROJECT_LINK_LIBS})\n"
-		"target_link_libraries(test LINK_PUBLIC ${PROJECT_LINK_LIBS})\n"
+		"target_link_libraries(test%s LINK_PUBLIC ${PROJECT_LINK_LIBS})\n"
 		"\n"
 		"#message (\"${PROJECT_SOURCE_DIR}\")\n"
-        , app_name, app_name);
+        , app_name, app_name, app_name, app_name);
 
 	//printf("cmake %ld\n", strlen(cmake_file));
 
@@ -799,7 +799,7 @@ EC_Create_App_Lib_Directories(char *argv[], char *path)
 {
 	char command[512];
 
-	char *directories[3] = {"src", ".ec", "tests"}; 
+	char *directories[4] = {"src", "tests", ".ec", ".ec/reports"}; 
 
 	sprintf(command, "mkdir %s%s", path, argv[2]);
 
@@ -808,7 +808,7 @@ EC_Create_App_Lib_Directories(char *argv[], char *path)
 		printf ("system function failier\n");
 	}
 
-	for(int i = 0; i < 3; i++)
+	for(int i = 0; i < 4; i++)
     {
 		sprintf(command, "%s%s%s%s%s", "mkdir ", path, argv[2], "/", directories[i]);
 

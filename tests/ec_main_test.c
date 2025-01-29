@@ -10,6 +10,7 @@
 #include "ec_stack_test.h"
 #include "ec_ec_test.h"
 #include "ec_time_test.h"
+#include "ec_code_test.h"
 
 #include "ec_ecs_test.h"
 #include "ec_c_file_test.h"
@@ -69,6 +70,7 @@ main(int argc, char *argv[])
         printf("Test: ECS           6\n");
         printf("Test: Time          7\n");
         printf("Test: C File        8\n");
+        printf("Test: Code          9\n");
         printf("Test: Exit         -1\n");
         printf("\n");
 
@@ -118,6 +120,9 @@ main(int argc, char *argv[])
         Run_C_File_Test();
     }
 
+    if(no == 9 || no == 0) {
+        Run_Code_Test();
+    }
 
     EC_Error_Print_Msg("EC_Clean", "BEGIN");
     //EC_Clean();
