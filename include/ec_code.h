@@ -1,7 +1,7 @@
+#include "ec.h"
+
 #ifndef EC_CODE_H
 #define EC_CODE_H
-
-#include "ec.h"
 
 #define EC_Line(...) \
     printf ("%s:%d In function '%s':%s\n", __FILE__, __LINE__, __func__, ARG1(__VA_ARGS__));

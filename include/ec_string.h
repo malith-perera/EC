@@ -1,8 +1,7 @@
+#include "ec.h"
+
 #ifndef EC_STRING
 #define EC_STRING
-
-#include "ec.h"
-#include "ec_list.h"
 
 void
 EC_Char_Substitute (char *str, char str_from, char str_to);

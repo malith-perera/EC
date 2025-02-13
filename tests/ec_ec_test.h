@@ -1,7 +1,7 @@
+#include "ec_main_test.h"
+
 #ifndef EC_EC_TEST_H
 #define EC_EC_TEST_H
-
-#include "ec_main_test.h"
 
 typedef struct Book {
     char name[30];

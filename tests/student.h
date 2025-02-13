@@ -1,7 +1,7 @@
+#include "ec_main_test.h"
+
 #ifndef STUDENT_H
 #define STUDENT_H
-
-#include "ec_main_test.h"
 
 typedef struct Student {
     int     no;

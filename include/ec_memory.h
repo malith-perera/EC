@@ -1,6 +1,5 @@
 #include "ec.h"
 
-
 #ifndef EC_MEMORY_H
 #define EC_MEMORY_H
 

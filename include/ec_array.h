@@ -1,8 +1,7 @@
-#ifndef __EC_ARRAY_H__ 
-#define __EC_ARRAY_H__
-
 #include "ec.h"
 
+#ifndef __EC_ARRAY_H__ 
+#define __EC_ARRAY_H__
 
 #define ARRAY_LENGTH(x) (sizeof(x) / sizeof((x)[0]))
 

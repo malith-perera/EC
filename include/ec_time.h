@@ -1,7 +1,8 @@
+#include "ec.h"
+
 #ifndef __EC_TIME_H__
 #define __EC_TIME_H__
 
-#include "ec.h"
 #include <time.h>
 
 extern int month_days[12];

@@ -1,7 +1,7 @@
+#include "ec.h"
+
 #ifndef EC_WARN_H
 #define EC_WARN_H
-
-#include "ec.h"
 
 #define EC_GET_VAR_NAME(ec_var_name)  #ec_var_name
 

@@ -66,6 +66,7 @@
 #include <string.h>
 #include <time.h>
 
+#include "ec.h"
 #include "ec_code.h"
 #include "ec_file.h"
 #include "ec_test.h"
@@ -85,35 +86,34 @@
 #include "ec_queue.h"
 #include "ec_stack.h"
 #include "ec_string.h"
-#include "ec_ecs.h"
-#include "ecs.h"
 
 #include "ec_dir.h"
 
+#include "ec_ecs.h"
 
 //#include "ec_syntax.h"
 //#include "ec_bits.h"
 //#include "ec_vector.h"
 
-#define EC(TYPE)        \
-	EC_VAR(TYPE)        \
-	EC_ARRAY(TYPE)      \
-	EC_LIST(TYPE)       \
-	EC_QUEUE(TYPE)      \
+#define EC(TYPE)\
+	EC_VAR(TYPE)\
+	EC_ARRAY(TYPE)\
+	EC_LIST(TYPE)\
+	EC_QUEUE(TYPE)\
 	EC_STACK(TYPE)      
 
-#define EC_C(TYPE)      \
-    EC_VAR_C(TYPE)      \
-	EC_ARRAY_C(TYPE)    \
-	EC_LIST_C(TYPE)     \
-	EC_QUEUE_C(TYPE)    \
+#define EC_C(TYPE)\
+    EC_VAR_C(TYPE)\
+	EC_ARRAY_C(TYPE)\
+	EC_LIST_C(TYPE)\
+	EC_QUEUE_C(TYPE)\
 	EC_STACK_C(TYPE)        
 
-#define EC_H(TYPE)      \
-    EC_VAR_H(TYPE)      \
-	EC_ARRAY_H(TYPE)    \
-	EC_LIST_H(TYPE)     \
-	EC_QUEUE_H(TYPE)    \
+#define EC_H(TYPE)\
+    EC_VAR_H(TYPE)\
+	EC_ARRAY_H(TYPE)\
+	EC_LIST_H(TYPE)\
+	EC_QUEUE_H(TYPE)\
 	EC_STACK_H(TYPE)        
 
 #endif // EC_H_

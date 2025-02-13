@@ -1,7 +1,7 @@
+#include "ec.h"
+
 #ifndef EC_C_FILE
 #define EC_C_FILE
-
-#include "ec.h"
 
 char **
 EC_C_Functions(char *file_name);

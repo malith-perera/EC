@@ -1,7 +1,8 @@
+#include "ec.h"
+
 #ifndef EC_TEXT_COLOR_H
 #define EC_TEXT_COLOR_H
 
-#include "ec.h"
 
 // use an enum for platform-independent interface:
 typedef enum TextColor

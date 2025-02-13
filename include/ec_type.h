@@ -1,3 +1,5 @@
+#include "ec.h"
+
 #ifndef EC_TYPE_H
 #define EC_TYPE_H
 

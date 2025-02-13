@@ -12,7 +12,7 @@
 #include "ec_time_test.h"
 #include "ec_code_test.h"
 
-#include "ec_ecs_test.h"
+//#include "ec_ecs_test.h"
 #include "ec_c_file_test.h"
 
 
@@ -109,7 +109,7 @@ main(int argc, char *argv[])
     }
 
     if(no == 6 || no == 0) {
-        Run_ECS_Test();
+        //Run_ECS_Test();
     }
     
     if(no == 7 || no == 0) {

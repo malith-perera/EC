@@ -1,6 +1,5 @@
 #include "ec.h"
 
-
 #ifndef EC_ERROR_H
 #define EC_ERROR_H
 

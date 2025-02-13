@@ -1,9 +1,7 @@
-#ifndef EC_TEST_H
-#define EC_TEST_H
-
 #include "ec.h"
 
-
+#ifndef EC_TEST_H
+#define EC_TEST_H
 
 #define EC_GET_VAR_NAME(ec_var_name)  #ec_var_name
 

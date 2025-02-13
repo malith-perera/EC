@@ -1,8 +1,7 @@
-#ifndef EC_DIR
-#define EC_DIR
-
 #include "ec.h"
 
+#ifndef EC_DIR
+#define EC_DIR
 
 typedef struct DirContent {
     long int modified_time;

@@ -1,7 +1,7 @@
+#include <assert.h>
+
 #ifndef EC_MAIN_TEST_H
 #define EC_MAIN_TEST_H
-
-#include <assert.h>
 
 #define EC_DEV 0
 #define TEST_PRINT_WIDTH 60

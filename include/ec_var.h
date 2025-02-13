@@ -1,7 +1,8 @@
+#include "ec.h"
+
 #ifndef __EC_VAR_H__
 #define __EC_VAR_H__
 
-#include "ec.h"
 #define EC_VAR_DEBUG 1
 
 /* Function name macros */
@@ -17,20 +18,20 @@
 
 #ifdef EC_MEMORY // if EC_MEMORY defined
 
-#define EC_Free(var)                            \
-    var->ec_mem->lock = EC_UNLOCK;              \
+#define EC_Free(var)\
+    var->ec_mem->lock = EC_UNLOCK;\
     free(var)
 
-#define EC_Free_Mem(var)                        \
-    var->ec_mem->lock = EC_UNLOCK;              \
+#define EC_Free_Mem(var)\
+    var->ec_mem->lock = EC_UNLOCK;\
     free(var)
 
 #else // if not EC_MEMORY defined  
 
-#define EC_Free(var)                            \
+#define EC_Free(var)\
     free(var)
 
-#define EC_Free_Mem(var)                        \
+#define EC_Free_Mem(var)\
     free(var)
 
 #endif  // EC_MEMORY 
@@ -40,33 +41,33 @@
 /* Function Prototypes */
 /*---------------------*/
 
-#define EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)    \
-void                                            \
-EC_VAR_FREE_FUNCTION_NAME(TYPE)                 \
-(                                               \
-    void *var                                   \
+#define EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)\
+void \
+EC_VAR_FREE_FUNCTION_NAME(TYPE)\
+(\
+    void *var\
 );
 
 
-#define EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)     \
-TYPE *                                          \
+#define EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)\
+TYPE *\
 EC_VAR_NEW_FUNCTION_NAME(TYPE)(void);
 
 
-#define EC_VAR_CLONE_FUNCTION_PROTOTYPE(TYPE)   \
-TYPE *                                          \
-EC_VAR_CLONE_FUNCTION_NAME(TYPE)                \
-(                                               \
-    TYPE *var                                   \
+#define EC_VAR_CLONE_FUNCTION_PROTOTYPE(TYPE)\
+TYPE *\
+EC_VAR_CLONE_FUNCTION_NAME(TYPE)\
+(\
+    TYPE *var\
 );
 
 
-#define EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)    \
-void                                            \
-EC_VAR_COPY_FUNCTION_NAME(TYPE)                 \
-(                                               \
-    TYPE *var_copy,                             \
-    TYPE *var                                   \
+#define EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)\
+void \
+EC_VAR_COPY_FUNCTION_NAME(TYPE)\
+(\
+    TYPE *var_copy,\
+    TYPE *var\
 );
 
 
@@ -74,82 +75,82 @@ EC_VAR_COPY_FUNCTION_NAME(TYPE)                 \
 /* Functions */
 /*-----------*/
 
-#define EC_VAR_FREE_FUNCTION(TYPE)              \
-void                                            \
-EC_VAR_FREE_FUNCTION_NAME(TYPE)                 \
-(                                               \
-    void *var                                   \
-)                                               \
-{                                               \
-    free(var);                                  \
-    var = NULL;                                 \
+#define EC_VAR_FREE_FUNCTION(TYPE)\
+void \
+EC_VAR_FREE_FUNCTION_NAME(TYPE)\
+(\
+    void *var\
+)\
+{\
+    free(var);\
+    var = NULL;\
 }
 
 
 /* Create memory for any variable type ex: var, arry, list, list var */
-#define EC_VAR_CREATE(TYPE, var, line)                      \
-    TYPE *var = (TYPE *) malloc(sizeof(TYPE));             	\
-	EC_Memory_Add(var);                                     \
+#define EC_VAR_CREATE(TYPE, var, line)\
+    TYPE *var = (TYPE *) malloc(sizeof(TYPE));\
+	EC_Memory_Add(var);\
     EC_ERROR_MEM_ALLOC(var, __FILE__, line)                 /* when memory allocation failed */\
     EC_DEBUG_PRINT_ADR("Create: ec var", var, line)         /* only when EC_DEBUG */
 
 
-#define EC_VAR_NEW_FUNCTION(TYPE)                           \
-TYPE *                                                      \
-EC_VAR_NEW_FUNCTION_NAME(TYPE)(void)                        \
-{                                                           \
+#define EC_VAR_NEW_FUNCTION(TYPE)\
+TYPE *\
+EC_VAR_NEW_FUNCTION_NAME(TYPE)(void)\
+{\
     EC_VAR_CREATE(TYPE, var, __LINE__)                      /* var is created variable */\
-															\
-    return var;                                             \
+\
+    return var;\
 }
 
 
 // Clone variable var to var_clone
-#define EC_VAR_CLONE_FUNCTION(TYPE)                         \
-TYPE *                                                      \
-EC_VAR_CLONE_FUNCTION_NAME(TYPE)                            \
-(                                                           \
-    TYPE *var                                               \
-)                                                           \
-{                                                           \
-    TYPE *var_clone = EC_VAR_NEW_FUNCTION_NAME(TYPE)();     \
-    memcpy(var_clone, var, sizeof(TYPE));                  	\
-    return var_clone;                                       \
+#define EC_VAR_CLONE_FUNCTION(TYPE)\
+TYPE *\
+EC_VAR_CLONE_FUNCTION_NAME(TYPE)\
+(\
+    TYPE *var\
+)\
+{\
+    TYPE *var_clone = EC_VAR_NEW_FUNCTION_NAME(TYPE)();\
+    memcpy(var_clone, var, sizeof(TYPE));\
+    return var_clone;\
 }
 
 
 // Copy variable var to var_copy
-#define EC_VAR_COPY_FUNCTION(TYPE)                          \
-void                                                        \
-EC_VAR_COPY_FUNCTION_NAME(TYPE)                             \
-(                                                           \
-    TYPE *var_copy,                                         \
-    TYPE *var                                               \
-)                                                           \
-{                                                           \
-    *var_copy = *var;                                       \
+#define EC_VAR_COPY_FUNCTION(TYPE)\
+void \
+EC_VAR_COPY_FUNCTION_NAME(TYPE)\
+(\
+    TYPE *var_copy,\
+    TYPE *var\
+)\
+{\
+    *var_copy = *var;\
 }
 
 
 /* All function prototypes */
-#define EC_VAR_H(TYPE)                          \
-    EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)    	\
-    EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)     	\
-    EC_VAR_CLONE_FUNCTION_PROTOTYPE(TYPE)   	\
+#define EC_VAR_H(TYPE)\
+    EC_VAR_FREE_FUNCTION_PROTOTYPE(TYPE)\
+    EC_VAR_NEW_FUNCTION_PROTOTYPE(TYPE)\
+    EC_VAR_CLONE_FUNCTION_PROTOTYPE(TYPE)\
     EC_VAR_COPY_FUNCTION_PROTOTYPE(TYPE)
 
 
 /* All functions */
-#define EC_VAR_C(TYPE)                          \
-    EC_VAR_FREE_FUNCTION(TYPE)                  \
-    EC_VAR_NEW_FUNCTION(TYPE)                   \
-    EC_VAR_CLONE_FUNCTION(TYPE)                 \
+#define EC_VAR_C(TYPE)\
+    EC_VAR_FREE_FUNCTION(TYPE)\
+    EC_VAR_NEW_FUNCTION(TYPE)\
+    EC_VAR_CLONE_FUNCTION(TYPE)\
     EC_VAR_COPY_FUNCTION(TYPE)
 
 
 /* All prototypes and functions */
-#define EC_VAR(TYPE)                            \
-		EC_VAR_H(TYPE)                          \
+#define EC_VAR(TYPE)\
+		EC_VAR_H(TYPE)\
 		EC_VAR_C(TYPE)
 
 

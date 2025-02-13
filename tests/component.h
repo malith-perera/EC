@@ -1,7 +1,7 @@
+#include "ec_main_test.h"
+
 #ifndef COMPONENT_H
 #define COMPONENT_H
-
-#include "ec_main_test.h"
 
 typedef struct Position {
 	int x;

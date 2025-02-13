@@ -22,9 +22,14 @@ endif ()
 
 get_filename_component (PARENT_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)
 
-#Bring the .h header files into the project
+# Include
 set(PROJECT_INCLUDE_DIRS ${PARENT_DIR}/include ${PARENT_DIR}/tests)
 include_directories(${PROJECT_INCLUDE_DIRS})
+
+# Link
+set(PROJECT_LINK_DIRS ${PARENT_DIR})
+set(PROJECT_LINK_LIBS libEC.so)
+link_directories (${PROJECT_LINK_DIRS})
 
 #file(GLOB...) for wildcard additions
 file(GLOB EC_SOURCE_FILES "${PARENT_DIR}/src/lib/*.c")
@@ -33,11 +38,6 @@ file(GLOB TEST_SOURCE_FILES "${PARENT_DIR}/tests/*.c")
 
 #Generate the shared library from the sources
 add_library(${CMAKE_PROJECT_NAME} SHARED ${EC_SOURCE_FILES})
-
-#Set link .so directories
-set(PROJECT_LINK_DIRS ${PARENT_DIR})
-set(PROJECT_LINK_LIBS libEC.so)
-link_directories (${PROJECT_LINK_DIRS})
 
 #Generate the executable
 add_executable(ec ${SOURCE_FILES})
