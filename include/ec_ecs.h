@@ -13,7 +13,7 @@
 
 struct Entity {
     int n; /*number of active entities*/
-    int M; /*number of maximum entities*/
+    int m; /*number of maximum entities*/
 };
 
 typedef struct Entity Entity;
@@ -32,7 +32,6 @@ New_Entity_List(EntityList *entity_list, int n, int M);
 
 /*-----------*/
 /* Component */
-
 /*-----------*/
 
 #define New_Component_H(component, array)\
@@ -56,23 +55,20 @@ New_Entity_List(EntityList *entity_list, int n, int M);
 /* Entity Component */
 /*------------------*/
 
-struct EntCom {
-    int I;
-    void *array;
-};
+#define EntityComponent_H(entity, component)\
+    struct entity##component##struc {\
+        int I;\
+        component *a;\
+    };\
+    typedef struct entity##component##struc entity##component##struc;\
+    EC_VAR_H(entity##component##struc)\
+    EC_LIST_H(entity##component##struc)\
+    extern entity##component##struc##List *entity##component##List;\
+    extern entity##component##struc entity##component
 
-typedef struct EntCom EntCom;
-
-EC_VAR_H(EntCom);
-EC_LIST_H(EntCom)
-
-#define Add_H(entity, component)\
-    extern EntCom entity##_##component;\
-    extern EntComList *entity##component##List
-
-#define Add(entity, component)\
-    EntCom entity##_##component;\
-    EntComList *entity##component##List
+#define EntityComponent(entity, component)\
+    entity##component##struc##List *entity##component##List;\
+    entity##component##struc entity##component
 
 
 #define Free_Component(array)\
@@ -84,26 +80,13 @@ EC_LIST_H(EntCom)
     })
 
 
-/* still not in use */
-/* may be use to tuckle removed entities and there components */
-struct ComponentArray{
-    Entity *entity;
-    EntCom *entityComponent;
-    void *array;
-};
-
-typedef struct ComponentArray ComponentArray;
-
 // End Extended ECS
 
-
-typedef int EntityComponent;
-
-
-#define Assign(entity, array, array_index)\
-    array_index = ecN##array;\
+#define Assign(entity, array, entityComponent)\
+    entityComponent.I = ecN##array;\
+    entityComponent.a = array;\
     ecN##array += entity->n;\
-    ecM##array += entity->M
+    ecM##array += entity->m
 
 
 #define Allocate(component, array)\
