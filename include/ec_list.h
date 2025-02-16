@@ -268,15 +268,12 @@ EC_LIST_APPEND_FUNCTION_NAME(TYPE)\
 {\
     EC_VAR_CREATE(EC_LIST_VAR_STRUCT(TYPE), list_var, __LINE__);\
     list_var->var = var;\
-\
     list_var->next = NULL;\
 \
     if (list->first != NULL)                                        /* List not empty */\
     {\
         list_var->previous = list->last;\
-    printf("ok\n");\
         list->last->next = list_var;\
-    printf("nok\n");\
     }\
     else                                                            /* empty list */\
     {\

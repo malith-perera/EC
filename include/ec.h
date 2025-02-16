@@ -110,7 +110,7 @@
 	EC_STACK_C(TYPE)        
 
 #define EC_H(TYPE)\
-    EC_VAR_H(TYPE)\
+    EC_VAR_H(TYPE);\
 	EC_ARRAY_H(TYPE)\
 	EC_LIST_H(TYPE)\
 	EC_QUEUE_H(TYPE)\

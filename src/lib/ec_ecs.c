@@ -1,48 +1,35 @@
 #include "ec_ecs.h"
 
-EC_VAR_C(Entity)
+EC_VAR_C(Entity);
 EC_LIST_C(Entity)
+
+EC_VAR_C(EntCom);
+EC_LIST_C(EntCom)
 
 EntityList *ec_ecs_entity_list = NULL;
 
-void
-Init_ECS()
-{
-    ec_ecs_entity_list = Entity_List();
-}
-
 
 Entity *
-New_Entity(int n, int M)
+New_Entity(Entity *entity)
 {
-    Entity *entity = Entity_New();
-    entity->n = n;
-    entity->M = M;
+    entity = Entity_New(); // This function is created by EC
+    entity->n = 1;
+    entity->M = 1;
 
-    Entity_Append(ec_ecs_entity_list, entity);
+    //Entity_Append(ec_ecs_entity_list, entity);
 
     return entity;
 }
 
 
-void
-Free_Entity_List()
+EntityList *
+New_Entity_List(EntityList *entity_list, int n, int M)
 {
-    EntityListVar *current;
-    EntityListVar *temp;
-    
-    current = ec_ecs_entity_list->first;
+    Entity *entity = Entity_New(); // This function is created by EC
+    entity->n = n;
+    entity->M = M;
 
-    while(current == NULL) {
-        temp = current;
-        current = current->next;
-        free(temp->var);
-        free(temp);
-    }
-}
+    //Entity_Append(entity_list, entity);
 
-void
-Free_ECS()
-{
-    Free_Entity_List();
+    return entity_list;
 }
